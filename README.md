@@ -11,11 +11,11 @@
 
 ### Connect with me:
 
-[![website](./img/globe-light.svg)](https://muhammadabdullah227.co.uk/#gh-light-mode-only)
-[![website](./img/globe-dark.svg)](https://muhammadabdullah227.co.uk/#gh-dark-mode-only)
+[![Website – light](https://api.iconify.design/mdi:web.svg?color=%231f2328#gh-light-mode-only)](https://muhammadabdullah227.co.uk/)
+[![Website – dark](https://api.iconify.design/mdi:web.svg?color=%23ffffff#gh-dark-mode-only)](https://muhammadabdullah227.co.uk/)
 &nbsp;&nbsp;
-[![website](./img/linkedin-light.svg)](https://linkedin.com/in/muhammad-abdullah227#gh-light-mode-only)
-[![website](./img/linkedin-dark.svg)](https://linkedin.com/in/muhammad-abdullah227#gh-dark-mode-only)
+[![LinkedIn – light](https://api.iconify.design/simple-icons:linkedin.svg?color=%230A66C2#gh-light-mode-only)](https://linkedin.com/in/muhammad-abdullah227)
+[![LinkedIn – dark](https://api.iconify.design/simple-icons:linkedin.svg?color=%23ffffff#gh-dark-mode-only)](https://linkedin.com/in/muhammad-abdullah227)
 
 ### Languages and Tools:
 
