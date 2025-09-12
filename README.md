@@ -11,11 +11,11 @@
 
 ### Connect with me:
 
-[![Website](https://api.iconify.design/mdi:web.svg?color=%231f2328#gh-light-mode-only)](https://muhammadabdullah227.co.uk/)
-[![Website](https://api.iconify.design/mdi:web.svg?color=%23ffffff#gh-dark-mode-only)](https://muhammadabdullah227.co.uk/)
+[![Website – light](https://api.iconify.design/mdi:web.svg?color=%23000000#gh-light-mode-only)](https://muhammadabdullah227.co.uk/)
+[![Website – dark](https://api.iconify.design/mdi:web.svg?color=%23ffffff#gh-dark-mode-only)](https://muhammadabdullah227.co.uk/)
 &nbsp;&nbsp;
-[![LinkedIn](https://api.iconify.design/simple-icons:linkedin.svg?color=%230A66C2#gh-light-mode-only)](https://linkedin.com/in/muhammad-abdullah227)
-[![LinkedIn](https://api.iconify.design/simple-icons:linkedin.svg?color=%23ffffff#gh-dark-mode-only)](https://linkedin.com/in/muhammad-abdullah227)
+[![LinkedIn – light](https://api.iconify.design/simple-icons:linkedin.svg?color=%23000000#gh-light-mode-only)](https://linkedin.com/in/muhammad-abdullah227)
+[![LinkedIn – dark](https://api.iconify.design/simple-icons:linkedin.svg?color=%23ffffff#gh-dark-mode-only)](https://linkedin.com/in/muhammad-abdullah227)
 
 ### Languages and Tools:
 
@@ -40,9 +40,21 @@
 ---
 
 <details>
-  <summary>:zap: GitHub Stats</summary>
+  <summary>⚡ Recent GitHub Activity</summary>
 
-  <img align="left" alt="Muhammad Abdullah GitHub Stats" src="https://github-readme-stats.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=09131B&text_color=ffffff&border_color=0c1a25" />
+<!--RECENT_ACTIVITY:start-->
+<!--RECENT_ACTIVITY:end-->
+
+<!--RECENT_ACTIVITY:last_update-->
+<!--RECENT_ACTIVITY:last_update_end-->
+
+</details>
+
+<details>
+  <summary>GitHub Stats</summary>
+  <img align="left" alt="Muhammad Abdullah GitHub Stats" src="https://github-readme-stats.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=09131B&text_color=ffffff&border_color=0c1a25&#gh-light-mode-only" />
+  
+  <img align="left" alt="Muhammad Abdullah GitHub Stats" src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=09131B&text_color=ffffff&border_color=0c1a25&#gh-dark-mode-only" />
 
 </details>
 
