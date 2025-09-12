@@ -52,7 +52,7 @@
 
 <details>
   <summary>GitHub Stats</summary>
-  <img align="left" alt="Muhammad Abdullah GitHub Stats" src="https://github-readme-stats.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=09131B&text_color=ffffff&border_color=0c1a25&#gh-light-mode-only" />
+  <img align="left" alt="Muhammad Abdullah GitHub Stats" src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=09131B&text_color=ffffff&border_color=0c1a25&#gh-light-mode-only" />
   
   <img align="left" alt="Muhammad Abdullah GitHub Stats" src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=09131B&text_color=ffffff&border_color=0c1a25&#gh-dark-mode-only" />
 
