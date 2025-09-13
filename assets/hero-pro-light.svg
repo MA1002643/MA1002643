@@ -8,11 +8,13 @@
       <animateTransform attributeName="gradientTransform" type="translate" from="-120 0" to="120 0" dur="18s" begin="0.7s" repeatCount="indefinite"/>
     </linearGradient>
 
+    <!-- Faint grid -->
     <pattern id="gridL" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="translate(0,0)">
       <path d="M32 0H0V32" fill="none" stroke="#CBD5E1" stroke-width="0.5" opacity="0.45"/>
       <animateTransform attributeName="patternTransform" type="translate" from="0 0" to="48 0" dur="30s" begin="1.0s" repeatCount="indefinite"/>
     </pattern>
 
+    <!-- Accent underline gradient -->
     <linearGradient id="accL" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
       <stop offset="0%"  stop-color="#FF652F"/>
       <stop offset="50%" stop-color="#7C3AED"/>
@@ -20,7 +22,9 @@
       <animateTransform attributeName="gradientTransform" type="translate" from="-200 0" to="200 0" dur="9s" begin="1.2s" repeatCount="indefinite"/>
     </linearGradient>
 
-    <filter id="softShadowL" x="-50%" y="-50%" width="200%" height="200%">
+    <!-- Soft shadow (user-space units + higher res for crispness) -->
+    <filter id="softShadowL" x="-50" y="-50" width="1300" height="360"
+            filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" filterRes="2400 720">
       <feGaussianBlur in="SourceAlpha" stdDeviation="0.8" result="b"/>
       <feOffset in="b" dx="0" dy="0" result="o"/>
       <feComponentTransfer in="o">
@@ -33,23 +37,29 @@
     </filter>
   </defs>
 
+  <!-- Background -->
   <rect width="100%" height="100%" fill="url(#bgL)"/>
   <rect width="100%" height="100%" fill="url(#gridL)" opacity="0.25"/>
 
+  <!-- Title + underline WITH shadow -->
   <g font-family="Inter, Segoe UI, Roboto, Arial, sans-serif" text-anchor="middle" filter="url(#softShadowL)">
     <text x="600" y="130" font-size="60" font-weight="800" fill="#0C1A25" opacity="0">
       Muhammad Abdullah
       <animate attributeName="opacity" from="0" to="1" dur="0.7s" begin="0.95s" fill="freeze"/>
     </text>
 
+    <!-- Underline -->
     <rect x="600" y="145" height="9" rx="1.5" width="0" fill="url(#accL)">
       <animate attributeName="width" from="0" to="520" dur="0.7s" begin="1.05s" fill="freeze"/>
       <animate attributeName="x" from="600" to="340" dur="0.7s" begin="1.05s" fill="freeze"/>
     </rect>
-
-    <text x="600" y="180" font-size="26" fill="#334155" opacity="0">
-      Husband • Father • Software Engineer
-      <animate attributeName="opacity" from="0" to="1" dur="0.8s" begin="1.25s" fill="freeze"/>
-    </text>
   </g>
+
+  <!-- Subtitle OUTSIDE shadow (stays crisp on mobile) -->
+  <text x="600" y="180" font-size="26" fill="#334155"
+        text-rendering="optimizeLegibility" filter="none" fill-opacity="0"
+        font-family="Inter, Segoe UI, Roboto, Arial, sans-serif" text-anchor="middle">
+    Husband • Father • Software Engineer
+    <animate attributeName="fill-opacity" from="0" to="1" dur="0.8s" begin="1.25s" fill="freeze"/>
+  </text>
 </svg>

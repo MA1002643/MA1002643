@@ -22,8 +22,9 @@
       <animateTransform attributeName="gradientTransform" type="translate" from="-200 0" to="200 0" dur="9s" begin="1.2s" repeatCount="indefinite"/>
     </linearGradient>
 
-    <!-- Minimal text shadow (professional, not glowy) -->
-    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+    <!-- Minimal text shadow (user-space units + higher res for crispness) -->
+    <filter id="softShadow" x="-50" y="-50" width="1300" height="360"
+            filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" filterRes="2400 720">
       <feGaussianBlur in="SourceAlpha" stdDeviation="0.9" result="b"/>
       <feOffset in="b" dx="0" dy="0" result="o"/>
       <feComponentTransfer in="o">
@@ -40,7 +41,7 @@
   <rect width="100%" height="100%" fill="url(#bg)"/>
   <rect width="100%" height="100%" fill="url(#grid)" opacity="0.35"/>
 
-  <!-- Title + subtitle -->
+  <!-- Title + underline (WITH soft shadow) -->
   <g font-family="Inter, Segoe UI, Roboto, Arial, sans-serif" text-anchor="middle" filter="url(#softShadow)">
     <text x="600" y="130" font-size="60" font-weight="800" fill="#E5E7EB" opacity="0">
       Muhammad Abdullah
@@ -52,10 +53,13 @@
       <animate attributeName="width" from="0" to="520" dur="0.7s" begin="1.05s" fill="freeze"/>
       <animate attributeName="x" from="600" to="340" dur="0.7s" begin="1.05s" fill="freeze"/>
     </rect>
-
-    <text x="600" y="180" font-size="26" fill="#94A3B8" opacity="0">
-      Husband • Father • Software Engineer
-      <animate attributeName="opacity" from="0" to="1" dur="0.8s" begin="1.25s" fill="freeze"/>
-    </text>
   </g>
+
+  <!-- Subtitle OUTSIDE the filter (stays crisp on mobile) -->
+  <text x="600" y="180" font-size="26" fill="#94A3B8"
+        text-rendering="optimizeLegibility" filter="none" fill-opacity="0"
+        font-family="Inter, Segoe UI, Roboto, Arial, sans-serif" text-anchor="middle">
+    Husband • Father • Software Engineer
+    <animate attributeName="fill-opacity" from="0" to="1" dur="0.8s" begin="1.25s" fill="freeze"/>
+  </text>
 </svg>
