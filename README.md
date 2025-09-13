@@ -69,41 +69,9 @@
 
 ---
 
-### 📌 Pinned Repositories
-
 <!-- PINNED: START -->
 <div align="center">
-
-  <!-- Row 1 -->
-  <a href="https://github.com/MA1002643/Afaaq-Mobile">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Afaaq-Mobile&show_owner=false&hide_border=false&title_color=ff652f&text_color=ffffff&icon_color=FFE400&bg_color=0D1117&border_color=30363D">
-      <img alt="Afaaq Mobile" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Afaaq-Mobile&show_owner=false&hide_border=false&title_color=ff652f&text_color=0c1a25&icon_color=FFE400&bg_color=ffffff&border_color=0c1a25">
-    </picture>
-  </a>
-
-  <a href="https://github.com/MA1002643/NutriTimer">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=NutriTimer&show_owner=false&hide_border=false&title_color=ff652f&text_color=ffffff&icon_color=FFE400&bg_color=0D1117&border_color=30363D">
-      <img alt="NutriTimer" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=NutriTimer&show_owner=false&hide_border=false&title_color=ff652f&text_color=0c1a25&icon_color=FFE400&bg_color=ffffff&border_color=0c1a25">
-    </picture>
-  </a>
-
-  <!-- Row 2 -->
-  <a href="https://github.com/MA1002643/portfolio">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=portfolio&show_owner=false&hide_border=false&title_color=ff652f&text_color=ffffff&icon_color=FFE400&bg_color=0D1117&border_color=30363D">
-      <img alt="Portfolio" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=portfolio&show_owner=false&hide_border=false&title_color=ff652f&text_color=0c1a25&icon_color=FFE400&bg_color=ffffff&border_color=0c1a25">
-    </picture>
-  </a>
-
-  <a href="https://github.com/MA1002643/SmartMeal">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=SmartMeal&show_owner=false&hide_border=false&title_color=ff652f&text_color=ffffff&icon_color=FFE400&bg_color=0D1117&border_color=30363D">
-      <img alt="SmartMeal" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=SmartMeal&show_owner=false&hide_border=false&title_color=ff652f&text_color=0c1a25&icon_color=FFE400&bg_color=ffffff&border_color=0c1a25">
-    </picture>
-  </a>
-
+  <!-- Auto-updated by workflow: Auto-pin top repos -->
 </div>
 <!-- PINNED: END -->
 
@@ -190,6 +158,7 @@ Loading tech stack…
 ### ⚡ Recent GitHub Activity
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -198,7 +167,9 @@ Loading tech stack…
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
-Last Updated: Saturday, September 13th, 2025, 11:10:58 PM
+
+Last Updated: Saturday, September 13th, 2025, 10:10:47 PM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 
 ---
