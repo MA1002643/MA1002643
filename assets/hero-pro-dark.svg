@@ -42,18 +42,18 @@
 
   <!-- Title + subtitle -->
   <g font-family="Inter, Segoe UI, Roboto, Arial, sans-serif" text-anchor="middle" filter="url(#softShadow)">
-    <text x="600" y="130" font-size="44" font-weight="800" fill="#E5E7EB" opacity="0">
+    <text x="600" y="130" font-size="60" font-weight="800" fill="#E5E7EB" opacity="0">
       Muhammad Abdullah
       <animate attributeName="opacity" from="0" to="1" dur="0.7s" begin="0.95s" fill="freeze"/>
     </text>
 
     <!-- Underline (reveals then gently shimmers) -->
-    <rect x="600" y="145" height="3" rx="1.5" width="0" fill="url(#acc)">
+    <rect x="600" y="145" height="9" rx="1.5" width="0" fill="url(#acc)">
       <animate attributeName="width" from="0" to="520" dur="0.7s" begin="1.05s" fill="freeze"/>
       <animate attributeName="x" from="600" to="340" dur="0.7s" begin="1.05s" fill="freeze"/>
     </rect>
 
-    <text x="600" y="176" font-size="16" fill="#94A3B8" opacity="0">
+    <text x="600" y="180" font-size="26" fill="#94A3B8" opacity="0">
       Husband • Father • Software Engineer
       <animate attributeName="opacity" from="0" to="1" dur="0.8s" begin="1.25s" fill="freeze"/>
     </text>

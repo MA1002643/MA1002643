@@ -1,13 +1,16 @@
 name: Update recent activity
 
 on:
-  schedule: [{ cron: "*/30 * * * *" }] # every 30 minutes
+  schedule: [{ cron: "*/30 * * * *" }]
   workflow_dispatch: {}
 
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # allows the action to update README
     steps:
-      - uses: Readme-Workflows/recent-activity@v2
+      - uses: actions/checkout@v4
+      - uses: Readme-Workflows/recent-activity@v2.4.1
         with:
           GH_USERNAME: MA1002643

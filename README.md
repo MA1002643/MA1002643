@@ -5,50 +5,48 @@
 </picture>
 
 <p align="center">
-  <!-- Website badge: light / dark colors to match HERO -->
   <a href="https://muhammadabdullah227.co.uk">
-    <img alt="Website — muhammadabdullah227.co.uk"
-         src="https://img.shields.io/website?down_message=offline&label=muhammadabdullah227.co.uk&style=for-the-badge&up_message=online&url=https%3A%2F%2Fmuhammadabdullah227.co.uk&labelColor=F8FAFC&color=EEF2F7#gh-light-mode-only">
-  </a>
-  <a href="https://muhammadabdullah227.co.uk">
-    <img alt="Website — muhammadabdullah227.co.uk"
-         src="https://img.shields.io/website?down_message=offline&label=muhammadabdullah227.co.uk&style=for-the-badge&up_message=online&url=https%3A%2F%2Fmuhammadabdullah227.co.uk&labelColor=0B1220&color=111827#gh-dark-mode-only">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/website?down_message=offline&label=muhammadabdullah227.co.uk&style=for-the-badge&up_message=online&url=https%3A%2F%2Fmuhammadabdullah227.co.uk&labelColor=0B1220&color=111827">
+      <img alt="Website — muhammadabdullah227.co.uk"
+           src="https://img.shields.io/website?down_message=offline&label=muhammadabdullah227.co.uk&style=for-the-badge&up_message=online&url=https%3A%2F%2Fmuhammadabdullah227.co.uk&labelColor=F8FAFC&color=EEF2F7">
+    </picture>
   </a>
 </p>
 <!-- Social row (centered) -->
 <p align="center">
+  <!-- LinkedIn -->
   <a href="https://linkedin.com/in/muhammad-abdullah227">
-    <img alt="LinkedIn"
-         src="https://img.shields.io/badge/LinkedIn-111827?logo=linkedin&logoColor=0A66C2&labelColor=0B1220#gh-dark-mode-only">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/LinkedIn-111827?logo=linkedin&logoColor=0A66C2&labelColor=0B1220">
+      <img alt="LinkedIn"
+           src="https://img.shields.io/badge/LinkedIn-EEF2F7?logo=linkedin&logoColor=0A66C2&labelColor=F8FAFC">
+    </picture>
   </a>
-  <a href="https://linkedin.com/in/muhammad-abdullah227">
-    <img alt="LinkedIn"
-         src="https://img.shields.io/badge/LinkedIn-EEF2F7?logo=linkedin&logoColor=0A66C2&labelColor=F8FAFC#gh-light-mode-only">
-  </a>
-  &nbsp;&nbsp;
+&nbsp;&nbsp;
   <a href="https://github.com/MA1002643">
-    <img alt="GitHub"
-         src="https://img.shields.io/badge/GitHub-111827?logo=github&logoColor=E5E7EB&labelColor=0B1220#gh-dark-mode-only">
-  </a>
-  <a href="https://github.com/MA1002643">
-    <img alt="GitHub"
-         src="https://img.shields.io/badge/GitHub-EEF2F7?logo=github&logoColor=0C1A25&labelColor=F8FAFC#gh-light-mode-only">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/GitHub-111827?logo=github&logoColor=E5E7EB&labelColor=0B1220">
+      <img alt="GitHub"
+           src="https://img.shields.io/badge/GitHub-EEF2F7?logo=github&logoColor=0C1A25&labelColor=F8FAFC">
+    </picture>
   </a>
 </p>
 
 <!-- Metrics row (centered, matches social colors, keeps live count) -->
 <p align="center">
-  <!-- Profile views (pulls count from Komarev, themed via Shields) -->
-  <img alt="Profile views"
-       src="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=F8FAFC&color=EEF2F7&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643#gh-light-mode-only">
-  <img alt="Profile views"
-       src="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=0B1220&color=111827&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643#gh-dark-mode-only">
-  &nbsp;&nbsp;
-<img alt="Followers"
-       src="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=F8FAFC&color=EEF2F7#gh-light-mode-only">
-<img alt="Followers"
-       src="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=0B1220&color=111827#gh-dark-mode-only">
-
+  <!-- Profile views (count from Komarev via Shields dynamic) -->
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=0B1220&color=111827&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
+    <img alt="Profile views"
+         src="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=F8FAFC&color=EEF2F7&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
+  </picture>
+&nbsp;&nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=0B1220&color=111827">
+    <img alt="Followers"
+         src="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=F8FAFC&color=EEF2F7">
+  </picture>
 </p>
 
 <!-- Animated underline under socials -->
