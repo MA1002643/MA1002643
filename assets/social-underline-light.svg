@@ -1,14 +1,38 @@
 <svg width="1000" height="10" viewBox="0 0 1000 10" xmlns="http://www.w3.org/2000/svg">
   <defs>
+    <!-- Static rail (light, subtle) -->
     <linearGradient id="railL" x1="0" y1="0" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#E5E7EB"/>
-      <stop offset="50%" stop-color="#FF652F"/>
+      <stop offset="0%"  stop-color="#E5E7EB"/>
+      <stop offset="50%" stop-color="#F1F5F9"/>
       <stop offset="100%" stop-color="#E5E7EB"/>
-      <animateTransform attributeName="gradientTransform" type="translate" from="-1000 0" to="1000 0" dur="8s" repeatCount="indefinite" begin="1.4s"/>
     </linearGradient>
-    <filter id="blurL" x="-50%" y="-200%" width="200%" height="500%">
-      <feGaussianBlur stdDeviation="1.8"/>
+
+    <!-- Moving highlight (tuned for light bg) -->
+    <linearGradient id="sweepL" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0"    stop-color="#FF652F" stop-opacity="0"/>
+      <stop offset="0.40" stop-color="#FFC857" stop-opacity="0.45"/>
+      <stop offset="0.50" stop-color="#FF652F" stop-opacity="0.70"/>
+      <stop offset="0.60" stop-color="#FFC857" stop-opacity="0.45"/>
+      <stop offset="1"    stop-color="#FF652F" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Soft blur only for the moving highlight -->
+    <filter id="sweepBlurL" x="-50%" y="-200%" width="200%" height="500%">
+      <feGaussianBlur stdDeviation="1.1"/>
     </filter>
   </defs>
-  <rect x="0" y="3.5" width="1000" height="3" rx="1.5" fill="url(#railL)" filter="url(#blurL)"/>
+
+  <!-- Base rail -->
+  <rect x="0" y="3.5" width="1000" height="3" rx="1.5" fill="url(#railL)"/>
+
+  <!-- Moving highlight -->
+  <g filter="url(#sweepBlurL)">
+    <rect x="-520" y="2" width="520" height="6" rx="3" fill="url(#sweepL)" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.4s" dur="0.25s" fill="freeze"/>
+      <animate attributeName="x"
+               from="-520" to="1000"
+               begin="1.4s" dur="10.5s" repeatCount="indefinite"
+               calcMode="spline" keyTimes="0;1" keySplines="0.25 0.1 0.25 1"/>
+    </rect>
+  </g>
 </svg>
