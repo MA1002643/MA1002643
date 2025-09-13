@@ -1,0 +1,34 @@
+name: Auto-pin top repos
+
+on:
+  schedule:
+    - cron: "*/30 * * * *" # every 30 minutes
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-pins:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build new pinned section
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # default repo token
+          GH_USERNAME: MA1002643 # change if needed
+          # Optional: if you self-host github-readme-stats, set a repo variable STATS_DOMAIN (no protocol)
+          STATS_DOMAIN: ${{ vars.STATS_DOMAIN }}
+        run: node .github/scripts/auto-pin.mjs
+
+      - name: Commit README change
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(readme): auto-update pinned repositories"
+          file_pattern: README.md
