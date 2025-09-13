@@ -1,0 +1,8 @@
+# --- Re-ignore Node directories anywhere (even inside whitelisted folders) ---
+**/node_modules/
+
+# --- Re-ignore package manifests / lockfiles anywhere ("json packages") ---
+**/package.json
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml

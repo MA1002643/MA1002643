@@ -1,0 +1,14 @@
+<svg width="1000" height="10" viewBox="0 0 1000 10" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="railL" x1="0" y1="0" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E5E7EB"/>
+      <stop offset="50%" stop-color="#FF652F"/>
+      <stop offset="100%" stop-color="#E5E7EB"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="-1000 0" to="1000 0" dur="8s" repeatCount="indefinite" begin="1.4s"/>
+    </linearGradient>
+    <filter id="blurL" x="-50%" y="-200%" width="200%" height="500%">
+      <feGaussianBlur stdDeviation="1.8"/>
+    </filter>
+  </defs>
+  <rect x="0" y="3.5" width="1000" height="3" rx="1.5" fill="url(#railL)" filter="url(#blurL)"/>
+</svg>

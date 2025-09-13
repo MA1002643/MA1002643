@@ -1,0 +1,110 @@
+name: Auto-detect tech stack
+
+on:
+  schedule: [{ cron: "0 8 * * 1" }] # Monday 08:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      OWNER: MA1002643
+      READ_ME: README.md
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build tech inventory
+        id: build
+        run: |
+          set -euo pipefail
+
+          # Helpers
+          add_items () {
+            while read -r line; do
+              [ -z "$line" ] && continue
+              echo "$line" | tr '[:upper:]' '[:lower:]' \
+              | sed -E 's/@.*$//' \
+              | sed -E 's/[><=~^*].*$//' \
+              | sed -E 's/[[:space:]]+//g'
+            done | sed 's/^/- /'
+          }
+
+          tmpdir=$(mktemp -d)
+          cd "$tmpdir"
+
+          # Get public repos (owner only)
+          gh repo list "$OWNER" --limit 200 --json name,defaultBranchRef,visibility \
+              --jq '.[] | select(.visibility=="PUBLIC") | [.name, .defaultBranchRef.name]' \
+              > repos.txt
+
+          declare -A SET
+          declare -A STACK
+
+          while read -r name branch; do
+            # Try root manifests only (fast, safe)
+            for path in package.json requirements.txt pyproject.toml pom.xml build.gradle gradle.build csproj Cargo.toml composer.json go.mod; do
+              if gh api "repos/$OWNER/$name/contents/$path?ref=$branch" >/dev/null 2>&1; then
+                file=$(gh api "repos/$OWNER/$name/contents/$path?ref=$branch" --jq '.content' | base64 -d)
+                case "$path" in
+                  package.json)
+                    echo "$file" | jq -r '.dependencies, .devDependencies | keys[]?' 2>/dev/null | add_items | while read -r d; do SET["$d"]=1; done
+                    ;;
+                  requirements.txt)
+                    echo "$file" | sed -E 's/#.*$//' | sed '/^\s*$/d' | add_items | while read -r d; do SET["$d"]=1; done
+                    ;;
+                  pyproject.toml)
+                    echo "$file" | sed -n '/\[tool\.poetry\.dependencies\]/,/^\[/p' | sed '1d' | cut -d'=' -f1 | add_items | while read -r d; do SET["$d"]=1; done
+                    ;;
+                  pom.xml)
+                    echo "$file" | grep -Eo '<artifactId>[^<]+' | sed 's/<artifactId>//' | add_items | while read -r d; do SET["$d"]=1; done
+                    ;;
+                  build.gradle|gradle.build)
+                    echo "$file" | grep -Eo 'implementation\([^)]+\)|api\([^)]+\)|kapt\([^)]+\)' | grep -Eo '[^":,)]+:[^":,)]+(?=:|")' | cut -d: -f2 | add_items | while read -r d; do SET["$d"]=1; done
+                    ;;
+                  csproj)
+                    echo "$file" | grep -Eo '<PackageReference Include="[^"]+"' | sed -E 's/.*Include="([^"]+)".*/\1/' | add_items | while read -r d; do SET["$d"]=1; done
+                    ;;
+                  Cargo.toml)
+                    echo "$file" | sed -n '/\[dependencies\]/,/^\[/p' | sed '1d' | cut -d'=' -f1 | add_items | while read -r d; do SET["$d"]=1; done
+                    ;;
+                  composer.json)
+                    echo "$file" | jq -r '.require, .["require-dev"] | keys[]?' 2>/dev/null | add_items | while read -r d; do SET["$d"]=1; done
+                    ;;
+                  go.mod)
+                    echo "$file" | awk '/^require/{flag=1;next}/^\)/{flag=0}flag' | awk '{print $1}' | rev | cut -d'/' -f1 | rev | add_items | while read -r d; do SET["$d"]=1; done
+                    ;;
+                esac
+              fi
+            done
+          done < repos.txt
+
+          # Curate + pretty print
+          for k in "${!SET[@]}"; do
+            STACK["$k"]=1
+          done
+
+          printf "# Detected frameworks, libs & tools\n\n" > AUTOSTACK.md
+          for k in "${!STACK[@]}"; do echo "- ${k}"; done | sort -fu >> AUTOSTACK.md
+          echo "" >> AUTOSTACK.md
+
+          echo "Wrote AUTOSTACK.md"
+
+      - name: Inject into README markers
+        run: |
+          awk 'BEGIN{p=1}
+               /<!--AUTOSTACK:START-->/ {print; system("cat AUTOSTACK.md"); p=0}
+               /<!--AUTOSTACK:END-->/ {p=1}
+               p' "$READ_ME" > README.new
+
+          mv README.new "$READ_ME"
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: auto-update detected tech stack"
+          file_pattern: README.md AUTOSTACK.md

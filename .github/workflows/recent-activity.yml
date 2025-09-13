@@ -1,0 +1,13 @@
+name: Update recent activity
+
+on:
+  schedule: [{ cron: "*/30 * * * *" }] # every 30 minutes
+  workflow_dispatch: {}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Readme-Workflows/recent-activity@v2
+        with:
+          GH_USERNAME: MA1002643

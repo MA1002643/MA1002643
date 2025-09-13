@@ -1,0 +1,61 @@
+<svg viewBox="0 0 1200 260" width="1200" height="260" xmlns="http://www.w3.org/2000/svg" text-rendering="geometricPrecision">
+  <defs>
+    <!-- Subtle, professional gradient with slow drift -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B1220"/>
+      <stop offset="50%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="-120 0" to="120 0" dur="18s" begin="0.7s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <!-- Very faint grid for texture (moves slowly) -->
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="translate(0,0)">
+      <path d="M32 0H0V32" fill="none" stroke="#1E293B" stroke-width="0.5" opacity="0.25"/>
+      <animateTransform attributeName="patternTransform" type="translate" from="0 0" to="48 0" dur="30s" begin="1.0s" repeatCount="indefinite"/>
+    </pattern>
+
+    <!-- Accent gradient for underline (brand accent, very subtle) -->
+    <linearGradient id="acc" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#FF652F"/>
+      <stop offset="50%" stop-color="#FFC857"/>
+      <stop offset="100%" stop-color="#FF652F"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="-200 0" to="200 0" dur="9s" begin="1.2s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <!-- Minimal text shadow (professional, not glowy) -->
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0.9" result="b"/>
+      <feOffset in="b" dx="0" dy="0" result="o"/>
+      <feComponentTransfer in="o">
+        <feFuncA type="linear" slope="0.35"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+  <rect width="100%" height="100%" fill="url(#grid)" opacity="0.35"/>
+
+  <!-- Title + subtitle -->
+  <g font-family="Inter, Segoe UI, Roboto, Arial, sans-serif" text-anchor="middle" filter="url(#softShadow)">
+    <text x="600" y="130" font-size="44" font-weight="800" fill="#E5E7EB" opacity="0">
+      Muhammad Abdullah
+      <animate attributeName="opacity" from="0" to="1" dur="0.7s" begin="0.95s" fill="freeze"/>
+    </text>
+
+    <!-- Underline (reveals then gently shimmers) -->
+    <rect x="600" y="145" height="3" rx="1.5" width="0" fill="url(#acc)">
+      <animate attributeName="width" from="0" to="520" dur="0.7s" begin="1.05s" fill="freeze"/>
+      <animate attributeName="x" from="600" to="340" dur="0.7s" begin="1.05s" fill="freeze"/>
+    </rect>
+
+    <text x="600" y="176" font-size="16" fill="#94A3B8" opacity="0">
+      Husband • Father • Software Engineer
+      <animate attributeName="opacity" from="0" to="1" dur="0.8s" begin="1.25s" fill="freeze"/>
+    </text>
+  </g>
+</svg>
