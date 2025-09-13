@@ -75,23 +75,22 @@ function buildCardUrls(owner, repo) {
   )}&repo=${encodeURIComponent(
     repo
   )}&show_owner=${showOwner}&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600`;
-
   const dark = `https://${STATS_DOMAIN}/api/pin/?${common}&text_color=ffffff&bg_color=0D1117&border_color=30363D`;
   const light = `https://${STATS_DOMAIN}/api/pin/?${common}&text_color=0c1a25&bg_color=ffffff&border_color=0c1a25`;
   return { dark, light };
 }
 
+// IMPORTANT: no leading spaces at the start of any line we emit
 function buildTableCell(owner, repo) {
   const { dark, light } = buildCardUrls(owner, repo);
-  return `
-    <td align="center" valign="top" width="50%" style="padding:4px;">
-      <a href="https://github.com/${owner}/${repo}">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="${dark}">
-          <img alt="${repo}" src="${light}" width="100%">
-        </picture>
-      </a>
-    </td>`;
+  return `<td align="center" valign="top" width="50%">
+<a href="https://github.com/${owner}/${repo}">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="${dark}">
+<img alt="${repo}" src="${light}" width="100%">
+</picture>
+</a>
+</td>`;
 }
 
 async function main() {
@@ -102,7 +101,6 @@ async function main() {
   for (const ev of events) {
     const full = ev?.repo?.name; // "owner/name"
     if (!full) continue;
-    // Skip profile repo (username/username)
     if (full.toLowerCase() === `${USERNAME}/${USERNAME}`.toLowerCase())
       continue;
     const w = WEIGHTS[ev.type] ?? 1;
@@ -131,22 +129,21 @@ async function main() {
     return;
   }
 
-  // Build two side-by-side cells
+  // Build cells with no leading indentation
   const cells = top
     .map((full) => {
       const [owner, repo] = full.split("/");
       return buildTableCell(owner, repo);
     })
-    .join("\n");
+    .join("");
 
+  // Also avoid leading spaces in these lines
   const newBlock = `${START_MARK}
-<h3 align="center" style="margin:0 0 10px; color:#FF652F; font-weight:800;">
-  📌 Pinned Repositories
-</h3>
-<table align="center" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse; margin:0 auto; table-layout:fixed; max-width:980px;">
-  <tr>
+<h3 align="center" style="margin:0 0 10px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
+<table align="center" width="100%" cellspacing="0" cellpadding="0">
+<tr>
 ${cells}
-  </tr>
+</tr>
 </table>
 ${END_MARK}`;
 
@@ -171,4 +168,3 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
-// ---- end ---------------------------------------------------------------------
