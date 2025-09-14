@@ -71,23 +71,25 @@
 
 <!-- PINNED: START -->
 <h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
-<div align="center" style="max-width:1000px; margin:0 auto; text-align:center; font-size:0;">
-<span style="display:inline-block; vertical-align:top; width:49%; min-width:320px; max-width:500px; box-sizing:border-box; padding:6px;">
+<table align="center" cellspacing="0" cellpadding="4" border="0" style="border:0; border-collapse:collapse; margin:0 auto;">
+<tr>
+<td align="center" valign="top" width="50%">
 <a href="https://github.com/MA1002643/jokes-app">
 <picture>
-<source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=jokes-app&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117&border_color=30363D">
-<img alt="jokes-app" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=jokes-app&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff&border_color=0c1a25" width="100%">
+<source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=jokes-app&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117">
+<img alt="jokes-app" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=jokes-app&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff" width="480">
 </picture>
 </a>
-</span><span style="display:inline-block; vertical-align:top; width:49%; min-width:320px; max-width:500px; box-sizing:border-box; padding:6px;">
+</td><td align="center" valign="top" width="50%">
 <a href="https://github.com/MA1002643/Article-Server">
 <picture>
-<source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Article-Server&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117&border_color=30363D">
-<img alt="Article-Server" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Article-Server&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff&border_color=0c1a25" width="100%">
+<source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Article-Server&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117">
+<img alt="Article-Server" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Article-Server&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff" width="480">
 </picture>
 </a>
-</span>
-</div>
+</td>
+</tr>
+</table>
 <!-- PINNED: END -->
 
 ---
