@@ -126,7 +126,60 @@
 
 <!--AUTOSTACK:START-->
 
-Loading tech stack…
+# Detected frameworks, libs & tools
+
+- 
+- autoprefixer
+- axios
+- axios-mock-adapter
+- clsx
+- color-contrast-checker
+- cors
+- cross-env
+- dotenv
+- emailjs-com
+- emoji-name-map
+- eslint
+- eslint-config-next
+- eslint-config-prettier
+- eslint-plugin-import
+- eslint-plugin-jsdoc
+- eslint-plugin-react
+- express
+- framer-motion
+- github-username-regex
+- globals
+- hjson
+- husky
+- jest
+- jest-bench
+- jest-environment-jsdom
+- js-yaml
+- lint-staged
+- lodash.snakecase
+- lucide-react
+- morgan
+- next
+- parse-diff
+- postcss
+- prettier
+- prettier-plugin-tailwindcss
+- prisma
+- react
+- react-dom
+- react-hook-form
+- react-icons
+- sonner
+- supertest
+- swiper
+- tailwindcss
+- three
+- ts-jest
+- ts-node
+- tsx
+- typescript
+- upgrade
+- word-wrap
 
 <!--AUTOSTACK:END-->
 
