@@ -28,6 +28,9 @@ const README_PATH = "README.md";
 const START_MARK = "<!-- PINNED: START -->";
 const END_MARK = "<!-- PINNED: END -->";
 
+// Change this to true if you prefer ALWAYS-STACKED layout (see alt output below)
+const ALWAYS_STACKED = false;
+
 const headers = {
   Accept: "application/vnd.github+json",
   Authorization: `Bearer ${GH_TOKEN}`,
@@ -68,7 +71,7 @@ async function fetchFallbackUpdatedRepos(user) {
 
 function cardUrls(owner, repo) {
   const showOwner = owner.toLowerCase() !== USERNAME.toLowerCase();
-  // NOTE: hide_border=true removes the visible outline from the cards
+  // hide_border=true removes the card frame
   const common = `username=${encodeURIComponent(
     owner
   )}&repo=${encodeURIComponent(
@@ -80,16 +83,31 @@ function cardUrls(owner, repo) {
   };
 }
 
-function td(owner, repo) {
+function wrapCard(owner, repo) {
   const { dark, light } = cardUrls(owner, repo);
-  return `<td align="center" valign="top" width="50%">
-<a href="https://github.com/${owner}/${repo}">
+  // Wrap img in a padded container to add spacing around the card itself
+  return `<a href="https://github.com/${owner}/${repo}">
+<div style="padding:10px; box-sizing:border-box;">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="${dark}">
-<img alt="${repo}" src="${light}" width="480">
+<img alt="${repo}" src="${light}" width="480" style="max-width:100%; height:auto; display:block;">
 </picture>
-</a>
+</div>
+</a>`;
+}
+
+function td(owner, repo) {
+  return `<td align="center" valign="top" width="50%" style="padding:12px; border:0;">
+${wrapCard(owner, repo)}
 </td>`;
+}
+
+function trSingle(owner, repo) {
+  return `<tr>
+<td align="center" valign="top" style="padding:12px; border:0;">
+${wrapCard(owner, repo)}
+</td>
+</tr>`;
 }
 
 async function main() {
@@ -107,7 +125,7 @@ async function main() {
 
   let top = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([f]) => f);
 
-  // Fallback: most recently updated user repos
+  // Fallback: most recently updated repos if needed
   if (top.length < 2) {
     const fallback = await fetchFallbackUpdatedRepos(USERNAME);
     for (const f of fallback) {
@@ -123,21 +141,29 @@ async function main() {
     return;
   }
 
-  const cells = top
-    .map((full) => {
-      const [owner, repo] = full.split("/");
-      return td(owner, repo);
-    })
-    .join("");
+  const [r1Owner, r1Repo] = top[0].split("/");
+  const [r2Owner, r2Repo] = (top[1] || top[0]).split("/"); // safeguard
 
-  // Simple 2-col table; borderless. No leading spaces at line start.
+  let body;
+  if (ALWAYS_STACKED) {
+    // One card per row (works the same on desktop & mobile)
+    body = `<table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
+${trSingle(r1Owner, r1Repo)}
+${trSingle(r2Owner, r2Repo)}
+</table>`;
+  } else {
+    // Two columns side-by-side (desktop/laptop). On mobile, GitHub keeps it scrollable horizontally.
+    body = `<table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
+<tr>
+${td(r1Owner, r1Repo)}
+${td(r2Owner, r2Repo)}
+</tr>
+</table>`;
+  }
+
   const newBlock = `${START_MARK}
 <h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
-<table align="center" cellspacing="0" cellpadding="4" border="0" style="border:0; border-collapse:collapse; margin:0 auto;">
-<tr>
-${cells}
-</tr>
-</table>
+${body}
 ${END_MARK}`;
 
   const readme = fs.readFileSync(README_PATH, "utf8");
