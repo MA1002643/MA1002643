@@ -66,7 +66,7 @@ async function fetchFallbackUpdatedRepos(user) {
   return (data || []).map((r) => `${r.owner.login}/${r.name}`);
 }
 
-function cardUrls(owner, repo) {
+function buildCardUrls(owner, repo) {
   const showOwner = owner.toLowerCase() !== USERNAME.toLowerCase();
   const common = `username=${encodeURIComponent(
     owner
@@ -79,23 +79,23 @@ function cardUrls(owner, repo) {
   };
 }
 
-// no leading spaces, to avoid code blocks
-function col(owner, repo) {
-  const { dark, light } = cardUrls(owner, repo);
-  return `<span style="display:inline-block; width:49%; max-width:490px; min-width:260px; vertical-align:top; box-sizing:border-box; padding:4px;">
+// emit <td> with ZERO leading spaces (avoid Markdown code blocks)
+function td(owner, repo) {
+  const { dark, light } = buildCardUrls(owner, repo);
+  return `<td align="center" valign="top" width="50%" style="padding:6px; border:none!important;">
 <a href="https://github.com/${owner}/${repo}">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="${dark}">
 <img alt="${repo}" src="${light}" width="100%">
 </picture>
 </a>
-</span>`;
+</td>`;
 }
 
 async function main() {
+  // score recent activity
   const events = await fetchPublicEvents(USERNAME);
   const counts = new Map();
-
   for (const ev of events) {
     const full = ev?.repo?.name;
     if (!full) continue;
@@ -107,6 +107,7 @@ async function main() {
 
   let top = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([f]) => f);
 
+  // fallback: most recently updated user repos
   if (top.length < 2) {
     const fallback = await fetchFallbackUpdatedRepos(USERNAME);
     for (const f of fallback) {
@@ -122,18 +123,27 @@ async function main() {
     return;
   }
 
-  const cols = top
+  const cells = top
     .map((full) => {
       const [owner, repo] = full.split("/");
-      return col(owner, repo);
+      return td(owner, repo);
     })
     .join("");
 
+  // borderless table (kills GitHub’s default table outline)
+  const tableOpen =
+    `<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0"` +
+    ` style="border:0!important; outline:0!important; box-shadow:none!important;` +
+    ` border-collapse:collapse!important; border-spacing:0!important; background:transparent;` +
+    ` margin:0 auto; table-layout:fixed; max-width:980px;">`;
+
   const newBlock = `${START_MARK}
 <h3 align="center" style="margin:0 0 10px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
-<div align="center" style="max-width:1000px; margin:0 auto;">
-${cols}
-</div>
+${tableOpen}
+<tr>
+${cells}
+</tr>
+</table>
 ${END_MARK}`;
 
   const readme = fs.readFileSync(README_PATH, "utf8");
