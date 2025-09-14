@@ -128,7 +128,7 @@
 
 # Detected frameworks, libs & tools
 
-- 
+-
 - autoprefixer
 - axios
 - axios-mock-adapter
