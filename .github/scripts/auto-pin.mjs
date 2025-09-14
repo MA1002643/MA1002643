@@ -66,7 +66,7 @@ async function fetchFallbackUpdatedRepos(user) {
   return (data || []).map((r) => `${r.owner.login}/${r.name}`);
 }
 
-function buildCardUrls(owner, repo) {
+function cardUrls(owner, repo) {
   const showOwner = owner.toLowerCase() !== USERNAME.toLowerCase();
   const common = `username=${encodeURIComponent(
     owner
@@ -79,17 +79,18 @@ function buildCardUrls(owner, repo) {
   };
 }
 
-// emit <td> with ZERO leading spaces (avoid Markdown code blocks)
-function td(owner, repo) {
-  const { dark, light } = buildCardUrls(owner, repo);
-  return `<td align="center" valign="top" width="50%" style="padding:6px; border:none!important;">
+// One responsive column (no leading spaces at line start to avoid code blocks)
+function col(owner, repo) {
+  const { dark, light } = cardUrls(owner, repo);
+  // flex:1 1 460px -> side-by-side on desktop, stacks on narrow/mobile
+  return `<div style="flex:1 1 460px; max-width:520px; min-width:260px; box-sizing:border-box;">
 <a href="https://github.com/${owner}/${repo}">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="${dark}">
 <img alt="${repo}" src="${light}" width="100%">
 </picture>
 </a>
-</td>`;
+</div>`;
 }
 
 async function main() {
@@ -123,27 +124,22 @@ async function main() {
     return;
   }
 
-  const cells = top
+  const columns = top
     .map((full) => {
       const [owner, repo] = full.split("/");
-      return td(owner, repo);
+      return col(owner, repo);
     })
     .join("");
 
-  // borderless table (kills GitHub’s default table outline)
-  const tableOpen =
-    `<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0"` +
-    ` style="border:0!important; outline:0!important; box-shadow:none!important;` +
-    ` border-collapse:collapse!important; border-spacing:0!important; background:transparent;` +
-    ` margin:0 auto; table-layout:fixed; max-width:980px;">`;
+  // Flex row container; no tables -> no GitHub outline.
+  const container =
+    `<div align="center" style="display:flex; flex-wrap:wrap; justify-content:center; align-items:stretch; gap:12px; max-width:1000px; margin:0 auto;">` +
+    `${columns}` +
+    `</div>`;
 
   const newBlock = `${START_MARK}
-<h3 align="center" style="margin:0 0 10px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
-${tableOpen}
-<tr>
-${cells}
-</tr>
-</table>
+<h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
+${container}
 ${END_MARK}`;
 
   const readme = fs.readFileSync(README_PATH, "utf8");
