@@ -79,11 +79,10 @@ function cardUrls(owner, repo) {
   };
 }
 
-// One responsive column (no leading spaces at line start to avoid code blocks)
+// One responsive column block (no leading spaces to avoid code blocks)
 function col(owner, repo) {
   const { dark, light } = cardUrls(owner, repo);
-  // flex:1 1 460px -> side-by-side on desktop, stacks on narrow/mobile
-  return `<div style="flex:1 1 460px; max-width:520px; min-width:260px; box-sizing:border-box;">
+  return `<div style="width:100%; box-sizing:border-box;">
 <a href="https://github.com/${owner}/${repo}">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="${dark}">
@@ -131,9 +130,10 @@ async function main() {
     })
     .join("");
 
-  // Flex row container; no tables -> no GitHub outline.
+  // CSS Grid: two columns on laptop/desktop; stacks on narrow/mobile automatically.
+  // minmax(380px, 1fr): two columns when container >= ~760px; otherwise one column.
   const container =
-    `<div align="center" style="display:flex; flex-wrap:wrap; justify-content:center; align-items:stretch; gap:12px; max-width:1000px; margin:0 auto;">` +
+    `<div align="center" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap:14px; max-width:1000px; margin:0 auto; align-items:stretch;">` +
     `${columns}` +
     `</div>`;
 
