@@ -14,22 +14,14 @@ jobs:
     env:
       OWNER: MA1002643
       README_PATH: README.md
-      MAX_PER_LINE: "14" # icons per row for skillicons
-      # Seed icons you always want to show first (keep, add, or edit)
+      MAX_PER_LINE: "14" # icons per row
+      MAX_ICONS: "28" # cap to keep URLs reliable
+      # Always show these first (manual “seed”). Edit to your taste:
       SEED_ICONS: "nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws"
-      WRITE_AUTOSTACK: "false" # set to "true" only if you want the long bullet list
+      WRITE_AUTOSTACK: "false" # set to "true" if you also want the long bullet list
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Sanity-check README markers
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -f "$README_PATH" || { echo "::error::README not found at $README_PATH"; exit 1; }
-          grep -q "<!--TECH:START-->" "$README_PATH" || { echo "::error::Missing <!--TECH:START--> marker"; exit 1; }
-          grep -q "<!--TECH:END-->" "$README_PATH"   || { echo "::error::Missing <!--TECH:END--> marker"; exit 1; }
-          echo "Markers present."
 
       - name: Build & inject icons
         uses: actions/github-script@v7
@@ -37,19 +29,14 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |-
             const fs = require('fs');
+            const core = require('@actions/core');
 
             const OWNER = process.env.OWNER || context.repo.owner;
             const README_PATH = process.env.README_PATH || 'README.md';
             const MAX_PER_LINE = parseInt(process.env.MAX_PER_LINE || '14', 10);
+            const MAX_ICONS = parseInt(process.env.MAX_ICONS || '28', 10);
             const WRITE_AUTOSTACK = (process.env.WRITE_AUTOSTACK || 'false').toLowerCase() === 'true';
             const SEED_ICONS = (process.env.SEED_ICONS || '').split(',').map(s => s.trim()).filter(Boolean);
-
-            core.startGroup('Config');
-            core.info(`OWNER: ${OWNER}`);
-            core.info(`README_PATH: ${README_PATH}`);
-            core.info(`MAX_PER_LINE: ${MAX_PER_LINE}`);
-            core.info(`SEED_ICONS: ${SEED_ICONS.join(', ')}`);
-            core.endGroup();
 
             // ---------- helpers ----------
             const norm = s => (s || '')
@@ -169,30 +156,53 @@ jobs:
               'py','java','go','cs','cpp','php','ruby','rust','kotlin','swift','dart'
             ];
 
-            async function run() {
+            async function listPublicRepos(owner) {
+              const repos = [];
+              for (let page = 1; page <= 5; page++) {
+                const { data } = await github.request(
+                  'GET /users/{username}/repos',
+                  { username: owner, per_page: 100, page, type: 'public', sort: 'updated' }
+                );
+                if (!data || data.length === 0) break;
+                repos.push(...data);
+              }
+              return repos;
+            }
+
+            async function safeRun() {
+              // Read README & markers
+              const readme = fs.readFileSync(README_PATH, 'utf8');
+              const TECH_START = '<!--TECH:START-->';
+              const TECH_END   = '<!--TECH:END-->';
+              if (!readme.includes(TECH_START) || !readme.includes(TECH_END)) {
+                core.setFailed('README is missing TECH markers.');
+                return;
+              }
+
               const detectedNames = new Set();
               const readableNames = new Set();
 
-              const repos = await github.paginate('GET /users/{username}/repos', {
-                username: OWNER, per_page: 100, type: 'public', sort: 'updated'
-              });
+              let repos = [];
+              try {
+                repos = await listPublicRepos(OWNER);
+              } catch (e) {
+                core.warning(`Repo listing failed (${e.status || ''}): ${e.message}. Falling back to SEED only.`);
+              }
 
-              core.startGroup(`Scanning ${repos.length} repos`);
+              // Scan each repo (best-effort)
               for (const r of repos) {
                 const repo = r.name;
                 const ref  = r.default_branch || 'main';
-                core.info(`• ${OWNER}/${repo}@${ref}`);
 
                 // Languages API
                 try {
                   const langs = await github.request('GET /repos/{owner}/{repo}/languages', {
                     owner: OWNER, repo
                   });
-                  for (const k of Object.keys(langs.data || {})) {
-                    detectedNames.add(k); readableNames.add(k);
-                  }
+                  Object.keys(langs.data || {}).forEach(k => { detectedNames.add(k); readableNames.add(k); });
                 } catch {}
 
+                // Root manifests
                 const paths = [
                   'package.json','requirements.txt','pyproject.toml','pom.xml',
                   'build.gradle','build.gradle.kts','Cargo.toml','composer.json','go.mod'
@@ -223,12 +233,11 @@ jobs:
                       addAll(detectedNames, lines); lines.forEach(x => readableNames.add(x));
                     } else if (path === 'pyproject.toml') {
                       const seg = text.split('[tool.poetry.dependencies]')[1] || '';
-                      const lines = [];
                       for (const ln of seg.split(/\r?\n/)) {
                         if (/^\[.+\]/.test(ln)) break;
-                        const k = (ln.split('=')[0] || '').trim(); if (k) lines.push(k);
+                        const k = (ln.split('=')[0] || '').trim();
+                        if (k) { detectedNames.add(k); readableNames.add(k); }
                       }
-                      addAll(detectedNames, lines); lines.forEach(x => readableNames.add(x));
                     } else if (path === 'pom.xml') {
                       const ids = [...text.matchAll(/<artifactId>([^<]+)</g)].map(m => m[1]);
                       addAll(detectedNames, ids); ids.forEach(x => readableNames.add(x));
@@ -271,24 +280,24 @@ jobs:
                   }
                 }
               }
-              core.endGroup();
 
-              // Map detections -> skillicons slugs
+              // Map -> skillicons slugs
               const slugsFromDetections = new Set();
               for (const n of detectedNames) {
                 const s = toSlug(n);
                 if (s) slugsFromDetections.add(s);
               }
 
-              // Merge seed icons + detected, then order & dedupe
+              // Merge seeds + detected, order by preference, cap length
               const seed = SEED_ICONS.map(toSlug).filter(Boolean);
               const merged = new Set([...seed, ...slugsFromDetections]);
 
               const ordered = [
                 ...preferred.filter(s => merged.has(s)),
                 ...[...merged].filter(s => !preferred.includes(s)).sort()
-              ];
+              ].slice(0, MAX_ICONS);
 
+              // Build icons block
               const perline = Math.min(MAX_PER_LINE, Math.max(ordered.length, 1));
               const darkURL  = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline + '&theme=dark';
               const lightURL = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline;
@@ -302,41 +311,65 @@ jobs:
                 '</p>'
               ].join('\n');
 
-              const readme = fs.readFileSync(README_PATH, 'utf8');
+              const AUTO_START = '<!--AUTOSTACK:START-->';
+              const AUTO_END   = '<!--AUTOSTACK:END-->';
+              const listMd =
+                '# Detected frameworks, libs & tools\\n\\n' +
+                [...new Set([...detectedNames])].sort().map(x => '- ' + x).join('\\n') +
+                '\\n';
 
+              // Inject helper
               function inject(src, start, end, payload) {
                 const i1 = src.indexOf(start), i2 = src.indexOf(end);
                 if (i1 === -1 || i2 === -1) return null;
-                return src.slice(0, i1 + start.length) + '\n' + payload + '\n' + src.slice(i2);
+                return src.slice(0, i1 + start.length) + '\\n' + payload + '\\n' + src.slice(i2);
               }
 
-              const TECH_START = '<!--TECH:START-->';
-              const TECH_END   = '<!--TECH:END-->';
-              let updated = inject(readme, TECH_START, TECH_END, iconsBlock);
-              if (!updated) throw new Error('TECH markers not found in README.md');
+              let readme = fs.readFileSync(README_PATH, 'utf8');
+              let updated = inject(readme, '<!--TECH:START-->', '<!--TECH:END-->', iconsBlock);
+              if (!updated) throw new Error('TECH markers not found');
 
               if (WRITE_AUTOSTACK) {
-                const listMd =
-                  '# Detected frameworks, libs & tools\\n\\n' +
-                  [...new Set([...detectedNames])].sort().map(x => '- ' + x).join('\\n') +
-                  '\\n';
-                const AUTO_START = '<!--AUTOSTACK:START-->';
-                const AUTO_END   = '<!--AUTOSTACK:END-->';
                 const maybe = inject(updated, AUTO_START, AUTO_END, listMd);
                 updated = maybe || updated;
               }
 
               if (updated !== readme) {
                 fs.writeFileSync(README_PATH, updated, 'utf8');
-                core.notice(`Injected ${ordered.length} icon slugs into TECH section`);
+                core.notice(`Injected ${ordered.length} icons`);
               } else {
                 core.notice('No changes to README.md');
               }
             }
 
             (async () => {
-              try { await run(); }
-              catch (e) { core.setFailed(e?.stack || String(e)); }
+              try { await safeRun(); }
+              catch (e) {
+                // As a last resort, inject SEED icons so the job still “succeeds”
+                const seed = (process.env.SEED_ICONS || '').split(',').map(s => s.trim()).filter(Boolean);
+                if (!seed.length) return core.setFailed(e?.stack || String(e));
+                const perline = Math.min(parseInt(process.env.MAX_PER_LINE||'14',10), Math.max(seed.length, 1));
+                const darkURL  = 'https://skillicons.dev/icons?i=' + seed.join(',') + '&perline=' + perline + '&theme=dark';
+                const lightURL = 'https://skillicons.dev/icons?i=' + seed.join(',') + '&perline=' + perline;
+
+                const fallback = [
+                  '<p align="center">',
+                  '  <picture>',
+                  '    <source media="(prefers-color-scheme: dark)" srcset="' + darkURL + '">',
+                  '    <img src="' + lightURL + '" alt="Tech stack (fallback)">',
+                  '  </picture>',
+                  '</p>'
+                ].join('\n');
+
+                try {
+                  const readme = fs.readFileSync(process.env.README_PATH || 'README.md', 'utf8');
+                  const out = readme.replace(/(<!--TECH:START-->)([\s\S]*?)(<!--TECH:END-->)/, `$1\n${fallback}\n$3`);
+                  fs.writeFileSync(process.env.README_PATH || 'README.md', out, 'utf8');
+                  core.warning('Detection failed; injected fallback SEED icons instead.');
+                } catch (e2) {
+                  core.setFailed(e2?.stack || String(e2));
+                }
+              }
             })();
 
       - name: Commit changes

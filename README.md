@@ -121,6 +121,9 @@
 <details>
 <summary><b>Tech used in my repository</b></summary>
 
+<!--TECH:START-->
+<!--TECH:END-->
+
 </details>
 
 ---
