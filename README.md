@@ -71,23 +71,25 @@
 
 <!-- PINNED: START -->
 <h3 align="center" style="margin:0 0 10px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
-<div align="center" style="max-width:1000px; margin:0 auto;">
-<span style="display:inline-block; width:49%; max-width:490px; min-width:260px; vertical-align:top; box-sizing:border-box; padding:4px;">
+<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" style="border:0!important; outline:0!important; box-shadow:none!important; border-collapse:collapse!important; border-spacing:0!important; background:transparent; margin:0 auto; table-layout:fixed; max-width:980px;">
+<tr>
+<td align="center" valign="top" width="50%" style="padding:6px; border:none!important;">
 <a href="https://github.com/MA1002643/jokes-app">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=jokes-app&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117&border_color=30363D">
 <img alt="jokes-app" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=jokes-app&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff&border_color=0c1a25" width="100%">
 </picture>
 </a>
-</span><span style="display:inline-block; width:49%; max-width:490px; min-width:260px; vertical-align:top; box-sizing:border-box; padding:4px;">
+</td><td align="center" valign="top" width="50%" style="padding:6px; border:none!important;">
 <a href="https://github.com/MA1002643/Article-Server">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Article-Server&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117&border_color=30363D">
 <img alt="Article-Server" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Article-Server&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff&border_color=0c1a25" width="100%">
 </picture>
 </a>
-</span>
-</div>
+</td>
+</tr>
+</table>
 <!-- PINNED: END -->
 
 ---
