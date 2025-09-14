@@ -28,8 +28,10 @@ const README_PATH = "README.md";
 const START_MARK = "<!-- PINNED: START -->";
 const END_MARK = "<!-- PINNED: END -->";
 
-// Change this to true if you prefer ALWAYS-STACKED layout (see alt output below)
-const ALWAYS_STACKED = false;
+// layout knobs
+const GAP_BETWEEN_CARDS = 24; // pixels for the middle gutter
+const OUTER_CELL_PAD_TB = 12; // top/bottom padding per cell
+const INNER_CARD_PAD = 10; // inner padding around each card image
 
 const headers = {
   Accept: "application/vnd.github+json",
@@ -71,7 +73,7 @@ async function fetchFallbackUpdatedRepos(user) {
 
 function cardUrls(owner, repo) {
   const showOwner = owner.toLowerCase() !== USERNAME.toLowerCase();
-  // hide_border=true removes the card frame
+  // hide_border=true removes the visible frame around the cards
   const common = `username=${encodeURIComponent(
     owner
   )}&repo=${encodeURIComponent(
@@ -85,9 +87,8 @@ function cardUrls(owner, repo) {
 
 function wrapCard(owner, repo) {
   const { dark, light } = cardUrls(owner, repo);
-  // Wrap img in a padded container to add spacing around the card itself
   return `<a href="https://github.com/${owner}/${repo}">
-<div style="padding:10px; box-sizing:border-box;">
+<div style="padding:${INNER_CARD_PAD}px; box-sizing:border-box;">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="${dark}">
 <img alt="${repo}" src="${light}" width="480" style="max-width:100%; height:auto; display:block;">
@@ -96,18 +97,13 @@ function wrapCard(owner, repo) {
 </a>`;
 }
 
-function td(owner, repo) {
-  return `<td align="center" valign="top" width="50%" style="padding:12px; border:0;">
+// side: "left" | "right"
+function td(owner, repo, side) {
+  const leftPad = side === "right" ? GAP_BETWEEN_CARDS : 0; // gap on left of right card
+  const rightPad = side === "left" ? GAP_BETWEEN_CARDS : 0; // gap on right of left card
+  return `<td align="center" valign="top" width="50%" style="padding:${OUTER_CELL_PAD_TB}px ${rightPad}px ${OUTER_CELL_PAD_TB}px ${leftPad}px; border:0;">
 ${wrapCard(owner, repo)}
 </td>`;
-}
-
-function trSingle(owner, repo) {
-  return `<tr>
-<td align="center" valign="top" style="padding:12px; border:0;">
-${wrapCard(owner, repo)}
-</td>
-</tr>`;
 }
 
 async function main() {
@@ -141,25 +137,15 @@ async function main() {
     return;
   }
 
-  const [r1Owner, r1Repo] = top[0].split("/");
-  const [r2Owner, r2Repo] = (top[1] || top[0]).split("/"); // safeguard
+  const [o1, r1] = top[0].split("/");
+  const [o2, r2] = (top[1] || top[0]).split("/");
 
-  let body;
-  if (ALWAYS_STACKED) {
-    // One card per row (works the same on desktop & mobile)
-    body = `<table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
-${trSingle(r1Owner, r1Repo)}
-${trSingle(r2Owner, r2Repo)}
-</table>`;
-  } else {
-    // Two columns side-by-side (desktop/laptop). On mobile, GitHub keeps it scrollable horizontally.
-    body = `<table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
+  const body = `<table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
-${td(r1Owner, r1Repo)}
-${td(r2Owner, r2Repo)}
+${td(o1, r1, "left")}
+${td(o2, r2, "right")}
 </tr>
 </table>`;
-  }
 
   const newBlock = `${START_MARK}
 <h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
