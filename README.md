@@ -73,7 +73,7 @@
 <h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
-<td align="center" valign="top" width="50%" style="padding:12px; border:0;">
+<td align="center" valign="top" width="50%" style="padding:12px 24px 12px 0px; border:0;">
 <a href="https://github.com/MA1002643/jokes-app">
 <div style="padding:10px; box-sizing:border-box;">
 <picture>
@@ -83,7 +83,7 @@
 </div>
 </a>
 </td>
-<td align="center" valign="top" width="50%" style="padding:12px; border:0;">
+<td align="center" valign="top" width="50%" style="padding:12px 0px 12px 24px; border:0;">
 <a href="https://github.com/MA1002643/Article-Server">
 <div style="padding:10px; box-sizing:border-box;">
 <picture>
