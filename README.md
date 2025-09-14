@@ -110,8 +110,6 @@
 
 ### 🧰 Tech I Use
 
-### 🧰 Tech I Use
-
 <!-- Manual icons (you control these) -->
 <p align="center">
   <picture>
