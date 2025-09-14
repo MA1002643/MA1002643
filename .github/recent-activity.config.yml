@@ -1,0 +1,17 @@
+# .github/recent-activity.config.yml
+username: MA1002643
+
+# How many lines to write between the markers
+max_lines: 5
+
+# Where to write
+readme_path: README.md
+
+# Commit message used by the action
+commit_message: "docs: update recent activity"
+
+# Optional: customize the “Last Updated” line (leave as-is if you like the default)
+last_updated_template: "Last Updated: {{date}}"
+
+# Optional: Moment.js-like format used by the action for the date above
+date_format: "dddd, MMMM Do, YYYY, h:mm:ss A"

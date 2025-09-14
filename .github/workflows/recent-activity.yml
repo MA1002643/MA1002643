@@ -6,7 +6,7 @@ on:
     - cron: "*/30 * * * *" # every 30 minutes
 
 permissions:
-  contents: write # allows the action to commit changes to README.md
+  contents: write
 
 concurrency:
   group: recent-activity
@@ -19,7 +19,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # The action will automatically read ./.github/recent-activity.config.yml
       - name: Update README with recent activity
         uses: Readme-Workflows/recent-activity@v2.4.1
-        with:
-          GH_USERNAME: MA1002643
+        env:
+          # IMPORTANT: pass the token via env, not "with"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
