@@ -133,6 +133,7 @@ jobs:
               return null;
             }
 
+            // Preferred ordering (defined ONCE)
             const preferred = [
               'nextjs','react','ts','js','tailwind','nodejs','express',
               'mongodb','postgres','mysql','prisma',
@@ -251,19 +252,6 @@ jobs:
             // Map to skillicons slugs & order
             const slugs = new Set();
             for (const n of detectedNames) { const s = toSlug(n); if (s) slugs.add(s); }
-
-            const preferred = [
-              'nextjs','react','ts','js','tailwind','nodejs','express',
-              'mongodb','postgres','mysql','prisma',
-              'git','githubactions','docker','vercel',
-              'dotnet','aws','azure','gcp',
-              'redis','sqlite','mariadb',
-              'jest','cypress','playwright','postman',
-              'eslint','prettier','webpack','vite',
-              'graphql','apollo','firebase','supabase',
-              'kubernetes','terraform','nginx',
-              'py','java','go','cs','cpp','php','ruby','rust','kotlin','swift','dart'
-            ];
 
             const ordered = [
               ...preferred.filter(s => slugs.has(s)),

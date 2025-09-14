@@ -110,77 +110,26 @@
 
 ### 🧰 Tech I Use
 
-<!-- Auto-generated between markers by a workflow -->
-<!--TECH:START-->
+### 🧰 Tech I Use
+
+<!-- Manual icons (you control these) -->
 <p align="center">
-  <!-- skillicons (dark / light aware via two <img>) -->
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=next,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws&perline=14&theme=dark">
-    <img src="https://skillicons.dev/icons?i=next,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws&perline=14">
+    <img src="https://skillicons.dev/icons?i=next,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws&perline=14" alt="Manual tech icons">
   </picture>
 </p>
+
+<!-- Auto-generated icons will be injected here by the workflow -->
+<!--TECH:START-->
+<!-- (Workflow injects an additional icons row here) -->
 <!--TECH:END-->
 
 <details>
 <summary><b>Tech used in my repository</b></summary>
 
 <!--AUTOSTACK:START-->
-
-# Detected frameworks, libs & tools
-
--
-- autoprefixer
-- axios
-- axios-mock-adapter
-- clsx
-- color-contrast-checker
-- cors
-- cross-env
-- dotenv
-- emailjs-com
-- emoji-name-map
-- eslint
-- eslint-config-next
-- eslint-config-prettier
-- eslint-plugin-import
-- eslint-plugin-jsdoc
-- eslint-plugin-react
-- express
-- framer-motion
-- github-username-regex
-- globals
-- hjson
-- husky
-- jest
-- jest-bench
-- jest-environment-jsdom
-- js-yaml
-- lint-staged
-- lodash.snakecase
-- lucide-react
-- morgan
-- next
-- parse-diff
-- postcss
-- prettier
-- prettier-plugin-tailwindcss
-- prisma
-- react
-- react-dom
-- react-hook-form
-- react-icons
-- sonner
-- supertest
-- swiper
-- tailwindcss
-- three
-- ts-jest
-- ts-node
-- tsx
-- typescript
-- upgrade
-- word-wrap
-
+<!-- (Workflow injects a readable list here) -->
 <!--AUTOSTACK:END-->
 
 </details>
@@ -233,6 +182,7 @@
 ### ⚡ Recent GitHub Activity
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -241,7 +191,9 @@
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Sunday, September 14th, 2025, 2:44:49 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 
 ---
