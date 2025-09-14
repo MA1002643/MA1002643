@@ -118,13 +118,9 @@
   </picture>
 </p>
 
-<details>
-<summary><b>Tech used in my repository</b></summary>
-
+<!-- Auto-generated between markers by the workflow (DO NOT EDIT) -->
 <!--TECH:START-->
 <!--TECH:END-->
-
-</details>
 
 ---
 
