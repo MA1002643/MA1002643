@@ -1,17 +1,40 @@
 # .github/recent-activity.config.yml
-username: MA1002643
+settings:
+  username: MA1002643
+  commit_msg: "docs: update recent activity"
+  max_lines: 5
+  readme_file: ./README.md
 
-# How many lines to write between the markers
-max_lines: 5
+  # Show every supported event type (fine-grained list to avoid duplicates)
+  whitelisted_events:
+    - comments # issue/PR/commit comments
+    - create_repo # created a repository
+    - fork # forked a repo
+    - issues_open # opened an issue
+    - issues_close # closed an issue
+    - member # added as a collaborator/member
+    - pr_open # opened a PR
+    - pr_merge # merged a PR
+    - pr_close # closed a PR (unmerged)
+    - push # pushed commits
+    - release # published a release
+    - review # PR reviews (approve / request changes)
+    - star # starred a repo
+    - wiki # created a wiki page
 
-# Where to write
-readme_path: README.md
+  # Nice “last updated” line using UK time (adjust if you want)
+  date:
+    timezone: Europe/London
+    text: "Last Updated: {DATE}"
+    format: "dddd, mmmm dS, yyyy, h:MM:ss TT"
 
-# Commit message used by the action
-commit_message: "docs: update recent activity"
+  # Optional customizations (leave commented or tweak as you like)
+  # line_prefix: "{NUM}. "
+  # url_text: "{REPO}{ID}"
+  # commit_name: readme-bot
+  # commit_email: 41898282+github-actions[bot]@users.noreply.github.com
+  ignored_repos: []
 
-# Optional: customize the “Last Updated” line (leave as-is if you like the default)
-last_updated_template: "Last Updated: {{date}}"
-
-# Optional: Moment.js-like format used by the action for the date above
-date_format: "dddd, MMMM Do, YYYY, h:mm:ss A"
+messages:
+  # Using defaults for all message templates.
+  # You can override any of these later (e.g., pr_opened, push, star, etc.).

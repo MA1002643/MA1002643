@@ -1,3 +1,4 @@
+# .github/workflows/recent-activity.yml
 name: Update recent activity
 
 on:
@@ -16,12 +17,15 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # The action will automatically read ./.github/recent-activity.config.yml
       - name: Update README with recent activity
         uses: Readme-Workflows/recent-activity@v2.4.1
         env:
-          # IMPORTANT: pass the token via env, not "with"
+          # required by the action – do NOT rename to "with:"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # optional (defaults to repo owner). Keeping it explicit for clarity:
+          GH_USERNAME: MA1002643
+          # tell it where the config file is
+          CONFIG_FILE: ./.github/recent-activity.config.yml
