@@ -1,7 +1,7 @@
 name: Auto-detect tech stack
 
 on:
-  schedule: [{ cron: "0 8 * * 1" }] # Monday 08:00 UTC
+  schedule: [{ cron: "0 8 * * 1" }] # Mondays 08:00 UTC
   workflow_dispatch: {}
 
 permissions:
@@ -13,7 +13,9 @@ jobs:
     env:
       OWNER: MA1002643
       README_PATH: README.md
-      MAX_PER_LINE: "14" # icons per row for skillicons
+      MAX_PER_LINE: "14" # icons per row
+      SEED_ICONS: "nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws"
+      WRITE_AUTOSTACK: "false" # set "true" if you want the long text list
     steps:
       - uses: actions/checkout@v4
 
@@ -27,8 +29,10 @@ jobs:
             const OWNER = process.env.OWNER || context.repo.owner;
             const README_PATH = process.env.README_PATH || 'README.md';
             const MAX_PER_LINE = parseInt(process.env.MAX_PER_LINE || '14', 10);
+            const WRITE_AUTOSTACK = (process.env.WRITE_AUTOSTACK || 'false').toLowerCase() === 'true';
+            const SEED_ICONS = (process.env.SEED_ICONS || '').split(',').map(s => s.trim()).filter(Boolean);
 
-            // ---------------- helpers ----------------
+            // ---------- helpers ----------
             const norm = s => (s || '')
               .toLowerCase()
               .replace(/^@?types\//, '')
@@ -133,7 +137,7 @@ jobs:
               return null;
             }
 
-            // Preferred ordering (defined ONCE)
+            // Desired ordering
             const preferred = [
               'nextjs','react','ts','js','tailwind','nodejs','express',
               'mongodb','postgres','mysql','prisma',
@@ -147,13 +151,13 @@ jobs:
               'py','java','go','cs','cpp','php','ruby','rust','kotlin','swift','dart'
             ];
 
-            // ---------------- scan repos ----------------
+            // ---------- scan repos ----------
             const repos = await github.paginate('GET /users/{username}/repos', {
               username: OWNER, per_page: 100, type: 'public', sort: 'updated'
             });
 
-            const detectedNames = new Set();   // for icons
-            const readableNames = new Set();   // for optional list
+            const detectedNames = new Set();
+            const readableNames = new Set();
 
             for (const r of repos) {
               const repo = r.name;
@@ -169,7 +173,6 @@ jobs:
                 }
               } catch {}
 
-              // Root manifests
               const manifestPaths = [
                 'package.json','requirements.txt','pyproject.toml','pom.xml',
                 'build.gradle','build.gradle.kts','Cargo.toml','composer.json','go.mod'
@@ -249,53 +252,58 @@ jobs:
               }
             }
 
-            // Map to skillicons slugs & order
-            const slugs = new Set();
-            for (const n of detectedNames) { const s = toSlug(n); if (s) slugs.add(s); }
+            // Map to skillicons slugs
+            const slugsFromDetections = new Set();
+            for (const n of detectedNames) {
+              const s = toSlug(n);
+              if (s) slugsFromDetections.add(s);
+            }
+
+            // Merge seed icons + detected, then order & dedupe
+            const seed = SEED_ICONS.map(toSlug).filter(Boolean);
+            const merged = new Set([...seed, ...slugsFromDetections]);
 
             const ordered = [
-              ...preferred.filter(s => slugs.has(s)),
-              ...[...slugs].filter(s => !preferred.includes(s)).sort()
+              ...preferred.filter(s => merged.has(s)),
+              ...[...merged].filter(s => !preferred.includes(s)).sort()
             ];
 
-            // Build icons row WITHOUT backticks (safe for YAML)
+            // Build ONE icons row
             const perline = Math.min(MAX_PER_LINE, Math.max(ordered.length, 1));
             const darkURL  = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline + '&theme=dark';
             const lightURL = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline;
 
-            const iconsLines = [
+            const iconsBlock = [
               '<p align="center">',
               '  <picture>',
               '    <source media="(prefers-color-scheme: dark)" srcset="' + darkURL + '">',
               '    <img src="' + lightURL + '" alt="Detected tech stack icons">',
               '  </picture>',
               '</p>'
-            ];
-            const iconsBlock = iconsLines.join('\n');
+            ].join('\n');
 
-            // Optional readable list (also no backticks)
-            const listMd =
-              '# Detected frameworks, libs & tools\n\n' +
-              [...readableNames].sort().map(x => '- ' + x).join('\n') +
-              '\n';
-
-            // Inject into README
+            const readme = fs.readFileSync(README_PATH, 'utf8');
             function inject(src, start, end, payload) {
               const i1 = src.indexOf(start), i2 = src.indexOf(end);
               if (i1 === -1 || i2 === -1) return null;
               return src.slice(0, i1 + start.length) + '\n' + payload + '\n' + src.slice(i2);
             }
 
-            const readme = fs.readFileSync(README_PATH, 'utf8');
             const TECH_START = '<!--TECH:START-->';
             const TECH_END   = '<!--TECH:END-->';
             let updated = inject(readme, TECH_START, TECH_END, iconsBlock);
             if (!updated) core.setFailed('TECH markers not found in README.md');
 
-            const AUTO_START = '<!--AUTOSTACK:START-->';
-            const AUTO_END   = '<!--AUTOSTACK:END-->';
-            const maybe = inject(updated, AUTO_START, AUTO_END, listMd);
-            updated = maybe || updated;
+            if (WRITE_AUTOSTACK) {
+              const listMd =
+                '# Detected frameworks, libs & tools\n\n' +
+                [...new Set([...detectedNames])].sort().map(x => '- ' + x).join('\n') +
+                '\n';
+              const AUTO_START = '<!--AUTOSTACK:START-->';
+              const AUTO_END   = '<!--AUTOSTACK:END-->';
+              const maybe = inject(updated, AUTO_START, AUTO_END, listMd);
+              updated = maybe || updated;
+            }
 
             if (updated !== readme) {
               fs.writeFileSync(README_PATH, updated, 'utf8');
@@ -308,7 +316,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "docs: auto-update tech icons"
-          file_pattern: |
-            README.md
-            AUTOSTACK.md
-            .github/workflows/update-tech.yml
+          file_pattern: README.md
