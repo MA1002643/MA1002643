@@ -79,21 +79,22 @@ function cardUrls(owner, repo) {
   };
 }
 
-// One responsive column block (no leading spaces to avoid code blocks)
-function col(owner, repo) {
+// One responsive "panel": inline-block so GitHub renders 2-up on wide screens,
+// and min-width forces stacking on narrow screens (mobile) without tables/borders.
+function panel(owner, repo) {
   const { dark, light } = cardUrls(owner, repo);
-  return `<div style="width:100%; box-sizing:border-box;">
+  return `<span style="display:inline-block; vertical-align:top; width:49%; min-width:320px; max-width:500px; box-sizing:border-box; padding:6px;">
 <a href="https://github.com/${owner}/${repo}">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="${dark}">
 <img alt="${repo}" src="${light}" width="100%">
 </picture>
 </a>
-</div>`;
+</span>`;
 }
 
 async function main() {
-  // score recent activity
+  // Score recent activity
   const events = await fetchPublicEvents(USERNAME);
   const counts = new Map();
   for (const ev of events) {
@@ -107,7 +108,7 @@ async function main() {
 
   let top = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([f]) => f);
 
-  // fallback: most recently updated user repos
+  // Fallback: most recently updated user repos
   if (top.length < 2) {
     const fallback = await fetchFallbackUpdatedRepos(USERNAME);
     for (const f of fallback) {
@@ -123,19 +124,17 @@ async function main() {
     return;
   }
 
-  const columns = top
+  const panels = top
     .map((full) => {
       const [owner, repo] = full.split("/");
-      return col(owner, repo);
+      return panel(owner, repo);
     })
     .join("");
 
-  // CSS Grid: two columns on laptop/desktop; stacks on narrow/mobile automatically.
-  // minmax(380px, 1fr): two columns when container >= ~760px; otherwise one column.
-  const container =
-    `<div align="center" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap:14px; max-width:1000px; margin:0 auto; align-items:stretch;">` +
-    `${columns}` +
-    `</div>`;
+  // Container: font-size:0 removes the tiny inline-block gap; no tables → no outline.
+  const container = `<div align="center" style="max-width:1000px; margin:0 auto; text-align:center; font-size:0;">
+${panels}
+</div>`;
 
   const newBlock = `${START_MARK}
 <h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
