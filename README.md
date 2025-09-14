@@ -71,21 +71,23 @@
 
 <!-- PINNED: START -->
 <h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
-<div align="center" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap:14px; max-width:1000px; margin:0 auto; align-items:stretch;"><div style="width:100%; box-sizing:border-box;">
+<div align="center" style="max-width:1000px; margin:0 auto; text-align:center; font-size:0;">
+<span style="display:inline-block; vertical-align:top; width:49%; min-width:320px; max-width:500px; box-sizing:border-box; padding:6px;">
 <a href="https://github.com/MA1002643/jokes-app">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=jokes-app&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117&border_color=30363D">
 <img alt="jokes-app" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=jokes-app&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff&border_color=0c1a25" width="100%">
 </picture>
 </a>
-</div><div style="width:100%; box-sizing:border-box;">
+</span><span style="display:inline-block; vertical-align:top; width:49%; min-width:320px; max-width:500px; box-sizing:border-box; padding:6px;">
 <a href="https://github.com/MA1002643/Article-Server">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Article-Server&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117&border_color=30363D">
 <img alt="Article-Server" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Article-Server&show_owner=false&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff&border_color=0c1a25" width="100%">
 </picture>
 </a>
-</div></div>
+</span>
+</div>
 <!-- PINNED: END -->
 
 ---
