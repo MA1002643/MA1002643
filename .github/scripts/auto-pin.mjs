@@ -68,29 +68,28 @@ async function fetchFallbackUpdatedRepos(user) {
 
 function cardUrls(owner, repo) {
   const showOwner = owner.toLowerCase() !== USERNAME.toLowerCase();
+  // NOTE: hide_border=true removes the visible outline from the cards
   const common = `username=${encodeURIComponent(
     owner
   )}&repo=${encodeURIComponent(
     repo
-  )}&show_owner=${showOwner}&hide_border=false&title_color=ff652f&icon_color=FFE400&cache_seconds=21600`;
+  )}&show_owner=${showOwner}&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600`;
   return {
-    dark: `https://${STATS_DOMAIN}/api/pin/?${common}&text_color=ffffff&bg_color=0D1117&border_color=30363D`,
-    light: `https://${STATS_DOMAIN}/api/pin/?${common}&text_color=0c1a25&bg_color=ffffff&border_color=0c1a25`,
+    dark: `https://${STATS_DOMAIN}/api/pin/?${common}&text_color=ffffff&bg_color=0D1117`,
+    light: `https://${STATS_DOMAIN}/api/pin/?${common}&text_color=0c1a25&bg_color=ffffff`,
   };
 }
 
-// One responsive "panel": inline-block so GitHub renders 2-up on wide screens,
-// and min-width forces stacking on narrow screens (mobile) without tables/borders.
-function panel(owner, repo) {
+function td(owner, repo) {
   const { dark, light } = cardUrls(owner, repo);
-  return `<span style="display:inline-block; vertical-align:top; width:49%; min-width:320px; max-width:500px; box-sizing:border-box; padding:6px;">
+  return `<td align="center" valign="top" width="50%">
 <a href="https://github.com/${owner}/${repo}">
 <picture>
 <source media="(prefers-color-scheme: dark)" srcset="${dark}">
-<img alt="${repo}" src="${light}" width="100%">
+<img alt="${repo}" src="${light}" width="480">
 </picture>
 </a>
-</span>`;
+</td>`;
 }
 
 async function main() {
@@ -124,21 +123,21 @@ async function main() {
     return;
   }
 
-  const panels = top
+  const cells = top
     .map((full) => {
       const [owner, repo] = full.split("/");
-      return panel(owner, repo);
+      return td(owner, repo);
     })
     .join("");
 
-  // Container: font-size:0 removes the tiny inline-block gap; no tables → no outline.
-  const container = `<div align="center" style="max-width:1000px; margin:0 auto; text-align:center; font-size:0;">
-${panels}
-</div>`;
-
+  // Simple 2-col table; borderless. No leading spaces at line start.
   const newBlock = `${START_MARK}
 <h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
-${container}
+<table align="center" cellspacing="0" cellpadding="4" border="0" style="border:0; border-collapse:collapse; margin:0 auto;">
+<tr>
+${cells}
+</tr>
+</table>
 ${END_MARK}`;
 
   const readme = fs.readFileSync(README_PATH, "utf8");
