@@ -120,14 +120,97 @@
 
 <!-- Auto-generated icons will be injected here by the workflow -->
 <!--TECH:START-->
-<!-- (Workflow injects an additional icons row here) -->
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,prisma,jest,eslint,prettier,java,bash,c,threejs,vue&perline=14&theme=dark">
+    <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,prisma,jest,eslint,prettier,java,bash,c,threejs,vue&perline=14" alt="Detected tech stack icons">
+  </picture>
+</p>
 <!--TECH:END-->
 
 <details>
 <summary><b>Tech used in my repository</b></summary>
 
 <!--AUTOSTACK:START-->
-<!-- (Workflow injects a readable list here) -->
+# Detected frameworks, libs & tools
+
+- @actions/core
+- @actions/github
+- @emailjs/browser
+- @eslint/eslintrc
+- @eslint/js
+- @prisma/client
+- @react-three/drei
+- @react-three/fiber
+- @testing-library/dom
+- @testing-library/jest-dom
+- @types/express
+- @types/jest
+- @types/node
+- @types/supertest
+- @uppercod/css-to-object
+- C#
+- CSS
+- Dockerfile
+- HTML
+- Java
+- JavaScript
+- Processing
+- Shell
+- TypeScript
+- Vue
+- autoprefixer
+- axios
+- axios-mock-adapter
+- clsx
+- color-contrast-checker
+- cors
+- cross-env
+- dotenv
+- emailjs-com
+- emoji-name-map
+- eslint
+- eslint-config-next
+- eslint-config-prettier
+- eslint-plugin-import
+- eslint-plugin-jsdoc
+- eslint-plugin-react
+- express
+- framer-motion
+- github-username-regex
+- globals
+- hjson
+- husky
+- jest
+- jest-bench
+- jest-environment-jsdom
+- js-yaml
+- lint-staged
+- lodash.snakecase
+- lucide-react
+- morgan
+- next
+- parse-diff
+- postcss
+- prettier
+- prettier-plugin-tailwindcss
+- prisma
+- react
+- react-dom
+- react-hook-form
+- react-icons
+- sonner
+- supertest
+- swiper
+- tailwindcss
+- three
+- ts-jest
+- ts-node
+- tsx
+- typescript
+- upgrade
+- word-wrap
+
 <!--AUTOSTACK:END-->
 
 </details>
