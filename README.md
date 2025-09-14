@@ -122,7 +122,7 @@
 <!--TECH:END-->
 
 <details>
-<summary><b>Everything detected across my repos (auto-updated)</b></summary>
+<summary><b>Tech used in my repository</b></summary>
 
 <!--AUTOSTACK:START-->
 
@@ -180,6 +180,7 @@ Loading tech stack…
 ### ⚡ Recent GitHub Activity
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -188,7 +189,9 @@ Loading tech stack…
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Sunday, September 14th, 2025, 1:05:02 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 
 ---
