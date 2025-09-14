@@ -147,14 +147,6 @@
   </picture>
 </p>
 
-<!-- Animated contribution snake (generated nightly by a workflow) -->
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/snake/github-contribution-grid-snake-dark.svg">
-    <img alt="Snake" src="./assets/snake/github-contribution-grid-snake.svg">
-  </picture>
-</p>
-
 ---
 
 ### 🧪 Featured Projects
