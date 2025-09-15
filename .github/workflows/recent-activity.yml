@@ -1,4 +1,3 @@
-# .github/workflows/recent-activity.yml
 name: Update recent activity
 
 on:
@@ -17,15 +16,65 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
+      # 1) Update the activity list (writes only if entries changed)
       - name: Update README with recent activity
         uses: Readme-Workflows/recent-activity@v2.4.1
-        env:
-          # required by the action – do NOT rename to "with:"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # optional (defaults to repo owner). Keeping it explicit for clarity:
           GH_USERNAME: MA1002643
-          # tell it where the config file is
-          CONFIG_FILE: ./.github/recent-activity.config.yml
+
+      # 2) Always refresh the "Last Updated" line between your markers,
+      #    even when there were no new events.
+      - name: Force-refresh "Last Updated" line
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const core = require('@actions/core');
+
+            const README = './README.md';
+            const START = '<!--RECENT_ACTIVITY:last_update-->';
+            const END   = '<!--RECENT_ACTIVITY:last_update_end-->';
+
+            // Ordinal helper (1st, 2nd, 3rd, 4th…)
+            const ordinal = (n) => {
+              const s = ['th','st','nd','rd'], v = n % 100;
+              return n + (s[(v - 20) % 10] || s[v] || s[0]);
+            };
+
+            // Europe/London time, parts API so we can inject the ordinal & AM/PM
+            const tz = 'Europe/London';
+            const parts = new Intl.DateTimeFormat('en-GB', {
+              timeZone: tz,
+              weekday: 'long',
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12: true
+            }).formatToParts(new Date()).reduce((acc, p) => (acc[p.type] = p.value, acc), {});
+
+            const dayNum = parseInt(parts.day, 10);
+            const line = `Last Updated: ${parts.weekday}, ${parts.month} ${ordinal(dayNum)}, ${parts.year}, ${parts.hour}:${parts.minute}:${parts.second} ${parts.dayPeriod}`;
+
+            let md = fs.readFileSync(README, 'utf8');
+            const blockRE = new RegExp(`${START}[\\s\\S]*?${END}`, 'm');
+
+            if (!blockRE.test(md)) {
+              core.setFailed('Recent-activity last_update markers not found in README.md');
+            } else {
+              const replacement = `${START}\n${line}\n${END}`;
+              md = md.replace(blockRE, replacement);
+              fs.writeFileSync(README, md, 'utf8');
+              core.notice(line);
+            }
+
+      - name: Commit timestamp bump
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: bump recent-activity timestamp"
+          file_pattern: README.md
