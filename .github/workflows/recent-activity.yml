@@ -15,8 +15,8 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    # Make the token available as an ENV VAR (what the action expects)
     env:
+      # The action expects this env var, not an input
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
@@ -26,15 +26,14 @@ jobs:
       # Reads .github/recent-activity.config.yml and updates README
       - name: Update README with recent activity
         uses: Readme-Workflows/recent-activity@v2.4.1
-        # DO NOT pass token as "with:" inputs; the action reads env.GITHUB_TOKEN
+        # Do not pass inputs; it reads your config file and env.GITHUB_TOKEN
 
-      # Always refresh the "Last Updated" line so it bumps even with no new events
+      # Keep the "Last Updated" line fresh even if there are no new events
       - name: Force-refresh "Last Updated" line
         uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('fs');
-            const core = require('@actions/core');
+            const fs = require('fs'); // 'core' is provided by github-script; don't re-require it.
 
             const README = './README.md';
             const START = '<!--RECENT_ACTIVITY:last_update-->';
@@ -63,7 +62,7 @@ jobs:
             let md = fs.readFileSync(README, 'utf8');
             const blockRE = new RegExp(`${START}[\\s\\S]*?${END}`, 'm');
             if (!blockRE.test(md)) {
-              core.setFailed('Recent-activity last_update markers not found in README.md');
+              core.setFailed('Markers not found: RECENT_ACTIVITY:last_update / _end');
             } else {
               md = md.replace(blockRE, `${START}\n${line}\n${END}`);
               fs.writeFileSync(README, md, 'utf8');
