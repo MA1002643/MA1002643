@@ -138,10 +138,8 @@
       src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=ffffff&text_color=0C1A25&border_color=0c1a25&cache_seconds=7200"
       style="max-width: 100%; height: auto;" />
   </picture>
-</p>
-
-<p align="center">
-  <picture>
+  &nbsp;&nbsp;
+    <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com?user=MA1002643&hide_border=false&fire=FF652F&ring=FF652F&currStreakNum=FFE400&currStreakLabel=FFE400&background=0D1117&stroke=30363D">
     <img alt="Streak" src="https://streak-stats.demolab.com?user=MA1002643&hide_border=false&ring=FF652F&fire=FF652F">
   </picture>
@@ -153,7 +151,6 @@
     <img alt="Activity Graph" src="https://github-readme-activity-graph.vercel.app/graph?username=MA1002643&theme=minimal&hide_title=true&area=true">
   </picture>
 </p>
-
 ---
 
 ### 🧪 Featured Projects
@@ -169,6 +166,7 @@
 ### ⚡ Recent GitHub Activity
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -177,7 +175,9 @@
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Tuesday, September 23rd, 2025, 12:12:20 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 
 ---
