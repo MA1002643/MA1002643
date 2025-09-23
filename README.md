@@ -111,6 +111,12 @@
 ### 🧰 Tech I Use
 
 <!--TECH:START-->
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24&theme=dark&r=1758594005783">
+    <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24&r=1758594005783" alt="Detected tech stack icons" />
+  </picture>
+</p>
 <!--TECH:END-->
 
 ---
