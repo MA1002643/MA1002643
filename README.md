@@ -112,6 +112,12 @@
 
 <!-- The workflow will inject ONE combined row (manual seeds + detected) here -->
 <!--TECH:START-->
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24&theme=dark">
+    <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24" alt="Tech I Use (auto + manual)" />
+  </picture>
+</p>
 <!--TECH:END-->
 
 ---
