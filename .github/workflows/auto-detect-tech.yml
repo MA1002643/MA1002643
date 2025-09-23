@@ -1,0 +1,275 @@
+name: Auto-detect tech stack
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * 1" # Mondays 08:00 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    # ⬇️ Your settings go HERE (not at top-level)
+    env:
+      OWNER: MA1002643
+      README_PATH: README.md
+
+      # Keep all icons on one single row
+      MAX_PER_LINE: "40" # big enough so everything fits one row
+      MAX_ICONS: "40" # optional cap
+
+      # Always include these first (your manual picks)
+      SEED_ICONS: "nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws"
+
+      # Also write the long bullet list under AUTOSTACK markers? (false = skip)
+      WRITE_AUTOSTACK: "false"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build & inject icons (single-row, seeds + detected)
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |-
+            const fs = require('fs');
+
+            const OWNER = process.env.OWNER || context.repo.owner;
+            const README_PATH = process.env.README_PATH || 'README.md';
+            const MAX_PER_LINE = parseInt(process.env.MAX_PER_LINE || '40', 10);
+            const MAX_ICONS = parseInt(process.env.MAX_ICONS || '40', 10);
+            const WRITE_AUTOSTACK = (process.env.WRITE_AUTOSTACK || 'false').toLowerCase() === 'true';
+            const SEED_ICONS = (process.env.SEED_ICONS || '').split(',').map(s => s.trim()).filter(Boolean);
+
+            // ---- helpers ----
+            const norm = s => (s || '')
+              .toLowerCase()
+              .replace(/^@?types\//,'')
+              .replace(/^@?nestjs\//,'nestjs')
+              .replace(/^@?angular\//,'angular')
+              .replace(/^@?mui\//,'mui')
+              .replace(/^@?apollo\//,'apollo')
+              .replace(/@.*$/,'')
+              .replace(/[><=~^*].*$/,'')
+              .replace(/[^a-z0-9+._-]/g,'')
+              .trim();
+
+            function toSlug(name) {
+              const k = norm(name);
+              // languages
+              if (k==='javascript'||k==='js') return 'js';
+              if (k==='typescript'||k==='ts') return 'ts';
+              if (k==='python'||k==='py') return 'py';
+              if (k==='java') return 'java';
+              if (k==='go'||k==='golang') return 'go';
+              if (k==='csharp'||k==='c#') return 'cs';
+              if (k==='cpp'||k==='c++') return 'cpp';
+              if (k==='c') return 'c';
+              if (k==='php') return 'php';
+              if (k==='ruby') return 'ruby';
+              if (k==='kotlin') return 'kotlin';
+              if (k==='swift') return 'swift';
+              if (k==='dart') return 'dart';
+              if (k==='rust') return 'rust';
+              if (k==='r') return 'r';
+              // frontend
+              if (k==='react'||k==='reactdom') return 'react';
+              if (k==='next'||k==='nextjs'||k==='next.js') return 'nextjs';
+              if (k==='vue'||k==='vuejs') return 'vue';
+              if (k==='nuxt'||k==='nuxtjs') return 'nuxtjs';
+              if (k==='svelte') return 'svelte';
+              if (k==='angular') return 'angular';
+              if (k==='tailwind'||k==='tailwindcss') return 'tailwind';
+              if (k==='vite') return 'vite';
+              if (k==='webpack') return 'webpack';
+              if (k==='babel') return 'babel';
+              if (k==='three'||k==='threejs') return 'threejs';
+              // backend/runtime
+              if (k==='node'||k==='nodejs'||k==='node.js') return 'nodejs';
+              if (k==='express'||k==='expressjs') return 'express';
+              if (k==='nestjs') return 'nestjs';
+              if (k==='deno') return 'deno';
+              if (k==='bun') return 'bun';
+              // db
+              if (k==='mongodb'||k==='mongoose') return 'mongodb';
+              if (k==='mysql'||k==='mysql2') return 'mysql';
+              if (k==='postgres'||k==='postgresql'||k==='pg') return 'postgres';
+              if (k==='sqlite') return 'sqlite';
+              if (k==='mariadb') return 'mariadb';
+              if (k==='redis') return 'redis';
+              // orm
+              if (k==='prisma') return 'prisma';
+              if (k==='sequelize') return 'sequelize';
+              if (k==='typeorm') return 'typeorm';
+              // cloud/devops
+              if (k==='aws'||k==='awssdk'||k==='awscli') return 'aws';
+              if (k==='azure') return 'azure';
+              if (k==='gcp'||k==='googlecloud') return 'gcp';
+              if (k==='vercel') return 'vercel';
+              if (k==='docker') return 'docker';
+              if (k==='kubernetes'||k==='k8s') return 'kubernetes';
+              if (k==='terraform') return 'terraform';
+              if (k==='ansible') return 'ansible';
+              if (k==='nginx') return 'nginx';
+              if (k==='githubactions'||k==='ghactions'||k==='actions') return 'githubactions';
+              if (k==='git') return 'git';
+              // testing/tooling
+              if (k==='jest') return 'jest';
+              if (k==='cypress') return 'cypress';
+              if (k==='playwright') return 'playwright';
+              if (k==='postman') return 'postman';
+              if (k==='eslint') return 'eslint';
+              if (k==='prettier') return 'prettier';
+              if (k==='storybook') return 'storybook';
+              // ui
+              if (k==='mui'||k==='materialui') return 'mui';
+              if (k==='chakraui'||k==='chakra') return 'chakraui';
+              // mobile/desktop
+              if (k==='reactnative') return 'react';
+              if (k==='flutter') return 'flutter';
+              if (k==='electron') return 'electron';
+              // .net
+              if (k==='dotnet'||k==='.net') return 'dotnet';
+              // misc
+              if (k==='graphql') return 'graphql';
+              if (k==='apollo') return 'apollo';
+              if (k==='firebase') return 'firebase';
+              if (k==='supabase') return 'supabase';
+              if (k==='linux') return 'linux';
+              if (k==='bash'||k==='shell') return 'bash';
+              if (k==='powershell') return 'powershell';
+              if (k==='npm') return 'npm';
+              if (k==='pnpm') return 'pnpm';
+              if (k==='yarn') return 'yarn';
+              return null;
+            }
+
+            const preferred = [
+              'nextjs','react','ts','js','tailwind','nodejs','express',
+              'mongodb','postgres','mysql','prisma',
+              'git','githubactions','docker','vercel',
+              'dotnet','aws','azure','gcp',
+              'redis','sqlite','mariadb',
+              'jest','cypress','playwright','postman',
+              'eslint','prettier','webpack','vite',
+              'graphql','apollo','firebase','supabase',
+              'kubernetes','terraform','nginx',
+              'py','java','go','cs','cpp','php','ruby','rust','kotlin','swift','dart'
+            ];
+
+            async function listRepos(owner) {
+              const out = [];
+              for (let page = 1; page <= 5; page++) {
+                const { data } = await github.request('GET /users/{username}/repos', {
+                  username: owner, per_page: 100, page, type: 'public', sort: 'updated'
+                });
+                if (!data || !data.length) break;
+                out.push(...data);
+              }
+              return out;
+            }
+
+            (async () => {
+              // collect detections
+              const detected = new Set();
+              const repos = await listRepos(OWNER);
+
+              for (const r of repos) {
+                const repo = r.name;
+
+                // Languages API (fast + safe)
+                try {
+                  const langs = await github.request('GET /repos/{owner}/{repo}/languages', {
+                    owner: OWNER, repo
+                  });
+                  Object.keys(langs.data || {}).forEach(k => detected.add(k));
+                } catch {}
+
+                // quick root manifest peek (package.json only, to keep script lightweight)
+                try {
+                  const { data } = await github.request(
+                    'GET /repos/{owner}/{repo}/contents/{path}',
+                    { owner: OWNER, repo, path: 'package.json', ref: r.default_branch || 'main' }
+                  );
+                  if (data?.type === 'file' && data.content) {
+                    const txt = Buffer.from(data.content, 'base64').toString('utf8');
+                    try {
+                      const j = JSON.parse(txt);
+                      const deps = Object.keys(j.dependencies || {});
+                      const dev  = Object.keys(j.devDependencies || {});
+                      [...deps, ...dev].forEach(n => detected.add(n));
+                    } catch {}
+                  }
+                } catch {}
+              }
+
+              // map to skillicons slugs
+              const detSlugs = new Set();
+              for (const n of detected) {
+                const s = toSlug(n);
+                if (s) detSlugs.add(s);
+              }
+
+              // merge seeds + detections, keep order/cap/one row
+              const seed = SEED_ICONS.map(toSlug).filter(Boolean);
+              const merged = new Set([...seed, ...detSlugs]);
+
+              const ordered = [
+                ...preferred.filter(s => merged.has(s)),
+                ...[...merged].filter(s => !preferred.includes(s)).sort()
+              ].slice(0, MAX_ICONS);
+
+              const perline = Math.min(MAX_PER_LINE, Math.max(ordered.length, 1));
+              const darkURL  = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline + '&theme=dark';
+              const lightURL = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline;
+
+              const iconsBlock = [
+                '<p align="center">',
+                '  <picture>',
+                '    <source media="(prefers-color-scheme: dark)" srcset="' + darkURL + '">',
+                '    <img src="' + lightURL + '" alt="Tech I Use (auto + manual)" />',
+                '  </picture>',
+                '</p>'
+              ].join('\n');
+
+              // inject between markers
+              function inject(src, start, end, payload) {
+                const i1 = src.indexOf(start), i2 = src.indexOf(end);
+                if (i1 === -1 || i2 === -1) throw new Error('TECH markers not found');
+                return src.slice(0, i1 + start.length) + '\n' + payload + '\n' + src.slice(i2);
+              }
+
+              const TECH_START = '<!--TECH:START-->';
+              const TECH_END   = '<!--TECH:END-->';
+              let readme = fs.readFileSync(README_PATH, 'utf8');
+              let updated = inject(readme, TECH_START, TECH_END, iconsBlock);
+
+              if (WRITE_AUTOSTACK) {
+                const AUTO_START = '<!--AUTOSTACK:START-->';
+                const AUTO_END   = '<!--AUTOSTACK:END-->';
+                const listMd =
+                  '# Detected frameworks, libs & tools\\n\\n' +
+                  [...new Set([...detected])].sort().map(x => '- ' + x).join('\\n') +
+                  '\\n';
+                const i1 = updated.indexOf(AUTO_START), i2 = updated.indexOf(AUTO_END);
+                if (i1 !== -1 && i2 !== -1) {
+                  updated = updated.slice(0, i1 + AUTO_START.length) + '\n' + listMd + '\n' + updated.slice(i2);
+                }
+              }
+
+              if (updated !== readme) {
+                fs.writeFileSync(README_PATH, updated, 'utf8');
+                core.notice('Injected ' + ordered.length + ' icons into TECH section');
+              } else {
+                core.notice('No changes to README.md');
+              }
+            })();
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: auto-update tech icons"
+          file_pattern: README.md

@@ -110,15 +110,7 @@
 
 ### 🧰 Tech I Use
 
-<!-- Manual icons (you control these) -->
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=next,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws&perline=14&theme=dark">
-    <img src="https://skillicons.dev/icons?i=next,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws&perline=14" alt="Manual tech icons">
-  </picture>
-</p>
-
-<!-- Auto-generated between markers by the workflow (DO NOT EDIT) -->
+<!-- The workflow will inject ONE combined row (manual seeds + detected) here -->
 <!--TECH:START-->
 <!--TECH:END-->
 
@@ -184,11 +176,6 @@ Last Updated: Tuesday, September 23rd, 2025, 2:00:15 AM
 ---
 
 <p align="center">
-  <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=MA1002643&row=1&column=6&margin-w=8&margin-h=8&theme=algolia" alt="Trophies"></a>
-</p>
-
-<p align="center">
-  <a href="https://muhammadabdullah227.co.uk">Website</a> •
-  <a href="https://linkedin.com/in/muhammad-abdullah227">LinkedIn</a> •
-  <a href="https://github.com/MA1002643">GitHub</a>
+  <img alt="Trophies"
+       src="https://github-profile-trophy.vercel.app/?username=MA1002643&theme=apprentice&no-frame=true&no-bg=true&row=1&column=6&margin-w=12&margin-h=12" />
 </p>
