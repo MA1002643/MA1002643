@@ -3,29 +3,42 @@ name: Auto-pin top repos
 on:
   schedule:
     - cron: "*/30 * * * *" # every 30 minutes
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 permissions:
   contents: write
 
+# Prevent overlapping scheduled runs from piling up
+concurrency:
+  group: auto-pin-top-repos
+  cancel-in-progress: true
+
 jobs:
   update-pins:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: "20"
 
-      - name: Build new pinned section
+      # Retry the script to survive transient GitHub API 5xx errors
+      - name: Build new pinned section (retry on 5xx)
+        uses: nick-fields/retry@v3
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # default repo token
-          GH_USERNAME: MA1002643 # change if needed
-          # Optional: if you self-host github-readme-stats, set a repo variable STATS_DOMAIN (no protocol)
+          GH_USERNAME: MA1002643
           STATS_DOMAIN: ${{ vars.STATS_DOMAIN }}
-        run: node .github/scripts/auto-pin.mjs
+        with:
+          max_attempts: 4
+          timeout_minutes: 5
+          command: node .github/scripts/auto-pin.mjs
 
       - name: Commit README change
         uses: stefanzweifel/git-auto-commit-action@v5
