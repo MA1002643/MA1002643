@@ -15,60 +15,56 @@ jobs:
       OWNER: MA1002643
       README_PATH: README.md
 
-      # Keep URLs short and reliable by chunking
-      CHUNK_SIZE: "10" # icons per image
-      MAX_ICONS: "28" # total icons (cap)
+      # Make 22 icons = 2 chunks of 11 (adjust as you like)
+      CHUNK_SIZE: "11"
+      MAX_ICONS: "40"
 
-      # Always include these first (manual seeds)
+      # Always include these first
       SEED_ICONS: "nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws"
 
-      # Optional: also write the plaintext list
+      # Write the long text list too? (false keeps README clean)
       WRITE_AUTOSTACK: "false"
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build & inject icons (chunked)
+      - name: Build & inject icons (GitHub-safe)
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
+            const core = require('@actions/core');
 
             const OWNER = process.env.OWNER || context.repo.owner;
             const README_PATH = process.env.README_PATH || 'README.md';
-            const CHUNK_SIZE = parseInt(process.env.CHUNK_SIZE || '10', 10);
-            const MAX_ICONS = parseInt(process.env.MAX_ICONS || '28', 10);
+            const CHUNK_SIZE = parseInt(process.env.CHUNK_SIZE || '11', 10);
+            const MAX_ICONS = parseInt(process.env.MAX_ICONS || '40', 10);
             const WRITE_AUTOSTACK = (process.env.WRITE_AUTOSTACK || 'false').toLowerCase() === 'true';
             const SEED_ICONS = (process.env.SEED_ICONS || '').split(',').map(s=>s.trim()).filter(Boolean);
 
             const norm = s => (s||'').toLowerCase()
-              .replace(/^@?types\//,'')
-              .replace(/^@?nestjs\//,'nestjs')
-              .replace(/^@?angular\//,'angular')
-              .replace(/^@?mui\//,'mui')
-              .replace(/^@?apollo\//,'apollo')
-              .replace(/@.*$/,'')
-              .replace(/[><=~^*].*$/,'')
-              .replace(/[^a-z0-9+._-]/g,'')
-              .trim();
+              .replace(/^@?types\//,'').replace(/^@?nestjs\//,'nestjs')
+              .replace(/^@?angular\//,'angular').replace(/^@?mui\//,'mui')
+              .replace(/^@?apollo\//,'apollo').replace(/@.*$/,'')
+              .replace(/[><=~^*].*$/,'').replace(/[^a-z0-9+._-]/g,'').trim();
 
             function toSlug(name){
               const k = norm(name);
-              const map = new Map([
+              const pairs = [
                 // languages
                 [['javascript','js'],'js'], [['typescript','ts'],'ts'], [['python','py'],'py'],
                 [['java'],'java'], [['go','golang'],'go'], [['csharp','c#'],'cs'], [['cpp','c++'],'cpp'],
-                [['c'],'c'], [['php'],'php'], [['ruby'],'ruby'], [['kotlin'],'kotlin'], [['swift'],'swift'],
-                [['dart'],'dart'], [['rust'],'rust'],
+                [['c'],'c'], [['php'],'php'], [['ruby'],'ruby'], [['kotlin'],'kotlin'],
+                [['swift'],'swift'], [['dart'],'dart'], [['rust'],'rust'],
                 // frontend
-                [['react','reactdom'],'react'], [['next','nextjs','next.js'],'nextjs'], [['vue','vuejs'],'vue'],
-                [['nuxt','nuxtjs'],'nuxtjs'], [['svelte'],'svelte'], [['angular'],'angular'],
-                [['tailwind','tailwindcss'],'tailwind'], [['vite'],'vite'], [['webpack'],'webpack'],
-                [['babel'],'babel'], [['three','threejs'],'threejs'],
+                [['react','reactdom'],'react'], [['next','nextjs','next.js'],'nextjs'],
+                [['vue','vuejs'],'vue'], [['nuxt','nuxtjs'],'nuxtjs'], [['svelte'],'svelte'],
+                [['angular'],'angular'], [['tailwind','tailwindcss'],'tailwind'],
+                [['vite'],'vite'], [['webpack'],'webpack'], [['babel'],'babel'], [['three','threejs'],'threejs'],
                 // backend/runtime
-                [['node','nodejs','node.js'],'nodejs'], [['express','expressjs'],'express'],
-                [['nestjs'],'nestjs'], [['deno'],'deno'], [['bun'],'bun'],
+                [['node','nodejs','node.js'],'nodejs'], [['express','expressjs'],'express'], [['nestjs'],'nestjs'],
+                [['deno'],'deno'], [['bun'],'bun'],
                 // db
                 [['mongodb','mongoose'],'mongodb'], [['mysql','mysql2'],'mysql'],
                 [['postgres','postgresql','pg'],'postgres'], [['sqlite'],'sqlite'], [['mariadb'],'mariadb'],
@@ -94,8 +90,8 @@ jobs:
                 [['graphql'],'graphql'], [['apollo'],'apollo'], [['firebase'],'firebase'],
                 [['supabase'],'supabase'], [['linux'],'linux'], [['bash','shell'],'bash'],
                 [['powershell'],'powershell'], [['npm'],'npm'], [['pnpm'],'pnpm'], [['yarn'],'yarn'],
-              ]);
-              for (const [keys,val] of map.entries()) if (keys.includes(k)) return val;
+              ];
+              for (const [keys,val] of pairs) if (keys.includes(k)) return val;
               return null;
             }
 
@@ -112,35 +108,31 @@ jobs:
               'py','java','go','cs','cpp','php','ruby','rust','kotlin','swift','dart'
             ];
 
-            async function listPublicRepos(owner){
-              const repos=[];
-              for(let page=1; page<=5; page++){
+            async function listRepos(owner){
+              const repos=[]; for(let p=1;p<=5;p++){
                 const {data}=await github.request('GET /users/{username}/repos',{
-                  username: owner, per_page: 100, page, type:'public', sort:'updated'
+                  username: owner, per_page:100, page:p, type:'public', sort:'updated'
                 });
-                if(!data || data.length===0) break;
-                repos.push(...data);
-              }
-              return repos;
+                if(!data?.length) break; repos.push(...data);
+              } return repos;
             }
 
             const detected = new Set();
             const readable = new Set();
 
             let repos=[];
-            try { repos = await listPublicRepos(process.env.OWNER || context.repo.owner); }
-            catch(e){ core.warning('List repos failed: '+(e.message||e)); }
+            try{ repos = await listRepos(OWNER); }catch(e){ core.warning('List failed: '+(e.message||e)); }
 
             for(const r of repos){
               const repo=r.name, ref=r.default_branch || 'main';
 
-              // languages
+              // Languages
               try{
                 const langs = await github.request('GET /repos/{owner}/{repo}/languages',{ owner: OWNER, repo });
                 Object.keys(langs.data||{}).forEach(k=>{ detected.add(k); readable.add(k); });
               }catch{}
 
-              // a few root manifests
+              // Root files
               const paths=['package.json','requirements.txt','pyproject.toml','composer.json','go.mod','Cargo.toml'];
               for(const path of paths){
                 try{
@@ -151,24 +143,21 @@ jobs:
                   if(path==='package.json'){
                     try{
                       const j=JSON.parse(text);
-                      [...Object.keys(j.dependencies||{}), ...Object.keys(j.devDependencies||{})]
-                        .forEach(x=>{ detected.add(x); readable.add(x); });
+                      [...Object.keys(j.dependencies||{}), ...Object.keys(j.devDependencies||{})].forEach(x=>{ detected.add(x); readable.add(x); });
                     }catch{}
                   }else if(path==='requirements.txt'){
                     text.split(/\r?\n/).map(l=>l.replace(/#.*/,'').trim()).filter(Boolean)
                       .map(l=>l.split(/[=<>~! ]/)[0]).forEach(x=>{ detected.add(x); readable.add(x); });
                   }else if(path==='pyproject.toml'){
-                    const seg = text.split('[tool.poetry.dependencies]')[1] || '';
+                    const seg=text.split('[tool.poetry.dependencies]')[1]||'';
                     for(const ln of seg.split(/\r?\n/)){
                       if(/^\[.+\]/.test(ln)) break;
-                      const k=(ln.split('=')[0]||'').trim();
-                      if(k){ detected.add(k); readable.add(k); }
+                      const k=(ln.split('=')[0]||'').trim(); if(k){ detected.add(k); readable.add(k); }
                     }
                   }else if(path==='composer.json'){
                     try{
                       const j=JSON.parse(text);
-                      [...Object.keys(j.require||{}), ...Object.keys(j['require-dev']||{})]
-                        .forEach(x=>{ detected.add(x); readable.add(x); });
+                      [...Object.keys(j.require||{}), ...Object.keys(j['require-dev']||{})].forEach(x=>{ detected.add(x); readable.add(x); });
                     }catch{}
                   }else if(path==='go.mod'){
                     const lines=[]; let inBlock=false;
@@ -180,53 +169,44 @@ jobs:
                     }
                     lines.map(m=>(m||'').split('/').pop()).forEach(x=>{ detected.add(x); readable.add(x); });
                   }else if(path==='Cargo.toml'){
-                    const seg2 = text.split('[dependencies]')[1] || '';
+                    const seg2=text.split('[dependencies]')[1]||'';
                     seg2.split(/\r?\n/).map(l=>(l.split('=')[0]||'').trim()).filter(Boolean)
                       .forEach(x=>{ detected.add(x); readable.add(x); });
                   }
-                }catch(e){
-                  if(e.status!==404) core.info(`Skip ${OWNER}/${repo}:${path} (${e.status||e.message})`);
-                }
+                }catch(e){ if(e.status!==404) core.info(`Skip ${OWNER}/${repo}:${path} (${e.status||e.message})`); }
               }
             }
 
-            // seeds + detected -> slugs, order, cap
-            const seedSlugs = SEED_ICONS.map(toSlug).filter(Boolean);
+            // Merge seeds + detections -> valid skillicons slugs
+            const seed = SEED_ICONS.map(toSlug).filter(Boolean);
             const detectedSlugs = [...detected].map(toSlug).filter(Boolean);
-            const merged = new Set([...seedSlugs, ...detectedSlugs]);
+            const merged = new Set([...seed, ...detectedSlugs]);
 
             const ordered = [
               ...preferred.filter(s => merged.has(s)),
               ...[...merged].filter(s => !preferred.includes(s)).sort()
             ].slice(0, MAX_ICONS);
 
-            core.notice(`Using ${ordered.length} icons: ${ordered.join(',')}`);
-
-            // chunk into multiple short skillicons URLs
-            function chunk(arr, size){ const out=[]; for(let i=0;i<arr.length;i+=size) out.push(arr.slice(i,i+size)); return out; }
+            function chunk(arr,n){ const out=[]; for(let i=0;i<arr.length;i+=n) out.push(arr.slice(i,i+n)); return out; }
             const chunks = chunk(ordered, CHUNK_SIZE);
 
+            // GitHub-safe theme switching using #gh-*-mode-only
             const parts = chunks.map(slugs => {
               const list = slugs.join(',');
-              const dark  = 'https://skillicons.dev/icons?i=' + list + '&perline=' + slugs.length + '&theme=dark';
-              const light = 'https://skillicons.dev/icons?i=' + list + '&perline=' + slugs.length;
+              const light = `https://skillicons.dev/icons?i=${list}&perline=${slugs.length}#gh-light-mode-only`;
+              const dark  = `https://skillicons.dev/icons?i=${list}&perline=${slugs.length}&theme=dark#gh-dark-mode-only`;
               return [
                 '<span style="display:inline-block;margin:0 4px;line-height:0;">',
-                '  <picture>',
-                '    <source media="(prefers-color-scheme: dark)" srcset="'+dark+'">',
-                '    <img src="'+light+'" alt="tech-icons" />',
-                '  </picture>',
+                `  <img src="${light}" alt="tech icons">`,
+                `  <img src="${dark}"  alt="tech icons">`,
                 '</span>'
               ].join('\n');
             });
 
-            const html = [
-              '<p align="center" style="display:flex;justify-content:center;gap:0.25rem;flex-wrap:wrap;">',
-              parts.join('\n'),
-              '</p>'
-            ].join('\n');
+            const iconsHTML =
+              '<p align="center">\n' + parts.join('\n') + '\n</p>';
 
-            // inject into README
+            // Inject into README
             function inject(src, start, end, payload){
               const i1 = src.indexOf(start), i2 = src.indexOf(end);
               if (i1 === -1 || i2 === -1) return null;
@@ -234,26 +214,25 @@ jobs:
             }
 
             const TECH_START='<!--TECH:START-->', TECH_END='<!--TECH:END-->';
-            const readme = fs.readFileSync(README_PATH, 'utf8');
-            let updated = inject(readme, TECH_START, TECH_END, html);
-            if(!updated){ core.setFailed('README is missing TECH markers'); return; }
+            let readme = fs.readFileSync(README_PATH,'utf8');
+            let updated = inject(readme, TECH_START, TECH_END, iconsHTML);
+            if(!updated){ core.setFailed('README missing TECH markers'); return; }
 
-            if ((process.env.WRITE_AUTOSTACK || '').toLowerCase()==='true') {
+            if (WRITE_AUTOSTACK){
               const listMd = '# Detected frameworks, libs & tools\\n\\n' +
                 [...new Set([...detected].map(x=>x))].sort().map(x=>'- '+x).join('\\n') + '\\n';
               updated = inject(updated, '<!--AUTOSTACK:START-->', '<!--AUTOSTACK:END-->', listMd) || updated;
             }
 
-            if (updated !== readme) {
-              fs.writeFileSync(README_PATH, 'utf8');
+            if (updated !== readme){
               fs.writeFileSync(README_PATH, updated, 'utf8');
-              core.notice('README updated');
+              core.notice(`Updated README with ${ordered.length} icons in ${chunks.length} chunks`);
             } else {
-              core.notice('No README change');
+              core.notice('No README changes');
             }
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "docs: auto-update tech icons"
+          commit_message: "docs: auto-update tech icons (chunked, GH-safe)"
           file_pattern: README.md
