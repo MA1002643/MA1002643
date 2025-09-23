@@ -110,14 +110,7 @@
 
 ### 🧰 Tech I Use
 
-<!-- The workflow will inject ONE combined row (manual seeds + detected) here -->
 <!--TECH:START-->
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24&theme=dark">
-    <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24" alt="Tech I Use (auto + manual)" />
-  </picture>
-</p>
 <!--TECH:END-->
 
 ---
@@ -165,6 +158,7 @@
 ### ⚡ Recent GitHub Activity
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -173,7 +167,9 @@
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Tuesday, September 23rd, 2025, 3:13:24 am
+
 <!--RECENT_ACTIVITY:last_update_end-->
 
 ---

@@ -9,64 +9,63 @@ permissions:
   contents: write
 
 jobs:
-  scan:
+  tech:
     runs-on: ubuntu-latest
-
-    # ⬇️ Your settings go HERE (not at top-level)
     env:
       OWNER: MA1002643
       README_PATH: README.md
 
-      # Keep all icons on one single row
-      MAX_PER_LINE: "40" # big enough so everything fits one row
-      MAX_ICONS: "40" # optional cap
+      # keep everything on one line
+      MAX_PER_LINE: "40"
+      MAX_ICONS: "28" # safe cap for skillicons URL length
 
-      # Always include these first (your manual picks)
+      # always include these first (your manual row)
       SEED_ICONS: "nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws"
 
-      # Also write the long bullet list under AUTOSTACK markers? (false = skip)
+      # also update the plain text list? (false keeps README clean)
       WRITE_AUTOSTACK: "false"
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build & inject icons (single-row, seeds + detected)
+      - name: Build & inject icons
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |-
+          script: |
             const fs = require('fs');
 
             const OWNER = process.env.OWNER || context.repo.owner;
             const README_PATH = process.env.README_PATH || 'README.md';
             const MAX_PER_LINE = parseInt(process.env.MAX_PER_LINE || '40', 10);
-            const MAX_ICONS = parseInt(process.env.MAX_ICONS || '40', 10);
+            const MAX_ICONS = parseInt(process.env.MAX_ICONS || '28', 10);
             const WRITE_AUTOSTACK = (process.env.WRITE_AUTOSTACK || 'false').toLowerCase() === 'true';
-            const SEED_ICONS = (process.env.SEED_ICONS || '').split(',').map(s => s.trim()).filter(Boolean);
 
-            // ---- helpers ----
+            const SEED_ICONS = (process.env.SEED_ICONS || '')
+              .split(',').map(s => s.trim()).filter(Boolean);
+
             const norm = s => (s || '')
               .toLowerCase()
-              .replace(/^@?types\//,'')
-              .replace(/^@?nestjs\//,'nestjs')
-              .replace(/^@?angular\//,'angular')
-              .replace(/^@?mui\//,'mui')
-              .replace(/^@?apollo\//,'apollo')
-              .replace(/@.*$/,'')
-              .replace(/[><=~^*].*$/,'')
-              .replace(/[^a-z0-9+._-]/g,'')
+              .replace(/^@?types\//, '')
+              .replace(/^@?nestjs\//, 'nestjs')
+              .replace(/^@?angular\//, 'angular')
+              .replace(/^@?mui\//, 'mui')
+              .replace(/^@?apollo\//, 'apollo')
+              .replace(/@.*$/, '')
+              .replace(/[><=~^*].*$/, '')
+              .replace(/[^a-z0-9+._-]/g, '')
               .trim();
 
             function toSlug(name) {
               const k = norm(name);
               // languages
-              if (k==='javascript'||k==='js') return 'js';
-              if (k==='typescript'||k==='ts') return 'ts';
-              if (k==='python'||k==='py') return 'py';
+              if (['javascript','js'].includes(k)) return 'js';
+              if (['typescript','ts'].includes(k)) return 'ts';
+              if (['python','py'].includes(k)) return 'py';
               if (k==='java') return 'java';
-              if (k==='go'||k==='golang') return 'go';
-              if (k==='csharp'||k==='c#') return 'cs';
-              if (k==='cpp'||k==='c++') return 'cpp';
+              if (['go','golang'].includes(k)) return 'go';
+              if (['csharp','c#'].includes(k)) return 'cs';
+              if (['cpp','c++'].includes(k)) return 'cpp';
               if (k==='c') return 'c';
               if (k==='php') return 'php';
               if (k==='ruby') return 'ruby';
@@ -74,49 +73,54 @@ jobs:
               if (k==='swift') return 'swift';
               if (k==='dart') return 'dart';
               if (k==='rust') return 'rust';
-              if (k==='r') return 'r';
+
               // frontend
-              if (k==='react'||k==='reactdom') return 'react';
-              if (k==='next'||k==='nextjs'||k==='next.js') return 'nextjs';
-              if (k==='vue'||k==='vuejs') return 'vue';
-              if (k==='nuxt'||k==='nuxtjs') return 'nuxtjs';
+              if (['react','reactdom'].includes(k)) return 'react';
+              if (['next','nextjs','next.js'].includes(k)) return 'nextjs';
+              if (['vue','vuejs'].includes(k)) return 'vue';
+              if (['nuxt','nuxtjs'].includes(k)) return 'nuxtjs';
               if (k==='svelte') return 'svelte';
               if (k==='angular') return 'angular';
-              if (k==='tailwind'||k==='tailwindcss') return 'tailwind';
+              if (['tailwind','tailwindcss'].includes(k)) return 'tailwind';
               if (k==='vite') return 'vite';
               if (k==='webpack') return 'webpack';
               if (k==='babel') return 'babel';
-              if (k==='three'||k==='threejs') return 'threejs';
+              if (['three','threejs'].includes(k)) return 'threejs';
+
               // backend/runtime
-              if (k==='node'||k==='nodejs'||k==='node.js') return 'nodejs';
-              if (k==='express'||k==='expressjs') return 'express';
+              if (['node','nodejs','node.js'].includes(k)) return 'nodejs';
+              if (['express','expressjs'].includes(k)) return 'express';
               if (k==='nestjs') return 'nestjs';
               if (k==='deno') return 'deno';
               if (k==='bun') return 'bun';
+
               // db
-              if (k==='mongodb'||k==='mongoose') return 'mongodb';
-              if (k==='mysql'||k==='mysql2') return 'mysql';
-              if (k==='postgres'||k==='postgresql'||k==='pg') return 'postgres';
+              if (['mongodb','mongoose'].includes(k)) return 'mongodb';
+              if (['mysql','mysql2'].includes(k)) return 'mysql';
+              if (['postgres','postgresql','pg'].includes(k)) return 'postgres';
               if (k==='sqlite') return 'sqlite';
               if (k==='mariadb') return 'mariadb';
               if (k==='redis') return 'redis';
+
               // orm
               if (k==='prisma') return 'prisma';
               if (k==='sequelize') return 'sequelize';
               if (k==='typeorm') return 'typeorm';
-              // cloud/devops
-              if (k==='aws'||k==='awssdk'||k==='awscli') return 'aws';
+
+              // devops/cloud
+              if (['aws','awssdk','awscli'].includes(k)) return 'aws';
               if (k==='azure') return 'azure';
-              if (k==='gcp'||k==='googlecloud') return 'gcp';
+              if (['gcp','googlecloud'].includes(k)) return 'gcp';
               if (k==='vercel') return 'vercel';
               if (k==='docker') return 'docker';
-              if (k==='kubernetes'||k==='k8s') return 'kubernetes';
+              if (['kubernetes','k8s'].includes(k)) return 'kubernetes';
               if (k==='terraform') return 'terraform';
               if (k==='ansible') return 'ansible';
               if (k==='nginx') return 'nginx';
-              if (k==='githubactions'||k==='ghactions'||k==='actions') return 'githubactions';
+              if (['githubactions','ghactions','actions'].includes(k)) return 'githubactions';
               if (k==='git') return 'git';
-              // testing/tooling
+
+              // testing/tools
               if (k==='jest') return 'jest';
               if (k==='cypress') return 'cypress';
               if (k==='playwright') return 'playwright';
@@ -124,26 +128,31 @@ jobs:
               if (k==='eslint') return 'eslint';
               if (k==='prettier') return 'prettier';
               if (k==='storybook') return 'storybook';
-              // ui
-              if (k==='mui'||k==='materialui') return 'mui';
-              if (k==='chakraui'||k==='chakra') return 'chakraui';
+
+              // ui libs
+              if (['mui','materialui'].includes(k)) return 'mui';
+              if (['chakraui','chakra'].includes(k)) return 'chakraui';
+
               // mobile/desktop
               if (k==='reactnative') return 'react';
               if (k==='flutter') return 'flutter';
               if (k==='electron') return 'electron';
+
               // .net
-              if (k==='dotnet'||k==='.net') return 'dotnet';
+              if (['dotnet','.net'].includes(k)) return 'dotnet';
+
               // misc
               if (k==='graphql') return 'graphql';
               if (k==='apollo') return 'apollo';
               if (k==='firebase') return 'firebase';
               if (k==='supabase') return 'supabase';
               if (k==='linux') return 'linux';
-              if (k==='bash'||k==='shell') return 'bash';
+              if (['bash','shell'].includes(k)) return 'bash';
               if (k==='powershell') return 'powershell';
               if (k==='npm') return 'npm';
               if (k==='pnpm') return 'pnpm';
               if (k==='yarn') return 'yarn';
+
               return null;
             }
 
@@ -160,113 +169,154 @@ jobs:
               'py','java','go','cs','cpp','php','ruby','rust','kotlin','swift','dart'
             ];
 
-            async function listRepos(owner) {
-              const out = [];
+            async function listPublicRepos(owner) {
+              const repos = [];
               for (let page = 1; page <= 5; page++) {
-                const { data } = await github.request('GET /users/{username}/repos', {
-                  username: owner, per_page: 100, page, type: 'public', sort: 'updated'
-                });
-                if (!data || !data.length) break;
-                out.push(...data);
+                const { data } = await github.request(
+                  'GET /users/{username}/repos',
+                  { username: owner, per_page: 100, page, type: 'public', sort: 'updated' }
+                );
+                if (!data || data.length === 0) break;
+                repos.push(...data);
               }
-              return out;
+              return repos;
             }
 
-            (async () => {
-              // collect detections
-              const detected = new Set();
-              const repos = await listRepos(OWNER);
+            // ---------------- run ----------------
+            const detected = new Set();
+            const readable = new Set();
 
-              for (const r of repos) {
-                const repo = r.name;
+            let repos = [];
+            try {
+              repos = await listPublicRepos(OWNER);
+            } catch (e) {
+              core.warning('Could not list repos: ' + (e.message || e.status || e));
+            }
 
-                // Languages API (fast + safe)
-                try {
-                  const langs = await github.request('GET /repos/{owner}/{repo}/languages', {
-                    owner: OWNER, repo
-                  });
-                  Object.keys(langs.data || {}).forEach(k => detected.add(k));
-                } catch {}
+            for (const r of repos) {
+              const repo = r.name;
+              const ref  = r.default_branch || 'main';
 
-                // quick root manifest peek (package.json only, to keep script lightweight)
+              // languages
+              try {
+                const langs = await github.request('GET /repos/{owner}/{repo}/languages', {
+                  owner: OWNER, repo
+                });
+                Object.keys(langs.data || {}).forEach(k => { detected.add(k); readable.add(k); });
+              } catch {}
+
+              // quick look at root manifests
+              const paths = ['package.json','requirements.txt','pyproject.toml','composer.json','go.mod','Cargo.toml'];
+              for (const path of paths) {
                 try {
                   const { data } = await github.request(
                     'GET /repos/{owner}/{repo}/contents/{path}',
-                    { owner: OWNER, repo, path: 'package.json', ref: r.default_branch || 'main' }
+                    { owner: OWNER, repo, path, ref }
                   );
-                  if (data?.type === 'file' && data.content) {
-                    const txt = Buffer.from(data.content, 'base64').toString('utf8');
+                  if (!data || data.type !== 'file' || !data.content) continue;
+                  const text = Buffer.from(data.content, 'base64').toString('utf8');
+
+                  if (path === 'package.json') {
                     try {
-                      const j = JSON.parse(txt);
+                      const j = JSON.parse(text);
                       const deps = Object.keys(j.dependencies || {});
                       const dev  = Object.keys(j.devDependencies || {});
-                      [...deps, ...dev].forEach(n => detected.add(n));
+                      deps.concat(dev).forEach(x => { detected.add(x); readable.add(x); });
                     } catch {}
+                  } else if (path === 'requirements.txt') {
+                    text.split(/\r?\n/).map(l => l.replace(/#.*/,'').trim()).filter(Boolean)
+                        .map(l => l.split(/[=<>~! ]/)[0]).forEach(x => { detected.add(x); readable.add(x); });
+                  } else if (path === 'pyproject.toml') {
+                    const seg = text.split('[tool.poetry.dependencies]')[1] || '';
+                    for (const ln of seg.split(/\r?\n/)) {
+                      if (/^\[.+\]/.test(ln)) break;
+                      const k = (ln.split('=')[0] || '').trim();
+                      if (k) { detected.add(k); readable.add(k); }
+                    }
+                  } else if (path === 'composer.json') {
+                    try {
+                      const j = JSON.parse(text);
+                      Object.keys(j.require || {}).concat(Object.keys(j['require-dev'] || {}))
+                        .forEach(x => { detected.add(x); readable.add(x); });
+                    } catch {}
+                  } else if (path === 'go.mod') {
+                    const lines = [];
+                    let inBlock = false;
+                    for (const ln of text.split(/\r?\n/)) {
+                      if (ln.startsWith('require (')) { inBlock = true; continue; }
+                      if (inBlock && ln.trim() === ')') { inBlock = false; continue; }
+                      if (ln.startsWith('require ') && !inBlock) lines.push(ln.split(/\s+/)[1]);
+                      else if (inBlock) lines.push(ln.trim().split(/\s+/)[0]);
+                    }
+                    lines.map(m => (m || '').split('/').pop())
+                         .forEach(x => { detected.add(x); readable.add(x); });
+                  } else if (path === 'Cargo.toml') {
+                    const seg2 = text.split('[dependencies]')[1] || '';
+                    seg2.split(/\r?\n/).map(l => (l.split('=')[0] || '').trim()).filter(Boolean)
+                        .forEach(x => { detected.add(x); readable.add(x); });
                   }
-                } catch {}
-              }
-
-              // map to skillicons slugs
-              const detSlugs = new Set();
-              for (const n of detected) {
-                const s = toSlug(n);
-                if (s) detSlugs.add(s);
-              }
-
-              // merge seeds + detections, keep order/cap/one row
-              const seed = SEED_ICONS.map(toSlug).filter(Boolean);
-              const merged = new Set([...seed, ...detSlugs]);
-
-              const ordered = [
-                ...preferred.filter(s => merged.has(s)),
-                ...[...merged].filter(s => !preferred.includes(s)).sort()
-              ].slice(0, MAX_ICONS);
-
-              const perline = Math.min(MAX_PER_LINE, Math.max(ordered.length, 1));
-              const darkURL  = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline + '&theme=dark';
-              const lightURL = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline;
-
-              const iconsBlock = [
-                '<p align="center">',
-                '  <picture>',
-                '    <source media="(prefers-color-scheme: dark)" srcset="' + darkURL + '">',
-                '    <img src="' + lightURL + '" alt="Tech I Use (auto + manual)" />',
-                '  </picture>',
-                '</p>'
-              ].join('\n');
-
-              // inject between markers
-              function inject(src, start, end, payload) {
-                const i1 = src.indexOf(start), i2 = src.indexOf(end);
-                if (i1 === -1 || i2 === -1) throw new Error('TECH markers not found');
-                return src.slice(0, i1 + start.length) + '\n' + payload + '\n' + src.slice(i2);
-              }
-
-              const TECH_START = '<!--TECH:START-->';
-              const TECH_END   = '<!--TECH:END-->';
-              let readme = fs.readFileSync(README_PATH, 'utf8');
-              let updated = inject(readme, TECH_START, TECH_END, iconsBlock);
-
-              if (WRITE_AUTOSTACK) {
-                const AUTO_START = '<!--AUTOSTACK:START-->';
-                const AUTO_END   = '<!--AUTOSTACK:END-->';
-                const listMd =
-                  '# Detected frameworks, libs & tools\\n\\n' +
-                  [...new Set([...detected])].sort().map(x => '- ' + x).join('\\n') +
-                  '\\n';
-                const i1 = updated.indexOf(AUTO_START), i2 = updated.indexOf(AUTO_END);
-                if (i1 !== -1 && i2 !== -1) {
-                  updated = updated.slice(0, i1 + AUTO_START.length) + '\n' + listMd + '\n' + updated.slice(i2);
+                } catch (e) {
+                  if (e.status !== 404) core.info(`Skip ${OWNER}/${repo}:${path} (${e.status||e.message})`);
                 }
               }
+            }
 
-              if (updated !== readme) {
-                fs.writeFileSync(README_PATH, updated, 'utf8');
-                core.notice('Injected ' + ordered.length + ' icons into TECH section');
-              } else {
-                core.notice('No changes to README.md');
-              }
-            })();
+            // seeds + detections -> skillicons slugs
+            const seedSlugs = SEED_ICONS.map(toSlug).filter(Boolean);
+            const detectedSlugs = [...detected].map(toSlug).filter(Boolean);
+
+            const merged = new Set([...seedSlugs, ...detectedSlugs]);
+            const preferredOrder = [
+              ...preferred.filter(s => merged.has(s)),
+              ...[...merged].filter(s => !preferred.includes(s)).sort()
+            ];
+            const ordered = preferredOrder.slice(0, MAX_ICONS);
+
+            core.notice(`Icon slugs (${ordered.length}): ${ordered.join(', ')}`);
+
+            const perline = Math.min(MAX_PER_LINE, Math.max(ordered.length, 1));
+            const darkURL  = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline + '&theme=dark&r=' + Date.now();
+            const lightURL = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline + '&r=' + Date.now();
+
+            core.notice('Dark URL:  ' + darkURL);
+            core.notice('Light URL: ' + lightURL);
+
+            const html = [
+              '<p align="center">',
+              '  <picture>',
+              '    <source media="(prefers-color-scheme: dark)" srcset="' + darkURL + '">',
+              '    <img src="' + lightURL + '" alt="Detected tech stack icons" />',
+              '  </picture>',
+              '</p>'
+            ].join('\n');
+
+            function inject(src, start, end, payload) {
+              const i1 = src.indexOf(start), i2 = src.indexOf(end);
+              if (i1 === -1 || i2 === -1) return null;
+              return src.slice(0, i1 + start.length) + '\n' + payload + '\n' + src.slice(i2);
+            }
+
+            const TECH_START = '<!--TECH:START-->';
+            const TECH_END   = '<!--TECH:END-->';
+            const readme = fs.readFileSync(README_PATH, 'utf8');
+            let updated = inject(readme, TECH_START, TECH_END, html);
+            if (!updated) {
+              core.setFailed('README is missing TECH markers.');
+              return;
+            }
+
+            if (WRITE_AUTOSTACK) {
+              const listMd = '# Detected frameworks, libs & tools\\n\\n' +
+                [...readable].sort().map(x => '- ' + x).join('\\n') + '\\n';
+              updated = inject(updated, '<!--AUTOSTACK:START-->', '<!--AUTOSTACK:END-->', listMd) || updated;
+            }
+
+            if (updated !== readme) {
+              fs.writeFileSync(README_PATH, updated, 'utf8');
+              core.notice('README updated');
+            } else {
+              core.notice('No changes to README');
+            }
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
