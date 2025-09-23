@@ -33,21 +33,33 @@
   </a>
 </p>
 
-<!-- Metrics row (centered, matches social colors, keeps live count) -->
-<p align="center">
-  <!-- Profile views (count from Komarev via Shields dynamic) -->
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=0B1220&color=111827&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
-    <img alt="Profile views"
-         src="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=F8FAFC&color=EEF2F7&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
-  </picture>
-&nbsp;&nbsp;
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=0B1220&color=111827">
-    <img alt="Followers"
-         src="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=F8FAFC&color=EEF2F7">
-  </picture>
-</p>
+<!-- Metrics row (centered, stable) -->
+<table align="center" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td align="center" valign="middle">
+      <picture>
+        <source media="(prefers-color-scheme: dark)"
+          srcset="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=0B1220&color=111827&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643&cacheSeconds=120" />
+        <img alt="Profile views"
+          src="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=F8FAFC&color=EEF2F7&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643&cacheSeconds=120" />
+      </picture>
+    </td>
+    <td width="16">&nbsp;</td>
+    <td align="center" valign="middle">
+      <picture>
+        <source media="(prefers-color-scheme: dark)"
+          srcset="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=0B1220&color=111827" />
+        <img alt="Followers"
+          src="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=F8FAFC&color=EEF2F7" />
+      </picture>
+    </td>
+  </tr>
+</table>
+
+<!-- Invisible ping AFTER the row so layout isn’t affected -->
+
+<img src="https://komarev.com/ghpvc/?username=MA1002643&style=flat"
+     alt="" width="1" height="1" aria-hidden="true" />
 
 <!-- Animated underline under socials -->
 <p align="center" style="margin-top:-8px;">
@@ -70,7 +82,7 @@
 ---
 
 <!-- PINNED: START -->
-<h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
+<h3 align="left" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
 <td align="center" valign="top" width="50%" style="padding:12px 24px 12px 0px; border:0;">
@@ -126,31 +138,32 @@
 
 ### 📈 GitHub Pulse
 
-<p align="center">
+<!-- Stats + Streak (side-by-side) -->
+<table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0;border-collapse:separate;margin:0 auto;">
+  <tr>
+    <td align="center" valign="top" style="padding:6px;border:0;">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&amp;show_icons=true&amp;hide_border=false&amp;title_color=ff652f&amp;icon_color=FFE400&amp;bg_color=0D1117&amp;text_color=ffffff&amp;border_color=30363D&amp;cache_seconds=7200">
+        <img alt="Muhammad Abdullah — GitHub Stats" src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&amp;show_icons=true&amp;hide_border=false&amp;title_color=ff652f&amp;icon_color=FFE400&amp;bg_color=ffffff&amp;text_color=0C1A25&amp;border_color=0c1a25&amp;cache_seconds=7200" width="500" style="max-width:100%;height:auto;display:block;">
+      </picture>
+    </td>
+    <td align="center" valign="top" style="padding:6px;border:0;">
   <picture>
     <!-- Dark mode -->
     <source
       media="(prefers-color-scheme: dark)"
-      srcset="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=0D1117&text_color=ffffff&border_color=30363D&cache_seconds=7200" />
+      srcset="https://streak-stats.demolab.com?user=MA1002643&hide_border=false&background=0D1117&stroke=30363D&ring=FF652F&fire=FF652F&currStreakNum=FFE400&currStreakLabel=FFE400&sideNums=E5E7EB&sideLabels=E5E7EB&dates=9CA3AF" />
     <!-- Light mode (fallback) -->
     <img
-      alt="Muhammad Abdullah — GitHub Stats"
-      src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=ffffff&text_color=0C1A25&border_color=0c1a25&cache_seconds=7200"
-      style="max-width: 100%; height: auto;" />
+      alt="GitHub Streak"
+      src="https://streak-stats.demolab.com?user=MA1002643&hide_border=false&background=ffffff&stroke=0c1a25&ring=FF652F&fire=FF652F&currStreakNum=0C1A25&currStreakLabel=0C1A25&sideNums=0C1A25&sideLabels=0C1A25&dates=475569"
+      width="500"
+      style="max-width:100%;height:auto;display:block;" />
   </picture>
-  &nbsp;&nbsp;
-    <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com?user=MA1002643&hide_border=false&fire=FF652F&ring=FF652F&currStreakNum=FFE400&currStreakLabel=FFE400&background=0D1117&stroke=30363D">
-    <img alt="Streak" src="https://streak-stats.demolab.com?user=MA1002643&hide_border=false&ring=FF652F&fire=FF652F">
-  </picture>
-</p>
+</td>
+  </tr>
+</table>
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=MA1002643&theme=react-dark&hide_title=true&area=true">
-    <img alt="Activity Graph" src="https://github-readme-activity-graph.vercel.app/graph?username=MA1002643&theme=minimal&hide_title=true&area=true">
-  </picture>
-</p>
 ---
 
 ### 🧪 Featured Projects
