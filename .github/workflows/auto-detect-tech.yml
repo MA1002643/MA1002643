@@ -15,20 +15,20 @@ jobs:
       OWNER: MA1002643
       README_PATH: README.md
 
-      # keep everything on one line
-      MAX_PER_LINE: "40"
-      MAX_ICONS: "28" # safe cap for skillicons URL length
+      # Keep URLs short and reliable by chunking
+      CHUNK_SIZE: "10" # icons per image
+      MAX_ICONS: "28" # total icons (cap)
 
-      # always include these first (your manual row)
+      # Always include these first (manual seeds)
       SEED_ICONS: "nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws"
 
-      # also update the plain text list? (false keeps README clean)
+      # Optional: also write the plaintext list
       WRITE_AUTOSTACK: "false"
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build & inject icons
+      - name: Build & inject icons (chunked)
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -37,122 +37,65 @@ jobs:
 
             const OWNER = process.env.OWNER || context.repo.owner;
             const README_PATH = process.env.README_PATH || 'README.md';
-            const MAX_PER_LINE = parseInt(process.env.MAX_PER_LINE || '40', 10);
+            const CHUNK_SIZE = parseInt(process.env.CHUNK_SIZE || '10', 10);
             const MAX_ICONS = parseInt(process.env.MAX_ICONS || '28', 10);
             const WRITE_AUTOSTACK = (process.env.WRITE_AUTOSTACK || 'false').toLowerCase() === 'true';
+            const SEED_ICONS = (process.env.SEED_ICONS || '').split(',').map(s=>s.trim()).filter(Boolean);
 
-            const SEED_ICONS = (process.env.SEED_ICONS || '')
-              .split(',').map(s => s.trim()).filter(Boolean);
-
-            const norm = s => (s || '')
-              .toLowerCase()
-              .replace(/^@?types\//, '')
-              .replace(/^@?nestjs\//, 'nestjs')
-              .replace(/^@?angular\//, 'angular')
-              .replace(/^@?mui\//, 'mui')
-              .replace(/^@?apollo\//, 'apollo')
-              .replace(/@.*$/, '')
-              .replace(/[><=~^*].*$/, '')
-              .replace(/[^a-z0-9+._-]/g, '')
+            const norm = s => (s||'').toLowerCase()
+              .replace(/^@?types\//,'')
+              .replace(/^@?nestjs\//,'nestjs')
+              .replace(/^@?angular\//,'angular')
+              .replace(/^@?mui\//,'mui')
+              .replace(/^@?apollo\//,'apollo')
+              .replace(/@.*$/,'')
+              .replace(/[><=~^*].*$/,'')
+              .replace(/[^a-z0-9+._-]/g,'')
               .trim();
 
-            function toSlug(name) {
+            function toSlug(name){
               const k = norm(name);
-              // languages
-              if (['javascript','js'].includes(k)) return 'js';
-              if (['typescript','ts'].includes(k)) return 'ts';
-              if (['python','py'].includes(k)) return 'py';
-              if (k==='java') return 'java';
-              if (['go','golang'].includes(k)) return 'go';
-              if (['csharp','c#'].includes(k)) return 'cs';
-              if (['cpp','c++'].includes(k)) return 'cpp';
-              if (k==='c') return 'c';
-              if (k==='php') return 'php';
-              if (k==='ruby') return 'ruby';
-              if (k==='kotlin') return 'kotlin';
-              if (k==='swift') return 'swift';
-              if (k==='dart') return 'dart';
-              if (k==='rust') return 'rust';
-
-              // frontend
-              if (['react','reactdom'].includes(k)) return 'react';
-              if (['next','nextjs','next.js'].includes(k)) return 'nextjs';
-              if (['vue','vuejs'].includes(k)) return 'vue';
-              if (['nuxt','nuxtjs'].includes(k)) return 'nuxtjs';
-              if (k==='svelte') return 'svelte';
-              if (k==='angular') return 'angular';
-              if (['tailwind','tailwindcss'].includes(k)) return 'tailwind';
-              if (k==='vite') return 'vite';
-              if (k==='webpack') return 'webpack';
-              if (k==='babel') return 'babel';
-              if (['three','threejs'].includes(k)) return 'threejs';
-
-              // backend/runtime
-              if (['node','nodejs','node.js'].includes(k)) return 'nodejs';
-              if (['express','expressjs'].includes(k)) return 'express';
-              if (k==='nestjs') return 'nestjs';
-              if (k==='deno') return 'deno';
-              if (k==='bun') return 'bun';
-
-              // db
-              if (['mongodb','mongoose'].includes(k)) return 'mongodb';
-              if (['mysql','mysql2'].includes(k)) return 'mysql';
-              if (['postgres','postgresql','pg'].includes(k)) return 'postgres';
-              if (k==='sqlite') return 'sqlite';
-              if (k==='mariadb') return 'mariadb';
-              if (k==='redis') return 'redis';
-
-              // orm
-              if (k==='prisma') return 'prisma';
-              if (k==='sequelize') return 'sequelize';
-              if (k==='typeorm') return 'typeorm';
-
-              // devops/cloud
-              if (['aws','awssdk','awscli'].includes(k)) return 'aws';
-              if (k==='azure') return 'azure';
-              if (['gcp','googlecloud'].includes(k)) return 'gcp';
-              if (k==='vercel') return 'vercel';
-              if (k==='docker') return 'docker';
-              if (['kubernetes','k8s'].includes(k)) return 'kubernetes';
-              if (k==='terraform') return 'terraform';
-              if (k==='ansible') return 'ansible';
-              if (k==='nginx') return 'nginx';
-              if (['githubactions','ghactions','actions'].includes(k)) return 'githubactions';
-              if (k==='git') return 'git';
-
-              // testing/tools
-              if (k==='jest') return 'jest';
-              if (k==='cypress') return 'cypress';
-              if (k==='playwright') return 'playwright';
-              if (k==='postman') return 'postman';
-              if (k==='eslint') return 'eslint';
-              if (k==='prettier') return 'prettier';
-              if (k==='storybook') return 'storybook';
-
-              // ui libs
-              if (['mui','materialui'].includes(k)) return 'mui';
-              if (['chakraui','chakra'].includes(k)) return 'chakraui';
-
-              // mobile/desktop
-              if (k==='reactnative') return 'react';
-              if (k==='flutter') return 'flutter';
-              if (k==='electron') return 'electron';
-
-              // .net
-              if (['dotnet','.net'].includes(k)) return 'dotnet';
-
-              // misc
-              if (k==='graphql') return 'graphql';
-              if (k==='apollo') return 'apollo';
-              if (k==='firebase') return 'firebase';
-              if (k==='supabase') return 'supabase';
-              if (k==='linux') return 'linux';
-              if (['bash','shell'].includes(k)) return 'bash';
-              if (k==='powershell') return 'powershell';
-              if (k==='npm') return 'npm';
-              if (k==='pnpm') return 'pnpm';
-              if (k==='yarn') return 'yarn';
-
+              const map = new Map([
+                // languages
+                [['javascript','js'],'js'], [['typescript','ts'],'ts'], [['python','py'],'py'],
+                [['java'],'java'], [['go','golang'],'go'], [['csharp','c#'],'cs'], [['cpp','c++'],'cpp'],
+                [['c'],'c'], [['php'],'php'], [['ruby'],'ruby'], [['kotlin'],'kotlin'], [['swift'],'swift'],
+                [['dart'],'dart'], [['rust'],'rust'],
+                // frontend
+                [['react','reactdom'],'react'], [['next','nextjs','next.js'],'nextjs'], [['vue','vuejs'],'vue'],
+                [['nuxt','nuxtjs'],'nuxtjs'], [['svelte'],'svelte'], [['angular'],'angular'],
+                [['tailwind','tailwindcss'],'tailwind'], [['vite'],'vite'], [['webpack'],'webpack'],
+                [['babel'],'babel'], [['three','threejs'],'threejs'],
+                // backend/runtime
+                [['node','nodejs','node.js'],'nodejs'], [['express','expressjs'],'express'],
+                [['nestjs'],'nestjs'], [['deno'],'deno'], [['bun'],'bun'],
+                // db
+                [['mongodb','mongoose'],'mongodb'], [['mysql','mysql2'],'mysql'],
+                [['postgres','postgresql','pg'],'postgres'], [['sqlite'],'sqlite'], [['mariadb'],'mariadb'],
+                [['redis'],'redis'],
+                // orm
+                [['prisma'],'prisma'], [['sequelize'],'sequelize'], [['typeorm'],'typeorm'],
+                // cloud/devops
+                [['aws','awssdk','awscli'],'aws'], [['azure'],'azure'], [['gcp','googlecloud'],'gcp'],
+                [['vercel'],'vercel'], [['docker'],'docker'], [['kubernetes','k8s'],'kubernetes'],
+                [['terraform'],'terraform'], [['ansible'],'ansible'], [['nginx'],'nginx'],
+                [['githubactions','ghactions','actions'],'githubactions'], [['git'],'git'],
+                // testing/tools
+                [['jest'],'jest'], [['cypress'],'cypress'], [['playwright'],'playwright'],
+                [['postman'],'postman'], [['eslint'],'eslint'], [['prettier'],'prettier'],
+                [['storybook'],'storybook'],
+                // ui libs
+                [['mui','materialui'],'mui'], [['chakraui','chakra'],'chakraui'],
+                // mobile/desktop
+                [['reactnative'],'react'], [['flutter'],'flutter'], [['electron'],'electron'],
+                // .net
+                [['dotnet','.net'],'dotnet'],
+                // misc
+                [['graphql'],'graphql'], [['apollo'],'apollo'], [['firebase'],'firebase'],
+                [['supabase'],'supabase'], [['linux'],'linux'], [['bash','shell'],'bash'],
+                [['powershell'],'powershell'], [['npm'],'npm'], [['pnpm'],'pnpm'], [['yarn'],'yarn'],
+              ]);
+              for (const [keys,val] of map.entries()) if (keys.includes(k)) return val;
               return null;
             }
 
@@ -169,153 +112,144 @@ jobs:
               'py','java','go','cs','cpp','php','ruby','rust','kotlin','swift','dart'
             ];
 
-            async function listPublicRepos(owner) {
-              const repos = [];
-              for (let page = 1; page <= 5; page++) {
-                const { data } = await github.request(
-                  'GET /users/{username}/repos',
-                  { username: owner, per_page: 100, page, type: 'public', sort: 'updated' }
-                );
-                if (!data || data.length === 0) break;
+            async function listPublicRepos(owner){
+              const repos=[];
+              for(let page=1; page<=5; page++){
+                const {data}=await github.request('GET /users/{username}/repos',{
+                  username: owner, per_page: 100, page, type:'public', sort:'updated'
+                });
+                if(!data || data.length===0) break;
                 repos.push(...data);
               }
               return repos;
             }
 
-            // ---------------- run ----------------
             const detected = new Set();
             const readable = new Set();
 
-            let repos = [];
-            try {
-              repos = await listPublicRepos(OWNER);
-            } catch (e) {
-              core.warning('Could not list repos: ' + (e.message || e.status || e));
-            }
+            let repos=[];
+            try { repos = await listPublicRepos(process.env.OWNER || context.repo.owner); }
+            catch(e){ core.warning('List repos failed: '+(e.message||e)); }
 
-            for (const r of repos) {
-              const repo = r.name;
-              const ref  = r.default_branch || 'main';
+            for(const r of repos){
+              const repo=r.name, ref=r.default_branch || 'main';
 
               // languages
-              try {
-                const langs = await github.request('GET /repos/{owner}/{repo}/languages', {
-                  owner: OWNER, repo
-                });
-                Object.keys(langs.data || {}).forEach(k => { detected.add(k); readable.add(k); });
-              } catch {}
+              try{
+                const langs = await github.request('GET /repos/{owner}/{repo}/languages',{ owner: OWNER, repo });
+                Object.keys(langs.data||{}).forEach(k=>{ detected.add(k); readable.add(k); });
+              }catch{}
 
-              // quick look at root manifests
-              const paths = ['package.json','requirements.txt','pyproject.toml','composer.json','go.mod','Cargo.toml'];
-              for (const path of paths) {
-                try {
-                  const { data } = await github.request(
-                    'GET /repos/{owner}/{repo}/contents/{path}',
-                    { owner: OWNER, repo, path, ref }
-                  );
-                  if (!data || data.type !== 'file' || !data.content) continue;
-                  const text = Buffer.from(data.content, 'base64').toString('utf8');
+              // a few root manifests
+              const paths=['package.json','requirements.txt','pyproject.toml','composer.json','go.mod','Cargo.toml'];
+              for(const path of paths){
+                try{
+                  const {data}=await github.request('GET /repos/{owner}/{repo}/contents/{path}',{ owner: OWNER, repo, path, ref });
+                  if(!data || data.type!=='file' || !data.content) continue;
+                  const text = Buffer.from(data.content,'base64').toString('utf8');
 
-                  if (path === 'package.json') {
-                    try {
-                      const j = JSON.parse(text);
-                      const deps = Object.keys(j.dependencies || {});
-                      const dev  = Object.keys(j.devDependencies || {});
-                      deps.concat(dev).forEach(x => { detected.add(x); readable.add(x); });
-                    } catch {}
-                  } else if (path === 'requirements.txt') {
-                    text.split(/\r?\n/).map(l => l.replace(/#.*/,'').trim()).filter(Boolean)
-                        .map(l => l.split(/[=<>~! ]/)[0]).forEach(x => { detected.add(x); readable.add(x); });
-                  } else if (path === 'pyproject.toml') {
+                  if(path==='package.json'){
+                    try{
+                      const j=JSON.parse(text);
+                      [...Object.keys(j.dependencies||{}), ...Object.keys(j.devDependencies||{})]
+                        .forEach(x=>{ detected.add(x); readable.add(x); });
+                    }catch{}
+                  }else if(path==='requirements.txt'){
+                    text.split(/\r?\n/).map(l=>l.replace(/#.*/,'').trim()).filter(Boolean)
+                      .map(l=>l.split(/[=<>~! ]/)[0]).forEach(x=>{ detected.add(x); readable.add(x); });
+                  }else if(path==='pyproject.toml'){
                     const seg = text.split('[tool.poetry.dependencies]')[1] || '';
-                    for (const ln of seg.split(/\r?\n/)) {
-                      if (/^\[.+\]/.test(ln)) break;
-                      const k = (ln.split('=')[0] || '').trim();
-                      if (k) { detected.add(k); readable.add(k); }
+                    for(const ln of seg.split(/\r?\n/)){
+                      if(/^\[.+\]/.test(ln)) break;
+                      const k=(ln.split('=')[0]||'').trim();
+                      if(k){ detected.add(k); readable.add(k); }
                     }
-                  } else if (path === 'composer.json') {
-                    try {
-                      const j = JSON.parse(text);
-                      Object.keys(j.require || {}).concat(Object.keys(j['require-dev'] || {}))
-                        .forEach(x => { detected.add(x); readable.add(x); });
-                    } catch {}
-                  } else if (path === 'go.mod') {
-                    const lines = [];
-                    let inBlock = false;
-                    for (const ln of text.split(/\r?\n/)) {
-                      if (ln.startsWith('require (')) { inBlock = true; continue; }
-                      if (inBlock && ln.trim() === ')') { inBlock = false; continue; }
-                      if (ln.startsWith('require ') && !inBlock) lines.push(ln.split(/\s+/)[1]);
-                      else if (inBlock) lines.push(ln.trim().split(/\s+/)[0]);
+                  }else if(path==='composer.json'){
+                    try{
+                      const j=JSON.parse(text);
+                      [...Object.keys(j.require||{}), ...Object.keys(j['require-dev']||{})]
+                        .forEach(x=>{ detected.add(x); readable.add(x); });
+                    }catch{}
+                  }else if(path==='go.mod'){
+                    const lines=[]; let inBlock=false;
+                    for(const ln of text.split(/\r?\n/)){
+                      if(ln.startsWith('require (')){ inBlock=true; continue; }
+                      if(inBlock && ln.trim()===')'){ inBlock=false; continue; }
+                      if(ln.startsWith('require ') && !inBlock) lines.push(ln.split(/\s+/)[1]);
+                      else if(inBlock) lines.push(ln.trim().split(/\s+/)[0]);
                     }
-                    lines.map(m => (m || '').split('/').pop())
-                         .forEach(x => { detected.add(x); readable.add(x); });
-                  } else if (path === 'Cargo.toml') {
+                    lines.map(m=>(m||'').split('/').pop()).forEach(x=>{ detected.add(x); readable.add(x); });
+                  }else if(path==='Cargo.toml'){
                     const seg2 = text.split('[dependencies]')[1] || '';
-                    seg2.split(/\r?\n/).map(l => (l.split('=')[0] || '').trim()).filter(Boolean)
-                        .forEach(x => { detected.add(x); readable.add(x); });
+                    seg2.split(/\r?\n/).map(l=>(l.split('=')[0]||'').trim()).filter(Boolean)
+                      .forEach(x=>{ detected.add(x); readable.add(x); });
                   }
-                } catch (e) {
-                  if (e.status !== 404) core.info(`Skip ${OWNER}/${repo}:${path} (${e.status||e.message})`);
+                }catch(e){
+                  if(e.status!==404) core.info(`Skip ${OWNER}/${repo}:${path} (${e.status||e.message})`);
                 }
               }
             }
 
-            // seeds + detections -> skillicons slugs
+            // seeds + detected -> slugs, order, cap
             const seedSlugs = SEED_ICONS.map(toSlug).filter(Boolean);
             const detectedSlugs = [...detected].map(toSlug).filter(Boolean);
-
             const merged = new Set([...seedSlugs, ...detectedSlugs]);
-            const preferredOrder = [
+
+            const ordered = [
               ...preferred.filter(s => merged.has(s)),
               ...[...merged].filter(s => !preferred.includes(s)).sort()
-            ];
-            const ordered = preferredOrder.slice(0, MAX_ICONS);
+            ].slice(0, MAX_ICONS);
 
-            core.notice(`Icon slugs (${ordered.length}): ${ordered.join(', ')}`);
+            core.notice(`Using ${ordered.length} icons: ${ordered.join(',')}`);
 
-            const perline = Math.min(MAX_PER_LINE, Math.max(ordered.length, 1));
-            const darkURL  = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline + '&theme=dark&r=' + Date.now();
-            const lightURL = 'https://skillicons.dev/icons?i=' + ordered.join(',') + '&perline=' + perline + '&r=' + Date.now();
+            // chunk into multiple short skillicons URLs
+            function chunk(arr, size){ const out=[]; for(let i=0;i<arr.length;i+=size) out.push(arr.slice(i,i+size)); return out; }
+            const chunks = chunk(ordered, CHUNK_SIZE);
 
-            core.notice('Dark URL:  ' + darkURL);
-            core.notice('Light URL: ' + lightURL);
+            const parts = chunks.map(slugs => {
+              const list = slugs.join(',');
+              const dark  = 'https://skillicons.dev/icons?i=' + list + '&perline=' + slugs.length + '&theme=dark';
+              const light = 'https://skillicons.dev/icons?i=' + list + '&perline=' + slugs.length;
+              return [
+                '<span style="display:inline-block;margin:0 4px;line-height:0;">',
+                '  <picture>',
+                '    <source media="(prefers-color-scheme: dark)" srcset="'+dark+'">',
+                '    <img src="'+light+'" alt="tech-icons" />',
+                '  </picture>',
+                '</span>'
+              ].join('\n');
+            });
 
             const html = [
-              '<p align="center">',
-              '  <picture>',
-              '    <source media="(prefers-color-scheme: dark)" srcset="' + darkURL + '">',
-              '    <img src="' + lightURL + '" alt="Detected tech stack icons" />',
-              '  </picture>',
+              '<p align="center" style="display:flex;justify-content:center;gap:0.25rem;flex-wrap:wrap;">',
+              parts.join('\n'),
               '</p>'
             ].join('\n');
 
-            function inject(src, start, end, payload) {
+            // inject into README
+            function inject(src, start, end, payload){
               const i1 = src.indexOf(start), i2 = src.indexOf(end);
               if (i1 === -1 || i2 === -1) return null;
               return src.slice(0, i1 + start.length) + '\n' + payload + '\n' + src.slice(i2);
             }
 
-            const TECH_START = '<!--TECH:START-->';
-            const TECH_END   = '<!--TECH:END-->';
+            const TECH_START='<!--TECH:START-->', TECH_END='<!--TECH:END-->';
             const readme = fs.readFileSync(README_PATH, 'utf8');
             let updated = inject(readme, TECH_START, TECH_END, html);
-            if (!updated) {
-              core.setFailed('README is missing TECH markers.');
-              return;
-            }
+            if(!updated){ core.setFailed('README is missing TECH markers'); return; }
 
-            if (WRITE_AUTOSTACK) {
+            if ((process.env.WRITE_AUTOSTACK || '').toLowerCase()==='true') {
               const listMd = '# Detected frameworks, libs & tools\\n\\n' +
-                [...readable].sort().map(x => '- ' + x).join('\\n') + '\\n';
+                [...new Set([...detected].map(x=>x))].sort().map(x=>'- '+x).join('\\n') + '\\n';
               updated = inject(updated, '<!--AUTOSTACK:START-->', '<!--AUTOSTACK:END-->', listMd) || updated;
             }
 
             if (updated !== readme) {
+              fs.writeFileSync(README_PATH, 'utf8');
               fs.writeFileSync(README_PATH, updated, 'utf8');
               core.notice('README updated');
             } else {
-              core.notice('No changes to README');
+              core.notice('No README change');
             }
 
       - name: Commit changes

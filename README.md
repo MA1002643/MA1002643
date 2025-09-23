@@ -35,17 +35,16 @@
 
 <!-- Metrics row (centered, matches social colors, keeps live count) -->
 <p align="center">
-  <!-- Profile views (count from Komarev via Shields dynamic) -->
+  <!-- Profile views (dynamic via Shields, styled to match Followers) -->
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=0B1220&color=111827&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
-    <img alt="Profile views"
-         src="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=F8FAFC&color=EEF2F7&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
+    <img alt="Profile views" src="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=F8FAFC&color=EEF2F7&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
   </picture>
-&nbsp;&nbsp;
+  &nbsp;&nbsp;
+  <!-- Followers (unchanged, colors are the reference) -->
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=0B1220&color=111827">
-    <img alt="Followers"
-         src="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=F8FAFC&color=EEF2F7">
+    <img alt="Followers" src="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=F8FAFC&color=EEF2F7">
   </picture>
 </p>
 
