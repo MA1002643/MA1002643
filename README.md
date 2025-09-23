@@ -110,11 +110,25 @@
 ### 🧰 Tech I Use
 
 <!--TECH:START-->
-<p align="center">
+<p align="center" style="display:flex;justify-content:center;gap:0.25rem;flex-wrap:wrap;">
+<span style="display:inline-block;margin:0 4px;line-height:0;">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24&theme=dark&r=1758594005783">
-    <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24&r=1758594005783" alt="Detected tech stack icons" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma&perline=10&theme=dark">
+    <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma&perline=10" alt="tech-icons" />
   </picture>
+</span>
+<span style="display:inline-block;margin:0 4px;line-height:0;">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php&perline=10&theme=dark">
+    <img src="https://skillicons.dev/icons?i=git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php&perline=10" alt="tech-icons" />
+  </picture>
+</span>
+<span style="display:inline-block;margin:0 4px;line-height:0;">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=bash,c,threejs,vue&perline=4&theme=dark">
+    <img src="https://skillicons.dev/icons?i=bash,c,threejs,vue&perline=4" alt="tech-icons" />
+  </picture>
+</span>
 </p>
 <!--TECH:END-->
 
