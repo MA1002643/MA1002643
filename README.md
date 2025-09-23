@@ -109,14 +109,104 @@
 
 ### 🧰 Tech I Use
 
-<!--TECH:START-->
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24&theme=dark">
-    <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24" alt="Detected tech stack icons">
+<!--TECH:START-->\n<p align="center" style="white-space:nowrap;">
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs&theme=dark">
+    <img src="https://skillicons.dev/icons?i=nextjs" alt="nextjs" height="44">
   </picture>
-</p>
-<!--TECH:END-->
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=react&theme=dark">
+    <img src="https://skillicons.dev/icons?i=react" alt="react" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=ts&theme=dark">
+    <img src="https://skillicons.dev/icons?i=ts" alt="ts" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=js&theme=dark">
+    <img src="https://skillicons.dev/icons?i=js" alt="js" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=tailwind&theme=dark">
+    <img src="https://skillicons.dev/icons?i=tailwind" alt="tailwind" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nodejs&theme=dark">
+    <img src="https://skillicons.dev/icons?i=nodejs" alt="nodejs" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=express&theme=dark">
+    <img src="https://skillicons.dev/icons?i=express" alt="express" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=mongodb&theme=dark">
+    <img src="https://skillicons.dev/icons?i=mongodb" alt="mongodb" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=mysql&theme=dark">
+    <img src="https://skillicons.dev/icons?i=mysql" alt="mysql" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=prisma&theme=dark">
+    <img src="https://skillicons.dev/icons?i=prisma" alt="prisma" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=git&theme=dark">
+    <img src="https://skillicons.dev/icons?i=git" alt="git" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=githubactions&theme=dark">
+    <img src="https://skillicons.dev/icons?i=githubactions" alt="githubactions" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=vercel&theme=dark">
+    <img src="https://skillicons.dev/icons?i=vercel" alt="vercel" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=dotnet&theme=dark">
+    <img src="https://skillicons.dev/icons?i=dotnet" alt="dotnet" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=aws&theme=dark">
+    <img src="https://skillicons.dev/icons?i=aws" alt="aws" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=jest&theme=dark">
+    <img src="https://skillicons.dev/icons?i=jest" alt="jest" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=eslint&theme=dark">
+    <img src="https://skillicons.dev/icons?i=eslint" alt="eslint" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=prettier&theme=dark">
+    <img src="https://skillicons.dev/icons?i=prettier" alt="prettier" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=java&theme=dark">
+    <img src="https://skillicons.dev/icons?i=java" alt="java" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=php&theme=dark">
+    <img src="https://skillicons.dev/icons?i=php" alt="php" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=bash&theme=dark">
+    <img src="https://skillicons.dev/icons?i=bash" alt="bash" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=c&theme=dark">
+    <img src="https://skillicons.dev/icons?i=c" alt="c" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=threejs&theme=dark">
+    <img src="https://skillicons.dev/icons?i=threejs" alt="threejs" height="44">
+  </picture>
+  <picture style="display:inline-block;margin:0 6px 6px 0;">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=vue&theme=dark">
+    <img src="https://skillicons.dev/icons?i=vue" alt="vue" height="44">
+  </picture>
+</p>\n<!--TECH:END-->
 
 ---
 
