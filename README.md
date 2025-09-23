@@ -214,31 +214,18 @@
 
 ### 📈 GitHub Pulse
 
-<!-- Stats + Streak (side-by-side) -->
-<table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0;border-collapse:separate;margin:0 auto;">
-  <tr>
-    <td align="center" valign="top" style="padding:6px;border:0;">
-      <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&amp;show_icons=true&amp;hide_border=false&amp;title_color=ff652f&amp;icon_color=FFE400&amp;bg_color=0D1117&amp;text_color=ffffff&amp;border_color=30363D&amp;cache_seconds=7200">
-        <img alt="Muhammad Abdullah — GitHub Stats" src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&amp;show_icons=true&amp;hide_border=false&amp;title_color=ff652f&amp;icon_color=FFE400&amp;bg_color=ffffff&amp;text_color=0C1A25&amp;border_color=0c1a25&amp;cache_seconds=7200" width="500" style="max-width:100%;height:auto;display:block;">
-      </picture>
-    </td>
-    <td align="center" valign="top" style="padding:6px;border:0;">
+<p align="center">
   <picture>
-    <!-- Dark mode -->
     <source
       media="(prefers-color-scheme: dark)"
-      srcset="https://streak-stats.demolab.com?user=MA1002643&hide_border=false&background=0D1117&stroke=30363D&ring=FF652F&fire=FF652F&currStreakNum=FFE400&currStreakLabel=FFE400&sideNums=E5E7EB&sideLabels=E5E7EB&dates=9CA3AF" />
-    <!-- Light mode (fallback) -->
+      srcset="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&amp;show_icons=true&amp;hide_border=false&amp;title_color=ff652f&amp;icon_color=FFE400&amp;bg_color=0D1117&amp;text_color=ffffff&amp;border_color=30363D&amp;cache_seconds=7200">
     <img
-      alt="GitHub Streak"
-      src="https://streak-stats.demolab.com?user=MA1002643&hide_border=false&background=ffffff&stroke=0c1a25&ring=FF652F&fire=FF652F&currStreakNum=0C1A25&currStreakLabel=0C1A25&sideNums=0C1A25&sideLabels=0C1A25&dates=475569"
+      alt="Muhammad Abdullah — GitHub Stats"
+      src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&amp;show_icons=true&amp;hide_border=false&amp;title_color=ff652f&amp;icon_color=FFE400&amp;bg_color=ffffff&amp;text_color=0C1A25&amp;border_color=0c1a25&amp;cache_seconds=7200"
       width="500"
-      style="max-width:100%;height:auto;display:block;" />
+      style="max-width:100%;height:auto;display:block;margin:0 auto;">
   </picture>
-</td>
-  </tr>
-</table>
+</p>
 
 ---
 
@@ -255,6 +242,7 @@
 ### ⚡ Recent GitHub Activity
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -263,7 +251,9 @@
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Tuesday, September 23rd, 2025, 9:38:25 PM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 
 ---
