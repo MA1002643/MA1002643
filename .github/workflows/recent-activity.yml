@@ -1,4 +1,4 @@
-name: Update recent activity
+name: Update recent activity (custom)
 
 on:
   workflow_dispatch:
@@ -15,62 +15,159 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    env:
-      # The action expects this env var, not an input
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Reads .github/recent-activity.config.yml and updates README
-      - name: Update README with recent activity
-        uses: Readme-Workflows/recent-activity@v2.4.1
-        # Do not pass inputs; it reads your config file and env.GITHUB_TOKEN
-
-      # Keep the "Last Updated" line fresh even if there are no new events
-      - name: Force-refresh "Last Updated" line
+      - name: Build recent-activity block and inject into README
         uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('fs'); // 'core' is provided by github-script; don't re-require it.
+            const fs = require('fs');
 
-            const README = './README.md';
-            const START = '<!--RECENT_ACTIVITY:last_update-->';
-            const END   = '<!--RECENT_ACTIVITY:last_update_end-->';
+            // ---- settings ----
+            const USER = 'MA1002643';
+            const MAX_LINES = 5;
+            const READ_ME = 'README.md';
+            const ACT_START = '<!--RECENT_ACTIVITY:start-->';
+            const ACT_END   = '<!--RECENT_ACTIVITY:end-->';
+            const TS_START  = '<!--RECENT_ACTIVITY:last_update-->';
+            const TS_END    = '<!--RECENT_ACTIVITY:last_update_end-->';
 
-            const ordinal = (n) => {
+            // ---- fetch events (up to ~300) ----
+            const events = [];
+            for (let page = 1; page <= 3; page++) {
+              const { data } = await github.request('GET /users/{username}/events/public', {
+                username: USER, per_page: 100, page
+              });
+              if (!data || !data.length) break;
+              events.push(...data);
+            }
+
+            // ---- format helpers ----
+            const repoLink = (full) => `[${full}](https://github.com/${full})`;
+            const prLink   = (full, n) => `[${full}#${n}](https://github.com/${full}/pull/${n})`;
+            const issueLink= (full, n) => `[${full}#${n}](https://github.com/${full}/issues/${n})`;
+
+            function format(ev) {
+              const full = ev.repo?.name;
+              if (!full) return null;
+
+              switch (ev.type) {
+                case 'PushEvent': {
+                  const n = ev.payload?.size ?? 1;
+                  return `⬆️ Pushed ${n} commit(s) to ${repoLink(full)}`;
+                }
+                case 'PullRequestEvent': {
+                  const pr = ev.payload?.pull_request;
+                  if (!pr) return null;
+                  const n = pr.number;
+                  if (pr.merged) return `🎉 Merged ${prLink(full, n)}`;
+                  if (ev.payload.action === 'opened') return `✨ Opened ${prLink(full, n)}`;
+                  if (ev.payload.action === 'closed') return `❌ Closed ${prLink(full, n)}`;
+                  return `🔄 Updated ${prLink(full, n)}`;
+                }
+                case 'IssuesEvent': {
+                  const is = ev.payload?.issue;
+                  if (!is) return null;
+                  const n = is.number;
+                  const act = ev.payload.action;
+                  const map = { opened: '📝 Opened', closed: '✔️ Closed', reopened: '🔁 Reopened' };
+                  return `${map[act] || '🔧 Updated'} ${issueLink(full, n)}`;
+                }
+                case 'IssueCommentEvent': {
+                  const is = ev.payload?.issue;
+                  const n = is?.number;
+                  if (!n) return null;
+                  return `💬 Commented on ${issueLink(full, n)}`;
+                }
+                case 'PullRequestReviewEvent': {
+                  const pr = ev.payload?.pull_request;
+                  const n = pr?.number;
+                  if (!n) return null;
+                  return `🔍 Reviewed ${prLink(full, n)}`;
+                }
+                case 'ReleaseEvent': {
+                  const tag = ev.payload?.release?.tag_name || 'a release';
+                  return `🏷️ Released \`${tag}\` in ${repoLink(full)}`;
+                }
+                case 'ForkEvent': {
+                  const dst = ev.payload?.forkee?.full_name;
+                  return `🔱 Forked ${repoLink(full)}${dst ? ` → [${dst}](https://github.com/${dst})` : ''}`;
+                }
+                case 'WatchEvent':   return `⭐ Starred ${repoLink(full)}`;
+                case 'CreateEvent': {
+                  const { ref_type, ref } = ev.payload || {};
+                  if (ref_type === 'repository') return `📦 Created repository ${repoLink(full)}`;
+                  return `📦 Created ${ref_type} \`${ref}\` in ${repoLink(full)}`;
+                }
+                case 'DeleteEvent': {
+                  const { ref_type, ref } = ev.payload || {};
+                  return `🗑️ Deleted ${ref_type} \`${ref}\` in ${repoLink(full)}`;
+                }
+                case 'GollumEvent':  return `📝 Updated wiki in ${repoLink(full)}`;
+                case 'MemberEvent': {
+                  const m = ev.payload?.member?.login;
+                  return `👥 Added ${m ? `@${m} ` : ''}to ${repoLink(full)}`;
+                }
+                case 'CommitCommentEvent': return `🗣️ Commented on a commit in ${repoLink(full)}`;
+                default: return null;
+              }
+            }
+
+            const lines = events
+              .map(format)
+              .filter(Boolean)
+              .slice(0, MAX_LINES)
+              .map(s => `${s}<br>`);
+
+            if (!lines.length) {
+              core.notice('No events found to write.');
+            }
+
+            // ---- build timestamp in Europe/London with ordinal day ----
+            const ordinal = n => {
               const s = ['th','st','nd','rd'], v = n % 100;
               return n + (s[(v - 20) % 10] || s[v] || s[0]);
             };
-
             const tz = 'Europe/London';
             const parts = new Intl.DateTimeFormat('en-GB', {
-              timeZone: tz,
-              weekday: 'long',
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-              hour: 'numeric',
-              minute: '2-digit',
-              second: '2-digit',
-              hour12: true
-            }).formatToParts(new Date()).reduce((acc, p) => (acc[p.type] = p.value, acc), {});
+              timeZone: tz, weekday:'long', month:'long', day:'numeric', year:'numeric',
+              hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true
+            }).formatToParts(new Date())
+              .reduce((a,p)=>(a[p.type]=p.value,a),{});
             const dayNum = parseInt(parts.day, 10);
-            const line = `Last Updated: ${parts.weekday}, ${parts.month} ${ordinal(dayNum)}, ${parts.year}, ${parts.hour}:${parts.minute}:${parts.second} ${parts.dayPeriod}`;
+            const lastUpdated = `Last Updated: ${parts.weekday}, ${parts.month} ${ordinal(dayNum)}, ${parts.year}, ${parts.hour}:${parts.minute}:${parts.second} ${parts.dayPeriod}`;
 
-            let md = fs.readFileSync(README, 'utf8');
-            const blockRE = new RegExp(`${START}[\\s\\S]*?${END}`, 'm');
-            if (!blockRE.test(md)) {
-              core.setFailed('Markers not found: RECENT_ACTIVITY:last_update / _end');
+            // ---- inject into README ----
+            const inject = (src, start, end, payload) => {
+              const i1 = src.indexOf(start), i2 = src.indexOf(end);
+              if (i1 === -1 || i2 === -1) return null;
+              return src.slice(0, i1 + start.length) + '\n\n' + payload + '\n' + src.slice(i2);
+            };
+
+            let md = fs.readFileSync(READ_ME, 'utf8');
+            let updated = inject(md, ACT_START, ACT_END, lines.join('\n'));
+            if (!updated) core.setFailed('Markers not found: RECENT_ACTIVITY:start/end');
+
+            const blockRE = new RegExp(`${TS_START}[\\s\\S]*?${TS_END}`, 'm');
+            if (blockRE.test(updated)) {
+              updated = updated.replace(blockRE, `${TS_START}\n\n${lastUpdated}\n\n${TS_END}`);
             } else {
-              md = md.replace(blockRE, `${START}\n${line}\n${END}`);
-              fs.writeFileSync(README, md, 'utf8');
-              core.notice(line);
+              core.warning('Timestamp markers not found; skipping last-updated line.');
             }
 
-      - name: Commit timestamp bump
+            if (updated !== md) {
+              // remove stray lines that contain only "\n"
+              updated = updated.replace(/^\s*\\n\s*$/gm, '');
+              fs.writeFileSync(READ_ME, updated, 'utf8');
+              core.notice('README updated with recent activity.');
+            } else {
+              core.notice('No README changes were necessary.');
+            }
+
+      - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: bump recent-activity timestamp"
+          commit_message: "docs: update recent activity"
           file_pattern: README.md
