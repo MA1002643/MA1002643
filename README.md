@@ -158,15 +158,16 @@
 
 > Want a collab? Open an issue or DM on LinkedIn — I’m always up for building something bold.
 
-- **Afaaq Mobile** — Full-stack for a small business (Next.js, Node/Express, MongoDB, CI/CD).
+- **AMC** — Full-stack for a small business (Next.js, Node/Express, MongoDB, CI/CD).
 - **SmartMeal / NutriTimer** — .NET MAUI apps (barcode nutrition, hydration/meal reminders).
-- **Portfolio** — Animations & 3D touches: <a href="https://muhammadabdullah227.co.uk/">muhammadabdullah227.co.uk</a>
+- **Portfolio** — brand new website: <a href="https://abdullah-portfolio-chi.vercel.app/">mabdullah.co.uk</a>
 
 ---
 
 ### ⚡ Recent GitHub Activity
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -175,7 +176,9 @@
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Tuesday, September 23rd, 2025, 2:00:15 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 
 ---
