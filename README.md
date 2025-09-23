@@ -109,7 +109,8 @@
 
 ### 🧰 Tech I Use
 
-<!--TECH:START--><p align="center" style="white-space:nowrap;">
+<!--TECH:START-->
+<p align="center" style="white-space:nowrap;">
   <picture style="display:inline-block;margin:0 6px 6px 0;">
     <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs&theme=dark">
     <img src="https://skillicons.dev/icons?i=nextjs" alt="nextjs" height="44">
@@ -206,7 +207,8 @@
     <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=vue&theme=dark">
     <img src="https://skillicons.dev/icons?i=vue" alt="vue" height="44">
   </picture>
-</p><!--TECH:END-->
+</p>
+<!--TECH:END-->
 
 ---
 
