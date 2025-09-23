@@ -33,33 +33,21 @@
   </a>
 </p>
 
-<!-- Metrics row (centered, stable) -->
-<table align="center" cellspacing="0" cellpadding="0" border="0">
-  <tr>
-    <td align="center" valign="middle">
-      <picture>
-        <source media="(prefers-color-scheme: dark)"
-          srcset="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=0B1220&color=111827&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643&cacheSeconds=120" />
-        <img alt="Profile views"
-          src="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=F8FAFC&color=EEF2F7&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643&cacheSeconds=120" />
-      </picture>
-    </td>
-    <td width="16">&nbsp;</td>
-    <td align="center" valign="middle">
-      <picture>
-        <source media="(prefers-color-scheme: dark)"
-          srcset="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=0B1220&color=111827" />
-        <img alt="Followers"
-          src="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=F8FAFC&color=EEF2F7" />
-      </picture>
-    </td>
-  </tr>
-</table>
-
-<!-- Invisible ping AFTER the row so layout isn’t affected -->
-
-<img src="https://komarev.com/ghpvc/?username=MA1002643&style=flat"
-     alt="" width="1" height="1" aria-hidden="true" />
+<!-- Metrics row (centered, matches social colors, keeps live count) -->
+<p align="center">
+  <!-- Profile views (count from Komarev via Shields dynamic) -->
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=0B1220&color=111827&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
+    <img alt="Profile views"
+         src="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=F8FAFC&color=EEF2F7&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
+  </picture>
+&nbsp;&nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=0B1220&color=111827">
+    <img alt="Followers"
+         src="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=F8FAFC&color=EEF2F7">
+  </picture>
+</p>
 
 <!-- Animated underline under socials -->
 <p align="center" style="margin-top:-8px;">
@@ -179,6 +167,7 @@
 ### ⚡ Recent GitHub Activity
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -187,7 +176,9 @@
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
-Last Updated: Tuesday, September 23rd, 2025, 1:37:20 am
+
+Last Updated: Tuesday, September 23rd, 2025, 12:12:20 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 
 ---
