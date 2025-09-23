@@ -15,19 +15,19 @@ jobs:
       OWNER: MA1002643
       README_PATH: README.md
 
-      # cap just in case (bump if you want more)
+      # Cap to keep things reasonable (raise if you want)
       MAX_ICONS: "40"
 
-      # These appear first and are always included
+      # Always include these (and show them first)
       SEED_ICONS: "nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws"
 
-      # Also update the long bullet list between AUTOSTACK markers?
+      # Also update the long bullet list? (must have AUTOSTACK markers)
       WRITE_AUTOSTACK: "false"
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build & inject icons (single picture, no duplicates)
+      - name: Build & inject icons (one <picture> per icon)
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -40,6 +40,7 @@ jobs:
             const WRITE_AUTOSTACK = (process.env.WRITE_AUTOSTACK || 'false').toLowerCase() === 'true';
             const SEED_ICONS = (process.env.SEED_ICONS || '').split(',').map(s => s.trim()).filter(Boolean);
 
+            // ---------- helpers ----------
             const norm = s => (s||'').toLowerCase()
               .replace(/^@?types\//,'').replace(/^@?nestjs\//,'nestjs')
               .replace(/^@?angular\//,'angular').replace(/^@?mui\//,'mui')
@@ -48,50 +49,37 @@ jobs:
 
             function toSlug(name){
               const k = norm(name);
-              const map = new Map([
-                // languages
-                [['javascript','js'].toString(),'js'], [['typescript','ts'].toString(),'ts'],
-                [['python','py'].toString(),'py'], ['java','java'], [['go','golang'].toString(),'go'],
-                [['csharp','c#'].toString(),'cs'], [['cpp','c++'].toString(),'cpp'], ['c','c'],
+              const pairs = [
+                [['javascript','js'],'js'], [['typescript','ts'],'ts'],
+                [['python','py'],'py'], ['java','java'], [['go','golang'],'go'],
+                [['csharp','c#'],'cs'], [['cpp','c++'],'cpp'], ['c','c'],
                 ['php','php'], ['ruby','ruby'], ['kotlin','kotlin'], ['swift','swift'],
                 ['dart','dart'], ['rust','rust'],
-                // frontend
-                [['react','reactdom'].toString(),'react'], [['next','nextjs','next.js'].toString(),'nextjs'],
-                [['vue','vuejs'].toString(),'vue'], [['nuxt','nuxtjs'].toString(),'nuxtjs'],
-                ['svelte','svelte'], ['angular','angular'], [['tailwind','tailwindcss'].toString(),'tailwind'],
-                ['vite','vite'], ['webpack','webpack'], ['babel','babel'], [['three','threejs'].toString(),'threejs'],
-                // backend/runtime
-                [['node','nodejs','node.js'].toString(),'nodejs'], [['express','expressjs'].toString(),'express'],
+                [['react','reactdom'],'react'], [['next','nextjs','next.js'],'nextjs'],
+                [['vue','vuejs'],'vue'], [['nuxt','nuxtjs'],'nuxtjs'],
+                ['svelte','svelte'], ['angular','angular'], [['tailwind','tailwindcss'],'tailwind'],
+                ['vite','vite'], ['webpack','webpack'], ['babel','babel'], [['three','threejs'],'threejs'],
+                [['node','nodejs','node.js'],'nodejs'], [['express','expressjs'],'express'],
                 ['nestjs','nestjs'], ['deno','deno'], ['bun','bun'],
-                // db
-                [['mongodb','mongoose'].toString(),'mongodb'], [['mysql','mysql2'].toString(),'mysql'],
-                [['postgres','postgresql','pg'].toString(),'postgres'], ['sqlite','sqlite'],
+                [['mongodb','mongoose'],'mongodb'], [['mysql','mysql2'],'mysql'],
+                [['postgres','postgresql','pg'],'postgres'], ['sqlite','sqlite'],
                 ['mariadb','mariadb'], ['redis','redis'],
-                // orm
                 ['prisma','prisma'], ['sequelize','sequelize'], ['typeorm','typeorm'],
-                // cloud/devops
-                [['aws','awssdk','awscli'].toString(),'aws'], ['azure','azure'], [['gcp','googlecloud'].toString(),'gcp'],
-                ['vercel','vercel'], ['docker','docker'], [['kubernetes','k8s'].toString(),'kubernetes'],
+                [['aws','awssdk','awscli'],'aws'], ['azure','azure'], [['gcp','googlecloud'],'gcp'],
+                ['vercel','vercel'], ['docker','docker'], [['kubernetes','k8s'],'kubernetes'],
                 ['terraform','terraform'], ['ansible','ansible'], ['nginx','nginx'],
-                [['githubactions','ghactions','actions'].toString(),'githubactions'], ['git','git'],
-                // testing/tools
+                [['githubactions','ghactions','actions'],'githubactions'], ['git','git'],
                 ['jest','jest'], ['cypress','cypress'], ['playwright','playwright'],
                 ['postman','postman'], ['eslint','eslint'], ['prettier','prettier'], ['storybook','storybook'],
-                // ui
-                [['mui','materialui'].toString(),'mui'], [['chakraui','chakra'].toString(),'chakraui'],
-                // mobile/desktop
+                [['mui','materialui'],'mui'], [['chakraui','chakra'],'chakraui'],
                 ['reactnative','react'], ['flutter','flutter'], ['electron','electron'],
-                // .net
-                [['dotnet','.net'].toString(),'dotnet'],
-                // misc
+                [['dotnet','.net'],'dotnet'],
                 ['graphql','graphql'], ['apollo','apollo'], ['firebase','firebase'], ['supabase','supabase'],
-                ['linux','linux'], [['bash','shell'].toString(),'bash'], ['powershell','powershell'],
+                ['linux','linux'], [['bash','shell'],'bash'], ['powershell','powershell'],
                 ['npm','npm'], ['pnpm','pnpm'], ['yarn','yarn'],
-              ]);
-              for (const [keys, val] of map.entries()){
-                const arr = keys.split(',');
-                if (arr.includes(k)) return val;
-                if (k === keys) return val;
+              ];
+              for (const [keys, val] of pairs){
+                if (Array.isArray(keys) ? keys.includes(k) : k === keys) return val;
               }
               return null;
             }
@@ -115,7 +103,8 @@ jobs:
                   username: owner, per_page:100, page:p, type:'public', sort:'updated'
                 });
                 if(!data?.length) break; out.push(...data);
-              } return out;
+              }
+              return out;
             }
 
             const detected = new Set();
@@ -130,13 +119,13 @@ jobs:
               const repo = r.name;
               const ref  = r.default_branch || 'main';
 
-              // languages
+              // Languages
               try{
                 const langs = await github.request('GET /repos/{owner}/{repo}/languages',{ owner: OWNER, repo });
                 Object.keys(langs.data||{}).forEach(k => { detected.add(k); readable.add(k); });
               }catch{}
 
-              // manifests (root only)
+              // Root manifests (fast)
               const paths=['package.json','requirements.txt','pyproject.toml','composer.json','go.mod','Cargo.toml'];
               for (const path of paths){
                 try{
@@ -185,7 +174,7 @@ jobs:
               }
             }
 
-            // merge + order + cap
+            // Merge seed + detected, de-duplicate, order, cap
             const seed = SEED_ICONS.map(toSlug).filter(Boolean);
             const detectedSlugs = [...detected].map(toSlug).filter(Boolean);
             const merged = new Set([...seed, ...detectedSlugs]);
@@ -195,24 +184,26 @@ jobs:
               ...[...merged].filter(s => !preferred.includes(s)).sort()
             ].slice(0, MAX_ICONS);
 
-            // ONE <picture> only (no duplicates)
-            const list = ordered.join(',');
-            const lightURL = `https://skillicons.dev/icons?i=${list}&perline=${ordered.length}`;
-            const darkURL  = `https://skillicons.dev/icons?i=${list}&perline=${ordered.length}&theme=dark`;
+            // Build ONE row: one <picture> per icon (robust on GitHub)
+            const parts = [];
+            parts.push('<p align="center" style="white-space:nowrap;">');
+            for (const slug of ordered){
+              parts.push('  <picture style="display:inline-block;margin:0 6px 6px 0;">');
+              parts.push(`    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=${slug}&theme=dark">`);
+              parts.push(`    <img src="https://skillicons.dev/icons?i=${slug}" alt="${slug}" height="44">`);
+              parts.push('  </picture>');
+            }
+            parts.push('</p>');
+            const iconsHTML = parts.join('\n');
 
-            const iconsHTML = [
-              '<p align="center">',
-              '  <picture>',
-              `    <source media="(prefers-color-scheme: dark)" srcset="${darkURL}">`,
-              `    <img src="${lightURL}" alt="Detected tech stack icons">`,
-              '  </picture>',
-              '</p>'
-            ].join('\n');
+            // Optional plain list
+            const listMd = '# Detected frameworks, libs & tools\\n\\n' +
+              [...new Set([...detected, ...seed])].sort().map(x => '- ' + x).join('\\n') + '\\n';
 
             function inject(src, start, end, payload){
               const i1 = src.indexOf(start), i2 = src.indexOf(end);
               if (i1 === -1 || i2 === -1) return null;
-              return src.slice(0, i1 + start.length) + '\n' + payload + '\n' + src.slice(i2);
+              return src.slice(0, i1 + start.length) + '\\n' + payload + '\\n' + src.slice(i2);
             }
 
             let readme = fs.readFileSync(README_PATH,'utf8');
@@ -220,14 +211,13 @@ jobs:
             if (!updated) { core.setFailed('README missing TECH markers'); return; }
 
             if (WRITE_AUTOSTACK){
-              const listMd = '# Detected frameworks, libs & tools\\n\\n' +
-                [...new Set([...detected, ...seed])].sort().map(x => '- ' + x).join('\\n') + '\\n';
-              updated = inject(updated, '<!--AUTOSTACK:START-->', '<!--AUTOSTACK:END-->', listMd) || updated;
+              const maybe = inject(updated, '<!--AUTOSTACK:START-->', '<!--AUTOSTACK:END-->', listMd);
+              if (maybe) updated = maybe;
             }
 
             if (updated !== readme){
               fs.writeFileSync(README_PATH, updated, 'utf8');
-              core.notice(`Injected ${ordered.length} icons (single picture)`);
+              core.notice(`Injected ${ordered.length} icons as individual <picture> elements`);
             } else {
               core.notice('No README changes');
             }
@@ -235,5 +225,5 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "docs: auto-update tech icons (single block)"
+          commit_message: "docs: auto-update tech icons (robust row)"
           file_pattern: README.md
