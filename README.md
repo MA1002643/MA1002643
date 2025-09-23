@@ -110,26 +110,6 @@
 ### 🧰 Tech I Use
 
 <!--TECH:START-->
-<p align="center" style="display:flex;justify-content:center;gap:0.25rem;flex-wrap:wrap;">
-<span style="display:inline-block;margin:0 4px;line-height:0;">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma&perline=10&theme=dark">
-    <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma&perline=10" alt="tech-icons" />
-  </picture>
-</span>
-<span style="display:inline-block;margin:0 4px;line-height:0;">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php&perline=10&theme=dark">
-    <img src="https://skillicons.dev/icons?i=git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php&perline=10" alt="tech-icons" />
-  </picture>
-</span>
-<span style="display:inline-block;margin:0 4px;line-height:0;">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=bash,c,threejs,vue&perline=4&theme=dark">
-    <img src="https://skillicons.dev/icons?i=bash,c,threejs,vue&perline=4" alt="tech-icons" />
-  </picture>
-</span>
-</p>
 <!--TECH:END-->
 
 ---
@@ -177,6 +157,7 @@
 ### ⚡ Recent GitHub Activity
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -185,7 +166,9 @@
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
-Last Updated: Tuesday, September 23rd, 2025, 4:08:43 am
+
+Last Updated: Tuesday, September 23rd, 2025, 3:39:43 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 
 ---

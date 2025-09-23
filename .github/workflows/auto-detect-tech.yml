@@ -15,14 +15,14 @@ jobs:
       OWNER: MA1002643
       README_PATH: README.md
 
-      # Make 22 icons = 2 chunks of 11 (adjust as you like)
-      CHUNK_SIZE: "11"
-      MAX_ICONS: "40"
+      # Show many icons on one visual row by splitting into small chunks
+      CHUNK_SIZE: "11" # 22 icons -> 2 chunks of 11
+      MAX_ICONS: "40" # overall cap
 
-      # Always include these first
+      # These appear first and are always included
       SEED_ICONS: "nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,git,githubactions,vercel,dotnet,aws"
 
-      # Write the long text list too? (false keeps README clean)
+      # Also write the long bullet list under AUTOSTACK markers?
       WRITE_AUTOSTACK: "false"
 
     steps:
@@ -33,15 +33,15 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            // NOTE: 'core', 'github', 'context' are provided by github-script.
             const fs = require('fs');
-            const core = require('@actions/core');
 
             const OWNER = process.env.OWNER || context.repo.owner;
             const README_PATH = process.env.README_PATH || 'README.md';
             const CHUNK_SIZE = parseInt(process.env.CHUNK_SIZE || '11', 10);
             const MAX_ICONS = parseInt(process.env.MAX_ICONS || '40', 10);
             const WRITE_AUTOSTACK = (process.env.WRITE_AUTOSTACK || 'false').toLowerCase() === 'true';
-            const SEED_ICONS = (process.env.SEED_ICONS || '').split(',').map(s=>s.trim()).filter(Boolean);
+            const SEED_ICONS = (process.env.SEED_ICONS || '').split(',').map(s => s.trim()).filter(Boolean);
 
             const norm = s => (s||'').toLowerCase()
               .replace(/^@?types\//,'').replace(/^@?nestjs\//,'nestjs')
@@ -126,13 +126,13 @@ jobs:
             for(const r of repos){
               const repo=r.name, ref=r.default_branch || 'main';
 
-              // Languages
+              // languages
               try{
                 const langs = await github.request('GET /repos/{owner}/{repo}/languages',{ owner: OWNER, repo });
                 Object.keys(langs.data||{}).forEach(k=>{ detected.add(k); readable.add(k); });
               }catch{}
 
-              // Root files
+              // common root manifests
               const paths=['package.json','requirements.txt','pyproject.toml','composer.json','go.mod','Cargo.toml'];
               for(const path of paths){
                 try{
@@ -143,7 +143,8 @@ jobs:
                   if(path==='package.json'){
                     try{
                       const j=JSON.parse(text);
-                      [...Object.keys(j.dependencies||{}), ...Object.keys(j.devDependencies||{})].forEach(x=>{ detected.add(x); readable.add(x); });
+                      [...Object.keys(j.dependencies||{}), ...Object.keys(j.devDependencies||{})]
+                        .forEach(x=>{ detected.add(x); readable.add(x); });
                     }catch{}
                   }else if(path==='requirements.txt'){
                     text.split(/\r?\n/).map(l=>l.replace(/#.*/,'').trim()).filter(Boolean)
@@ -157,7 +158,8 @@ jobs:
                   }else if(path==='composer.json'){
                     try{
                       const j=JSON.parse(text);
-                      [...Object.keys(j.require||{}), ...Object.keys(j['require-dev']||{})].forEach(x=>{ detected.add(x); readable.add(x); });
+                      [...Object.keys(j.require||{}), ...Object.keys(j['require-dev']||{})]
+                        .forEach(x=>{ detected.add(x); readable.add(x); });
                     }catch{}
                   }else if(path==='go.mod'){
                     const lines=[]; let inBlock=false;
@@ -177,7 +179,7 @@ jobs:
               }
             }
 
-            // Merge seeds + detections -> valid skillicons slugs
+            // merge seeds + detections
             const seed = SEED_ICONS.map(toSlug).filter(Boolean);
             const detectedSlugs = [...detected].map(toSlug).filter(Boolean);
             const merged = new Set([...seed, ...detectedSlugs]);
@@ -187,10 +189,11 @@ jobs:
               ...[...merged].filter(s => !preferred.includes(s)).sort()
             ].slice(0, MAX_ICONS);
 
-            function chunk(arr,n){ const out=[]; for(let i=0;i<arr.length;i+=n) out.push(arr.slice(i,i+n)); return out; }
+            // chunk for reliable rendering on GitHub
+            const chunk = (arr,n)=>{const out=[]; for(let i=0;i<arr.length;i+=n) out.push(arr.slice(i,i+n)); return out;};
             const chunks = chunk(ordered, CHUNK_SIZE);
 
-            // GitHub-safe theme switching using #gh-*-mode-only
+            // Build GitHub-safe HTML (two <img> per chunk with #gh-*-mode-only)
             const parts = chunks.map(slugs => {
               const list = slugs.join(',');
               const light = `https://skillicons.dev/icons?i=${list}&perline=${slugs.length}#gh-light-mode-only`;
@@ -203,30 +206,28 @@ jobs:
               ].join('\n');
             });
 
-            const iconsHTML =
-              '<p align="center">\n' + parts.join('\n') + '\n</p>';
+            const iconsHTML = '<p align="center">\n' + parts.join('\n') + '\n</p>';
 
-            // Inject into README
+            // inject helpers
             function inject(src, start, end, payload){
               const i1 = src.indexOf(start), i2 = src.indexOf(end);
               if (i1 === -1 || i2 === -1) return null;
               return src.slice(0, i1 + start.length) + '\n' + payload + '\n' + src.slice(i2);
             }
 
-            const TECH_START='<!--TECH:START-->', TECH_END='<!--TECH:END-->';
             let readme = fs.readFileSync(README_PATH,'utf8');
-            let updated = inject(readme, TECH_START, TECH_END, iconsHTML);
+            let updated = inject(readme, '<!--TECH:START-->', '<!--TECH:END-->', iconsHTML);
             if(!updated){ core.setFailed('README missing TECH markers'); return; }
 
             if (WRITE_AUTOSTACK){
               const listMd = '# Detected frameworks, libs & tools\\n\\n' +
-                [...new Set([...detected].map(x=>x))].sort().map(x=>'- '+x).join('\\n') + '\\n';
+                [...new Set([...readable])].sort().map(x=>'- '+x).join('\\n') + '\\n';
               updated = inject(updated, '<!--AUTOSTACK:START-->', '<!--AUTOSTACK:END-->', listMd) || updated;
             }
 
             if (updated !== readme){
               fs.writeFileSync(README_PATH, updated, 'utf8');
-              core.notice(`Updated README with ${ordered.length} icons in ${chunks.length} chunks`);
+              core.notice(`Updated README with ${ordered.length} icons in ${chunks.length} chunk(s)`);
             } else {
               core.notice('No README changes');
             }
