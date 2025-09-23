@@ -110,6 +110,20 @@
 ### 🧰 Tech I Use
 
 <!--TECH:START-->
+<p align="center">
+<span style="display:inline-block;margin:0 4px;line-height:0;">
+  <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git&perline=11#gh-light-mode-only" alt="tech icons">
+  <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git&perline=11&theme=dark#gh-dark-mode-only"  alt="tech icons">
+</span>
+<span style="display:inline-block;margin:0 4px;line-height:0;">
+  <img src="https://skillicons.dev/icons?i=githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c&perline=11#gh-light-mode-only" alt="tech icons">
+  <img src="https://skillicons.dev/icons?i=githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c&perline=11&theme=dark#gh-dark-mode-only"  alt="tech icons">
+</span>
+<span style="display:inline-block;margin:0 4px;line-height:0;">
+  <img src="https://skillicons.dev/icons?i=threejs,vue&perline=2#gh-light-mode-only" alt="tech icons">
+  <img src="https://skillicons.dev/icons?i=threejs,vue&perline=2&theme=dark#gh-dark-mode-only"  alt="tech icons">
+</span>
+</p>
 <!--TECH:END-->
 
 ---
