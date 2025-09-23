@@ -203,7 +203,7 @@ jobs:
             function inject(src, start, end, payload){
               const i1 = src.indexOf(start), i2 = src.indexOf(end);
               if (i1 === -1 || i2 === -1) return null;
-              return src.slice(0, i1 + start.length) + '\\n' + payload + '\\n' + src.slice(i2);
+              return src.slice(0, i1 + start.length) + '\n' + payload + '\n' + src.slice(i2);
             }
 
             let readme = fs.readFileSync(README_PATH,'utf8');
@@ -221,6 +221,12 @@ jobs:
             } else {
               core.notice('No README changes');
             }
+
+      - name: Remove stray literal \n lines in TECH block
+        run: |
+          # delete any line that is exactly "\n" inside README
+          sed -i.bak '/^[[:space:]]*\\n[[:space:]]*$/d' README.md || true
+          rm -f README.md.bak
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
