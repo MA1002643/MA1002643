@@ -111,18 +111,10 @@
 
 <!--TECH:START-->
 <p align="center">
-<span style="display:inline-block;margin:0 4px;line-height:0;">
-  <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git&perline=11#gh-light-mode-only" alt="tech icons">
-  <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git&perline=11&theme=dark#gh-dark-mode-only"  alt="tech icons">
-</span>
-<span style="display:inline-block;margin:0 4px;line-height:0;">
-  <img src="https://skillicons.dev/icons?i=githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c&perline=11#gh-light-mode-only" alt="tech icons">
-  <img src="https://skillicons.dev/icons?i=githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c&perline=11&theme=dark#gh-dark-mode-only"  alt="tech icons">
-</span>
-<span style="display:inline-block;margin:0 4px;line-height:0;">
-  <img src="https://skillicons.dev/icons?i=threejs,vue&perline=2#gh-light-mode-only" alt="tech icons">
-  <img src="https://skillicons.dev/icons?i=threejs,vue&perline=2&theme=dark#gh-dark-mode-only"  alt="tech icons">
-</span>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24&theme=dark">
+    <img src="https://skillicons.dev/icons?i=nextjs,react,ts,js,tailwind,nodejs,express,mongodb,mysql,prisma,git,githubactions,vercel,dotnet,aws,jest,eslint,prettier,java,php,bash,c,threejs,vue&perline=24" alt="Detected tech stack icons">
+  </picture>
 </p>
 <!--TECH:END-->
 
