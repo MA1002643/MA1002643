@@ -212,7 +212,37 @@
 
 ---
 
-### 📈 GitHub Pulse
+### 🧪 Featured Projects
+
+> Want a collab? Open an issue or DM on LinkedIn — I’m always up for building something bold.
+
+- **AMC** — Full-stack for a small business (Next.js, Node/Express, MongoDB, CI/CD).
+- **SmartMeal / NutriTimer** — .NET MAUI apps (barcode nutrition, hydration/meal reminders).
+- **Portfolio** — brand new website: <a href="https://abdullah-portfolio-chi.vercel.app/">mabdullah.co.uk</a>
+
+---
+
+<p align="center">
+  <img alt="Trophies"
+       src="https://github-profile-trophy.vercel.app/?username=MA1002643&theme=apprentice&no-frame=true&no-bg=true&row=1&column=6&margin-w=12&margin-h=12" />
+</p>
+
+---
+
+<details>
+<summary>⚡ Recent GitHub Activity</summary>
+
+<!--RECENT_ACTIVITY:start-->
+
+<!--RECENT_ACTIVITY:end-->
+
+<!--RECENT_ACTIVITY:last_update-->
+
+<!--RECENT_ACTIVITY:last_update_end-->
+</details>
+
+<details>
+  <summary>📈 GitHub Pulse</summary>
 
 <p align="center">
   <picture>
@@ -227,38 +257,4 @@
   </picture>
 </p>
 
----
-
-### 🧪 Featured Projects
-
-> Want a collab? Open an issue or DM on LinkedIn — I’m always up for building something bold.
-
-- **AMC** — Full-stack for a small business (Next.js, Node/Express, MongoDB, CI/CD).
-- **SmartMeal / NutriTimer** — .NET MAUI apps (barcode nutrition, hydration/meal reminders).
-- **Portfolio** — brand new website: <a href="https://abdullah-portfolio-chi.vercel.app/">mabdullah.co.uk</a>
-
----
-
-### ⚡ Recent GitHub Activity
-
-<!--RECENT_ACTIVITY:start-->
-
-⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
-⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
-⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
-⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
-⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
-<!--RECENT_ACTIVITY:end-->
-
-<!--RECENT_ACTIVITY:last_update-->
-
-Last Updated: Wednesday, September 24th, 2025, 6:01:04 am
-
-<!--RECENT_ACTIVITY:last_update_end-->
-
----
-
-<p align="center">
-  <img alt="Trophies"
-       src="https://github-profile-trophy.vercel.app/?username=MA1002643&theme=apprentice&no-frame=true&no-bg=true&row=1&column=6&margin-w=12&margin-h=12" />
-</p>
+</details>
