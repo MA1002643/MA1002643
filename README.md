@@ -250,7 +250,6 @@ Last Updated: Wednesday, September 24th, 2025, 6:13:36 AM
 
 <!--RECENT_ACTIVITY:last_update_end-->
 </details>
-<br />
 
 <details>
   <summary>📈 GitHub Pulse</summary>
@@ -262,11 +261,13 @@ Last Updated: Wednesday, September 24th, 2025, 6:13:36 AM
       media="(prefers-color-scheme: dark)"
       srcset="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&amp;show_icons=true&amp;hide_border=false&amp;title_color=ff652f&amp;icon_color=FFE400&amp;bg_color=0D1117&amp;text_color=ffffff&amp;border_color=30363D&amp;cache_seconds=7200">
     <img
+      align="left"
       alt="Muhammad Abdullah — GitHub Stats"
       src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&amp;show_icons=true&amp;hide_border=false&amp;title_color=ff652f&amp;icon_color=FFE400&amp;bg_color=ffffff&amp;text_color=0C1A25&amp;border_color=0c1a25&amp;cache_seconds=7200"
       width="500"
       style="max-width:100%;height:auto;display:block;margin:0 auto;">
   </picture>
 </p>
+<br clear="left" />
 
 </details>
