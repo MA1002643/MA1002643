@@ -243,17 +243,9 @@
 4. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 5. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 
-⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
-⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
-⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
-⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
-⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
-
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
-
-Last Updated: Thursday, September 25th, 2025, 3:44:03 AM
 
 Last Updated: Thursday, September 25th, 2025, 4:11:57 am
 
@@ -263,22 +255,43 @@ Last Updated: Thursday, September 25th, 2025, 4:11:57 am
 <details>
   <summary>📈 GitHub Pulse</summary>
 
-<p align="left">
-<br />
-  <picture>
-    <source
-      media="(prefers-color-scheme: dark)"
-      srcset="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&amp;show_icons=true&amp;hide_border=false&amp;title_color=ff652f&amp;icon_color=FFE400&amp;bg_color=0D1117&amp;text_color=ffffff&amp;border_color=30363D&amp;cache_seconds=7200">
-    <img
-      align="left"
-      alt="Muhammad Abdullah — GitHub Stats"
-      src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&amp;show_icons=true&amp;hide_border=false&amp;title_color=ff652f&amp;icon_color=FFE400&amp;bg_color=ffffff&amp;text_color=0C1A25&amp;border_color=0c1a25&amp;cache_seconds=7200"
-      width="500"
-      style="max-width:100%;height:auto;display:block;margin:0 auto;">
-  </picture>
-</p>
-<br clear="left" />
+  <br />
+  <table>
+    <tr>
+      <td>
+        <!-- GitHub Stats -->
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=0D1117&text_color=ffffff&border_color=30363D&cache_seconds=7200" />
+          <img alt="Muhammad Abdullah — GitHub Stats" height="180" src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=ffffff&text_color=0C1A25&border_color=0c1a25&cache_seconds=7200" />
+        </picture>
+      </td>
+      <td>
+        <!-- Most Used Languages -->
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=0D1117&title_color=ff652f&text_color=ffffff&border_color=30363D&hide_border=false&cache_seconds=7200" />
+          <img alt="Muhammad Abdullah — Most Used Languages" height="180" src="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=0c1a25&hide_border=false&cache_seconds=7200" />
+        </picture>
+      </td>
+      <td>
+        <!-- Streak (theme-matched) -->
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-streak-stats.herokuapp.com/?user=MA1002643&hide_border=false&background=0D1117&border=30363D&ring=ff652f&fire=FFE400&currStreakNum=ffffff&currStreakLabel=ffffff&sideNums=ffffff&sideLabels=ffffff&dates=9CA3AF" />
+          <img alt="Muhammad Abdullah — GitHub Streak" height="180" src="https://github-readme-streak-stats.herokuapp.com/?user=MA1002643&hide_border=false&background=ffffff&border=0c1a25&ring=ff652f&fire=FFE400&currStreakNum=0C1A25&currStreakLabel=0C1A25&sideNums=0C1A25&sideLabels=0C1A25&dates=6B7280" />
+        </picture>
+      </td>
+    </tr>
+  </table>
+</details>
 
+<details>
+  <summary><b>☄️ Github Streaks</b></summary>
+
+  <br />
+<!-- GitHub Streak (matches your theme) -->
+  <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-streak-stats.herokuapp.com/?user=MA1002643&hide_border=false&background=0D1117&border=30363D&ring=ff652f&fire=FFE400&currStreakNum=ffffff&currStreakLabel=ffffff&sideNums=ffffff&sideLabels=ffffff&dates=9CA3AF" />
+          <img alt="Muhammad Abdullah — GitHub Streak" height="180" src="https://github-readme-streak-stats.herokuapp.com/?user=MA1002643&hide_border=false&background=ffffff&border=0c1a25&ring=ff652f&fire=FFE400&currStreakNum=0C1A25&currStreakLabel=0C1A25&sideNums=0C1A25&sideLabels=0C1A25&dates=6B7280" />
+        </picture>
 </details>
 
 ---
