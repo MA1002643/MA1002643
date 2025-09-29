@@ -69,7 +69,7 @@
 ---
 
 <!-- PINNED: START -->
-<br />
+
 <h3 align="left" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
@@ -211,7 +211,7 @@
 </p>
 <!--TECH:END-->
 
----
+#
 
 ### 🧪 Featured Projects
 
@@ -221,14 +221,14 @@
 - **SmartMeal / NutriTimer** — .NET MAUI apps (barcode nutrition, hydration/meal reminders).
 - **Portfolio** — brand new website: <a href="https://abdullah-portfolio-chi.vercel.app/">mabdullah.co.uk</a>
 
----
+#
 
 <p align="center">
   <img alt="Trophies"
        src="https://github-profile-trophy.vercel.app/?username=MA1002643&theme=apprentice&no-frame=true&no-bg=true&row=1&column=6&margin-w=12&margin-h=12" />
 </p>
 
----
+#
 
 <br />
 <details>
