@@ -69,7 +69,8 @@
 ---
 
 <!-- PINNED: START -->
-<h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
+<br />
+<h3 align="left" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
 <td align="center" valign="top" width="50%" style="padding:12px 24px 12px 0px; border:0;">
@@ -105,7 +106,7 @@
 - 🎯 **2025 Goal:** contribute more to open-source, ship impactful tools.
 - ✈️ Fun fact: I love driving HGVs and I’d love to become a pilot one day.
 
----
+#
 
 ### 🧰 Tech I Use
 
@@ -242,6 +243,7 @@
 ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 ⬆️ Pushed 2 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
+
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
