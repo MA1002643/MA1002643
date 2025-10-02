@@ -69,7 +69,7 @@
 ---
 
 <!-- PINNED: START -->
-<h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
+<h3 align="left" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
 <td align="center" valign="top" width="50%" style="padding:12px 24px 12px 0px; border:0;">
@@ -222,13 +222,6 @@
 
 #
 
-<p align="center">
-  <img alt="Trophies"
-       src="https://github-profile-trophy.vercel.app/?username=MA1002643&theme=apprentice&no-frame=true&no-bg=true&row=1&column=6&margin-w=12&margin-h=12" />
-</p>
-
-#
-
 <br />
 <details>
 <br />
@@ -236,6 +229,7 @@
 <summary>⚡ Recent GitHub Activity</summary>
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -244,7 +238,9 @@
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Friday, October 3rd, 2025, 12:35:03 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 </details>
 

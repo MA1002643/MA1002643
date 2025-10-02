@@ -2,7 +2,7 @@ name: Auto-pin top repos
 
 on:
   schedule:
-    - cron: "*/30 * * * *" # every 30 minutes
+    - cron: "0 8 * * 1" # Mondays at 08:00 UTC
   workflow_dispatch:
 
 permissions:
