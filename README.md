@@ -226,7 +226,7 @@
 <details>
 <br />
 
-<summary>⚡ Recent GitHub Activity</summary>
+<summary><b>⚡ Recent GitHub Activity</b></summary>
 
 <!--RECENT_ACTIVITY:start-->
 
@@ -245,7 +245,7 @@ Last Updated: Friday, October 3rd, 2025, 12:47:40 AM
 </details>
 
 <details>
-  <summary>📈 GitHub Pulse</summary>
+  <summary><b>📈 GitHub Pulse</b></summary>
 
   <br />
         <!-- GitHub Stats -->
@@ -257,8 +257,7 @@ Last Updated: Friday, October 3rd, 2025, 12:47:40 AM
 
 <details>
 
-<summary>🌍 Most Used Languages</summary>
-
+<summary><b>🌍 Most Used Languages</b></summary>
 <br />
 <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=0D1117&title_color=ff652f&text_color=ffffff&border_color=30363D&hide_border=false&cache_seconds=7200" />
@@ -268,7 +267,7 @@ Last Updated: Friday, October 3rd, 2025, 12:47:40 AM
 </details>
 
 <details>
-  <summary><b>☄️ Github Streaks</b></summary>
+  <summary><b>🔥 Github Streaks</b></summary>
 
   <br />
 <!-- GitHub Streak (matches your theme) -->
