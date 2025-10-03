@@ -248,24 +248,23 @@ Last Updated: Friday, October 3rd, 2025, 12:47:40 AM
   <summary>📈 GitHub Pulse</summary>
 
   <br />
-  <table>
-    <tr>
-      <td>
         <!-- GitHub Stats -->
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=0D1117&text_color=ffffff&border_color=30363D&cache_seconds=7200" />
           <img alt="Muhammad Abdullah — GitHub Stats" height="180" src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=ffffff&text_color=0C1A25&border_color=0c1a25&cache_seconds=7200" />
         </picture>
-      </td>
-      <td>
-        <!-- Most Used Languages -->
-        <picture>
+</details>
+
+<details>
+
+<summary>🌍 Most Used Languages</summary>
+
+<br />
+<picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=0D1117&title_color=ff652f&text_color=ffffff&border_color=30363D&hide_border=false&cache_seconds=7200" />
           <img alt="Muhammad Abdullah — Most Used Languages" height="180" src="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=0c1a25&hide_border=false&cache_seconds=7200" />
         </picture>
-      </td>
-    </tr>
-  </table>
+
 </details>
 
 <details>
