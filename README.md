@@ -247,13 +247,11 @@ Last Updated: Friday, October 3rd, 2025, 9:28:27 AM
 
 ## Daily Coding Time by Language
 
-_Last update: auto at 08:00 AM everyday, showing **yesterday**_
-
 <!-- LANG-TIME:START -->
 
 > No editor activity recorded in the following window.
 
-_Last updated on 2025-10-03 (Displaying Data from past 7 days)
+\_Last updated on 2025-10-03 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 </details>

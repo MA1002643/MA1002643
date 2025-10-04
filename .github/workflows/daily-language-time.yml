@@ -128,7 +128,7 @@ jobs:
 
           # Footer like: _Last updated on YYYY-MM-DD (Displaying Data from past N days)
           days_span = (used_end - used_start).days + 1
-          footer = f"_Last updated on {end_day.isoformat()} (Displaying Data from past {days_span} days)"
+          footer = f"Last updated on {end_day.isoformat()} (Displaying Data from past {days_span} days)"
 
           replacement = (
               f"{start_tag}\n\n{block}\n\n"
