@@ -253,7 +253,7 @@ _Last update: auto at 08:00 AM everyday, showing **yesterday**_
 
 > No editor activity recorded in the following window.
 
-_Last updated on **2025-10-03** (window: 2025-09-27) _(limited to last 7 days by WakaTime free plan)_
+_Last updated on 2025-10-03 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 </details>
