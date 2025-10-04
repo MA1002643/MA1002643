@@ -4,48 +4,27 @@
   <img src="./assets/hero-pro-light.svg" alt="Muhammad Abdullah — Professional Header">
 </picture>
 
+<!-- Social icons section -->
 <p align="center">
-  <a href="https://muhammadabdullah227.co.uk">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/website?down_message=offline&label=muhammadabdullah227.co.uk&style=for-the-badge&up_message=online&url=https%3A%2F%2Fmuhammadabdullah227.co.uk&labelColor=0B1220&color=111827">
-      <img alt="Website — muhammadabdullah227.co.uk"
-           src="https://img.shields.io/website?down_message=offline&label=muhammadabdullah227.co.uk&style=for-the-badge&up_message=online&url=https%3A%2F%2Fmuhammadabdullah227.co.uk&labelColor=F8FAFC&color=EEF2F7">
-    </picture>
+<br/>
+  <a href="mailto:muhammad.abdullah33176444@gmail.com">
+    <img src="https://img.shields.io/badge/Gmail-333333?style=for-the-badge&logo=gmail&logoColor=red" />
   </a>
-</p>
-<!-- Social row (centered) -->
-<p align="center">
-  <!-- LinkedIn -->
-  <a href="https://linkedin.com/in/muhammad-abdullah227">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/LinkedIn-111827?logo=linkedin&logoColor=0A66C2&labelColor=0B1220">
-      <img alt="LinkedIn"
-           src="https://img.shields.io/badge/LinkedIn-EEF2F7?logo=linkedin&logoColor=0A66C2&labelColor=F8FAFC">
-    </picture>
+  <a href="https://linkedin.com/in/muhammad-abdullah227" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" />
   </a>
-&nbsp;&nbsp;
-  <a href="https://github.com/MA1002643">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/GitHub-111827?logo=github&logoColor=E5E7EB&labelColor=0B1220">
-      <img alt="GitHub"
-           src="https://img.shields.io/badge/GitHub-EEF2F7?logo=github&logoColor=0C1A25&labelColor=F8FAFC">
-    </picture>
+    <a href="https://muhammadabdullah227.co.uk/" target="_blank">
+     <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white" target="_blank" />
   </a>
-</p>
-
-<!-- Metrics row (centered, matches social colors, keeps live count) -->
-<p align="center">
-  <!-- Profile views (dynamic via Shields, styled to match Followers) -->
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=0B1220&color=111827&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
-    <img alt="Profile views" src="https://img.shields.io/badge/dynamic/xml?label=Profile%20views&style=flat&labelColor=F8FAFC&color=EEF2F7&query=%2F%2F*%5Blocal-name()%3D'text'%5D%5Blast()%5D&url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3DMA1002643">
-  </picture>
-  &nbsp;&nbsp;
-  <!-- Followers (unchanged, colors are the reference) -->
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=0B1220&color=111827">
-    <img alt="Followers" src="https://img.shields.io/github/followers/MA1002643?label=Followers&style=flat&labelColor=F8FAFC&color=EEF2F7">
-  </picture>
+  <br/>
+  <a href="https://github.com/MA1002643?tab=repositories&sort=stargazers">
+    <img alt="total stars" title="Total stars on GitHub"
+         src="https://custom-icon-badges.demolab.com/github/stars/MA1002643?color=55960c&style=for-the-badge&labelColor=488207&logo=star" />
+  </a>
+  <a href="https://github.com/MA1002643?tab=followers">
+    <img alt="followers" title="Follow me on GitHub"
+         src="https://custom-icon-badges.demolab.com/github/followers/MA1002643?color=236ad3&labelColor=1155ba&style=for-the-badge&logo=person-add&label=Follow&logoColor=white" />
+  </a>
 </p>
 
 <!-- Animated underline under socials -->
@@ -56,7 +35,7 @@
   </picture>
 </p>
 
-<!-- Typing headline (theme-aware colors) -->
+<!-- Typing headline -->
 <p align="center">
   <picture>
     <!-- Dark mode: light text -->
@@ -229,6 +208,7 @@
 <summary><b>🕒 Recent GitHub Activity</b></summary>
 
 <!--RECENT_ACTIVITY:start-->
+
 1. 💬 Commented on [#1](https://github.com/MA1002643/MA1002643/issues/1#issuecomment-3363758186) in [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -237,7 +217,9 @@
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Friday, October 3rd, 2025, 9:28:27 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 </details>
 
@@ -260,7 +242,9 @@ Last Updated: Friday, October 3rd, 2025, 9:28:27 AM
           <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=0D1117&title_color=ff652f&text_color=ffffff&border_color=30363D&hide_border=false&cache_seconds=7200" />
           <img alt="Muhammad Abdullah — Most Used Languages" height="180" src="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=0c1a25&hide_border=false&cache_seconds=7200" />
         </picture>
-
+        <br/>
+    <b>Note:</b> Top languages is only a metric of the languages my public code consists of and doesn't reflect experience or skill level. <br />
+  <br />
 </details>
 
 <details>
