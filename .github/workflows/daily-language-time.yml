@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Build README section from WakaTime (last 30 full days, Europe/London)
+      - name: Build README section from WakaTime (rolling window, Europe/London)
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           WAKATIME_USER: ${{ secrets.WAKATIME_USER }} # can be unset or empty
@@ -34,8 +34,8 @@ jobs:
           from datetime import timedelta
           from urllib.request import Request, urlopen
           from urllib.parse import urlencode
-          from zoneinfo import ZoneInfo
           from urllib.error import HTTPError
+          from zoneinfo import ZoneInfo
 
           def hhmm_words(total_seconds:int) -> str:
               m = total_seconds // 60
@@ -52,41 +52,58 @@ jobs:
               filled = int(pct / 100 * width + 1e-9)
               return "█" * filled + "░" * (width - filled)
 
+          def fetch_summaries(user: str, api_key: str, start, end):
+              params = {"start": start.isoformat(), "end": end.isoformat(), "timezone": "Europe/London"}
+              url = f"https://wakatime.com/api/v1/users/{user}/summaries?{urlencode(params)}"
+              headers = {"Authorization": "Basic " + base64.b64encode(api_key.encode()).decode()}
+              with urlopen(Request(url, headers=headers)) as resp:
+                  return json.load(resp)
+
           tz = ZoneInfo("Europe/London")
           today = datetime.datetime.now(tz).date()
 
-          # Use last 30 *complete* days: end at yesterday, start 29 days before that (inclusive)
-          end_day = today - timedelta(days=1)
-          start_day = end_day - timedelta(days=29)
+          # Use last 30 *complete* days if available; otherwise fall back to last 7 *complete* days
+          end_day = today - timedelta(days=1)       # include only full days
+          start_30 = end_day - timedelta(days=29)   # 30 full days inclusive
+          start_7  = end_day - timedelta(days=6)    # 7 full days inclusive
 
           api_key = os.getenv("WAKATIME_API_KEY")
           if not api_key:
               print("::error::WAKATIME_API_KEY secret missing. Add it in repo settings.")
               sys.exit(1)
 
-          # Treat empty env as unset → fallback to 'current'
           user = os.getenv("WAKATIME_USER") or "current"
 
-          params = {"start": start_day.isoformat(), "end": end_day.isoformat(), "timezone": "Europe/London"}
-          url = f"https://wakatime.com/api/v1/users/{user}/summaries?{urlencode(params)}"
-          headers = {"Authorization": "Basic " + base64.b64encode(api_key.encode()).decode()}
-
+          used_start = start_30
+          used_end = end_day
+          note_suffix = ""
           try:
-              with urlopen(Request(url, headers=headers)) as resp:
-                  data = json.load(resp)
+              data = fetch_summaries(user, api_key, start_30, end_day)
           except HTTPError as e:
-              print(f"::error::WakaTime API error {e.code} at /api/v1/users/{user}/summaries")
-              body = e.read().decode(errors="ignore")
-              print(body[:500])
-              sys.exit(1)
+              if e.code == 402:
+                  print("::warning::WakaTime returned 402 (Payment Required) for 30-day range. Falling back to last 7 full days.")
+                  used_start = start_7
+                  try:
+                      data = fetch_summaries(user, api_key, used_start, used_end)
+                      note_suffix = " _(limited to last 7 days by WakaTime free plan)_"
+                  except HTTPError as ee:
+                      print(f"::error::WakaTime API error {ee.code} at /api/v1/users/{user}/summaries (7-day fallback)")
+                      body = ee.read().decode(errors="ignore")
+                      print(body[:500])
+                      sys.exit(1)
+              else:
+                  print(f"::error::WakaTime API error {e.code} at /api/v1/users/{user}/summaries")
+                  body = e.read().decode(errors="ignore")
+                  print(body[:500])
+                  sys.exit(1)
 
-          # Aggregate languages across the rolling window (covers all projects: public/private/forked)
+          # Aggregate languages across the selected window (covers public/private/forked work)
           languages = {}
           for day in data.get("data", []):
               for lang in day.get("languages", []):
                   secs = int(lang.get("total_seconds", 0))
                   if secs > 0:
-                      name = lang.get("name","Unknown")
+                      name = lang.get("name", "Unknown")
                       languages[name] = languages.get(name, 0) + secs
 
           items = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
@@ -101,7 +118,7 @@ jobs:
               ]
               block = "```text\n" + "\n".join(lines) + "\n```"
           else:
-              block = "> No editor activity recorded in the last 30 days."
+              block = "> No editor activity recorded in the selected window."
 
           start_tag = "<!-- LANG-TIME:START -->"
           end_tag = "<!-- LANG-TIME:END -->"
@@ -113,13 +130,13 @@ jobs:
 
           replacement = (
               f"{start_tag}\n\n{block}\n\n"
-              f"_Last updated on **{end_day.isoformat()}** (window: {start_day.isoformat()} → {end_day.isoformat()})_\n\n"
+              f"_Last updated on **{end_day.isoformat()}** (window: {used_start.isoformat()} → {used_end.isoformat()}){note_suffix}\n\n"
               f"{end_tag}"
           )
           new_readme = re.sub(rf"{re.escape(start_tag)}.*?{re.escape(end_tag)}", replacement, readme, flags=re.DOTALL)
           with open("README.md","w",encoding="utf-8") as f:
               f.write(new_readme)
-          print("Updated README language time block (last 30 full days).")
+          print("Updated README language time block.")
           PY
 
       - name: Commit & push changes
@@ -131,5 +148,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "chore: update language time (last 30 days, bars + %)"
+          git commit -m "chore: update language time (rolling window, bars + %)"
           git push
