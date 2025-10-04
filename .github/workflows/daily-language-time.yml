@@ -118,7 +118,7 @@ jobs:
               ]
               block = "```text\n" + "\n".join(lines) + "\n```"
           else:
-              block = "> No editor activity recorded in the selected window."
+              block = "> No editor activity recorded in the following window."
 
           start_tag = "<!-- LANG-TIME:START -->"
           end_tag = "<!-- LANG-TIME:END -->"
@@ -130,7 +130,7 @@ jobs:
 
           replacement = (
               f"{start_tag}\n\n{block}\n\n"
-              f"_Last updated on **{end_day.isoformat()}** (window: {used_start.isoformat()} → {used_end.isoformat()}){note_suffix}\n\n"
+              f"_Last updated on **{end_day.isoformat()}** (window: {used_start.isoformat()}){note_suffix}\n\n"
               f"{end_tag}"
           )
           new_readme = re.sub(rf"{re.escape(start_tag)}.*?{re.escape(end_tag)}", replacement, readme, flags=re.DOTALL)
