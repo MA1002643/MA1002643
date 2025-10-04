@@ -76,7 +76,6 @@ jobs:
 
           used_start = start_30
           used_end = end_day
-          note_suffix = ""
           try:
               data = fetch_summaries(user, api_key, start_30, end_day)
           except HTTPError as e:
@@ -85,7 +84,6 @@ jobs:
                   used_start = start_7
                   try:
                       data = fetch_summaries(user, api_key, used_start, used_end)
-                      note_suffix = " _(limited to last 7 days by WakaTime free plan)_"
                   except HTTPError as ee:
                       print(f"::error::WakaTime API error {ee.code} at /api/v1/users/{user}/summaries (7-day fallback)")
                       body = ee.read().decode(errors="ignore")
@@ -128,11 +126,16 @@ jobs:
               print("::error::Markers not found in README.md. Add the LANG-TIME markers.")
               sys.exit(1)
 
+          # Footer like: _Last updated on YYYY-MM-DD (Displaying Data from past N days)
+          days_span = (used_end - used_start).days + 1
+          footer = f"_Last updated on {end_day.isoformat()} (Displaying Data from past {days_span} days)"
+
           replacement = (
               f"{start_tag}\n\n{block}\n\n"
-              f"_Last updated on **{end_day.isoformat()}** (window: {used_start.isoformat()}){note_suffix}\n\n"
+              f"{footer}\n\n"
               f"{end_tag}"
           )
+
           new_readme = re.sub(rf"{re.escape(start_tag)}.*?{re.escape(end_tag)}", replacement, readme, flags=re.DOTALL)
           with open("README.md","w",encoding="utf-8") as f:
               f.write(new_readme)
