@@ -251,9 +251,9 @@ _Last update: auto at 08:00 AM everyday, showing **yesterday**_
 
 <!-- LANG-TIME:START -->
 
-> No editor activity recorded in the selected window.
+> No editor activity recorded in the following window.
 
-_Last updated on **2025-10-03** (window: 2025-09-27 → 2025-10-03) _(limited to last 7 days by WakaTime free plan)_
+_Last updated on **2025-10-03** (window: 2025-09-27) _(limited to last 7 days by WakaTime free plan)_
 
 <!-- LANG-TIME:END -->
 </details>
