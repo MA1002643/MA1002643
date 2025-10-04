@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Build README section from WakaTime (yesterday, Europe/London)
+      - name: Build README section from WakaTime (last 30 full days, Europe/London)
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           WAKATIME_USER: ${{ secrets.WAKATIME_USER }} # can be unset or empty
@@ -53,7 +53,11 @@ jobs:
               return "█" * filled + "░" * (width - filled)
 
           tz = ZoneInfo("Europe/London")
-          target_day = (datetime.datetime.now(tz).date() - timedelta(days=1)).isoformat()
+          today = datetime.datetime.now(tz).date()
+
+          # Use last 30 *complete* days: end at yesterday, start 29 days before that (inclusive)
+          end_day = today - timedelta(days=1)
+          start_day = end_day - timedelta(days=29)
 
           api_key = os.getenv("WAKATIME_API_KEY")
           if not api_key:
@@ -63,7 +67,7 @@ jobs:
           # Treat empty env as unset → fallback to 'current'
           user = os.getenv("WAKATIME_USER") or "current"
 
-          params = {"start": target_day, "end": target_day, "timezone": "Europe/London"}
+          params = {"start": start_day.isoformat(), "end": end_day.isoformat(), "timezone": "Europe/London"}
           url = f"https://wakatime.com/api/v1/users/{user}/summaries?{urlencode(params)}"
           headers = {"Authorization": "Basic " + base64.b64encode(api_key.encode()).decode()}
 
@@ -76,6 +80,7 @@ jobs:
               print(body[:500])
               sys.exit(1)
 
+          # Aggregate languages across the rolling window (covers all projects: public/private/forked)
           languages = {}
           for day in data.get("data", []):
               for lang in day.get("languages", []):
@@ -96,7 +101,7 @@ jobs:
               ]
               block = "```text\n" + "\n".join(lines) + "\n```"
           else:
-              block = "> No editor activity recorded for yesterday (Europe/London)."
+              block = "> No editor activity recorded in the last 30 days."
 
           start_tag = "<!-- LANG-TIME:START -->"
           end_tag = "<!-- LANG-TIME:END -->"
@@ -108,13 +113,13 @@ jobs:
 
           replacement = (
               f"{start_tag}\n\n{block}\n\n"
-              f"_Last updated for **{target_day}**_\n\n"
+              f"_Last updated on **{end_day.isoformat()}** (window: {start_day.isoformat()} → {end_day.isoformat()})_\n\n"
               f"{end_tag}"
           )
           new_readme = re.sub(rf"{re.escape(start_tag)}.*?{re.escape(end_tag)}", replacement, readme, flags=re.DOTALL)
           with open("README.md","w",encoding="utf-8") as f:
               f.write(new_readme)
-          print("Updated README language time block.")
+          print("Updated README language time block (last 30 full days).")
           PY
 
       - name: Commit & push changes
@@ -126,5 +131,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "chore: update daily language time (bars + %)"
+          git commit -m "chore: update language time (last 30 days, bars + %)"
           git push
