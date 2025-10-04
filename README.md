@@ -251,6 +251,11 @@ Last Updated: Friday, October 3rd, 2025, 9:28:27 AM
 _Last update: auto at 08:00 Europe/London, showing **yesterday**_
 
 <!-- LANG-TIME:START -->
+
+> No editor activity recorded for yesterday (Europe/London).
+
+_Last updated for **2025-10-03**_
+
 <!-- LANG-TIME:END -->
 </details>
 
