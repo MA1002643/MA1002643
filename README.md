@@ -251,7 +251,7 @@ Last Updated: Friday, October 3rd, 2025, 9:28:27 AM
 
 > No editor activity recorded in the following window.
 
-\_Last updated on 2025-10-03 (Displaying Data from past 7 days)
+Last updated on 2025-10-03 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 </details>
