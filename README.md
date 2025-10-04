@@ -244,11 +244,10 @@ Last Updated: Friday, October 3rd, 2025, 9:28:27 AM
         </picture>
         <br/>
     <b>Note:</b> Top languages is only a metric of the languages my public code consists of and doesn't reflect experience or skill level. <br />
-  <br />
-  
-## Daily Coding Time by Language (Europe/London)
 
-_Last update: auto at 08:00 Europe/London, showing **yesterday**_
+## Daily Coding Time by Language
+
+_Last update: auto at 08:00 AM everyday, showing **yesterday**_
 
 <!-- LANG-TIME:START -->
 
