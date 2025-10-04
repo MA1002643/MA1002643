@@ -1,0 +1,152 @@
+name: Daily Language Time (08:00 Europe/London)
+
+on:
+    schedule:
+        - cron: "0 7 * * *" # 08:00 when London is UTC+1 (BST)
+        - cron: "0 8 * * *" # 08:00 when London is UTC+0 (GMT)
+    workflow_dispatch: {}
+
+permissions:
+    contents: write
+
+env:
+    TZ: Europe/London
+
+jobs:
+    update-readme:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Ensure Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.x"
+
+            - name: Build README section from WakaTime (yesterday, Europe/London)
+              env:
+                  WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+                  WAKATIME_USER: ${{ secrets.WAKATIME_USER }}
+              run: |
+                  python - <<'PY'
+                  import os, sys, json, datetime, base64, re
+                  from datetime import timedelta
+                  from urllib.request import Request, urlopen
+                  from urllib.parse import urlencode
+                  from zoneinfo import ZoneInfo
+
+                  # --- Helpers ---
+                  def hhmm_words(total_seconds:int) -> str:
+                    m = total_seconds // 60
+                    h = m // 60
+                    mm = m % 60
+                    if h and mm:
+                      return f"{h} hrs {mm} mins"
+                    if h:
+                      return f"{h} hrs"
+                    return f"{mm} mins"
+
+                  def percent(secs, total):
+                    return (secs / total * 100.0) if total else 0.0
+
+                  def bar(pct: float, width: int = 25) -> str:
+                    # Fill with solid blocks; optional soft block at the edge
+                    filled = int(pct / 100 * width + 1e-9)
+                    remainder = width - filled
+                    return "█" * filled + "░" * remainder
+
+                  # --- Dates ---
+                  tz = ZoneInfo("Europe/London")
+                  today_local = datetime.datetime.now(tz).date()
+                  target_day = today_local - timedelta(days=1)  # "yesterday"
+
+                  # --- Auth / Request ---
+                  api_key = os.getenv("WAKATIME_API_KEY")
+                  if not api_key:
+                    print("::error::WAKATIME_API_KEY secret missing. Add it in repo settings.")
+                    sys.exit(1)
+                  user = os.getenv("WAKATIME_USER", "current")
+
+                  params = {
+                    "start": target_day.isoformat(),
+                    "end": target_day.isoformat(),
+                    "timezone": "Europe/London",
+                  }
+                  url = f"https://wakatime.com/api/v1/users/{user}/summaries?{urlencode(params)}"
+                  headers = {
+                    # HTTP Basic auth: base64 of "api_key"
+                    "Authorization": "Basic " + base64.b64encode(api_key.encode()).decode()
+                  }
+
+                  with urlopen(Request(url, headers=headers)) as resp:
+                    data = json.load(resp)
+
+                  # --- Aggregate language seconds for the day ---
+                  languages = {}
+                  for day in data.get("data", []):
+                    for lang in day.get("languages", []):
+                      name = lang.get("name", "Unknown")
+                      seconds = int(lang.get("total_seconds", 0))
+                      if seconds > 0:
+                        languages[name] = languages.get(name, 0) + seconds
+
+                  # Remove absent languages by simply not listing them:
+                  items = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
+
+                  # --- Build monospaced block like your sample ---
+                  if items:
+                    total_secs = sum(secs for _, secs in items)
+
+                    # Column widths for neat alignment
+                    name_w = max(12, max(len(n) for n, _ in items))
+                    time_w = 14
+                    bar_w = 25
+
+                    lines = []
+                    for name, secs in items:
+                      pct = percent(secs, total_secs)
+                      lines.append(
+                        f"{name.ljust(name_w)}  {hhmm_words(secs).ljust(time_w)}  {bar(pct, bar_w)}   {pct:05.2f} %"
+                      )
+
+                    block = "```text\n" + "\n".join(lines) + "\n```"
+                  else:
+                    block = "> No editor activity recorded for yesterday (Europe/London)."
+
+                  # --- Inject into README ---
+                  readme_path = "README.md"
+                  with open(readme_path, "r", encoding="utf-8") as f:
+                    readme = f.read()
+
+                  start_tag = "<!-- LANG-TIME:START -->"
+                  end_tag = "<!-- LANG-TIME:END -->"
+                  if start_tag not in readme or end_tag not in readme:
+                    print("::error::Markers not found in README.md. Add the LANG-TIME markers.")
+                    sys.exit(1)
+
+                  replacement = (
+                    f"{start_tag}\n\n{block}\n\n"
+                    f"_Last updated for **{target_day.isoformat()}**_\n\n"
+                    f"{end_tag}"
+                  )
+                  pattern = re.compile(rf"{re.escape(start_tag)}.*?{re.escape(end_tag)}", re.DOTALL)
+                  new_readme = pattern.sub(replacement, readme)
+
+                  with open(readme_path, "w", encoding="utf-8") as f:
+                    f.write(new_readme)
+
+                  print("Updated README language time block with bars and percentages.")
+                  PY
+
+            - name: Commit & push changes
+              run: |
+                  if git diff --quiet; then
+                    echo "No changes to commit."
+                    exit 0
+                  fi
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add README.md
+                  git commit -m "chore: update daily language time (bars + %)"
+                  git push
