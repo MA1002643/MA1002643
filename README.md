@@ -246,9 +246,12 @@ Last Updated: Saturday, October 4th, 2025, 9:25:24 AM
 
 <!-- LANG-TIME:START -->
 
-> No editor activity recorded in the following window.
+```text
+YAML          41 mins         ████████████████████░░░░░   81.79 %
+Markdown      9 mins          ████░░░░░░░░░░░░░░░░░░░░░   18.21 %
+```
 
-Last updated on 2025-10-03 (Displaying Data from past 7 days)
+_Last updated on 2025-10-04 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 </details>
