@@ -251,7 +251,7 @@ YAML          41 mins         ████████████████�
 Markdown      9 mins          ████░░░░░░░░░░░░░░░░░░░░░   18.21 %
 ```
 
-_Last updated on 2025-10-04 (Displaying Data from past 7 days)
+Last updated on 2025-10-04 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 </details>
