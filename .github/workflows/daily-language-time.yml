@@ -59,53 +59,64 @@ jobs:
               with urlopen(Request(url, headers=headers)) as resp:
                   return json.load(resp)
 
+          # --- Dates & ranges ---
           tz = ZoneInfo("Europe/London")
           today = datetime.datetime.now(tz).date()
 
           # Use last 30 *complete* days if available; otherwise fall back to last 7 *complete* days
-          end_day = today - timedelta(days=1)       # include only full days
+          end_day = today - timedelta(days=1)       # only full days by default (ends at 'yesterday')
           start_30 = end_day - timedelta(days=29)   # 30 full days inclusive
           start_7  = end_day - timedelta(days=6)    # 7 full days inclusive
 
+          # --- Secrets & config ---
           api_key = os.getenv("WAKATIME_API_KEY")
           if not api_key:
               print("::error::WAKATIME_API_KEY secret missing. Add it in repo settings.")
               sys.exit(1)
-
           user = os.getenv("WAKATIME_USER") or "current"
 
+          # --- Fetch summaries for preferred (30d) window, fallback to 7d if plan-limited ---
           used_start = start_30
           used_end = end_day
           try:
-              data = fetch_summaries(user, api_key, start_30, end_day)
+              data = fetch_summaries(user, api_key, used_start, used_end)
           except HTTPError as e:
               if e.code == 402:
                   print("::warning::WakaTime returned 402 (Payment Required) for 30-day range. Falling back to last 7 full days.")
                   used_start = start_7
-                  try:
-                      data = fetch_summaries(user, api_key, used_start, used_end)
-                  except HTTPError as ee:
-                      print(f"::error::WakaTime API error {ee.code} at /api/v1/users/{user}/summaries (7-day fallback)")
-                      body = ee.read().decode(errors="ignore")
-                      print(body[:500])
-                      sys.exit(1)
+                  data = fetch_summaries(user, api_key, used_start, used_end)
               else:
                   print(f"::error::WakaTime API error {e.code} at /api/v1/users/{user}/summaries")
                   body = e.read().decode(errors="ignore")
                   print(body[:500])
                   sys.exit(1)
 
-          # Aggregate languages across the selected window (covers public/private/forked work)
-          languages = {}
-          for day in data.get("data", []):
-              for lang in day.get("languages", []):
-                  secs = int(lang.get("total_seconds", 0))
-                  if secs > 0:
-                      name = lang.get("name", "Unknown")
-                      languages[name] = languages.get(name, 0) + secs
+          # --- Aggregate languages ---
+          def aggregate_langs(summary):
+              languages = {}
+              for day in summary.get("data", []):
+                  for lang in day.get("languages", []):
+                      secs = int(lang.get("total_seconds", 0))
+                      if secs > 0:
+                          name = lang.get("name", "Unknown")
+                          languages[name] = languages.get(name, 0) + secs
+              return languages
 
+          languages = aggregate_langs(data)
           items = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
 
+          # --- Fallback: if empty over complete days, include *today* and try once more ---
+          if not items:
+              print("No activity in the last complete-day window. Including today and retrying once.")
+              used_end = today  # include today (partial)
+              try:
+                  data = fetch_summaries(user, api_key, used_start, used_end)
+                  languages = aggregate_langs(data)
+                  items = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
+              except HTTPError as e:
+                  print(f"::warning::Second fetch including today failed with {e.code}. Keeping empty results.")
+
+          # --- Build table block ---
           if items:
               total = sum(s for _, s in items)
               name_w = max(12, max(len(n) for n, _ in items))
@@ -116,8 +127,9 @@ jobs:
               ]
               block = "```text\n" + "\n".join(lines) + "\n```"
           else:
-              block = "> No editor activity recorded in the following window."
+              block = "> No editor activity recorded in the selected window."
 
+          # --- Replace README section ---
           start_tag = "<!-- LANG-TIME:START -->"
           end_tag = "<!-- LANG-TIME:END -->"
           with open("README.md","r",encoding="utf-8") as f:
@@ -126,9 +138,9 @@ jobs:
               print("::error::Markers not found in README.md. Add the LANG-TIME markers.")
               sys.exit(1)
 
-          # Footer like: _Last updated on YYYY-MM-DD (Displaying Data from past N days)
+          # Friendly footer: "_Last updated on YYYY-MM-DD (Displaying Data from past N days)"
           days_span = (used_end - used_start).days + 1
-          footer = f"Last updated on {end_day.isoformat()} (Displaying Data from past {days_span} days)"
+          footer = f"_Last updated on {used_end.isoformat()} (Displaying Data from past {days_span} days)"
 
           replacement = (
               f"{start_tag}\n\n{block}\n\n"
@@ -142,6 +154,12 @@ jobs:
           print("Updated README language time block.")
           PY
 
+      - name: Remove legacy header line from README (optional)
+        run: |
+          if [ -f README.md ]; then
+            sed -i'' '/^Last update: auto at 08:00 AM everyday, showing yesterday$/d' README.md || true
+          fi
+
       - name: Commit & push changes
         run: |
           if git diff --quiet; then
@@ -151,5 +169,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "chore: update language time (rolling window, bars + %)"
+          git commit -m "chore: update language time (fallback includes today if empty)"
           git push
