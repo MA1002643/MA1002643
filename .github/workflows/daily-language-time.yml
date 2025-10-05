@@ -63,10 +63,12 @@ jobs:
           tz = ZoneInfo("Europe/London")
           today = datetime.datetime.now(tz).date()
 
-          # Use last 30 *complete* days if available; otherwise fall back to last 7 *complete* days
-          end_day = today - timedelta(days=1)       # only full days by default (ends at 'yesterday')
-          start_30 = end_day - timedelta(days=29)   # 30 full days inclusive
-          start_7  = end_day - timedelta(days=6)    # 7 full days inclusive
+          # Default: last 7 complete days ending yesterday
+          end_day = today - timedelta(days=1)       # yesterday (complete day)
+          start_7 = end_day - timedelta(days=6)     # 7-day inclusive window
+
+          # Try 30 days first (if plan allows), otherwise 7 days
+          start_30 = end_day - timedelta(days=29)
 
           # --- Secrets & config ---
           api_key = os.getenv("WAKATIME_API_KEY")
@@ -105,10 +107,12 @@ jobs:
           languages = aggregate_langs(data)
           items = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
 
-          # --- Fallback: if empty over complete days, include *today* and try once more ---
+          # --- Fallback: if empty over complete days, include *today* and keep a 7-day span ---
+          # This ensures the footer date = used_end (today when we include it; yesterday otherwise)
           if not items:
-              print("No activity in the last complete-day window. Including today and retrying once.")
-              used_end = today  # include today (partial)
+              print("No activity in the last complete-day window. Including today and retrying once, maintaining 7-day span.")
+              used_end = today                              # include today (partial)
+              used_start = used_end - timedelta(days=6)     # keep 7 days inclusive
               try:
                   data = fetch_summaries(user, api_key, used_start, used_end)
                   languages = aggregate_langs(data)
@@ -138,7 +142,9 @@ jobs:
               print("::error::Markers not found in README.md. Add the LANG-TIME markers.")
               sys.exit(1)
 
-          # Friendly footer: "_Last updated on YYYY-MM-DD (Displaying Data from past N days)"
+          # Footer shows used_end date:
+          # - yesterday for complete-day window
+          # - today if we included today in the fallback
           days_span = (used_end - used_start).days + 1
           footer = f"Last updated on {used_end.isoformat()} (Displaying Data from past {days_span} days)"
 
@@ -169,5 +175,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "chore: update language time (fallback includes today if empty)"
+          git commit -m "chore: update language time (show today if included; keep 7-day span)"
           git push
