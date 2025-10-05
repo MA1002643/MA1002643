@@ -247,11 +247,11 @@ Last Updated: Sunday, October 5th, 2025, 9:25:20 AM
 <!-- LANG-TIME:START -->
 
 ```text
-YAML          41 mins         ████████████████████░░░░░   81.79 %
-Markdown      9 mins          ████░░░░░░░░░░░░░░░░░░░░░   18.21 %
+YAML          50 mins         █████████████████████░░░░   84.52 %
+Markdown      9 mins          ███░░░░░░░░░░░░░░░░░░░░░░   15.48 %
 ```
 
-Last updated on 2025-10-04 (Displaying Data from past 7 days)
+Last updated on 2025-10-05 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 </details>
