@@ -138,17 +138,17 @@ namespace ProfileCard
       <td align="center" width="33%">
         <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt=".NET / C#" width="96" height="96"/>
         <h3>🔧 Development</h3>
-        <p>Shipping .NET/C# and Next.js apps with clean architecture, CI/CD, and cloud deploys</p>
+        <p>Shipping .NET/C# and Next.js apps with clean architecture, CI/CD, and cloud deployments</p>
       </td>
       <td align="center" width="33%">
         <img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="AI & Automation"/>
         <h3>🤖 AI & Automation</h3>
-        <p>Integrating AI and automation into web & .NET clients with reliable APIs and data flows</p>
+        <p>Developing AI-powered features and automation within web and .NET applications</p>
       </td>
       <td align="center" width="33%">
         <img src="https://img.icons8.com/glyph-neue/96/github.png" alt="Knowledge Sharing"/>
         <h3>📚 Knowledge Sharing</h3>
-        <p>Publishing templates, clear READMEs, and project updates across GitHub & LinkedIn</p>
+        <p>Sharing project insights, templates, and clean documentation across GitHub and daily.dev</p>
       </td>
     </tr>
   </table>
