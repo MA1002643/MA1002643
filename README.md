@@ -36,14 +36,8 @@
 </p>
 
 <!-- Quote Section -->
-<p align="center">
-  <img
-    src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical"
-    alt="Random Dev Quote"
-    loading="lazy"
-    decoding="async"
-  />
-</p>
+
+![Random Dev Quote](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical&width=600)
 
 <!-- gradient underline -->
 <p align="center">
