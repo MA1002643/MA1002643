@@ -130,106 +130,76 @@ namespace ProfileCard
 
 ## 🛠️ Tech Arsenal
 
-<!--TECH:START-->
-<p align="center" style="white-space:nowrap;">
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs&theme=dark">
-    <img src="https://skillicons.dev/icons?i=nextjs" alt="nextjs" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=react&theme=dark">
-    <img src="https://skillicons.dev/icons?i=react" alt="react" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=ts&theme=dark">
-    <img src="https://skillicons.dev/icons?i=ts" alt="ts" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=js&theme=dark">
-    <img src="https://skillicons.dev/icons?i=js" alt="js" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=tailwind&theme=dark">
-    <img src="https://skillicons.dev/icons?i=tailwind" alt="tailwind" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nodejs&theme=dark">
-    <img src="https://skillicons.dev/icons?i=nodejs" alt="nodejs" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=express&theme=dark">
-    <img src="https://skillicons.dev/icons?i=express" alt="express" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=mongodb&theme=dark">
-    <img src="https://skillicons.dev/icons?i=mongodb" alt="mongodb" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=mysql&theme=dark">
-    <img src="https://skillicons.dev/icons?i=mysql" alt="mysql" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=prisma&theme=dark">
-    <img src="https://skillicons.dev/icons?i=prisma" alt="prisma" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=git&theme=dark">
-    <img src="https://skillicons.dev/icons?i=git" alt="git" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=githubactions&theme=dark">
-    <img src="https://skillicons.dev/icons?i=githubactions" alt="githubactions" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=vercel&theme=dark">
-    <img src="https://skillicons.dev/icons?i=vercel" alt="vercel" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=dotnet&theme=dark">
-    <img src="https://skillicons.dev/icons?i=dotnet" alt="dotnet" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=aws&theme=dark">
-    <img src="https://skillicons.dev/icons?i=aws" alt="aws" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=jest&theme=dark">
-    <img src="https://skillicons.dev/icons?i=jest" alt="jest" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=eslint&theme=dark">
-    <img src="https://skillicons.dev/icons?i=eslint" alt="eslint" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=prettier&theme=dark">
-    <img src="https://skillicons.dev/icons?i=prettier" alt="prettier" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=java&theme=dark">
-    <img src="https://skillicons.dev/icons?i=java" alt="java" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=php&theme=dark">
-    <img src="https://skillicons.dev/icons?i=php" alt="php" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=bash&theme=dark">
-    <img src="https://skillicons.dev/icons?i=bash" alt="bash" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=c&theme=dark">
-    <img src="https://skillicons.dev/icons?i=c" alt="c" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=threejs&theme=dark">
-    <img src="https://skillicons.dev/icons?i=threejs" alt="threejs" height="44">
-  </picture>
-  <picture style="display:inline-block;margin:0 6px 6px 0;">
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=vue&theme=dark">
-    <img src="https://skillicons.dev/icons?i=vue" alt="vue" height="44">
-  </picture>
-</p>
-<!--TECH:END-->
+### 👨‍💻 Programming and Markup Languages
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
+![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge&logo=powershell&logoColor=white)
+![Shell](https://img.shields.io/badge/Shell-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)
+
+### 🧰 Frameworks and Libraries
+
+![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+
+### 🗄️ Databases and Cloud Hosting
+
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+![Vector DB](https://img.shields.io/badge/Vector%20DB-4F46E5?style=for-the-badge&logo=database&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure-0078D4?style=for-the-badge&logo=microsoft-azure&logoColor=white)
+![GCP](https://img.shields.io/badge/GCP-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)
+![OCI](https://img.shields.io/badge/OCI-F80000?style=for-the-badge&logo=oracle&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
+![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=for-the-badge&logo=ansible&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-623CE4?style=for-the-badge&logo=terraform&logoColor=white)
+![YAML](https://img.shields.io/badge/YAML-000000?style=for-the-badge&logo=yaml&logoColor=white)
+
+### 💻 Software and Tools
+
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+![StackStorm](https://img.shields.io/badge/StackStorm-00AEEF?style=for-the-badge&logo=stackstorm&logoColor=white)
+![RedHat](https://img.shields.io/badge/RedHat-EE0000?style=for-the-badge&logo=redhat&logoColor=white)
+
+### 💻 Software and Tools
+
+  <p>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Aassembly"><img alt="MIPS Assembly" src="https://custom-icon-badges.demolab.com/badge/Assembly-525252.svg?logo=asm-hex&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Abash"><img alt="Bash" src="https://img.shields.io/badge/Bash-121011.svg?logo=gnu-bash&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Ac"><img alt="C" src="https://custom-icon-badges.demolab.com/badge/C-03599C.svg?logo=c-in-hexagon&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Acpp"><img alt="C++" src="https://custom-icon-badges.demolab.com/badge/C++-9C033A.svg?logo=cpp2&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Acsharp"><img alt="C#" src="https://custom-icon-badges.demolab.com/badge/C%23-68217A.svg?logo=cs2&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Aceylon"><img alt="Ceylon" src="https://custom-icon-badges.demolab.com/badge/Ceylon-E39842.svg?logo=ceylon&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Acss"><img alt="CSS" src="https://img.shields.io/badge/CSS-1572B6.svg?logo=css3&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Ags"><img alt="Google Apps Script" src="https://custom-icon-badges.demolab.com/badge/Google%20Apps%20Script-02569B.svg?logo=gs&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Agroovy"><img alt="Groovy" src="https://custom-icon-badges.demolab.com/badge/Groovy-4298B8.svg?logo=apachegroovy&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Ahtml"><img alt="HTML" src="https://img.shields.io/badge/HTML-E34F26.svg?logo=html5&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Ajava"><img alt="Java" src="https://custom-icon-badges.demolab.com/badge/Java-007396.svg?logo=java&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Ajavascript"><img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?logo=javascript&logoColor=black"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Atex"><img alt="LaTeX" src="https://img.shields.io/badge/LaTeX-008080.svg?logo=LaTeX&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Amarkdown"><img alt="Markdown" src="https://img.shields.io/badge/Markdown-000000.svg?logo=markdown&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Ajavascript"><img alt="Node.js" src="https://img.shields.io/badge/Node.js-43853D.svg?logo=node.js&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Aphp"><img alt="PHP" src="https://img.shields.io/badge/PHP-777BB4.svg?logo=php&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Aprolog"><img alt="Prolog" src="https://custom-icon-badges.demolab.com/badge/Prolog-E61B23.svg?logo=swi-prolog&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Apython"><img alt="Python" src="https://img.shields.io/badge/Python-14354C.svg?logo=python&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Ar"><img alt="R" src="https://img.shields.io/badge/R-276DC3.svg?logo=r&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Arst"><img alt="Restructured Text" src="https://img.shields.io/badge/Restructured Text-3a4148.svg?logo=readthedocs&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Ascratch"><img alt="Scratch" src="https://img.shields.io/badge/Scratch-4D97FF.svg?logo=scratch&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Asql"><img alt="SQL" src="https://custom-icon-badges.demolab.com/badge/SQL-025E8C.svg?logo=database&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3Asvg"><img alt="SVG+XML" src="https://img.shields.io/badge/SVG%2BXML-e0982c.svg?logo=svg&logoColor=white"></a>
+      <a href="https://github.com/search?q=user%3ADenverCoder1+language%3AtypeScript"><img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-007ACC.svg?logo=typescript&logoColor=white"></a>
+  </p>
 
 ## 🧪 Featured Projects
 
