@@ -30,6 +30,11 @@
   </a>
 </p>
 
+<!-- gradient underline -->
+<p align="center">
+  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="400" height="3">
+</p>
+
 <!-- Quote Section -->
 <div align="center">
   <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Random Dev Quote"/>
