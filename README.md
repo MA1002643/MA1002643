@@ -302,6 +302,16 @@ Last updated on 2025-10-05 (Displaying Data from past 7 days)
         </picture>
 </details>
 
+## 💡 Philosophy
+
+<div align="center">
+  <a href="https://github.com/piyushsuthar/github-readme-quotes">
+    <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical&quote=If%20it%27s%20structured%2C%20it%20can%20be%20automated.&author=Shishir%20Srivastav&border=true" alt="Philosophy Quote"/>
+  </a>
+</div>
+
+> **"If it's structured, it can be automated"** - This drives my approach to solving complex problems through elegant, scalable solutions.
+
 #
 
 <div align="center">
