@@ -86,6 +86,8 @@
 </table>
 <!-- PINNED: END -->
 
+---
+
 ## 💫 What Drives Me
 
 ```csharp
@@ -125,6 +127,34 @@ namespace ProfileCard
     }
 }
 ```
+
+---
+
+## 🎯 What I Do
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="33%">
+        <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt=".NET / C#" width="96" height="96"/>
+        <h3>🔧 Development</h3>
+        <p>Shipping .NET/C# and Next.js apps with clean architecture, CI/CD, and cloud deploys</p>
+      </td>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="AI & Automation"/>
+        <h3>🤖 AI & Automation</h3>
+        <p>Integrating AI and automation into web & .NET clients with reliable APIs and data flows</p>
+      </td>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/glyph-neue/96/github.png" alt="Knowledge Sharing"/>
+        <h3>📚 Knowledge Sharing</h3>
+        <p>Publishing templates, clear READMEs, and project updates across GitHub & LinkedIn</p>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
 
 ## 🛠️ Tech Arsenal
 
@@ -199,6 +229,8 @@ namespace ProfileCard
       <a href="https://github.com/search?q=user%3ADenverCoder1+language%3AtypeScript"><img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-007ACC.svg?logo=typescript&logoColor=white"></a>
   </p>
 
+---
+
 ## 🧪 Featured Projects
 
 > Want a collab? Open an issue or DM on LinkedIn — I’m always up for building something bold.
@@ -214,6 +246,7 @@ namespace ProfileCard
 <summary><b>🕒 Recent GitHub Activity</b></summary>
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -222,7 +255,9 @@ namespace ProfileCard
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Monday, October 6th, 2025, 9:30:13 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 </details>
 
