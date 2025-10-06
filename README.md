@@ -54,7 +54,7 @@
 
 <!-- PINNED: START -->
 
-### 📌 Pinned Repositories
+## 📌 Pinned Repositories
 
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
@@ -82,9 +82,7 @@
 </table>
 <!-- PINNED: END -->
 
-#
-
-### 💫 What Drives Me
+## 💫 What Drives Me
 
 ```csharp
 using System;
