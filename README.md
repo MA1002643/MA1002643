@@ -59,27 +59,25 @@
 ---
 
 <!-- PINNED: START -->
-
-## 📌 Pinned Repositories
-
+<h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
 <td align="center" valign="top" width="50%" style="padding:12px 24px 12px 0px; border:0;">
-<a href="https://github.com/MA1002643/Article-Server">
+<a href="https://github.com/MA1002643/Glowing-Gradient-Circle-Text-Animation">
 <div style="padding:10px; box-sizing:border-box;">
 <picture>
-<source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Article-Server&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117">
-<img alt="Article-Server" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Article-Server&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff" width="480" style="max-width:100%; height:auto; display:block;">
+<source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Glowing-Gradient-Circle-Text-Animation&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117">
+<img alt="Glowing-Gradient-Circle-Text-Animation" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=Glowing-Gradient-Circle-Text-Animation&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff" width="480" style="max-width:100%; height:auto; display:block;">
 </picture>
 </div>
 </a>
 </td>
 <td align="center" valign="top" width="50%" style="padding:12px 0px 12px 24px; border:0;">
-<a href="https://github.com/MA1002643/First-Year-Final-Group-Project">
+<a href="https://github.com/MA1002643/github-readme-streak-stats">
 <div style="padding:10px; box-sizing:border-box;">
 <picture>
-<source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=First-Year-Final-Group-Project&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117">
-<img alt="First-Year-Final-Group-Project" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=First-Year-Final-Group-Project&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff" width="480" style="max-width:100%; height:auto; display:block;">
+<source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=github-readme-streak-stats&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117">
+<img alt="github-readme-streak-stats" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=github-readme-streak-stats&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff" width="480" style="max-width:100%; height:auto; display:block;">
 </picture>
 </div>
 </a>
