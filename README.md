@@ -25,17 +25,22 @@
     <img alt="followers" title="Follow me on GitHub"
          src="https://custom-icon-badges.demolab.com/github/followers/MA1002643?color=236ad3&labelColor=1155ba&style=for-the-badge&logo=person-add&label=Follow&logoColor=white" />
   </a>
+    </a>
+    <img src="https://img.shields.io/badge/Mindset-Agile%20%7C%20Problem%20Solver-orange?style=for-the-badge&logo=lightbulb&logoColor=white" alt="Mindset"/>
+  </a>
 </p>
 
-<!-- Animated underline under socials -->
-<p align="center" style="margin-top:-8px;">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/social-underline-dark.svg">
-    <img src="./assets/social-underline-light.svg" alt="" />
-  </picture>
+<!-- Quote Section -->
+<div align="center">
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Random Dev Quote"/>
+</div>
+
+<!-- gradient underline -->
+<p align="center">
+  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="400" height="3">
 </p>
 
-<!-- Typing headline -->
+<!-- Typing Headline -->
 <p align="center">
   <picture>
     <!-- Dark mode: light text -->
@@ -48,7 +53,9 @@
 ---
 
 <!-- PINNED: START -->
-<h3 align="left" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
+
+### 📌 Pinned Repositories
+
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
 <td align="center" valign="top" width="50%" style="padding:12px 24px 12px 0px; border:0;">
@@ -77,16 +84,49 @@
 
 #
 
-### 🚀 What I’m About
+### 💫 What Drives Me
 
-- 🌱 Always learning (and shipping) — web, mobile, cloud.
-- 🤝 Open to collabs with juniors & seniors alike.
-- 🎯 **2025 Goal:** contribute more to open-source, ship impactful tools.
-- ✈️ Fun fact: I love driving HGVs and I’d love to become a pilot one day.
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ProfileCard
+{
+    public sealed class MA1002643
+    {
+        public string Role { get; } = "Software Engineer";
+        public string Experience { get; } = "2+ years";
+        public string Philosophy { get; } = "If it's structured, it can be automated";
+
+        public string AlwaysLearning { get; } = "🌱 Always learning (and shipping) — web, mobile, cloud.";
+        public string OpenToCollabs { get; } = "🤝 Open to collabs with juniors & seniors alike.";
+        public string Goal2025 { get; } = "🎯 2025 Goal: contribute more to open-source, ship impactful tools.";
+
+        public IReadOnlyList<string> Highlights() => new List<string>
+        {
+            AlwaysLearning,
+            OpenToCollabs,
+            Goal2025
+        };
+
+        public IReadOnlyList<string> DailyRoutine() => new List<string>
+        {
+            "☕ Coffee + Code",
+            "🧠 Learn something new",
+            "🔧 Build & Automate",
+            "📚 Share knowledge",
+        };
+
+        public string FunFact() =>
+            $"I love driving HGVs and I’d love to become a pilot one day. ({DateTime.UtcNow:yyyy})";
+    }
+}
+```
 
 #
 
-### 🧰 Tech I Use
+### 🛠️ Tech Arsenal
 
 <!--TECH:START-->
 <p align="center" style="white-space:nowrap;">
@@ -208,6 +248,7 @@
 <summary><b>🕒 Recent GitHub Activity</b></summary>
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -216,7 +257,9 @@
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Sunday, October 5th, 2025, 9:25:20 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 </details>
 
