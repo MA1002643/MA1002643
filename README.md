@@ -37,7 +37,11 @@
 
 <!-- Quote Section -->
 
-![Random Dev Quote](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical&width=600)
+<p align="center">
+
+[![Random Dev Quote](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)](https://github.com/PiyushSuthar/github-readme-quotes)
+
+</p>
 
 <!-- gradient underline -->
 <p align="center">
