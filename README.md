@@ -122,9 +122,7 @@ namespace ProfileCard
 }
 ```
 
-#
-
-### 🛠️ Tech Arsenal
+## 🛠️ Tech Arsenal
 
 <!--TECH:START-->
 <p align="center" style="white-space:nowrap;">
@@ -227,9 +225,7 @@ namespace ProfileCard
 </p>
 <!--TECH:END-->
 
-#
-
-### 🧪 Featured Projects
+## 🧪 Featured Projects
 
 > Want a collab? Open an issue or DM on LinkedIn — I’m always up for building something bold.
 
@@ -239,9 +235,7 @@ namespace ProfileCard
 
 #
 
-<br />
 <details>
-<br />
 
 <summary><b>🕒 Recent GitHub Activity</b></summary>
 
