@@ -36,8 +36,14 @@
 </p>
 
 <!-- Quote Section -->
-<div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Random Dev Quote"/>
+<div align="center" style="max-width:720px; width:80%; margin:0 auto;">
+  <img
+    src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical"
+    alt="Random Dev Quote"
+    style="width:80%; height:auto; display:block;"
+    loading="lazy"
+    decoding="async"
+  />
 </div>
 
 <!-- gradient underline -->
@@ -309,9 +315,15 @@ Last updated on 2025-10-05 (Displaying Data from past 7 days)
 
 ## 💡 Philosophy
 
-<div align="center">
+<div align="center" style="max-width:720px; width:80%; margin:0 auto;">
   <a href="https://github.com/piyushsuthar/github-readme-quotes">
-    <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical&quote=If%20it%27s%20structured%2C%20it%20can%20be%20automated.&author=Shishir%20Srivastav&border=true" alt="Philosophy Quote"/>
+    <img
+      src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical&quote=If%20it%27s%20structured%2C%20it%20can%20be%20automated.&author=Shishir%20Srivastav&border=true"
+      alt="Philosophy Quote"
+      style="width:80%; height:auto; display:block;"
+      loading="lazy"
+      decoding="async"
+    />
   </a>
 </div>
 
