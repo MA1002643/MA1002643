@@ -38,9 +38,13 @@
 <!-- Quote Section -->
 
 <p align="center">
-
-[![Random Dev Quote](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)](https://github.com/PiyushSuthar/github-readme-quotes)
-
+  <img
+    src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical"
+    alt="Random Dev Quote"
+    width="720"
+    loading="lazy"
+    decoding="async"
+  />
 </p>
 
 <!-- gradient underline -->
