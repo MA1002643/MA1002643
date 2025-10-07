@@ -375,9 +375,9 @@ Last Updated: Monday, October 6th, 2025, 9:30:13 AM
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      4 hrs 36 mins   ███████████████████░░░░░░   76.43 %
-YAML          1 hrs 15 mins   █████░░░░░░░░░░░░░░░░░░░░   20.74 %
-Image (svg)   10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.83 %
+Markdown      4 hrs 40 mins   █████████████████░░░░░░░░   71.80 %
+YAML          1 hrs 40 mins   ██████░░░░░░░░░░░░░░░░░░░   25.59 %
+Image (svg)   10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.62 %
 ```
 
 Last updated on 2025-10-07 (Displaying Data from past 7 days)
