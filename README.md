@@ -165,7 +165,6 @@ namespace ProfileCard
 <summary><b>👨‍💻 Programming and Markup Languages</b></summary>
 <br/>
 
-<!-- LANG-ICONS:START -->
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
@@ -181,10 +180,10 @@ namespace ProfileCard
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Dockerfile](https://img.shields.io/badge/Dockerfile-lightgrey?style=for-the-badge&logo=dockerfile&logoColor=white)
 ![Procfile](https://img.shields.io/badge/Procfile-lightgrey?style=for-the-badge&logo=procfile&logoColor=white)
-![JavaScript (ES6+)](https://img.shields.io/badge/JavaScript%20(ES6%2B)-444444?style=for-the-badge&logo=javascript-(es6plus)&logoColor=white)
+![JavaScript (ES6+)](<https://img.shields.io/badge/JavaScript%20(ES6%2B)-444444?style=for-the-badge&logo=javascript-(es6plus)&logoColor=white>)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript (ES6+)](https://img.shields.io/badge/JavaScript%20(ES6%2B)-444444?style=for-the-badge&logo=javascript-(es6plus)&logoColor=white)
+![JavaScript (ES6+)](<https://img.shields.io/badge/JavaScript%20(ES6%2B)-444444?style=for-the-badge&logo=javascript-(es6plus)&logoColor=white>)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=sql&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
@@ -195,8 +194,6 @@ namespace ProfileCard
 ![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
 ![MIPS Assembly](https://img.shields.io/badge/MIPS%20Assembly-525252?style=for-the-badge&logo=gnuemacs&logoColor=white)
 
-<!-- LANG-ICONS:END -->
-
 </details>
 
 <details>
@@ -204,7 +201,6 @@ namespace ProfileCard
 <summary><b>🧰 Frameworks and Libraries</b></summary>
 <br/>
 
-<!-- FWLIB-ICONS:START -->
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
@@ -226,8 +222,6 @@ namespace ProfileCard
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=expressjs&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodejs&logoColor=white)
 
-<!-- FWLIB-ICONS:END -->
-
 </details>
 
 <details>
@@ -235,7 +229,6 @@ namespace ProfileCard
 <summary><b>🗄️ Databases and Cloud Hosting</b></summary>
 <br/>
 
-<!-- DBCLOUD-ICONS:START -->
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
@@ -255,7 +248,6 @@ namespace ProfileCard
 ![Prisma](https://img.shields.io/badge/Prisma-lightgrey?style=for-the-badge&logo=prisma&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-lightgrey?style=for-the-badge&logo=vercel&logoColor=white)
 
-<!-- DBCLOUD-ICONS:END -->
 </details>
 
 <details>
@@ -263,7 +255,6 @@ namespace ProfileCard
 <summary><b>💻 Software and Tools</b></summary>
 <br/>
 
-<!-- TOOLS-ICONS:START -->
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
@@ -316,7 +307,6 @@ namespace ProfileCard
 ![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91?style=for-the-badge&logo=visual-studio&logoColor=white)
 
-<!-- TOOLS-ICONS:END -->
 </details>
 
 ---
@@ -336,6 +326,7 @@ namespace ProfileCard
 <summary><b>🕒 Recent GitHub Activity</b></summary>
 
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 2. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
 3. ⬆️ Pushed 1 commit(s) to [MA1002643/MA1002643](https://github.com/MA1002643/MA1002643)<br>
@@ -344,7 +335,9 @@ namespace ProfileCard
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Tuesday, October 7th, 2025, 9:30:08 AM
+
 <!--RECENT_ACTIVITY:last_update_end-->
 </details>
 
