@@ -89,7 +89,7 @@ jobs:
             return before + next + after;
           }
 
-          // ---------- Auto Simple-Icons color + slug (no manual lists) ----------
+          // ---------- Auto Simple-Icons color + slug (compact + encoded) ----------
           async function buildBadgeFn() {
             const SI = await import('simple-icons'); // ESM with .get(slug)
 
@@ -99,6 +99,7 @@ jobs:
                .toLowerCase()
                .trim();
 
+            // Generate slug candidates (compact, space-free first)
             function candidatesFor(label) {
               const raw = normalize(label);
               const compact = (x) => x.replace(/[\s._-]+/g, '');
@@ -122,15 +123,10 @@ jobs:
               base = base.replace(/\bgcp\b/g, 'googlecloud');
               base = base.replace(/\bamazon\s*web\s*services\b/g, 'amazonaws');
 
-              const forms = new Set();
-              const add = (s) => s && forms.add(s);
+              const forms = [];
+              const add = (s) => { if (s && !forms.includes(s)) forms.push(s); };
 
-              add(base);
-              add(andFix(base));
-              add(plusFix(base));
-              add(noDots(base));
-              add(andFix(noDots(base)));
-              add(plusFix(noDots(base)));
+              // compact first (prevents broken logos with spaces)
               add(compact(base));
               add(compact(andFix(base)));
               add(compact(plusFix(base)));
@@ -138,7 +134,15 @@ jobs:
               add(compact(andFix(noDots(base))));
               add(compact(plusFix(noDots(base))));
 
-              return [...forms];
+              // fallbacks (rarely used)
+              add(base);
+              add(andFix(base));
+              add(plusFix(base));
+              add(noDots(base));
+              add(andFix(noDots(base)));
+              add(plusFix(noDots(base)));
+
+              return forms;
             }
 
             function brandHexFor(label) {
@@ -157,15 +161,23 @@ jobs:
                 if (icon) { logoSlug = slug; break; }
               }
               if (!logoSlug) {
-                logoSlug = candidatesFor(label)[0] || label.toLowerCase().replace(/\s+/g, '');
+                const compactFallback = normalize(label)
+                  .replace(/&/g, 'and')
+                  .replace(/\+/g, 'plus')
+                  .replace(/[\s._-]+/g, '')
+                  .replace(/\./g, '');
+                logoSlug = compactFallback || 'generic';
               }
-              const enc = encodeURIComponent(label);
+
+              const encLabel = encodeURIComponent(label);
+              const encLogo  = encodeURIComponent(logoSlug); // critical to avoid broken badges
               const hex = (preferredHex || brandHexFor(label)).replace(/^#/, '');
-              return `![${label}](https://img.shields.io/badge/${enc}-${hex}?style=${BADGE_STYLE}&logo=${logoSlug}&logoColor=white)`;
+
+              return `![${label}](https://img.shields.io/badge/${encLabel}-${hex}?style=${BADGE_STYLE}&logo=${encLogo}&logoColor=white)`;
             };
           }
 
-          // ---------- Nice fallback colors for a few common labels ----------
+          // ---------- Minimal fallback colors (used only if icon not found) ----------
           const COLOR_MAP = {
             "Python":"3776AB","JavaScript":"F7DF1E","TypeScript":"3178C6","HTML5":"E34F26","CSS3":"1572B6",
             "Java":"007396","C#":"239120","C++":"00599C","Go":"00ADD8","Rust":"000000","SQL":"4479A1",
@@ -254,7 +266,7 @@ jobs:
             "msbuild":"MSBuild","nuget":"NuGet","yarn":"Yarn","npm":"npm","pnpm":"pnpm"
           };
 
-          // Must-include (your list stays guaranteed)
+          // Must-include (guaranteed to appear)
           const ALWAYS_LANGS = [
             "C#","Java","JavaScript (ES6+)","SQL","Python","HTML5","CSS3",
             "Prolog","Haskell","C++","Go","Rust","MIPS Assembly"
@@ -334,8 +346,7 @@ jobs:
           const tools = new Set();
 
           (async () => {
-            // create ONCE and reuse (fixes redeclare error)
-            const makeBadge = await buildBadgeFn();
+            const makeBadge = await buildBadgeFn(); // create once
 
             const repos = await listAllRepos(REPO_OWNER);
 
@@ -403,7 +414,7 @@ jobs:
                     .map(line=>line.split('=')[0].trim().toLowerCase());
                   for (const n of deps) {
                     if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
-                    if (DB_KW[n]) dbcloud.add(DB_KW_KW[n]);
+                    if (DB_KW[n]) dbcloud.add(DB_KW[n]);   // ✅ fixed typo
                     if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
                   }
                 }
@@ -545,7 +556,7 @@ jobs:
             for (const d of ALWAYS_DBCLOUD) dbcloud.add(d);
             for (const t of ALWAYS_TOOLS) tools.add(t);
 
-            // Build badges with auto brand colors (single instance)
+            // Build badges with auto brand colors
             const langsSorted = [...langTotals.entries()]
               .sort((a,b)=>b[1]-a[1])
               .map(([l]) => LANGUAGE_RENAMES[l] || l);
@@ -553,6 +564,7 @@ jobs:
             const dbcloudSorted = [...dbcloud].sort();
             const toolsSorted = [...tools].sort();
 
+            const makeBadge = await buildBadgeFn();
             const langBadges = langsSorted.map(l => makeBadge(l));
             const fwlibBadges = fwlibSorted.map(l => makeBadge(l));
             const dbcloudBadges = dbcloudSorted.map(l => makeBadge(l));
@@ -566,7 +578,7 @@ jobs:
             readme = mergeSection(readme, TOOLS_START, TOOLS_END, toolsBadges);
             fs.writeFileSync(README_PATH, readme, 'utf8');
 
-            console.log('✅ README updated with auto Simple-Icons brand colors.');
+            console.log('✅ README updated with auto Simple-Icons brand colors (no broken logos).');
           })().catch(e => { console.error('❌ Failed:', e); process.exit(1); });
           NODE
 
@@ -581,7 +593,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "${README_PATH}"
-          git commit -m "chore: refresh tech badges (deep scan, auto brand colors)"
+          git commit -m "chore: refresh tech badges (deep scan, auto brand colors, slug fix)"
           git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF_NAME:-main} || \
           git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:main || \
           git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:master
