@@ -164,6 +164,7 @@ namespace ProfileCard
 
 <summary><b>👨‍💻 Programming and Markup Languages</b></summary>
 <br/>
+
 <!-- LANG-ICONS:START -->
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html&logoColor=white)
@@ -195,6 +196,7 @@ namespace ProfileCard
 
 <summary><b>🧰 Frameworks and Libraries</b></summary>
 <br/>
+
 <!-- FWLIB-ICONS:START -->
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-512BD4?style=for-the-badge&logo=net-maui&logoColor=white)
@@ -214,12 +216,14 @@ namespace ProfileCard
 ![Vue.js](https://img.shields.io/badge/Vue.js-444444?style=for-the-badge&logo=vue.js&logoColor=white)
 ![Webpack](https://img.shields.io/badge/Webpack-444444?style=for-the-badge&logo=webpack&logoColor=white)
 <!-- FWLIB-ICONS:END -->
+
 </details>
 
 <details>
 
 <summary><b>🗄️ Databases and Cloud Hosting</b></summary>
 <br/>
+
 <!-- DBCLOUD-ICONS:START -->
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
@@ -231,12 +235,14 @@ namespace ProfileCard
 ![Prisma](https://img.shields.io/badge/Prisma-444444?style=for-the-badge&logo=prisma&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-444444?style=for-the-badge&logo=vercel&logoColor=white)
 <!-- DBCLOUD-ICONS:END -->
+
 </details>
 
 <details>
 
 <summary><b>💻 Software and Tools</b></summary>
 <br/>
+
 <!-- TOOLS-ICONS:START -->
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
@@ -287,6 +293,7 @@ namespace ProfileCard
 ![npm](https://img.shields.io/badge/npm-444444?style=for-the-badge&logo=npm&logoColor=white)
 ![nyc/Istanbul](https://img.shields.io/badge/nyc%2FIstanbul-444444?style=for-the-badge&logo=nyc/istanbul&logoColor=white)
 <!-- TOOLS-ICONS:END -->
+
 </details>
 
 ---
