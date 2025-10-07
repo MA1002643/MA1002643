@@ -166,6 +166,7 @@ namespace ProfileCard
 <br/>
 
 <!-- LANG-ICONS:START -->
+
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
@@ -181,6 +182,7 @@ namespace ProfileCard
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Dockerfile](https://img.shields.io/badge/Dockerfile-lightgrey?style=for-the-badge&logo=dockerfile&logoColor=white)
 ![Procfile](https://img.shields.io/badge/Procfile-lightgrey?style=for-the-badge&logo=procfile&logoColor=white)
+
 <!-- LANG-ICONS:END -->
 
 </details>
@@ -191,6 +193,7 @@ namespace ProfileCard
 <br/>
 
 <!-- FWLIB-ICONS:START -->
+
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
@@ -205,6 +208,7 @@ namespace ProfileCard
 ![Vite](https://img.shields.io/badge/Vite-lightgrey?style=for-the-badge&logo=vite&logoColor=white)
 ![Vue.js](https://img.shields.io/badge/Vue.js-lightgrey?style=for-the-badge&logo=vuejs&logoColor=white)
 ![Webpack](https://img.shields.io/badge/Webpack-lightgrey?style=for-the-badge&logo=webpack&logoColor=white)
+
 <!-- FWLIB-ICONS:END -->
 
 </details>
@@ -215,6 +219,7 @@ namespace ProfileCard
 <br/>
 
 <!-- DBCLOUD-ICONS:START -->
+
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
@@ -233,6 +238,7 @@ namespace ProfileCard
 ![YAML](https://img.shields.io/badge/YAML-000000?style=for-the-badge&logo=yaml&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-lightgrey?style=for-the-badge&logo=prisma&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-lightgrey?style=for-the-badge&logo=vercel&logoColor=white)
+
 <!-- DBCLOUD-ICONS:END -->
 </details>
 
@@ -240,7 +246,9 @@ namespace ProfileCard
 
 <summary><b>💻 Software and Tools</b></summary>
 <br/>
+
 <!-- TOOLS-ICONS:START -->
+
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
@@ -269,6 +277,7 @@ namespace ProfileCard
 ![lint-staged](https://img.shields.io/badge/lint-staged-lightgrey?style=for-the-badge&logo=lint-staged&logoColor=white)
 ![npm](https://img.shields.io/badge/npm-lightgrey?style=for-the-badge&logo=npm&logoColor=white)
 ![nyc/Istanbul](https://img.shields.io/badge/nyc%2FIstanbul-lightgrey?style=for-the-badge&logo=nyc/istanbul&logoColor=white)
+
 <!-- TOOLS-ICONS:END -->
 </details>
 
