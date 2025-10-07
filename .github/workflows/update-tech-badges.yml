@@ -1,0 +1,610 @@
+name: Update tech badges (deep scan)
+
+on:
+    schedule:
+        - cron: "0 9 * * 1" # Mondays 09:00 UTC
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+jobs:
+    update-badges:
+        runs-on: ubuntu-latest
+        env:
+            # Prefer a PAT with repo scope so private repos are included
+            GH_TOKEN: ${{ secrets.PERSONAL_TOKEN || secrets.GITHUB_TOKEN }}
+            REPO_OWNER: ${{ github.repository_owner }}
+            README_PATH: README.md
+            BADGE_STYLE: "for-the-badge"
+            LANG_START: "<!-- LANG-ICONS:START -->"
+            LANG_END: "<!-- LANG-ICONS:END -->"
+            FWLIB_START: "<!-- FWLIB-ICONS:START -->"
+            FWLIB_END: "<!-- FWLIB-ICONS:END -->"
+            DBCLOUD_START: "<!-- DBCLOUD-ICONS:START -->"
+            DBCLOUD_END: "<!-- DBCLOUD-ICONS:END -->"
+            TOOLS_START: "<!-- TOOLS-ICONS:START -->"
+            TOOLS_END: "<!-- TOOLS-ICONS:END -->"
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  persist-credentials: false
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+
+            - name: Deep-scan repos and update README badges
+              run: |
+                  node - <<'NODE'
+                  const fs = require('fs');
+                  const path = require('path');
+                  const fetch = global.fetch;
+
+                  const {
+                    GH_TOKEN, REPO_OWNER, README_PATH, BADGE_STYLE,
+                    LANG_START, LANG_END,
+                    FWLIB_START, FWLIB_END,
+                    DBCLOUD_START, DBCLOUD_END,
+                    TOOLS_START, TOOLS_END
+                  } = process.env;
+
+                  if (!GH_TOKEN) { console.error('Missing GH_TOKEN'); process.exit(1); }
+                  if (!fs.existsSync(README_PATH)) { console.error(`Missing ${README_PATH}`); process.exit(1); }
+
+                  // ---------- Badge helpers ----------
+                  const COLOR_MAP = {
+                    "Python":"3776AB","JavaScript":"F7DF1E","TypeScript":"3178C6","HTML":"E34F26","CSS":"1572B6",
+                    "Shell":"4EAA25","Bash":"4EAA25","PowerShell":"5391FE","R":"276DC3","Java":"007396","C#":"239120",
+                    "C":"A8B9CC","C++":"00599C","Go":"00ADD8","PHP":"777BB4","Ruby":"CC342D","Kotlin":"7F52FF","Swift":"FA7343",
+                    "Rust":"000000","Dart":"0175C2","Scala":"DC322F","Haskell":"5D4F85","Prolog":"742F2B","Elixir":"4B275F",
+                    "Erlang":"A90533","MATLAB":"0076A8","Julia":"9558B2","Perl":"39457E","Lua":"2C2D72","Zig":"F7A41D",
+                    "Sass":"CC6699","Less":"1D365D","Stylus":"333333","Markdown":"000000","LaTeX":"008080",
+                    "YAML":"CB171E","JSON":"000000","XML":"0060AC"
+                  };
+                  const toSlug = s => s.toLowerCase().replace(/\+/g,'plus').replace(/#/g,'sharp').replace(/\./g,'').replace(/\s+/g,'-');
+                  const badge = (label, color) => {
+                    const enc = encodeURIComponent(label);
+                    const slug = toSlug(label);
+                    return `![${label}](https://img.shields.io/badge/${enc}-${COLOR_MAP[label]||color||'lightgrey'}?style=${BADGE_STYLE}&logo=${slug}&logoColor=white)`;
+                  };
+                  const mergeSection = (readme, start, end, badges) => {
+                    const si = readme.indexOf(start), ei = readme.indexOf(end);
+                    if (si === -1 || ei === -1 || ei < si) throw new Error(`Markers not found: ${start} / ${end}`);
+                    const before = readme.slice(0, si + start.length);
+                    const between = readme.slice(si + start.length, ei);
+                    const after = readme.slice(ei);
+                    const existing = between.trim();
+                    const existingBadges = (existing.match(/!\[[^\]]*\]\([^)]+\)/g)||[]).map(s=>s.trim());
+                    const existingLabels = new Set(existingBadges.map(b => (b.match(/!\[([^\]]+)\]/)||[])[1]).filter(Boolean));
+                    const filtered = badges.filter(b => {
+                      const m = b.match(/!\[([^\]]+)\]/); const lbl = m && m[1];
+                      return lbl && !existingLabels.has(lbl);
+                    });
+                    const next = ['\n', existing, existing?'\n':'', filtered.join('\n'), '\n'].join('');
+                    return before + next + after;
+                  };
+
+                  // ---------- GitHub API helpers ----------
+                  const GQL = async (query, variables) => {
+                    const r = await fetch('https://api.github.com/graphql', {
+                      method:'POST',
+                      headers:{ Authorization:`bearer ${GH_TOKEN}`, 'Content-Type':'application/json', 'Accept':'application/vnd.github+json' },
+                      body: JSON.stringify({ query, variables })
+                    });
+                    if (!r.ok) throw new Error(`GraphQL ${r.status}: ${await r.text()}`);
+                    const j = await r.json();
+                    if (j.errors) throw new Error(JSON.stringify(j.errors));
+                    return j.data;
+                  };
+                  const REST = async (url) => {
+                    const r = await fetch(url, { headers:{ Authorization:`Bearer ${GH_TOKEN}`, 'Accept':'application/vnd.github+json' }});
+                    if (!r.ok) throw new Error(`REST ${r.status} ${url}: ${await r.text()}`);
+                    return r.json();
+                  };
+
+                  // ---------- Repository listing (all repos, incl forks/archived/private) ----------
+                  const REPO_QUERY = `
+                    query($owner:String!, $after:String){
+                      repositoryOwner(login:$owner){
+                        repositories(first:100, ownerAffiliations: OWNER, after:$after, orderBy:{field:UPDATED_AT, direction:DESC}){
+                          pageInfo{ hasNextPage endCursor }
+                          nodes{
+                            nameWithOwner
+                            name
+                            isPrivate
+                            isFork
+                            isArchived
+                            defaultBranchRef { name target { ... on Commit { oid } } }
+                            languages(first:100, orderBy:{field:SIZE, direction:DESC}){
+                              edges{ size, node{ name } }
+                            }
+                          }
+                        }
+                      }
+                    }`;
+
+                  // ---------- Patterns to scan (monorepo friendly) ----------
+                  // We match a *wide* set; extend as needed.
+                  const FILE_PATTERNS = [
+                    // JavaScript/TypeScript ecosystems
+                    /(^|\/)package\.json$/i, /(^|\/)pnpm\-lock\.yaml$/i, /(^|\/)yarn\.lock$/i, /(^|\/)package\-lock\.json$/i,
+                    // Python
+                    /(^|\/)requirements\.txt$/i, /(^|\/)pyproject\.toml$/i, /(^|\/)Pipfile$/i, /(^|\/)Pipfile\.lock$/i,
+                    // Go / Rust
+                    /(^|\/)go\.mod$/i, /(^|\/)Cargo\.toml$/i,
+                    // Java & Kotlin
+                    /(^|\/)pom\.xml$/i, /(^|\/)build\.gradle(\.kts)?$/i, /(^|\/)settings\.gradle(\.kts)?$/i,
+                    // PHP / Ruby
+                    /(^|\/)composer\.json$/i, /(^|\/)composer\.lock$/i, /(^|\/)Gemfile(\.lock)?$/i,
+                    // .NET
+                    /\.csproj$/i, /\.vbproj$/i, /\.fsproj$/i, /(^|\/)Directory\.Packages\.props$/i, /\.sln$/i, /(^|\/)packages\.config$/i,
+                    // Dart / Flutter
+                    /(^|\/)pubspec\.yaml$/i,
+                    // Swift / iOS
+                    /(^|\/)Package\.swift$/i, /(^|\/)Podfile(\.lock)?$/i, /(^|\/)Cartfile(\.resolved)?$/i,
+                    // Elixir / Erlang
+                    /(^|\/)mix\.exs$/i, /(^|\/)rebar\.config$/i,
+                    // Haskell
+                    /\.cabal$/i, /(^|\/)stack\.yaml$/i,
+                    // R / Julia
+                    /(^|\/)DESCRIPTION$/i, /(^|\/)Project\.toml$/i,
+                    // Terraform / Ansible / Helm / K8s
+                    /\.tf$/i, /(^|\/)requirements\.yml$/i, /(^|\/)Chart\.yaml$/i, /\.ya?ml$/i,
+                    // Containers
+                    /(^|\/)Dockerfile$/i, /(^|\/)docker\-compose\.ya?ml$/i,
+                    // Cloud configs
+                    /(^|\/)serverless\.ya?ml$/i, /(^|\/)vercel\.json$/i, /(^|\/)netlify\.toml$/i, /(^|\/)render\.ya?ml$/i,
+                    /(^|\/)railway\.json$/i, /(^|\/)fly\.toml$/i, /(^|\/)heroku\.ya?ml$/i
+                  ];
+
+                  // ---------- Very large but pragmatic dictionaries ----------
+                  // Known frameworks/libs (display names), tools, databases/cloud keywords.
+                  // We use lowercase keys; values are display labels on badges.
+                  const FWLIB_KW = {
+                    // JS/TS
+                    "react":"React","next":"Next.js","vue":"Vue.js","nuxt":"Nuxt","svelte":"Svelte","astro":"Astro","solid":"SolidJS",
+                    "angular":"Angular","redux":"Redux","zustand":"Zustand","express":"Express","fastify":"Fastify","koa":"Koa",
+                    "hapi":"hapi","nestjs":"NestJS","tailwindcss":"Tailwind CSS","bootstrap":"Bootstrap","@mui/material":"MUI",
+                    "mantine":"Mantine","chakra-ui":"Chakra UI","antd":"Ant Design","daisyui":"daisyUI","three":"Three.js",
+                    "framer-motion":"Framer Motion","vite":"Vite","webpack":"Webpack","rollup":"Rollup","parcel":"Parcel",
+                    "electron":"Electron","expo":"Expo",
+                    // Python
+                    "django":"Django","flask":"Flask","fastapi":"FastAPI","pydantic":"Pydantic","jinja2":"Jinja2",
+                    "numpy":"NumPy","pandas":"Pandas","matplotlib":"Matplotlib","scikit-learn":"scikit-learn","tensorflow":"TensorFlow",
+                    "torch":"PyTorch","pytorch":"PyTorch","scrapy":"Scrapy","streamlit":"Streamlit","poetry":"Poetry",
+                    // Java / Kotlin
+                    "spring":"Spring","spring-boot":"Spring Boot","quarkus":"Quarkus","micronaut":"Micronaut",
+                    // PHP
+                    "laravel":"Laravel","symfony":"Symfony",
+                    // Ruby
+                    "rails":"Ruby on Rails","sinatra":"Sinatra",
+                    // Go
+                    "gin":"Gin","echo":"Echo","fiber":"Fiber","gorm":"GORM",
+                    // Dart / Flutter
+                    "flutter":"Flutter","bloc":"BLoC","riverpod":"Riverpod","get_it":"GetIt",
+                    // .NET
+                    "aspnetcore":"ASP.NET Core","entityframework":"Entity Framework","serilog":"Serilog","autofac":"Autofac",
+                    // Rust
+                    "rocket":"Rocket","actix-web":"Actix Web",
+                    // Elixir
+                    "phoenix":"Phoenix",
+                    // Swift
+                    "vapor":"Vapor"
+                  };
+
+                  const DB_KW = {
+                    "mongoose":"Mongoose","prisma":"Prisma","sequelize":"Sequelize","typeorm":"TypeORM","drizzle-orm":"Drizzle ORM",
+                    "mysql":"MySQL","mysql2":"MySQL","pg":"PostgreSQL","postgres":"PostgreSQL","psycopg2":"PostgreSQL","sqlite":"SQLite",
+                    "sqlite3":"SQLite","better-sqlite3":"SQLite","oracledb":"Oracle DB","mssql":"SQL Server",
+                    "redis":"Redis","ioredis":"ioredis","memcached":"Memcached","mongodb":"MongoDB","pymongo":"MongoDB",
+                    // cloud SDKs
+                    "@aws-sdk/":"AWS SDK (JS)","aws-sdk":"AWS SDK","boto3":"AWS SDK (Py)","firebase":"Firebase",
+                    "@google-cloud/storage":"Google Cloud Storage","@google-cloud/firestore":"Firestore","@google-cloud/pubsub":"Pub/Sub",
+                    "@azure/storage-blob":"Azure Blob Storage","@azure/cosmos":"Azure Cosmos DB","supabase":"Supabase","appwrite":"Appwrite",
+                    "dynamoose":"DynamoDB","@aws-sdk/client-dynamodb":"DynamoDB","pocketbase":"PocketBase"
+                  };
+
+                  const CLOUD_CFG_HINTS = {
+                    "vercel.json":"Vercel","netlify.toml":"Netlify","render.yaml":"Render","railway.json":"Railway",
+                    "fly.toml":"Fly.io","heroku.yml":"Heroku","serverless.yml":"Serverless Framework","serverless.yaml":"Serverless Framework"
+                  };
+
+                  const TOOLS_KW = {
+                    // JS/TS toolchain
+                    "eslint":"ESLint","prettier":"Prettier","jest":"Jest","vitest":"Vitest","cypress":"Cypress","playwright":"Playwright",
+                    "mocha":"Mocha","chai":"Chai","husky":"Husky","lint-staged":"lint-staged","commitlint":"commitlint","commitizen":"Commitizen",
+                    "ts-node":"TS Node","typescript":"TypeScript","nodemon":"Nodemon","pm2":"PM2","storybook":"Storybook","nyc":"nyc/Istanbul",
+                    "babel":"Babel","tsup":"tsup","esbuild":"esbuild","webpack":"Webpack","vite":"Vite","turbo":"Turborepo",
+                    // Python tools
+                    "pytest":"pytest","black":"Black","flake8":"Flake8","ruff":"Ruff","mypy":"mypy","tox":"tox","pipenv":"Pipenv",
+                    // DevOps / CI / Containers
+                    "docker":"Docker","docker-compose":"Docker Compose","make":"Make","helm":"Helm","terraform":"Terraform","ansible":"Ansible",
+                    // .NET
+                    "serilog":"Serilog","xunit":"xUnit","nunit":"NUnit","coverlet":"Coverlet",
+                    // Java
+                    "maven":"Maven","gradle":"Gradle",
+                    // Mobile / Apple
+                    "fastlane":"fastlane",
+                    // Ruby
+                    "rspec":"RSpec","rubocop":"RuboCop",
+                    // PHP
+                    "phpunit/phpunit":"PHPUnit","phpstan/phpstan":"PHPStan","friendsofphp/php-cs-fixer":"PHP CS Fixer"
+                  };
+
+                  const displayLabel = (raw) => {
+                    // Normalize a few special cases:
+                    if (/^@aws-sdk\//.test(raw)) return 'AWS SDK (JS)';
+                    if (raw === 'aws-sdk') return 'AWS SDK';
+                    if (raw === '@google-cloud/storage') return 'Google Cloud Storage';
+                    if (raw === '@google-cloud/firestore') return 'Firestore';
+                    if (raw === '@google-cloud/pubsub') return 'Pub/Sub';
+                    if (raw === '@azure/storage-blob') return 'Azure Blob Storage';
+                    if (raw === '@azure/cosmos') return 'Azure Cosmos DB';
+                    // generic prettify
+                    const tidy = raw.replace(/^@/,'').replace(/[-_.]/g,' ');
+                    return tidy.replace(/\b\w/g, c=>c.toUpperCase());
+                  };
+
+                  // ---------- Parsers per file type ----------
+                  const decoders = {
+                    'base64': (s)=>Buffer.from(s,'base64').toString('utf8')
+                  };
+
+                  const parseJSON = t => { try { return JSON.parse(t); } catch { return null; } };
+                  const parseYAMLlike = t => (t||''); // we only keyword-scan
+
+                  const parseRequirements = t => (t||'').split(/\r?\n/)
+                    .map(l=>l.trim()).filter(l=>l && !l.startsWith('#'))
+                    .map(l=>l.split(/[\s<>=!~\[]/,1)[0].toLowerCase());
+
+                  const parsePipfileLock = t => {
+                    const j = parseJSON(t) || {};
+                    return Object.keys({...(j.default||{}), ...(j.develop||{})}).map(s=>s.toLowerCase());
+                  };
+
+                  const parseGoMod = t => (t||'').split(/\r?\n/).map(l=>{
+                    let m = l.match(/^\s*require\s+([^\s]+)\s+/) || l.match(/^\s*([^\s]+)\s+v\d/);
+                    return m?m[1].toLowerCase():null;
+                  }).filter(Boolean);
+
+                  const parseCargoToml = t => (t||'').toLowerCase().split(/\r?\n/)
+                    .map(l=>{ const m=l.match(/^\s*([a-z0-9_.-]+)\s*=\s*["{\[]/); return m?m[1]:null; })
+                    .filter(Boolean);
+
+                  const parsePomXml = t => (t||'').toLowerCase().match(/<artifactid>([^<]+)<\/artifactid>/g)?.map(s=>s.replace(/<\/?artifactid>/g,'')).filter(Boolean) || [];
+                  const parseGradle = t => (t||'').toLowerCase().match(/['"]([a-z0-9_.-]+):([a-z0-9_.-]+)['"]/g)?.map(s=>s.replace(/['"]/g,'')).map(s=>s.split(':')[0]) || [];
+
+                  const parseComposer = t => {
+                    const j = parseJSON(t); if (!j) return [];
+                    const b = {...(j.require||{}), ...(j['require-dev']||{})};
+                    return Object.keys(b).map(s=>s.toLowerCase());
+                  };
+
+                  const parseGemfile = t => {
+                    const out = [];
+                    for (const m of (t||'').toLowerCase().matchAll(/gem\s+['"]([^'"]+)['"]/g)) out.push(m[1]);
+                    return out;
+                  };
+
+                  const parseCsproj = t => {
+                    const lower = (t||'').toLowerCase();
+                    const libs = [];
+                    if (/asp\.net/.test(lower)) libs.push('aspnetcore');
+                    if (/entityframework/.test(lower)) libs.push('entityframework');
+                    if (/serilog/.test(lower)) libs.push('serilog');
+                    return libs;
+                  };
+
+                  const parsePubspec = t => {
+                    const out = new Set();
+                    const lower = (t||'').toLowerCase();
+                    out.add('flutter');
+                    if (/cloud_firestore\s*:/.test(lower)) out.add('firestore');
+                    if (/firebase_core\s*:/.test(lower)) out.add('firebase');
+                    if (/sqflite\s*:/.test(lower)) out.add('sqlite');
+                    if (/\bbloc\s*:/.test(lower)) out.add('bloc');
+                    if (/\briverpod\s*:/.test(lower)) out.add('riverpod');
+                    return [...out];
+                  };
+
+                  const parseSwiftPM = t => /vapor/i.test(t||'') ? ['vapor'] : [];
+
+                  const parseTerraform = t => {
+                    const set = new Set();
+                    const s = (t||'').toLowerCase();
+                    if (/provider\s+"aws"/.test(s)) set.add('aws');
+                    if (/provider\s+"google"/.test(s)) set.add('google cloud');
+                    if (/provider\s+"azurerm"/.test(s)) set.add('azure');
+                    return [...set];
+                  };
+
+                  // ---------- Walk repos: get tree recursively, then fetch matched files ----------
+                  async function listAllRepos(owner){
+                    const all = [];
+                    let after = null;
+                    while(true){
+                      const data = await GQL(REPO_QUERY, { owner, after });
+                      const repos = data?.repositoryOwner?.repositories;
+                      if (!repos) break;
+                      for (const n of repos.nodes) all.push(n);
+                      if (!repos.pageInfo.hasNextPage) break;
+                      after = repos.pageInfo.endCursor;
+                    }
+                    return all;
+                  }
+
+                  async function getTree(ownerRepo, sha){
+                    // GET /repos/{owner}/{repo}/git/trees/{sha}?recursive=1
+                    const [owner, repo] = ownerRepo.split('/');
+                    const url = `https://api.github.com/repos/${owner}/${repo}/git/trees/${sha}?recursive=1`;
+                    return await REST(url);
+                  }
+
+                  async function getContent(ownerRepo, path){
+                    const [owner, repo] = ownerRepo.split('/');
+                    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
+                    const j = await REST(url);
+                    // If it's a file, decode content
+                    if (Array.isArray(j)) return null; // directory
+                    if (j.encoding === 'base64' && j.content) return Buffer.from(j.content,'base64').toString('utf8');
+                    return j.content || '';
+                  }
+
+                  // ---------- Accumulators ----------
+                  const langTotals = new Map();
+                  const fwlib = new Set();
+                  const dbcloud = new Set();
+                  const tools = new Set();
+
+                  (async () => {
+                    const repos = await listAllRepos(REPO_OWNER);
+
+                    for (const repo of repos) {
+                      // 1) Languages via Linguist
+                      for (const e of (repo.languages?.edges || [])) {
+                        const lang = e.node.name; const size = e.size||0;
+                        langTotals.set(lang, (langTotals.get(lang)||0)+size);
+                      }
+
+                      // 2) Full tree walk (default branch)
+                      const branch = repo.defaultBranchRef?.name;
+                      const oid = repo.defaultBranchRef?.target?.oid;
+                      if (!branch || !oid) continue;
+
+                      let tree;
+                      try { tree = await getTree(repo.nameWithOwner, oid); }
+                      catch { continue; }
+
+                      if (!tree || !Array.isArray(tree.tree)) continue;
+
+                      // Filter interesting files
+                      const matchFiles = tree.tree
+                        .filter(it => it.type === 'blob' && FILE_PATTERNS.some(rx => rx.test(it.path)));
+
+                      // Fetch and parse each matched file
+                      for (const file of matchFiles) {
+                        let txt = '';
+                        try { txt = await getContent(repo.nameWithOwner, file.path); }
+                        catch { continue; }
+                        const lowerPath = file.path.toLowerCase();
+
+                        // JS/TS
+                        if (lowerPath.endsWith('package.json')) {
+                          const j = parseJSON(txt) || {};
+                          const buckets = [j.dependencies, j.devDependencies, j.peerDependencies, j.optionalDependencies];
+                          for (const b of buckets) if (b) {
+                            for (const [name] of Object.entries(b)) {
+                              const n = name.toLowerCase();
+                              // frameworks/libs
+                              for (const key of Object.keys(FWLIB_KW)) {
+                                if (n === key || n.startsWith(key)) fwlib.add(FWLIB_KW[key]);
+                              }
+                              // db/cloud
+                              for (const key of Object.keys(DB_KW)) {
+                                if (n === key || n.startsWith(key)) dbcloud.add(DB_KW[key]);
+                              }
+                              // tools
+                              for (const key of Object.keys(TOOLS_KW)) {
+                                if (n === key || n.startsWith(key)) tools.add(TOOLS_KW[key]);
+                              }
+                            }
+                          }
+                          // scripts heuristics (tools)
+                          for (const cmd of Object.values(j.scripts || {})) {
+                            const c = String(cmd);
+                            if (/eslint/.test(c)) tools.add('ESLint');
+                            if (/prettier/.test(c)) tools.add('Prettier');
+                            if (/jest/.test(c)) tools.add('Jest');
+                            if (/cypress/.test(c)) tools.add('Cypress');
+                            if (/playwright/.test(c)) tools.add('Playwright');
+                            if (/vite/.test(c)) tools.add('Vite');
+                            if (/webpack/.test(c)) tools.add('Webpack');
+                            if (/turbo/.test(c)) tools.add('Turborepo');
+                          }
+                        }
+
+                        // Lockfiles (presence hints)
+                        if (lowerPath.endsWith('pnpm-lock.yaml')) tools.add('pnpm');
+                        if (lowerPath.endsWith('yarn.lock')) tools.add('Yarn');
+                        if (lowerPath.endsWith('package-lock.json')) tools.add('npm');
+
+                        // Python
+                        if (lowerPath.endsWith('requirements.txt')) {
+                          for (const n of parseRequirements(txt)) {
+                            if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
+                            if (DB_KW[n]) dbcloud.add(DB_KW[n]);
+                            if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
+                          }
+                        }
+                        if (lowerPath.endsWith('pyproject.toml')) {
+                          const deps = (txt.match(/^\s*([a-z0-9_.-]+)\s*=\s*["'\[]/gmi)||[])
+                            .map(line=>line.split('=')[0].trim().toLowerCase());
+                          for (const n of deps) {
+                            if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
+                            if (DB_KW[n]) dbcloud.add(DB_KW[n]);
+                            if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
+                          }
+                        }
+                        if (lowerPath.endsWith('pipfile.lock')) {
+                          for (const n of parsePipfileLock(txt)) {
+                            if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
+                            if (DB_KW[n]) dbcloud.add(DB_KW[n]);
+                            if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
+                          }
+                        }
+
+                        // Go / Rust
+                        if (lowerPath.endsWith('go.mod')) {
+                          for (const n of parseGoMod(txt)) {
+                            if (n.includes('gin-gonic')) fwlib.add('Gin');
+                            if (n.includes('gorm.io')) fwlib.add('GORM');
+                          }
+                        }
+                        if (lowerPath.endsWith('cargo.toml')) {
+                          for (const n of parseCargoToml(txt)) {
+                            if (n === 'rocket') fwlib.add('Rocket');
+                            if (n === 'actix-web') fwlib.add('Actix Web');
+                          }
+                        }
+
+                        // Java / Kotlin
+                        if (lowerPath.endsWith('pom.xml')) {
+                          for (const g of parsePomXml(txt)) {
+                            if (g.includes('spring-boot') || g.includes('springframework')) fwlib.add('Spring Boot');
+                            if (g.includes('maven')) tools.add('Maven');
+                          }
+                        }
+                        if (/(^|\/)build\.gradle(\.kts)?$/i.test(lowerPath) || /(^|\/)settings\.gradle(\.kts)?$/i.test(lowerPath)) {
+                          for (const g of parseGradle(txt)) {
+                            if (g.includes('org.springframework')) fwlib.add('Spring');
+                            tools.add('Gradle');
+                          }
+                        }
+
+                        // PHP / Ruby
+                        if (lowerPath.endsWith('composer.json') || lowerPath.endsWith('composer.lock')) {
+                          for (const n of parseComposer(txt)) {
+                            if (n === 'laravel/framework') fwlib.add('Laravel');
+                            if (n.startsWith('symfony/')) fwlib.add('Symfony');
+                            if (n === 'doctrine/orm') fwlib.add('Doctrine ORM');
+                            if (n === 'mongodb/mongodb') dbcloud.add('MongoDB');
+                            if (n === 'predis/predis') dbcloud.add('Redis');
+                            if (n === 'phpunit/phpunit') tools.add('PHPUnit');
+                            if (n === 'phpstan/phpstan') tools.add('PHPStan');
+                            if (n === 'friendsofphp/php-cs-fixer') tools.add('PHP CS Fixer');
+                          }
+                        }
+                        if (/gemfile(\.lock)?$/i.test(lowerPath)) {
+                          for (const n of parseGemfile(txt)) {
+                            if (n === 'rails') fwlib.add('Ruby on Rails');
+                            if (n === 'sinatra') fwlib.add('Sinatra');
+                            if (n === 'pg') dbcloud.add('PostgreSQL');
+                            if (n === 'mysql2') dbcloud.add('MySQL');
+                            if (n === 'rspec') tools.add('RSpec');
+                            if (n === 'rubocop') tools.add('RuboCop');
+                          }
+                        }
+
+                        // .NET
+                        if (/\.(csproj|vbproj|fsproj)$/i.test(lowerPath) || /(^|\/)directory\.packages\.props$/i.test(lowerPath)) {
+                          for (const n of parseCsproj(txt)) {
+                            if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]); else fwlib.add(displayLabel(n));
+                          }
+                          tools.add('NuGet');
+                        }
+                        if (/\.sln$/i.test(lowerPath)) tools.add('MSBuild');
+
+                        // Dart / Flutter
+                        if (lowerPath.endsWith('pubspec.yaml')) {
+                          for (const n of parsePubspec(txt)) {
+                            if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]); else fwlib.add(displayLabel(n));
+                          }
+                        }
+
+                        // Swift
+                        if (lowerPath.endsWith('package.swift')) {
+                          for (const n of parseSwiftPM(txt)) fwlib.add(displayLabel(n));
+                        }
+                        if (/podfile(\.lock)?$/i.test(lowerPath)) tools.add('CocoaPods');
+                        if (/cartfile(\.resolved)?$/i.test(lowerPath)) tools.add('Carthage');
+
+                        // Elixir / Erlang
+                        if (lowerPath.endsWith('mix.exs')) fwlib.add('Phoenix');
+                        if (lowerPath.endsWith('rebar.config')) fwlib.add('Rebar');
+
+                        // Haskell
+                        if (/\.cabal$/i.test(lowerPath)) tools.add('Cabal');
+                        if (lowerPath.endsWith('stack.yaml')) tools.add('Stack');
+
+                        // R / Julia
+                        if (lowerPath.endsWith('description')) fwlib.add('CRAN/R');
+                        if (lowerPath.endsWith('project.toml')) fwlib.add('Julia Pkg');
+
+                        // Terraform / Ansible / Helm / K8s
+                        if (/\.tf$/i.test(lowerPath)) {
+                          for (const cloud of parseTerraform(txt)) dbcloud.add(displayLabel(cloud));
+                          tools.add('Terraform');
+                        }
+                        if (/(^|\/)requirements\.yml$/i.test(lowerPath)) tools.add('Ansible');
+                        if (/(^|\/)chart\.yaml$/i.test(lowerPath)) tools.add('Helm');
+                        if (/(^|\/).+\.ya?ml$/i.test(lowerPath) && /apiVersion:\s*v1|apps\/v1/.test(txt)) tools.add('Kubernetes');
+
+                        // Containers
+                        if (/(^|\/)dockerfile$/i.test(lowerPath)) tools.add('Docker');
+                        if (/(^|\/)docker-compose\.ya?ml$/i.test(lowerPath)) {
+                          tools.add('Docker Compose');
+                          const s = txt.toLowerCase();
+                          if (/mongo/.test(s)) dbcloud.add('MongoDB');
+                          if (/postgres/.test(s)) dbcloud.add('PostgreSQL');
+                          if (/mysql/.test(s)) dbcloud.add('MySQL');
+                          if (/redis/.test(s)) dbcloud.add('Redis');
+                        }
+
+                        // Cloud host configs
+                        for (const [fname, label] of Object.entries(CLOUD_CFG_HINTS)) {
+                          if (lowerPath.endsWith(fname.toLowerCase())) dbcloud.add(label);
+                        }
+                      }
+                    }
+
+                    // ---------- Build badges ----------
+                    const langsSorted = [...langTotals.entries()].sort((a,b)=>b[1]-a[1]).map(([l])=>l);
+                    const langBadges = langsSorted.map(l => badge(l));
+
+                    const fwlibSorted = [...fwlib].sort();
+                    const fwlibBadges = fwlibSorted.map(l => badge(l));
+
+                    const dbcloudSorted = [...dbcloud].sort();
+                    const dbcloudBadges = dbcloudSorted.map(l => badge(l));
+
+                    const toolsSorted = [...tools].sort();
+                    const toolsBadges = toolsSorted.map(l => badge(l));
+
+                    // ---------- Update README (preserve existing hard-coded badges) ----------
+                    let readme = fs.readFileSync(README_PATH, 'utf8');
+                    readme = mergeSection(readme, LANG_START, LANG_END, langBadges);
+                    readme = mergeSection(readme, FWLIB_START, FWLIB_END, fwlibBadges);
+                    readme = mergeSection(readme, DBCLOUD_START, DBCLOUD_END, dbcloudBadges);
+                    readme = mergeSection(readme, TOOLS_START, TOOLS_END, toolsBadges);
+                    fs.writeFileSync(README_PATH, readme, 'utf8');
+
+                    console.log('✅ README updated: deep scan complete.');
+                  })().catch(e => { console.error(e); process.exit(1); });
+                  NODE
+
+            - name: Commit & push
+              env:
+                  PAT_OR_TOKEN: ${{ secrets.PERSONAL_TOKEN || secrets.GITHUB_TOKEN }}
+              run: |
+                  if git diff --quiet; then
+                    echo "No changes."
+                    exit 0
+                  fi
+                  git config user.name  "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add "${README_PATH}"
+                  git commit -m "chore: refresh tech badges (deep scan)"
+                  git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF_NAME:-main} || \
+                  git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:main || \
+                  git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:master

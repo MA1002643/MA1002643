@@ -165,11 +165,15 @@ namespace ProfileCard
 <summary><b>👨‍💻 Programming and Markup Languages</b></summary>
 <br/>
 
+<!-- LANG-ICONS:START -->
+
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
 ![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge&logo=powershell&logoColor=white)
 ![Shell](https://img.shields.io/badge/Shell-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)
+
+<!-- LANG-ICONS:END -->
 
 </details>
 
@@ -178,10 +182,14 @@ namespace ProfileCard
 <summary><b>🧰 Frameworks and Libraries</b></summary>
 <br/>
 
+<!-- FWLIB-ICONS:START -->
+
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+
+<!-- FWLIB-ICONS:END -->
 
 </details>
 
@@ -189,6 +197,8 @@ namespace ProfileCard
 
 <summary><b>🗄️ Databases and Cloud Hosting</b></summary>
 <br/>
+
+<!-- DBCLOUD-ICONS:START -->
 
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
@@ -207,19 +217,20 @@ namespace ProfileCard
 ![Terraform](https://img.shields.io/badge/Terraform-623CE4?style=for-the-badge&logo=terraform&logoColor=white)
 ![YAML](https://img.shields.io/badge/YAML-000000?style=for-the-badge&logo=yaml&logoColor=white)
 
+<!-- DBCLOUD-ICONS:END -->
 </details>
 
 <details>
 
 <summary><b>💻 Software and Tools</b></summary>
 <br/>
-
+<!-- TOOLS-ICONS:START -->
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![StackStorm](https://img.shields.io/badge/StackStorm-00AEEF?style=for-the-badge&logo=stackstorm&logoColor=white)
 ![RedHat](https://img.shields.io/badge/RedHat-EE0000?style=for-the-badge&logo=redhat&logoColor=white)
-
+<!-- TOOLS-ICONS:END -->
 </details>
 
 ---
