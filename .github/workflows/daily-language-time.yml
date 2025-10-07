@@ -31,7 +31,6 @@ jobs:
         run: |
           python - <<'PY'
           import os, sys, json, datetime, base64, re
-          from datetime import timedelta
           from urllib.request import Request, urlopen
           from urllib.parse import urlencode
           from urllib.error import HTTPError
@@ -52,23 +51,22 @@ jobs:
               filled = int(pct / 100 * width + 1e-9)
               return "█" * filled + "░" * (width - filled)
 
-          def fetch_summaries(user: str, api_key: str, start, end):
-              params = {"start": start.isoformat(), "end": end.isoformat(), "timezone": "Europe/London"}
+          def fetch_summaries(user: str, api_key: str, start_dt, end_dt):
+              params = {
+                  "start": start_dt.isoformat(),
+                  "end": end_dt.isoformat(),
+                  "timezone": "Europe/London",
+              }
               url = f"https://wakatime.com/api/v1/users/{user}/summaries?{urlencode(params)}"
               headers = {"Authorization": "Basic " + base64.b64encode(api_key.encode()).decode()}
               with urlopen(Request(url, headers=headers)) as resp:
                   return json.load(resp)
 
-          # --- Dates & ranges ---
+          # --- Strict rolling last 7 days ending "now" (run time) in Europe/London ---
           tz = ZoneInfo("Europe/London")
-          today = datetime.datetime.now(tz).date()
-
-          # Default: last 7 complete days ending yesterday
-          end_day = today - timedelta(days=1)       # yesterday (complete day)
-          start_7 = end_day - timedelta(days=6)     # 7-day inclusive window
-
-          # Try 30 days first (if plan allows), otherwise 7 days
-          start_30 = end_day - timedelta(days=29)
+          now = datetime.datetime.now(tz)
+          used_end = now                             # include data up to job run time (08:00)
+          used_start = now - datetime.timedelta(days=7)
 
           # --- Secrets & config ---
           api_key = os.getenv("WAKATIME_API_KEY")
@@ -77,23 +75,16 @@ jobs:
               sys.exit(1)
           user = os.getenv("WAKATIME_USER") or "current"
 
-          # --- Fetch summaries for preferred (30d) window, fallback to 7d if plan-limited ---
-          used_start = start_30
-          used_end = end_day
+          # --- Fetch summaries for the 7-day rolling window ---
           try:
               data = fetch_summaries(user, api_key, used_start, used_end)
           except HTTPError as e:
-              if e.code == 402:
-                  print("::warning::WakaTime returned 402 (Payment Required) for 30-day range. Falling back to last 7 full days.")
-                  used_start = start_7
-                  data = fetch_summaries(user, api_key, used_start, used_end)
-              else:
-                  print(f"::error::WakaTime API error {e.code} at /api/v1/users/{user}/summaries")
-                  body = e.read().decode(errors="ignore")
-                  print(body[:500])
-                  sys.exit(1)
+              print(f"::error::WakaTime API error {e.code} at /api/v1/users/{user}/summaries")
+              body = e.read().decode(errors="ignore")
+              print(body[:500])
+              sys.exit(1)
 
-          # --- Aggregate languages ---
+          # --- Aggregate languages across the returned days (partial day included) ---
           def aggregate_langs(summary):
               languages = {}
               for day in summary.get("data", []):
@@ -106,19 +97,6 @@ jobs:
 
           languages = aggregate_langs(data)
           items = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
-
-          # --- Fallback: if empty over complete days, include *today* and keep a 7-day span ---
-          # This ensures the footer date = used_end (today when we include it; yesterday otherwise)
-          if not items:
-              print("No activity in the last complete-day window. Including today and retrying once, maintaining 7-day span.")
-              used_end = today                              # include today (partial)
-              used_start = used_end - timedelta(days=6)     # keep 7 days inclusive
-              try:
-                  data = fetch_summaries(user, api_key, used_start, used_end)
-                  languages = aggregate_langs(data)
-                  items = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
-              except HTTPError as e:
-                  print(f"::warning::Second fetch including today failed with {e.code}. Keeping empty results.")
 
           # --- Build table block ---
           if items:
@@ -142,11 +120,8 @@ jobs:
               print("::error::Markers not found in README.md. Add the LANG-TIME markers.")
               sys.exit(1)
 
-          # Footer shows used_end date:
-          # - yesterday for complete-day window
-          # - today if we included today in the fallback
-          days_span = (used_end - used_start).days + 1
-          footer = f"Last updated on {used_end.isoformat()} (Displaying Data from past {days_span} days)"
+          # Footer shows the date corresponding to the run's end instant (date only), and fixed 7 days span
+          footer = f"Last updated on {used_end.date().isoformat()} (Displaying Data from past 7 days)"
 
           replacement = (
               f"{start_tag}\n\n{block}\n\n"
@@ -154,6 +129,7 @@ jobs:
               f"{end_tag}"
           )
 
+          import re
           new_readme = re.sub(rf"{re.escape(start_tag)}.*?{re.escape(end_tag)}", replacement, readme, flags=re.DOTALL)
           with open("README.md","w",encoding="utf-8") as f:
               f.write(new_readme)
