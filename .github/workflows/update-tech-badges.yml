@@ -1,4 +1,4 @@
-name: Update tech badges (deep scan, auto brand colors)
+name: Update tech badges
 
 on:
   schedule:
@@ -334,7 +334,9 @@ jobs:
           const tools = new Set();
 
           (async () => {
+            // create ONCE and reuse (fixes redeclare error)
             const makeBadge = await buildBadgeFn();
+
             const repos = await listAllRepos(REPO_OWNER);
 
             // Languages via Linguist
@@ -401,7 +403,7 @@ jobs:
                     .map(line=>line.split('=')[0].trim().toLowerCase());
                   for (const n of deps) {
                     if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
-                    if (DB_KW[n]) dbcloud.add(DB_KW[n]);
+                    if (DB_KW[n]) dbcloud.add(DB_KW_KW[n]);
                     if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
                   }
                 }
@@ -543,9 +545,7 @@ jobs:
             for (const d of ALWAYS_DBCLOUD) dbcloud.add(d);
             for (const t of ALWAYS_TOOLS) tools.add(t);
 
-            // Build badges with auto brand colors
-            const makeBadge = await buildBadgeFn();
-
+            // Build badges with auto brand colors (single instance)
             const langsSorted = [...langTotals.entries()]
               .sort((a,b)=>b[1]-a[1])
               .map(([l]) => LANGUAGE_RENAMES[l] || l);
