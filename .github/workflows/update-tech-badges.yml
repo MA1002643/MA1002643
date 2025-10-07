@@ -1,610 +1,560 @@
-name: Update tech badges (deep scan)
+name: Update tech badges
 
 on:
-    schedule:
-        - cron: "0 9 * * 1" # Mondays 09:00 UTC
-    workflow_dispatch:
+  schedule:
+    - cron: "0 9 * * 1" # Mondays 09:00 UTC
+  workflow_dispatch:
 
 permissions:
-    contents: write
+  contents: write
 
 jobs:
-    update-badges:
-        runs-on: ubuntu-latest
+  update-badges:
+    runs-on: ubuntu-latest
+    env:
+      # Prefer a PAT with repo scope so private repos are included
+      GH_TOKEN: ${{ secrets.PERSONAL_TOKEN || secrets.GITHUB_TOKEN }}
+      REPO_OWNER: ${{ github.repository_owner }}
+      README_PATH: README.md
+      BADGE_STYLE: "for-the-badge"
+      LANG_START: "<!-- LANG-ICONS:START -->"
+      LANG_END: "<!-- LANG-ICONS:END -->"
+      FWLIB_START: "<!-- FWLIB-ICONS:START -->"
+      FWLIB_END: "<!-- FWLIB-ICONS:END -->"
+      DBCLOUD_START: "<!-- DBCLOUD-ICONS:START -->"
+      DBCLOUD_END: "<!-- DBCLOUD-ICONS:END -->"
+      TOOLS_START: "<!-- TOOLS-ICONS:START -->"
+      TOOLS_END: "<!-- TOOLS-ICONS:END -->"
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Simple Icons (for brand colors)
+        run: npm i simple-icons@^13
+
+      - name: Deep-scan repos and update README badges
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+
+          const {
+            GH_TOKEN, REPO_OWNER, README_PATH, BADGE_STYLE,
+            LANG_START, LANG_END, FWLIB_START, FWLIB_END,
+            DBCLOUD_START, DBCLOUD_END, TOOLS_START, TOOLS_END
+          } = process.env;
+
+          if (!GH_TOKEN) { console.error('❌ Missing GH_TOKEN'); process.exit(1); }
+          if (!fs.existsSync(README_PATH)) { console.error(`❌ Missing ${README_PATH}`); process.exit(1); }
+
+          // ---------- Utilities ----------
+          const fetchJSON = async (url, headers={}) => {
+            const res = await fetch(url, { headers });
+            if (!res.ok) throw new Error(`${res.status} ${url}: ${await res.text()}`);
+            return res.json();
+          };
+          const GQL = async (query, variables) => {
+            const res = await fetch('https://api.github.com/graphql', {
+              method:'POST',
+              headers:{ Authorization:`bearer ${GH_TOKEN}`, 'Content-Type':'application/json', 'Accept':'application/vnd.github+json' },
+              body: JSON.stringify({ query, variables })
+            });
+            if (!res.ok) throw new Error(`GraphQL ${res.status}: ${await res.text()}`);
+            const j = await res.json();
+            if (j.errors) throw new Error(JSON.stringify(j.errors));
+            return j.data;
+          };
+          const REST = (u) => fetchJSON(u, { Authorization:`Bearer ${GH_TOKEN}`, 'Accept':'application/vnd.github+json' });
+
+          // ---------- Brand colors and badge helper ----------
+          const COLOR_MAP = {
+            // nice defaults; brand hex overrides via Simple Icons will win
+            "Python":"3776AB","JavaScript":"F7DF1E","TypeScript":"3178C6","HTML5":"E34F26","CSS3":"1572B6",
+            "Shell":"4EAA25","Bash":"4EAA25","PowerShell":"5391FE","R":"276DC3","Java":"007396","C#":"239120",
+            "C":"A8B9CC","C++":"00599C","Go":"00ADD8","PHP":"777BB4","Ruby":"CC342D","Kotlin":"7F52FF","Swift":"FA7343",
+            "Rust":"000000","Dart":"0175C2","Scala":"DC322F","Haskell":"5D4F85","Prolog":"742F2B","Markdown":"000000",
+            "YAML":"CB171E","JSON":"000000","XML":"0060AC","SQL":"4479A1","MIPS Assembly":"525252",
+
+            ".NET":"512BD4","Blazor":"5C2D91",".NET MAUI":"512BD4","Node.js":"339933","Express.js":"000000",
+            "React":"61DAFB","Vue.js":"4FC08D","Next.js":"000000","Tailwind CSS":"06B6D4","Three.js":"000000","Angular.js":"DD0031","Angular":"DD0031",
+
+            "Git":"F05032","GitHub":"181717","Azure DevOps":"0078D7","Jira":"2684FF","MySQL":"4479A1","SQLite":"003B57",
+            "Tomcat":"F8DC75","Postman":"FF6C37","Visual Studio":"5C2D91","VS Code":"007ACC","Photoshop":"31A8FF","Ubuntu":"E95420",
+            "UML":"1B72BE","CI/CD":"0B5FFF","DevOps":"0B5FFF","UX Design":"FF4081","Project Management":"795548","Testing":"00ACC1","Database Integration":"4DB33D"
+          };
+
+          const SIMPLE_ICON_SLUG_OVERRIDES = {
+            "VS Code":"visual-studio-code",
+            "Visual Studio":"visual-studio",
+            "Azure DevOps":"azuredevops",
+            "JUnit":"junit5",
+            "UML":"plantuml",
+            "CI/CD":"githubactions",
+            "DevOps automation":"githubactions",
+            "UX Design":"figma",
+            "Project Management":"jira",
+            "Database Integration":"mongodb",
+            "MIPS Assembly":"gnuemacs"
+          };
+          const toSlug = (s) => s.toLowerCase().replace(/\+/g,'plus').replace(/#/g,'sharp').replace(/\./g,'').replace(/\s+/g,'-');
+
+          async function buildBadgeFn() {
+            let SI;
+            try { SI = await import('simple-icons'); }
+            catch { SI = null; }
+
+            function brandHex(label) {
+              if (COLOR_MAP[label]) return COLOR_MAP[label];
+              if (SI?.get) {
+                const override = SIMPLE_ICON_SLUG_OVERRIDES[label];
+                const candidates = [override, toSlug(label)].filter(Boolean);
+                for (const slug of candidates) {
+                  const icon = SI.get(slug);
+                  if (icon?.hex) return icon.hex;
+                }
+                const byTitle = SI.get(label.toLowerCase());
+                if (byTitle?.hex) return byTitle.hex;
+              }
+              return '444444'; // tasteful grey when all else fails
+            }
+
+            return (label, preferredHex) => {
+              const enc = encodeURIComponent(label);
+              const slug = SIMPLE_ICON_SLUG_OVERRIDES[label] || toSlug(label);
+              const hex = (preferredHex || brandHex(label)).replace(/^#/, '');
+              return `![${label}](https://img.shields.io/badge/${enc}-${hex}?style=${BADGE_STYLE}&logo=${slug}&logoColor=white)`;
+            };
+          }
+
+          function mergeSection(readme, start, end, badges) {
+            const si = readme.indexOf(start), ei = readme.indexOf(end);
+            if (si === -1 || ei === -1 || ei < si) throw new Error(`Markers not found: ${start} / ${end}`);
+            const before = readme.slice(0, si + start.length);
+            const between = readme.slice(si + start.length, ei);
+            const after = readme.slice(ei);
+            const existing = between.trim();
+            const existingBadges = (existing.match(/!\[[^\]]*\]\([^)]+\)/g)||[]).map(s=>s.trim());
+            const existingLabels = new Set(existingBadges.map(b => (b.match(/!\[([^\]]+)\]/)||[])[1]).filter(Boolean));
+            const filtered = badges.filter(b => {
+              const m = b.match(/!\[([^\]]+)\]/); const lbl = m && m[1];
+              return lbl && !existingLabels.has(lbl);
+            });
+            const next = ['\n', existing, existing?'\n':'', filtered.join('\n'), '\n'].join('');
+            return before + next + after;
+          }
+
+          // ---------- Repo listing & file scanning ----------
+          const REPO_QUERY = `
+            query($owner:String!, $after:String){
+              repositoryOwner(login:$owner){
+                repositories(first:100, ownerAffiliations: OWNER, after:$after, orderBy:{field:UPDATED_AT, direction:DESC}){
+                  pageInfo{ hasNextPage endCursor }
+                  nodes{
+                    nameWithOwner
+                    defaultBranchRef { name target { ... on Commit { oid } } }
+                    languages(first:100, orderBy:{field:SIZE, direction:DESC}){ edges{ size, node{ name } } }
+                  }
+                }
+              }
+            }`;
+
+          const FILE_PATTERNS = [
+            /(^|\/)package\.json$/i, /(^|\/)pnpm\-lock\.yaml$/i, /(^|\/)yarn\.lock$/i, /(^|\/)package\-lock\.json$/i,
+            /(^|\/)requirements\.txt$/i, /(^|\/)pyproject\.toml$/i, /(^|\/)Pipfile$/i, /(^|\/)Pipfile\.lock$/i,
+            /(^|\/)go\.mod$/i, /(^|\/)Cargo\.toml$/i,
+            /(^|\/)pom\.xml$/i, /(^|\/)build\.gradle(\.kts)?$/i, /(^|\/)settings\.gradle(\.kts)?$/i,
+            /(^|\/)composer\.json$/i, /(^|\/)composer\.lock$/i, /(^|\/)Gemfile(\.lock)?$/i,
+            /\.csproj$/i, /\.vbproj$/i, /\.fsproj$/i, /(^|\/)Directory\.Packages\.props$/i, /\.sln$/i, /(^|\/)packages\.config$/i,
+            /(^|\/)pubspec\.yaml$/i,
+            /(^|\/)Package\.swift$/i, /(^|\/)Podfile(\.lock)?$/i, /(^|\/)Cartfile(\.resolved)?$/i,
+            /(^|\/)mix\.exs$/i, /(^|\/)rebar\.config$/i,
+            /\.cabal$/i, /(^|\/)stack\.yaml$/i,
+            /(^|\/)DESCRIPTION$/i, /(^|\/)Project\.toml$/i,
+            /\.tf$/i, /(^|\/)requirements\.yml$/i, /(^|\/)Chart\.yaml$/i, /\.ya?ml$/i,
+            /(^|\/)Dockerfile$/i, /(^|\/)docker\-compose\.ya?ml$/i,
+            /(^|\/)serverless\.ya?ml$/i, /(^|\/)vercel\.json$/i, /(^|\/)netlify\.toml$/i, /(^|\/)render\.ya?ml$/i,
+            /(^|\/)railway\.json$/i, /(^|\/)fly\.toml$/i, /(^|\/)heroku\.ya?ml$/i,
+            /(^|\/)azure\-pipelines\.ya?ml$/i, /(^|\/)README(\.md|\.rst|\.adoc)?$/i
+          ];
+
+          const FWLIB_KW = {
+            "react":"React","next":"Next.js","vue":"Vue.js","nuxt":"Nuxt","svelte":"Svelte","astro":"Astro","solid":"SolidJS",
+            "angular":"Angular","redux":"Redux","zustand":"Zustand","express":"Express","fastify":"Fastify","koa":"Koa",
+            "hapi":"hapi","nestjs":"NestJS","tailwindcss":"Tailwind CSS","bootstrap":"Bootstrap","@mui/material":"MUI",
+            "mantine":"Mantine","chakra-ui":"Chakra UI","antd":"Ant Design","daisyui":"daisyUI","three":"Three.js",
+            "framer-motion":"Framer Motion","vite":"Vite","webpack":"Webpack","rollup":"Rollup","parcel":"Parcel",
+            "electron":"Electron","expo":"Expo",
+            "django":"Django","flask":"Flask","fastapi":"FastAPI","pydantic":"Pydantic","jinja2":"Jinja2",
+            "numpy":"NumPy","pandas":"Pandas","matplotlib":"Matplotlib","scikit-learn":"scikit-learn","tensorflow":"TensorFlow",
+            "torch":"PyTorch","pytorch":"PyTorch","scrapy":"Scrapy","streamlit":"Streamlit",
+            "spring":"Spring","spring-boot":"Spring Boot","quarkus":"Quarkus","micronaut":"Micronaut",
+            "laravel":"Laravel","symfony":"Symfony",
+            "rails":"Ruby on Rails","sinatra":"Sinatra",
+            "gin":"Gin","echo":"Echo","fiber":"Fiber","gorm":"GORM",
+            "flutter":"Flutter","bloc":"BLoC","riverpod":"Riverpod","get_it":"GetIt",
+            "aspnetcore":"ASP.NET Core","entityframework":"Entity Framework","serilog":"Serilog","autofac":"Autofac",
+            "rocket":"Rocket","actix-web":"Actix Web","phoenix":"Phoenix","vapor":"Vapor"
+          };
+
+          const DB_KW = {
+            "mongoose":"Mongoose","prisma":"Prisma","sequelize":"Sequelize","typeorm":"TypeORM","drizzle-orm":"Drizzle ORM",
+            "mysql":"MySQL","mysql2":"MySQL","pg":"PostgreSQL","postgres":"PostgreSQL","psycopg2":"PostgreSQL",
+            "sqlite":"SQLite","sqlite3":"SQLite","better-sqlite3":"SQLite","oracledb":"Oracle DB","mssql":"SQL Server",
+            "redis":"Redis","ioredis":"ioredis","memcached":"Memcached","mongodb":"MongoDB","pymongo":"MongoDB",
+            "@aws-sdk/":"AWS SDK (JS)","aws-sdk":"AWS SDK","boto3":"AWS SDK (Py)","firebase":"Firebase",
+            "@google-cloud/storage":"Google Cloud Storage","@google-cloud/firestore":"Firestore","@google-cloud/pubsub":"Pub/Sub",
+            "@azure/storage-blob":"Azure Blob Storage","@azure/cosmos":"Azure Cosmos DB","supabase":"Supabase","appwrite":"Appwrite",
+            "dynamoose":"DynamoDB","@aws-sdk/client-dynamodb":"DynamoDB","pocketbase":"PocketBase"
+          };
+
+          const CLOUD_CFG_HINTS = {
+            "vercel.json":"Vercel","netlify.toml":"Netlify","render.yaml":"Render","railway.json":"Railway",
+            "fly.toml":"Fly.io","heroku.yml":"Heroku","serverless.yml":"Serverless Framework","serverless.yaml":"Serverless Framework"
+          };
+
+          const TOOLS_KW = {
+            "eslint":"ESLint","prettier":"Prettier","jest":"Jest","vitest":"Vitest","cypress":"Cypress","playwright":"Playwright",
+            "mocha":"Mocha","chai":"Chai","husky":"Husky","lint-staged":"lint-staged","commitlint":"commitlint","commitizen":"Commitizen",
+            "ts-node":"TS Node","typescript":"TypeScript","nodemon":"Nodemon","pm2":"PM2","storybook":"Storybook","nyc":"nyc/Istanbul",
+            "babel":"Babel","tsup":"tsup","esbuild":"esbuild","webpack":"Webpack","vite":"Vite","turbo":"Turborepo",
+            "pytest":"pytest","black":"Black","flake8":"Flake8","ruff":"Ruff","mypy":"mypy","tox":"tox","pipenv":"Pipenv",
+            "docker":"Docker","docker-compose":"Docker Compose","make":"Make","helm":"Helm","terraform":"Terraform","ansible":"Ansible",
+            "serilog":"Serilog","xunit":"xUnit","nunit":"NUnit","coverlet":"Coverlet","maven":"Maven","gradle":"Gradle","fastlane":"fastlane",
+            "rspec":"RSpec","rubocop":"RuboCop","phpunit/phpunit":"PHPUnit","phpstan/phpstan":"PHPStan","friendsofphp/php-cs-fixer":"PHP CS Fixer",
+            "msbuild":"MSBuild","nuget":"NuGet","yarn":"Yarn","npm":"npm","pnpm":"pnpm"
+          };
+
+          // Must-include (your request)
+          const ALWAYS_LANGS = [
+            "C#","Java","JavaScript (ES6+)","SQL","Python","HTML5","CSS3",
+            "Prolog","Haskell","C++","Go","Rust","MIPS Assembly"
+          ];
+          const ALWAYS_FWLIB = [
+            ".NET","Blazor",".NET MAUI","Node.js","Express.js","React","Vue.js","Next.js","Tailwind CSS","Three.js","Angular.js"
+          ];
+          const ALWAYS_DBCLOUD = ["MySQL","SQLite"];
+          const ALWAYS_TOOLS = [
+            "Git","GitHub","Azure DevOps","Jira","Tomcat","Postman","Visual Studio","VS Code","Photoshop","Ubuntu",
+            "Software Design & Architecture","UML","Testing","JUnit","NUnit","Unit","Integration","System",
+            "CI/CD","DevOps automation","UX Design","Database Integration","Project Management","TypeScript","TS Node",
+            "Docker Compose","ESLint","Husky","Make","MSBuild","NPM","nyc/Istanbul","Webpack","Yarn","Vite","Babel","Mocha","Chai","Nodemon","NuGet","PHPUnit","Prettier","commitlint","lint-staged","Commitizen"
+          ];
+
+          // ---------- Parsers ----------
+          const parseJSON = t => { try { return JSON.parse(t); } catch { return null; } };
+          const parseRequirements = t => (t||'').split(/\r?\n/).map(l=>l.trim()).filter(l=>l && !l.startsWith('#'))
+            .map(l=>l.split(/[\s<>=!~\[]/,1)[0].toLowerCase());
+          const parsePipfileLock = t => {
+            const j = parseJSON(t) || {}; return Object.keys({...(j.default||{}), ...(j.develop||{})}).map(s=>s.toLowerCase());
+          };
+          const parseGoMod = t => (t||'').split(/\r?\n/).map(l=>{
+            let m = l.match(/^\s*require\s+([^\s]+)\s+/) || l.match(/^\s*([^\s]+)\s+v\d/); return m?m[1].toLowerCase():null;
+          }).filter(Boolean);
+          const parseCargoToml = t => (t||'').toLowerCase().split(/\r?\n/)
+            .map(l=>{ const m=l.match(/^\s*([a-z0-9_.-]+)\s*=\s*["{\[]/); return m?m[1]:null; }).filter(Boolean);
+          const parsePomXml = t => (t||'').toLowerCase().match(/<artifactid>([^<]+)<\/artifactid>/g)?.map(s=>s.replace(/<\/?artifactid>/g,'')).filter(Boolean) || [];
+          const parseGradle = t => (t||'').toLowerCase().match(/['"]([a-z0-9_.-]+):([a-z0-9_.-]+)['"]/g)?.map(s=>s.replace(/['"]/g,'')).map(s=>s.split(':')[0]) || [];
+          const parseComposer = t => { const j = parseJSON(t); const b = j? {...(j.require||{}), ...(j['require-dev']||{})} : {}; return Object.keys(b).map(s=>s.toLowerCase()); };
+          const parseGemfile = t => { const out=[]; for (const m of (t||'').toLowerCase().matchAll(/gem\s+['"]([^'"]+)['"]/g)) out.push(m[1]); return out; };
+          const parseCsproj = t => {
+            const s=(t||'').toLowerCase(); const libs=[];
+            if (/usemaui\s*>\s*true/.test(s) || /microsoft\.maui/.test(s)) libs.push('.NET MAUI');
+            if (/microsoft\.aspnetcore\.components|razor/.test(s)) libs.push('Blazor');
+            if (/entityframework/.test(s)) libs.push('Entity Framework');
+            if (/serilog/.test(s)) libs.push('Serilog');
+            return libs;
+          };
+          const parsePubspec = t => {
+            const out = new Set(); const s=(t||'').toLowerCase();
+            out.add('Flutter'); if (/cloud_firestore\s*:/.test(s)) out.add('Firestore');
+            if (/firebase_core\s*:/.test(s)) out.add('Firebase'); if (/sqflite\s*:/.test(s)) out.add('SQLite');
+            if (/\bbloc\s*:/.test(s)) out.add('BLoC'); if (/\briverpod\s*:/.test(s)) out.add('Riverpod'); return [...out];
+          };
+          const parseSwiftPM = t => /vapor/i.test(t||'') ? ['Vapor'] : [];
+          const parseTerraform = t => {
+            const set = new Set(); const s=(t||'').toLowerCase();
+            if (/provider\s+"aws"/.test(s)) set.add('AWS'); if (/provider\s+"google"/.test(s)) set.add('Google Cloud');
+            if (/provider\s+"azurerm"/.test(s)) set.add('Azure'); return [...set];
+          };
+
+          async function listAllRepos(owner){
+            const all=[]; let after=null;
+            while(true){
+              const data = await GQL(REPO_QUERY, { owner, after });
+              const repos = data?.repositoryOwner?.repositories; if (!repos) break;
+              all.push(...repos.nodes); if (!repos.pageInfo.hasNextPage) break; after = repos.pageInfo.endCursor;
+            }
+            return all;
+          }
+          async function getTree(ownerRepo, sha){
+            const [owner, repo] = ownerRepo.split('/');
+            return await REST(`https://api.github.com/repos/${owner}/${repo}/git/trees/${sha}?recursive=1`);
+          }
+          async function getContent(ownerRepo, filePath){
+            const [owner, repo] = ownerRepo.split('/');
+            const j = await REST(`https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(filePath)}`);
+            if (Array.isArray(j)) return null;
+            if (j.encoding === 'base64' && j.content) return Buffer.from(j.content,'base64').toString('utf8');
+            return j.content || '';
+          }
+
+          // ---------- Accumulators ----------
+          const langTotals = new Map();
+          const fwlib = new Set();
+          const dbcloud = new Set();
+          const tools = new Set();
+
+          (async () => {
+            const makeBadge = await buildBadgeFn();
+            const repos = await listAllRepos(REPO_OWNER);
+
+            // Languages from Linguist
+            for (const repo of repos) {
+              for (const e of (repo.languages?.edges || [])) {
+                const lang = e.node.name; const size = e.size||0;
+                langTotals.set(lang, (langTotals.get(lang)||0)+size);
+              }
+            }
+
+            // Walk trees & parse manifests/configs
+            for (const repo of repos) {
+              const oid = repo.defaultBranchRef?.target?.oid;
+              if (!oid) continue;
+
+              let tree;
+              try { tree = await getTree(repo.nameWithOwner, oid); } catch { continue; }
+              if (!tree || !Array.isArray(tree.tree)) continue;
+
+              const files = tree.tree.filter(it => it.type === 'blob' && FILE_PATTERNS.some(rx => rx.test(it.path)));
+
+              for (const it of files) {
+                const p = it.path; const lower = p.toLowerCase();
+                let txt = '';
+                try { txt = await getContent(repo.nameWithOwner, p); } catch { continue; }
+
+                // JS/TS
+                if (lower.endsWith('package.json')) {
+                  const j = parseJSON(txt) || {};
+                  const buckets = [j.dependencies, j.devDependencies, j.peerDependencies, j.optionalDependencies];
+                  for (const b of buckets) if (b) for (const [name] of Object.entries(b)) {
+                    const n = name.toLowerCase();
+                    for (const k of Object.keys(FWLIB_KW)) if (n === k || n.startsWith(k)) fwlib.add(FWLIB_KW[k]);
+                    for (const k of Object.keys(DB_KW)) if (n === k || n.startsWith(k)) dbcloud.add(DB_KW[k]);
+                    for (const k of Object.keys(TOOLS_KW)) if (n === k || n.startsWith(k)) tools.add(TOOLS_KW[k]);
+                    if (n === 'node' || n === 'nodejs') tools.add('Node.js');
+                  }
+                  for (const cmd of Object.values(j.scripts || {})) {
+                    const c=String(cmd);
+                    if (/eslint/.test(c)) tools.add('ESLint');
+                    if (/prettier/.test(c)) tools.add('Prettier');
+                    if (/jest/.test(c)) tools.add('Jest');
+                    if (/cypress/.test(c)) tools.add('Cypress');
+                    if (/playwright/.test(c)) tools.add('Playwright');
+                    if (/vite/.test(c)) tools.add('Vite');
+                    if (/webpack/.test(c)) tools.add('Webpack');
+                    if (/turbo/.test(c)) tools.add('Turborepo');
+                  }
+                }
+                if (lower.endsWith('pnpm-lock.yaml')) tools.add('pnpm');
+                if (lower.endsWith('yarn.lock')) tools.add('Yarn');
+                if (lower.endsWith('package-lock.json')) tools.add('npm');
+
+                // Python
+                if (lower.endsWith('requirements.txt')) {
+                  for (const n of parseRequirements(txt)) {
+                    if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
+                    if (DB_KW[n]) dbcloud.add(DB_KW[n]);
+                    if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
+                  }
+                }
+                if (lower.endsWith('pyproject.toml')) {
+                  const deps = (txt.match(/^\s*([a-z0-9_.-]+)\s*=\s*["'\[]/gmi)||[])
+                    .map(line=>line.split('=')[0].trim().toLowerCase());
+                  for (const n of deps) {
+                    if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
+                    if (DB_KW[n]) dbcloud.add(DB_KW[n]);
+                    if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
+                  }
+                }
+                if (lower.endsWith('pipfile.lock')) {
+                  for (const n of parsePipfileLock(txt)) {
+                    if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
+                    if (DB_KW[n]) dbcloud.add(DB_KW[n]);
+                    if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
+                  }
+                }
+
+                // Go / Rust
+                if (lower.endsWith('go.mod')) {
+                  for (const n of parseGoMod(txt)) {
+                    if (n.includes('gin-gonic')) fwlib.add('Gin');
+                    if (n.includes('gorm.io')) fwlib.add('GORM');
+                  }
+                }
+                if (lower.endsWith('cargo.toml')) {
+                  for (const n of parseCargoToml(txt)) {
+                    if (n === 'rocket') fwlib.add('Rocket');
+                    if (n === 'actix-web') fwlib.add('Actix Web');
+                  }
+                }
+
+                // Java / Kotlin
+                if (lower.endsWith('pom.xml')) {
+                  const arts = parsePomXml(txt);
+                  const t = (txt||'').toLowerCase();
+                  if (/tomcat/.test(t)) tools.add('Tomcat');
+                  if (/<artifactid>junit/.test(t)) tools.add('JUnit');
+                  for (const g of arts) {
+                    if (g.includes('spring-boot') || g.includes('springframework')) fwlib.add('Spring Boot');
+                    tools.add('Maven');
+                  }
+                }
+                if (/(^|\/)build\.gradle(\.kts)?$/i.test(lower) || /(^|\/)settings\.gradle(\.kts)?$/i.test(lower)) {
+                  const t = (txt||'').toLowerCase();
+                  if (/tomcat/.test(t)) tools.add('Tomcat');
+                  if (/junit/.test(t)) tools.add('JUnit');
+                  tools.add('Gradle');
+                }
+
+                // PHP / Ruby
+                if (lower.endsWith('composer.json') || lower.endsWith('composer.lock')) {
+                  for (const n of parseComposer(txt)) {
+                    if (n === 'laravel/framework') fwlib.add('Laravel');
+                    if (n.startsWith('symfony/')) fwlib.add('Symfony');
+                    if (n === 'doctrine/orm') fwlib.add('Doctrine ORM');
+                    if (n === 'mongodb/mongodb') dbcloud.add('MongoDB');
+                    if (n === 'predis/predis') dbcloud.add('Redis');
+                    if (n === 'phpunit/phpunit') tools.add('PHPUnit');
+                    if (n === 'phpstan/phpstan') tools.add('PHPStan');
+                    if (n === 'friendsofphp/php-cs-fixer') tools.add('PHP CS Fixer');
+                  }
+                }
+                if (/gemfile(\.lock)?$/i.test(lower)) {
+                  for (const n of parseGemfile(txt)) {
+                    if (n === 'rails') fwlib.add('Ruby on Rails');
+                    if (n === 'sinatra') fwlib.add('Sinatra');
+                    if (n === 'pg') dbcloud.add('PostgreSQL');
+                    if (n === 'mysql2') dbcloud.add('MySQL');
+                    if (n === 'rspec') tools.add('RSpec');
+                    if (n === 'rubocop') tools.add('RuboCop');
+                  }
+                }
+
+                // .NET
+                if (/\.(csproj|vbproj|fsproj)$/i.test(lower) || /(^|\/)directory\.packages\.props$/i.test(lower)) {
+                  for (const n of parseCsproj(txt)) fwlib.add(n);
+                  tools.add('NuGet');
+                }
+                if (/\.sln$/i.test(lower)) tools.add('MSBuild');
+
+                // Dart / Flutter
+                if (lower.endsWith('pubspec.yaml')) {
+                  for (const n of parsePubspec(txt)) fwlib.add(n);
+                }
+
+                // Swift
+                if (lower.endsWith('package.swift')) for (const n of parseSwiftPM(txt)) fwlib.add(n);
+                if (/podfile(\.lock)?$/i.test(lower)) tools.add('CocoaPods');
+                if (/cartfile(\.resolved)?$/i.test(lower)) tools.add('Carthage');
+
+                // Elixir / Erlang
+                if (lower.endsWith('mix.exs')) fwlib.add('Phoenix');
+                if (lower.endsWith('rebar.config')) fwlib.add('Rebar');
+
+                // Haskell
+                if (/\.cabal$/i.test(lower)) tools.add('Cabal');
+                if (lower.endsWith('stack.yaml')) tools.add('Stack');
+
+                // R / Julia
+                if (lower.endsWith('description')) fwlib.add('CRAN/R');
+                if (lower.endsWith('project.toml')) fwlib.add('Julia Pkg');
+
+                // Terraform / Ansible / Helm / K8s
+                if (/\.tf$/i.test(lower)) { for (const cloud of parseTerraform(txt)) dbcloud.add(cloud); tools.add('Terraform'); }
+                if (/(^|\/)requirements\.yml$/i.test(lower)) tools.add('Ansible');
+                if (/(^|\/)chart\.yaml$/i.test(lower)) tools.add('Helm');
+                if (/(^|\/).+\.ya?ml$/i.test(lower) && /apiVersion:\s*(v1|apps\/v1)/.test(txt)) tools.add('Kubernetes');
+
+                // Containers
+                if (/(^|\/)dockerfile$/i.test(lower)) { tools.add('Docker'); if (/tomcat/i.test(txt)) tools.add('Tomcat'); }
+                if (/(^|\/)docker-compose\.ya?ml$/i.test(lower)) {
+                  tools.add('Docker Compose');
+                  const s = txt.toLowerCase();
+                  if (/mongo/.test(s)) dbcloud.add('MongoDB');
+                  if (/postgres/.test(s)) dbcloud.add('PostgreSQL');
+                  if (/mysql/.test(s)) dbcloud.add('MySQL');
+                  if (/redis/.test(s)) dbcloud.add('Redis');
+                }
+
+                // Cloud host configs
+                for (const [fname, label] of Object.entries(CLOUD_CFG_HINTS)) {
+                  if (lower.endsWith(fname.toLowerCase())) dbcloud.add(label);
+                }
+
+                // Misc signals
+                if (/azure\-pipelines\.ya?ml$/i.test(lower)) tools.add('Azure DevOps');
+                if (/(^|\/)README(\.md|\.rst|\.adoc)?$/i.test(lower)) {
+                  const t=(txt||'').toLowerCase();
+                  if (/\bunit test/.test(t)) tools.add('Unit');
+                  if (/\bintegration test/.test(t)) tools.add('Integration');
+                  if (/\bsystem test/.test(t)) tools.add('System');
+                }
+              }
+            }
+
+            // Normalize some language names
+            const LANGUAGE_RENAMES = {
+              "HTML":"HTML5","CSS":"CSS3","JavaScript":"JavaScript (ES6+)","Assembly":"MIPS Assembly","C++":"C++","C#":"C#","Go":"Go","Rust":"Rust","Prolog":"Prolog","Haskell":"Haskell","SQL":"SQL"
+            };
+
+            // Must-include unions
+            for (const l of ALWAYS_LANGS) langTotals.set(l, (langTotals.get(l)||0)+1);
+            for (const f of ALWAYS_FWLIB) fwlib.add(f);
+            for (const d of ALWAYS_DBCLOUD) dbcloud.add(d);
+            for (const t of ALWAYS_TOOLS) tools.add(t);
+
+            // Build badges
+            const langsSorted = [...langTotals.entries()]
+              .sort((a,b)=>b[1]-a[1])
+              .map(([l]) => LANGUAGE_RENAMES[l] || l);
+            const fwlibSorted = [...fwlib].sort();
+            const dbcloudSorted = [...dbcloud].sort();
+            const toolsSorted = [...tools].sort();
+
+            const langBadges = langsSorted.map(l => makeBadge(l));
+            const fwlibBadges = fwlibSorted.map(l => makeBadge(l));
+            const dbcloudBadges = dbcloudSorted.map(l => makeBadge(l));
+            const toolsBadges = toolsSorted.map(l => makeBadge(l));
+
+            // Update README
+            let readme = fs.readFileSync(README_PATH, 'utf8');
+            readme = mergeSection(readme, LANG_START, LANG_END, langBadges);
+            readme = mergeSection(readme, FWLIB_START, FWLIB_END, fwlibBadges);
+            readme = mergeSection(readme, DBCLOUD_START, DBCLOUD_END, dbcloudBadges);
+            readme = mergeSection(readme, TOOLS_START, TOOLS_END, toolsBadges);
+            fs.writeFileSync(README_PATH, readme, 'utf8');
+
+            console.log('✅ README updated with colored brand badges.');
+          })().catch(e => { console.error('❌ Failed:', e); process.exit(1); });
+          NODE
+
+      - name: Commit & push
         env:
-            # Prefer a PAT with repo scope so private repos are included
-            GH_TOKEN: ${{ secrets.PERSONAL_TOKEN || secrets.GITHUB_TOKEN }}
-            REPO_OWNER: ${{ github.repository_owner }}
-            README_PATH: README.md
-            BADGE_STYLE: "for-the-badge"
-            LANG_START: "<!-- LANG-ICONS:START -->"
-            LANG_END: "<!-- LANG-ICONS:END -->"
-            FWLIB_START: "<!-- FWLIB-ICONS:START -->"
-            FWLIB_END: "<!-- FWLIB-ICONS:END -->"
-            DBCLOUD_START: "<!-- DBCLOUD-ICONS:START -->"
-            DBCLOUD_END: "<!-- DBCLOUD-ICONS:END -->"
-            TOOLS_START: "<!-- TOOLS-ICONS:START -->"
-            TOOLS_END: "<!-- TOOLS-ICONS:END -->"
-        steps:
-            - uses: actions/checkout@v4
-              with:
-                  persist-credentials: false
-
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-
-            - name: Deep-scan repos and update README badges
-              run: |
-                  node - <<'NODE'
-                  const fs = require('fs');
-                  const path = require('path');
-                  const fetch = global.fetch;
-
-                  const {
-                    GH_TOKEN, REPO_OWNER, README_PATH, BADGE_STYLE,
-                    LANG_START, LANG_END,
-                    FWLIB_START, FWLIB_END,
-                    DBCLOUD_START, DBCLOUD_END,
-                    TOOLS_START, TOOLS_END
-                  } = process.env;
-
-                  if (!GH_TOKEN) { console.error('Missing GH_TOKEN'); process.exit(1); }
-                  if (!fs.existsSync(README_PATH)) { console.error(`Missing ${README_PATH}`); process.exit(1); }
-
-                  // ---------- Badge helpers ----------
-                  const COLOR_MAP = {
-                    "Python":"3776AB","JavaScript":"F7DF1E","TypeScript":"3178C6","HTML":"E34F26","CSS":"1572B6",
-                    "Shell":"4EAA25","Bash":"4EAA25","PowerShell":"5391FE","R":"276DC3","Java":"007396","C#":"239120",
-                    "C":"A8B9CC","C++":"00599C","Go":"00ADD8","PHP":"777BB4","Ruby":"CC342D","Kotlin":"7F52FF","Swift":"FA7343",
-                    "Rust":"000000","Dart":"0175C2","Scala":"DC322F","Haskell":"5D4F85","Prolog":"742F2B","Elixir":"4B275F",
-                    "Erlang":"A90533","MATLAB":"0076A8","Julia":"9558B2","Perl":"39457E","Lua":"2C2D72","Zig":"F7A41D",
-                    "Sass":"CC6699","Less":"1D365D","Stylus":"333333","Markdown":"000000","LaTeX":"008080",
-                    "YAML":"CB171E","JSON":"000000","XML":"0060AC"
-                  };
-                  const toSlug = s => s.toLowerCase().replace(/\+/g,'plus').replace(/#/g,'sharp').replace(/\./g,'').replace(/\s+/g,'-');
-                  const badge = (label, color) => {
-                    const enc = encodeURIComponent(label);
-                    const slug = toSlug(label);
-                    return `![${label}](https://img.shields.io/badge/${enc}-${COLOR_MAP[label]||color||'lightgrey'}?style=${BADGE_STYLE}&logo=${slug}&logoColor=white)`;
-                  };
-                  const mergeSection = (readme, start, end, badges) => {
-                    const si = readme.indexOf(start), ei = readme.indexOf(end);
-                    if (si === -1 || ei === -1 || ei < si) throw new Error(`Markers not found: ${start} / ${end}`);
-                    const before = readme.slice(0, si + start.length);
-                    const between = readme.slice(si + start.length, ei);
-                    const after = readme.slice(ei);
-                    const existing = between.trim();
-                    const existingBadges = (existing.match(/!\[[^\]]*\]\([^)]+\)/g)||[]).map(s=>s.trim());
-                    const existingLabels = new Set(existingBadges.map(b => (b.match(/!\[([^\]]+)\]/)||[])[1]).filter(Boolean));
-                    const filtered = badges.filter(b => {
-                      const m = b.match(/!\[([^\]]+)\]/); const lbl = m && m[1];
-                      return lbl && !existingLabels.has(lbl);
-                    });
-                    const next = ['\n', existing, existing?'\n':'', filtered.join('\n'), '\n'].join('');
-                    return before + next + after;
-                  };
-
-                  // ---------- GitHub API helpers ----------
-                  const GQL = async (query, variables) => {
-                    const r = await fetch('https://api.github.com/graphql', {
-                      method:'POST',
-                      headers:{ Authorization:`bearer ${GH_TOKEN}`, 'Content-Type':'application/json', 'Accept':'application/vnd.github+json' },
-                      body: JSON.stringify({ query, variables })
-                    });
-                    if (!r.ok) throw new Error(`GraphQL ${r.status}: ${await r.text()}`);
-                    const j = await r.json();
-                    if (j.errors) throw new Error(JSON.stringify(j.errors));
-                    return j.data;
-                  };
-                  const REST = async (url) => {
-                    const r = await fetch(url, { headers:{ Authorization:`Bearer ${GH_TOKEN}`, 'Accept':'application/vnd.github+json' }});
-                    if (!r.ok) throw new Error(`REST ${r.status} ${url}: ${await r.text()}`);
-                    return r.json();
-                  };
-
-                  // ---------- Repository listing (all repos, incl forks/archived/private) ----------
-                  const REPO_QUERY = `
-                    query($owner:String!, $after:String){
-                      repositoryOwner(login:$owner){
-                        repositories(first:100, ownerAffiliations: OWNER, after:$after, orderBy:{field:UPDATED_AT, direction:DESC}){
-                          pageInfo{ hasNextPage endCursor }
-                          nodes{
-                            nameWithOwner
-                            name
-                            isPrivate
-                            isFork
-                            isArchived
-                            defaultBranchRef { name target { ... on Commit { oid } } }
-                            languages(first:100, orderBy:{field:SIZE, direction:DESC}){
-                              edges{ size, node{ name } }
-                            }
-                          }
-                        }
-                      }
-                    }`;
-
-                  // ---------- Patterns to scan (monorepo friendly) ----------
-                  // We match a *wide* set; extend as needed.
-                  const FILE_PATTERNS = [
-                    // JavaScript/TypeScript ecosystems
-                    /(^|\/)package\.json$/i, /(^|\/)pnpm\-lock\.yaml$/i, /(^|\/)yarn\.lock$/i, /(^|\/)package\-lock\.json$/i,
-                    // Python
-                    /(^|\/)requirements\.txt$/i, /(^|\/)pyproject\.toml$/i, /(^|\/)Pipfile$/i, /(^|\/)Pipfile\.lock$/i,
-                    // Go / Rust
-                    /(^|\/)go\.mod$/i, /(^|\/)Cargo\.toml$/i,
-                    // Java & Kotlin
-                    /(^|\/)pom\.xml$/i, /(^|\/)build\.gradle(\.kts)?$/i, /(^|\/)settings\.gradle(\.kts)?$/i,
-                    // PHP / Ruby
-                    /(^|\/)composer\.json$/i, /(^|\/)composer\.lock$/i, /(^|\/)Gemfile(\.lock)?$/i,
-                    // .NET
-                    /\.csproj$/i, /\.vbproj$/i, /\.fsproj$/i, /(^|\/)Directory\.Packages\.props$/i, /\.sln$/i, /(^|\/)packages\.config$/i,
-                    // Dart / Flutter
-                    /(^|\/)pubspec\.yaml$/i,
-                    // Swift / iOS
-                    /(^|\/)Package\.swift$/i, /(^|\/)Podfile(\.lock)?$/i, /(^|\/)Cartfile(\.resolved)?$/i,
-                    // Elixir / Erlang
-                    /(^|\/)mix\.exs$/i, /(^|\/)rebar\.config$/i,
-                    // Haskell
-                    /\.cabal$/i, /(^|\/)stack\.yaml$/i,
-                    // R / Julia
-                    /(^|\/)DESCRIPTION$/i, /(^|\/)Project\.toml$/i,
-                    // Terraform / Ansible / Helm / K8s
-                    /\.tf$/i, /(^|\/)requirements\.yml$/i, /(^|\/)Chart\.yaml$/i, /\.ya?ml$/i,
-                    // Containers
-                    /(^|\/)Dockerfile$/i, /(^|\/)docker\-compose\.ya?ml$/i,
-                    // Cloud configs
-                    /(^|\/)serverless\.ya?ml$/i, /(^|\/)vercel\.json$/i, /(^|\/)netlify\.toml$/i, /(^|\/)render\.ya?ml$/i,
-                    /(^|\/)railway\.json$/i, /(^|\/)fly\.toml$/i, /(^|\/)heroku\.ya?ml$/i
-                  ];
-
-                  // ---------- Very large but pragmatic dictionaries ----------
-                  // Known frameworks/libs (display names), tools, databases/cloud keywords.
-                  // We use lowercase keys; values are display labels on badges.
-                  const FWLIB_KW = {
-                    // JS/TS
-                    "react":"React","next":"Next.js","vue":"Vue.js","nuxt":"Nuxt","svelte":"Svelte","astro":"Astro","solid":"SolidJS",
-                    "angular":"Angular","redux":"Redux","zustand":"Zustand","express":"Express","fastify":"Fastify","koa":"Koa",
-                    "hapi":"hapi","nestjs":"NestJS","tailwindcss":"Tailwind CSS","bootstrap":"Bootstrap","@mui/material":"MUI",
-                    "mantine":"Mantine","chakra-ui":"Chakra UI","antd":"Ant Design","daisyui":"daisyUI","three":"Three.js",
-                    "framer-motion":"Framer Motion","vite":"Vite","webpack":"Webpack","rollup":"Rollup","parcel":"Parcel",
-                    "electron":"Electron","expo":"Expo",
-                    // Python
-                    "django":"Django","flask":"Flask","fastapi":"FastAPI","pydantic":"Pydantic","jinja2":"Jinja2",
-                    "numpy":"NumPy","pandas":"Pandas","matplotlib":"Matplotlib","scikit-learn":"scikit-learn","tensorflow":"TensorFlow",
-                    "torch":"PyTorch","pytorch":"PyTorch","scrapy":"Scrapy","streamlit":"Streamlit","poetry":"Poetry",
-                    // Java / Kotlin
-                    "spring":"Spring","spring-boot":"Spring Boot","quarkus":"Quarkus","micronaut":"Micronaut",
-                    // PHP
-                    "laravel":"Laravel","symfony":"Symfony",
-                    // Ruby
-                    "rails":"Ruby on Rails","sinatra":"Sinatra",
-                    // Go
-                    "gin":"Gin","echo":"Echo","fiber":"Fiber","gorm":"GORM",
-                    // Dart / Flutter
-                    "flutter":"Flutter","bloc":"BLoC","riverpod":"Riverpod","get_it":"GetIt",
-                    // .NET
-                    "aspnetcore":"ASP.NET Core","entityframework":"Entity Framework","serilog":"Serilog","autofac":"Autofac",
-                    // Rust
-                    "rocket":"Rocket","actix-web":"Actix Web",
-                    // Elixir
-                    "phoenix":"Phoenix",
-                    // Swift
-                    "vapor":"Vapor"
-                  };
-
-                  const DB_KW = {
-                    "mongoose":"Mongoose","prisma":"Prisma","sequelize":"Sequelize","typeorm":"TypeORM","drizzle-orm":"Drizzle ORM",
-                    "mysql":"MySQL","mysql2":"MySQL","pg":"PostgreSQL","postgres":"PostgreSQL","psycopg2":"PostgreSQL","sqlite":"SQLite",
-                    "sqlite3":"SQLite","better-sqlite3":"SQLite","oracledb":"Oracle DB","mssql":"SQL Server",
-                    "redis":"Redis","ioredis":"ioredis","memcached":"Memcached","mongodb":"MongoDB","pymongo":"MongoDB",
-                    // cloud SDKs
-                    "@aws-sdk/":"AWS SDK (JS)","aws-sdk":"AWS SDK","boto3":"AWS SDK (Py)","firebase":"Firebase",
-                    "@google-cloud/storage":"Google Cloud Storage","@google-cloud/firestore":"Firestore","@google-cloud/pubsub":"Pub/Sub",
-                    "@azure/storage-blob":"Azure Blob Storage","@azure/cosmos":"Azure Cosmos DB","supabase":"Supabase","appwrite":"Appwrite",
-                    "dynamoose":"DynamoDB","@aws-sdk/client-dynamodb":"DynamoDB","pocketbase":"PocketBase"
-                  };
-
-                  const CLOUD_CFG_HINTS = {
-                    "vercel.json":"Vercel","netlify.toml":"Netlify","render.yaml":"Render","railway.json":"Railway",
-                    "fly.toml":"Fly.io","heroku.yml":"Heroku","serverless.yml":"Serverless Framework","serverless.yaml":"Serverless Framework"
-                  };
-
-                  const TOOLS_KW = {
-                    // JS/TS toolchain
-                    "eslint":"ESLint","prettier":"Prettier","jest":"Jest","vitest":"Vitest","cypress":"Cypress","playwright":"Playwright",
-                    "mocha":"Mocha","chai":"Chai","husky":"Husky","lint-staged":"lint-staged","commitlint":"commitlint","commitizen":"Commitizen",
-                    "ts-node":"TS Node","typescript":"TypeScript","nodemon":"Nodemon","pm2":"PM2","storybook":"Storybook","nyc":"nyc/Istanbul",
-                    "babel":"Babel","tsup":"tsup","esbuild":"esbuild","webpack":"Webpack","vite":"Vite","turbo":"Turborepo",
-                    // Python tools
-                    "pytest":"pytest","black":"Black","flake8":"Flake8","ruff":"Ruff","mypy":"mypy","tox":"tox","pipenv":"Pipenv",
-                    // DevOps / CI / Containers
-                    "docker":"Docker","docker-compose":"Docker Compose","make":"Make","helm":"Helm","terraform":"Terraform","ansible":"Ansible",
-                    // .NET
-                    "serilog":"Serilog","xunit":"xUnit","nunit":"NUnit","coverlet":"Coverlet",
-                    // Java
-                    "maven":"Maven","gradle":"Gradle",
-                    // Mobile / Apple
-                    "fastlane":"fastlane",
-                    // Ruby
-                    "rspec":"RSpec","rubocop":"RuboCop",
-                    // PHP
-                    "phpunit/phpunit":"PHPUnit","phpstan/phpstan":"PHPStan","friendsofphp/php-cs-fixer":"PHP CS Fixer"
-                  };
-
-                  const displayLabel = (raw) => {
-                    // Normalize a few special cases:
-                    if (/^@aws-sdk\//.test(raw)) return 'AWS SDK (JS)';
-                    if (raw === 'aws-sdk') return 'AWS SDK';
-                    if (raw === '@google-cloud/storage') return 'Google Cloud Storage';
-                    if (raw === '@google-cloud/firestore') return 'Firestore';
-                    if (raw === '@google-cloud/pubsub') return 'Pub/Sub';
-                    if (raw === '@azure/storage-blob') return 'Azure Blob Storage';
-                    if (raw === '@azure/cosmos') return 'Azure Cosmos DB';
-                    // generic prettify
-                    const tidy = raw.replace(/^@/,'').replace(/[-_.]/g,' ');
-                    return tidy.replace(/\b\w/g, c=>c.toUpperCase());
-                  };
-
-                  // ---------- Parsers per file type ----------
-                  const decoders = {
-                    'base64': (s)=>Buffer.from(s,'base64').toString('utf8')
-                  };
-
-                  const parseJSON = t => { try { return JSON.parse(t); } catch { return null; } };
-                  const parseYAMLlike = t => (t||''); // we only keyword-scan
-
-                  const parseRequirements = t => (t||'').split(/\r?\n/)
-                    .map(l=>l.trim()).filter(l=>l && !l.startsWith('#'))
-                    .map(l=>l.split(/[\s<>=!~\[]/,1)[0].toLowerCase());
-
-                  const parsePipfileLock = t => {
-                    const j = parseJSON(t) || {};
-                    return Object.keys({...(j.default||{}), ...(j.develop||{})}).map(s=>s.toLowerCase());
-                  };
-
-                  const parseGoMod = t => (t||'').split(/\r?\n/).map(l=>{
-                    let m = l.match(/^\s*require\s+([^\s]+)\s+/) || l.match(/^\s*([^\s]+)\s+v\d/);
-                    return m?m[1].toLowerCase():null;
-                  }).filter(Boolean);
-
-                  const parseCargoToml = t => (t||'').toLowerCase().split(/\r?\n/)
-                    .map(l=>{ const m=l.match(/^\s*([a-z0-9_.-]+)\s*=\s*["{\[]/); return m?m[1]:null; })
-                    .filter(Boolean);
-
-                  const parsePomXml = t => (t||'').toLowerCase().match(/<artifactid>([^<]+)<\/artifactid>/g)?.map(s=>s.replace(/<\/?artifactid>/g,'')).filter(Boolean) || [];
-                  const parseGradle = t => (t||'').toLowerCase().match(/['"]([a-z0-9_.-]+):([a-z0-9_.-]+)['"]/g)?.map(s=>s.replace(/['"]/g,'')).map(s=>s.split(':')[0]) || [];
-
-                  const parseComposer = t => {
-                    const j = parseJSON(t); if (!j) return [];
-                    const b = {...(j.require||{}), ...(j['require-dev']||{})};
-                    return Object.keys(b).map(s=>s.toLowerCase());
-                  };
-
-                  const parseGemfile = t => {
-                    const out = [];
-                    for (const m of (t||'').toLowerCase().matchAll(/gem\s+['"]([^'"]+)['"]/g)) out.push(m[1]);
-                    return out;
-                  };
-
-                  const parseCsproj = t => {
-                    const lower = (t||'').toLowerCase();
-                    const libs = [];
-                    if (/asp\.net/.test(lower)) libs.push('aspnetcore');
-                    if (/entityframework/.test(lower)) libs.push('entityframework');
-                    if (/serilog/.test(lower)) libs.push('serilog');
-                    return libs;
-                  };
-
-                  const parsePubspec = t => {
-                    const out = new Set();
-                    const lower = (t||'').toLowerCase();
-                    out.add('flutter');
-                    if (/cloud_firestore\s*:/.test(lower)) out.add('firestore');
-                    if (/firebase_core\s*:/.test(lower)) out.add('firebase');
-                    if (/sqflite\s*:/.test(lower)) out.add('sqlite');
-                    if (/\bbloc\s*:/.test(lower)) out.add('bloc');
-                    if (/\briverpod\s*:/.test(lower)) out.add('riverpod');
-                    return [...out];
-                  };
-
-                  const parseSwiftPM = t => /vapor/i.test(t||'') ? ['vapor'] : [];
-
-                  const parseTerraform = t => {
-                    const set = new Set();
-                    const s = (t||'').toLowerCase();
-                    if (/provider\s+"aws"/.test(s)) set.add('aws');
-                    if (/provider\s+"google"/.test(s)) set.add('google cloud');
-                    if (/provider\s+"azurerm"/.test(s)) set.add('azure');
-                    return [...set];
-                  };
-
-                  // ---------- Walk repos: get tree recursively, then fetch matched files ----------
-                  async function listAllRepos(owner){
-                    const all = [];
-                    let after = null;
-                    while(true){
-                      const data = await GQL(REPO_QUERY, { owner, after });
-                      const repos = data?.repositoryOwner?.repositories;
-                      if (!repos) break;
-                      for (const n of repos.nodes) all.push(n);
-                      if (!repos.pageInfo.hasNextPage) break;
-                      after = repos.pageInfo.endCursor;
-                    }
-                    return all;
-                  }
-
-                  async function getTree(ownerRepo, sha){
-                    // GET /repos/{owner}/{repo}/git/trees/{sha}?recursive=1
-                    const [owner, repo] = ownerRepo.split('/');
-                    const url = `https://api.github.com/repos/${owner}/${repo}/git/trees/${sha}?recursive=1`;
-                    return await REST(url);
-                  }
-
-                  async function getContent(ownerRepo, path){
-                    const [owner, repo] = ownerRepo.split('/');
-                    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
-                    const j = await REST(url);
-                    // If it's a file, decode content
-                    if (Array.isArray(j)) return null; // directory
-                    if (j.encoding === 'base64' && j.content) return Buffer.from(j.content,'base64').toString('utf8');
-                    return j.content || '';
-                  }
-
-                  // ---------- Accumulators ----------
-                  const langTotals = new Map();
-                  const fwlib = new Set();
-                  const dbcloud = new Set();
-                  const tools = new Set();
-
-                  (async () => {
-                    const repos = await listAllRepos(REPO_OWNER);
-
-                    for (const repo of repos) {
-                      // 1) Languages via Linguist
-                      for (const e of (repo.languages?.edges || [])) {
-                        const lang = e.node.name; const size = e.size||0;
-                        langTotals.set(lang, (langTotals.get(lang)||0)+size);
-                      }
-
-                      // 2) Full tree walk (default branch)
-                      const branch = repo.defaultBranchRef?.name;
-                      const oid = repo.defaultBranchRef?.target?.oid;
-                      if (!branch || !oid) continue;
-
-                      let tree;
-                      try { tree = await getTree(repo.nameWithOwner, oid); }
-                      catch { continue; }
-
-                      if (!tree || !Array.isArray(tree.tree)) continue;
-
-                      // Filter interesting files
-                      const matchFiles = tree.tree
-                        .filter(it => it.type === 'blob' && FILE_PATTERNS.some(rx => rx.test(it.path)));
-
-                      // Fetch and parse each matched file
-                      for (const file of matchFiles) {
-                        let txt = '';
-                        try { txt = await getContent(repo.nameWithOwner, file.path); }
-                        catch { continue; }
-                        const lowerPath = file.path.toLowerCase();
-
-                        // JS/TS
-                        if (lowerPath.endsWith('package.json')) {
-                          const j = parseJSON(txt) || {};
-                          const buckets = [j.dependencies, j.devDependencies, j.peerDependencies, j.optionalDependencies];
-                          for (const b of buckets) if (b) {
-                            for (const [name] of Object.entries(b)) {
-                              const n = name.toLowerCase();
-                              // frameworks/libs
-                              for (const key of Object.keys(FWLIB_KW)) {
-                                if (n === key || n.startsWith(key)) fwlib.add(FWLIB_KW[key]);
-                              }
-                              // db/cloud
-                              for (const key of Object.keys(DB_KW)) {
-                                if (n === key || n.startsWith(key)) dbcloud.add(DB_KW[key]);
-                              }
-                              // tools
-                              for (const key of Object.keys(TOOLS_KW)) {
-                                if (n === key || n.startsWith(key)) tools.add(TOOLS_KW[key]);
-                              }
-                            }
-                          }
-                          // scripts heuristics (tools)
-                          for (const cmd of Object.values(j.scripts || {})) {
-                            const c = String(cmd);
-                            if (/eslint/.test(c)) tools.add('ESLint');
-                            if (/prettier/.test(c)) tools.add('Prettier');
-                            if (/jest/.test(c)) tools.add('Jest');
-                            if (/cypress/.test(c)) tools.add('Cypress');
-                            if (/playwright/.test(c)) tools.add('Playwright');
-                            if (/vite/.test(c)) tools.add('Vite');
-                            if (/webpack/.test(c)) tools.add('Webpack');
-                            if (/turbo/.test(c)) tools.add('Turborepo');
-                          }
-                        }
-
-                        // Lockfiles (presence hints)
-                        if (lowerPath.endsWith('pnpm-lock.yaml')) tools.add('pnpm');
-                        if (lowerPath.endsWith('yarn.lock')) tools.add('Yarn');
-                        if (lowerPath.endsWith('package-lock.json')) tools.add('npm');
-
-                        // Python
-                        if (lowerPath.endsWith('requirements.txt')) {
-                          for (const n of parseRequirements(txt)) {
-                            if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
-                            if (DB_KW[n]) dbcloud.add(DB_KW[n]);
-                            if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
-                          }
-                        }
-                        if (lowerPath.endsWith('pyproject.toml')) {
-                          const deps = (txt.match(/^\s*([a-z0-9_.-]+)\s*=\s*["'\[]/gmi)||[])
-                            .map(line=>line.split('=')[0].trim().toLowerCase());
-                          for (const n of deps) {
-                            if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
-                            if (DB_KW[n]) dbcloud.add(DB_KW[n]);
-                            if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
-                          }
-                        }
-                        if (lowerPath.endsWith('pipfile.lock')) {
-                          for (const n of parsePipfileLock(txt)) {
-                            if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
-                            if (DB_KW[n]) dbcloud.add(DB_KW[n]);
-                            if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
-                          }
-                        }
-
-                        // Go / Rust
-                        if (lowerPath.endsWith('go.mod')) {
-                          for (const n of parseGoMod(txt)) {
-                            if (n.includes('gin-gonic')) fwlib.add('Gin');
-                            if (n.includes('gorm.io')) fwlib.add('GORM');
-                          }
-                        }
-                        if (lowerPath.endsWith('cargo.toml')) {
-                          for (const n of parseCargoToml(txt)) {
-                            if (n === 'rocket') fwlib.add('Rocket');
-                            if (n === 'actix-web') fwlib.add('Actix Web');
-                          }
-                        }
-
-                        // Java / Kotlin
-                        if (lowerPath.endsWith('pom.xml')) {
-                          for (const g of parsePomXml(txt)) {
-                            if (g.includes('spring-boot') || g.includes('springframework')) fwlib.add('Spring Boot');
-                            if (g.includes('maven')) tools.add('Maven');
-                          }
-                        }
-                        if (/(^|\/)build\.gradle(\.kts)?$/i.test(lowerPath) || /(^|\/)settings\.gradle(\.kts)?$/i.test(lowerPath)) {
-                          for (const g of parseGradle(txt)) {
-                            if (g.includes('org.springframework')) fwlib.add('Spring');
-                            tools.add('Gradle');
-                          }
-                        }
-
-                        // PHP / Ruby
-                        if (lowerPath.endsWith('composer.json') || lowerPath.endsWith('composer.lock')) {
-                          for (const n of parseComposer(txt)) {
-                            if (n === 'laravel/framework') fwlib.add('Laravel');
-                            if (n.startsWith('symfony/')) fwlib.add('Symfony');
-                            if (n === 'doctrine/orm') fwlib.add('Doctrine ORM');
-                            if (n === 'mongodb/mongodb') dbcloud.add('MongoDB');
-                            if (n === 'predis/predis') dbcloud.add('Redis');
-                            if (n === 'phpunit/phpunit') tools.add('PHPUnit');
-                            if (n === 'phpstan/phpstan') tools.add('PHPStan');
-                            if (n === 'friendsofphp/php-cs-fixer') tools.add('PHP CS Fixer');
-                          }
-                        }
-                        if (/gemfile(\.lock)?$/i.test(lowerPath)) {
-                          for (const n of parseGemfile(txt)) {
-                            if (n === 'rails') fwlib.add('Ruby on Rails');
-                            if (n === 'sinatra') fwlib.add('Sinatra');
-                            if (n === 'pg') dbcloud.add('PostgreSQL');
-                            if (n === 'mysql2') dbcloud.add('MySQL');
-                            if (n === 'rspec') tools.add('RSpec');
-                            if (n === 'rubocop') tools.add('RuboCop');
-                          }
-                        }
-
-                        // .NET
-                        if (/\.(csproj|vbproj|fsproj)$/i.test(lowerPath) || /(^|\/)directory\.packages\.props$/i.test(lowerPath)) {
-                          for (const n of parseCsproj(txt)) {
-                            if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]); else fwlib.add(displayLabel(n));
-                          }
-                          tools.add('NuGet');
-                        }
-                        if (/\.sln$/i.test(lowerPath)) tools.add('MSBuild');
-
-                        // Dart / Flutter
-                        if (lowerPath.endsWith('pubspec.yaml')) {
-                          for (const n of parsePubspec(txt)) {
-                            if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]); else fwlib.add(displayLabel(n));
-                          }
-                        }
-
-                        // Swift
-                        if (lowerPath.endsWith('package.swift')) {
-                          for (const n of parseSwiftPM(txt)) fwlib.add(displayLabel(n));
-                        }
-                        if (/podfile(\.lock)?$/i.test(lowerPath)) tools.add('CocoaPods');
-                        if (/cartfile(\.resolved)?$/i.test(lowerPath)) tools.add('Carthage');
-
-                        // Elixir / Erlang
-                        if (lowerPath.endsWith('mix.exs')) fwlib.add('Phoenix');
-                        if (lowerPath.endsWith('rebar.config')) fwlib.add('Rebar');
-
-                        // Haskell
-                        if (/\.cabal$/i.test(lowerPath)) tools.add('Cabal');
-                        if (lowerPath.endsWith('stack.yaml')) tools.add('Stack');
-
-                        // R / Julia
-                        if (lowerPath.endsWith('description')) fwlib.add('CRAN/R');
-                        if (lowerPath.endsWith('project.toml')) fwlib.add('Julia Pkg');
-
-                        // Terraform / Ansible / Helm / K8s
-                        if (/\.tf$/i.test(lowerPath)) {
-                          for (const cloud of parseTerraform(txt)) dbcloud.add(displayLabel(cloud));
-                          tools.add('Terraform');
-                        }
-                        if (/(^|\/)requirements\.yml$/i.test(lowerPath)) tools.add('Ansible');
-                        if (/(^|\/)chart\.yaml$/i.test(lowerPath)) tools.add('Helm');
-                        if (/(^|\/).+\.ya?ml$/i.test(lowerPath) && /apiVersion:\s*v1|apps\/v1/.test(txt)) tools.add('Kubernetes');
-
-                        // Containers
-                        if (/(^|\/)dockerfile$/i.test(lowerPath)) tools.add('Docker');
-                        if (/(^|\/)docker-compose\.ya?ml$/i.test(lowerPath)) {
-                          tools.add('Docker Compose');
-                          const s = txt.toLowerCase();
-                          if (/mongo/.test(s)) dbcloud.add('MongoDB');
-                          if (/postgres/.test(s)) dbcloud.add('PostgreSQL');
-                          if (/mysql/.test(s)) dbcloud.add('MySQL');
-                          if (/redis/.test(s)) dbcloud.add('Redis');
-                        }
-
-                        // Cloud host configs
-                        for (const [fname, label] of Object.entries(CLOUD_CFG_HINTS)) {
-                          if (lowerPath.endsWith(fname.toLowerCase())) dbcloud.add(label);
-                        }
-                      }
-                    }
-
-                    // ---------- Build badges ----------
-                    const langsSorted = [...langTotals.entries()].sort((a,b)=>b[1]-a[1]).map(([l])=>l);
-                    const langBadges = langsSorted.map(l => badge(l));
-
-                    const fwlibSorted = [...fwlib].sort();
-                    const fwlibBadges = fwlibSorted.map(l => badge(l));
-
-                    const dbcloudSorted = [...dbcloud].sort();
-                    const dbcloudBadges = dbcloudSorted.map(l => badge(l));
-
-                    const toolsSorted = [...tools].sort();
-                    const toolsBadges = toolsSorted.map(l => badge(l));
-
-                    // ---------- Update README (preserve existing hard-coded badges) ----------
-                    let readme = fs.readFileSync(README_PATH, 'utf8');
-                    readme = mergeSection(readme, LANG_START, LANG_END, langBadges);
-                    readme = mergeSection(readme, FWLIB_START, FWLIB_END, fwlibBadges);
-                    readme = mergeSection(readme, DBCLOUD_START, DBCLOUD_END, dbcloudBadges);
-                    readme = mergeSection(readme, TOOLS_START, TOOLS_END, toolsBadges);
-                    fs.writeFileSync(README_PATH, readme, 'utf8');
-
-                    console.log('✅ README updated: deep scan complete.');
-                  })().catch(e => { console.error(e); process.exit(1); });
-                  NODE
-
-            - name: Commit & push
-              env:
-                  PAT_OR_TOKEN: ${{ secrets.PERSONAL_TOKEN || secrets.GITHUB_TOKEN }}
-              run: |
-                  if git diff --quiet; then
-                    echo "No changes."
-                    exit 0
-                  fi
-                  git config user.name  "github-actions[bot]"
-                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                  git add "${README_PATH}"
-                  git commit -m "chore: refresh tech badges (deep scan)"
-                  git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF_NAME:-main} || \
-                  git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:main || \
-                  git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:master
+          PAT_OR_TOKEN: ${{ secrets.PERSONAL_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${README_PATH}"
+          git commit -m "chore: refresh tech badges (deep scan, brand colors)"
+          git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF_NAME:-main} || \
+          git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:main || \
+          git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:master
