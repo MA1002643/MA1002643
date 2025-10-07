@@ -170,7 +170,7 @@ jobs:
               }
 
               const encLabel = encodeURIComponent(label);
-              const encLogo  = encodeURIComponent(logoSlug); // critical to avoid broken badges
+              const encLogo  = encodeURIComponent(logoSlug); // avoid broken badges
               const hex = (preferredHex || brandHexFor(label)).replace(/^#/, '');
 
               return `![${label}](https://img.shields.io/badge/${encLabel}-${hex}?style=${BADGE_STYLE}&logo=${encLogo}&logoColor=white)`;
@@ -346,7 +346,8 @@ jobs:
           const tools = new Set();
 
           (async () => {
-            const makeBadge = await buildBadgeFn(); // create once
+            // Create ONCE and reuse (fixes redeclare error)
+            const makeBadge = await buildBadgeFn();
 
             const repos = await listAllRepos(REPO_OWNER);
 
@@ -564,7 +565,6 @@ jobs:
             const dbcloudSorted = [...dbcloud].sort();
             const toolsSorted = [...tools].sort();
 
-            const makeBadge = await buildBadgeFn();
             const langBadges = langsSorted.map(l => makeBadge(l));
             const fwlibBadges = fwlibSorted.map(l => makeBadge(l));
             const dbcloudBadges = dbcloudSorted.map(l => makeBadge(l));
