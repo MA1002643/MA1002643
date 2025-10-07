@@ -164,128 +164,62 @@ namespace ProfileCard
 
 <summary><b>👨‍💻 Programming and Markup Languages</b></summary>
 <br/>
+<!-- LANG-ICONS:START -->
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
-![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge&logo=powershell&logoColor=white)
-![Shell](https://img.shields.io/badge/Shell-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css&logoColor=white)
-![Processing](https://img.shields.io/badge/Processing-lightgrey?style=for-the-badge&logo=processing&logoColor=white)
-![Vue](https://img.shields.io/badge/Vue-lightgrey?style=for-the-badge&logo=vue&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Dockerfile](https://img.shields.io/badge/Dockerfile-lightgrey?style=for-the-badge&logo=dockerfile&logoColor=white)
-![Procfile](https://img.shields.io/badge/Procfile-lightgrey?style=for-the-badge&logo=procfile&logoColor=white)
-![JavaScript (ES6+)](<https://img.shields.io/badge/JavaScript%20(ES6%2B)-444444?style=for-the-badge&logo=javascript-(es6plus)&logoColor=white>)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript (ES6+)](<https://img.shields.io/badge/JavaScript%20(ES6%2B)-444444?style=for-the-badge&logo=javascript-(es6plus)&logoColor=white>)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=sql&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![Prolog](https://img.shields.io/badge/Prolog-742F2B?style=for-the-badge&logo=prolog&logoColor=white)
-![Haskell](https://img.shields.io/badge/Haskell-5D4F85?style=for-the-badge&logo=haskell&logoColor=white)
-![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
-![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)
-![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
-![MIPS Assembly](https://img.shields.io/badge/MIPS%20Assembly-525252?style=for-the-badge&logo=gnuemacs&logoColor=white)
 
+<!-- LANG-ICONS:END -->
 </details>
 
 <details>
 
 <summary><b>🧰 Frameworks and Libraries</b></summary>
 <br/>
+<!-- FWLIB-ICONS:START -->
 
-![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-lightgrey?style=for-the-badge&logo=bootstrap&logoColor=white)
-![Express](https://img.shields.io/badge/Express-lightgrey?style=for-the-badge&logo=express&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer%20Motion-lightgrey?style=for-the-badge&logo=framer-motion&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-lightgrey?style=for-the-badge&logo=nextjs&logoColor=white)
-![Rollup](https://img.shields.io/badge/Rollup-lightgrey?style=for-the-badge&logo=rollup&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-lightgrey?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-lightgrey?style=for-the-badge&logo=threejs&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-lightgrey?style=for-the-badge&logo=vite&logoColor=white)
-![Vue.js](https://img.shields.io/badge/Vue.js-lightgrey?style=for-the-badge&logo=vuejs&logoColor=white)
-![Webpack](https://img.shields.io/badge/Webpack-lightgrey?style=for-the-badge&logo=webpack&logoColor=white)
-![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=net&logoColor=white)
 ![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-512BD4?style=for-the-badge&logo=net-maui&logoColor=white)
-![Angular.js](https://img.shields.io/badge/Angular.js-DD0031?style=for-the-badge&logo=angularjs&logoColor=white)
 ![Blazor](https://img.shields.io/badge/Blazor-5C2D91?style=for-the-badge&logo=blazor&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=expressjs&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodejs&logoColor=white)
 
+<!-- FWLIB-ICONS:END -->
 </details>
 
 <details>
 
 <summary><b>🗄️ Databases and Cloud Hosting</b></summary>
 <br/>
+<!-- DBCLOUD-ICONS:START -->
 
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
-![Vector DB](https://img.shields.io/badge/Vector%20DB-4F46E5?style=for-the-badge&logo=database&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![Azure](https://img.shields.io/badge/Azure-0078D4?style=for-the-badge&logo=microsoft-azure&logoColor=white)
-![GCP](https://img.shields.io/badge/GCP-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)
-![OCI](https://img.shields.io/badge/OCI-F80000?style=for-the-badge&logo=oracle&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
 ![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
-![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=for-the-badge&logo=ansible&logoColor=white)
-![Terraform](https://img.shields.io/badge/Terraform-623CE4?style=for-the-badge&logo=terraform&logoColor=white)
 ![YAML](https://img.shields.io/badge/YAML-000000?style=for-the-badge&logo=yaml&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-lightgrey?style=for-the-badge&logo=prisma&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-lightgrey?style=for-the-badge&logo=vercel&logoColor=white)
 
+<!-- DBCLOUD-ICONS:END -->
 </details>
 
 <details>
 
 <summary><b>💻 Software and Tools</b></summary>
 <br/>
+<!-- TOOLS-ICONS:START -->
 
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
-![StackStorm](https://img.shields.io/badge/StackStorm-00AEEF?style=for-the-badge&logo=stackstorm&logoColor=white)
-![RedHat](https://img.shields.io/badge/RedHat-EE0000?style=for-the-badge&logo=redhat&logoColor=white)
-![Babel](https://img.shields.io/badge/Babel-lightgrey?style=for-the-badge&logo=babel&logoColor=white)
-![Chai](https://img.shields.io/badge/Chai-lightgrey?style=for-the-badge&logo=chai&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-lightgrey?style=for-the-badge&logo=docker&logoColor=white)
-![Docker Compose](https://img.shields.io/badge/Docker%20Compose-lightgrey?style=for-the-badge&logo=docker-compose&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-lightgrey?style=for-the-badge&logo=eslint&logoColor=white)
-![Husky](https://img.shields.io/badge/Husky-lightgrey?style=for-the-badge&logo=husky&logoColor=white)
-![Jest](https://img.shields.io/badge/Jest-lightgrey?style=for-the-badge&logo=jest&logoColor=white)
-![MSBuild](https://img.shields.io/badge/MSBuild-lightgrey?style=for-the-badge&logo=msbuild&logoColor=white)
-![Make](https://img.shields.io/badge/Make-lightgrey?style=for-the-badge&logo=make&logoColor=white)
-![Mocha](https://img.shields.io/badge/Mocha-lightgrey?style=for-the-badge&logo=mocha&logoColor=white)
-![Nodemon](https://img.shields.io/badge/Nodemon-lightgrey?style=for-the-badge&logo=nodemon&logoColor=white)
-![NuGet](https://img.shields.io/badge/NuGet-lightgrey?style=for-the-badge&logo=nuget&logoColor=white)
-![PHPUnit](https://img.shields.io/badge/PHPUnit-lightgrey?style=for-the-badge&logo=phpunit&logoColor=white)
-![Prettier](https://img.shields.io/badge/Prettier-lightgrey?style=for-the-badge&logo=prettier&logoColor=white)
-![TS Node](https://img.shields.io/badge/TS%20Node-lightgrey?style=for-the-badge&logo=ts-node&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-lightgrey?style=for-the-badge&logo=vite&logoColor=white)
-![Webpack](https://img.shields.io/badge/Webpack-lightgrey?style=for-the-badge&logo=webpack&logoColor=white)
-![Yarn](https://img.shields.io/badge/Yarn-lightgrey?style=for-the-badge&logo=yarn&logoColor=white)
-![commitlint](https://img.shields.io/badge/commitlint-lightgrey?style=for-the-badge&logo=commitlint&logoColor=white)
-![lint-staged](https://img.shields.io/badge/lint-staged-lightgrey?style=for-the-badge&logo=lint-staged&logoColor=white)
-![npm](https://img.shields.io/badge/npm-lightgrey?style=for-the-badge&logo=npm&logoColor=white)
-![nyc/Istanbul](https://img.shields.io/badge/nyc%2FIstanbul-lightgrey?style=for-the-badge&logo=nyc/istanbul&logoColor=white)
-![Azure DevOps](https://img.shields.io/badge/Azure%20DevOps-0078D7?style=for-the-badge&logo=azuredevops&logoColor=white)
 ![CI/CD](https://img.shields.io/badge/CI%2FCD-0B5FFF?style=for-the-badge&logo=githubactions&logoColor=white)
-![Commitizen](https://img.shields.io/badge/Commitizen-444444?style=for-the-badge&logo=commitizen&logoColor=white)
 ![Database Integration](https://img.shields.io/badge/Database%20Integration-4DB33D?style=for-the-badge&logo=mongodb&logoColor=white)
 ![DevOps automation](https://img.shields.io/badge/DevOps%20automation-444444?style=for-the-badge&logo=githubactions&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
@@ -295,10 +229,6 @@ namespace ProfileCard
 ![NPM](https://img.shields.io/badge/NPM-444444?style=for-the-badge&logo=npm&logoColor=white)
 ![NUnit](https://img.shields.io/badge/NUnit-444444?style=for-the-badge&logo=nunit&logoColor=white)
 ![Photoshop](https://img.shields.io/badge/Photoshop-31A8FF?style=for-the-badge&logo=photoshop&logoColor=white)
-![Project Management](https://img.shields.io/badge/Project%20Management-795548?style=for-the-badge&logo=jira&logoColor=white)
-![Software Design & Architecture](https://img.shields.io/badge/Software%20Design%20%26%20Architecture-444444?style=for-the-badge&logo=software-design-&-architecture&logoColor=white)
-![System](https://img.shields.io/badge/System-444444?style=for-the-badge&logo=system&logoColor=white)
-![Testing](https://img.shields.io/badge/Testing-00ACC1?style=for-the-badge&logo=testing&logoColor=white)
 ![Tomcat](https://img.shields.io/badge/Tomcat-F8DC75?style=for-the-badge&logo=tomcat&logoColor=white)
 ![UML](https://img.shields.io/badge/UML-1B72BE?style=for-the-badge&logo=plantuml&logoColor=white)
 ![UX Design](https://img.shields.io/badge/UX%20Design-FF4081?style=for-the-badge&logo=figma&logoColor=white)
@@ -307,6 +237,7 @@ namespace ProfileCard
 ![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91?style=for-the-badge&logo=visual-studio&logoColor=white)
 
+<!-- TOOLS-ICONS:END -->
 </details>
 
 ---
