@@ -166,6 +166,7 @@ namespace ProfileCard
 <br/>
 
 <!-- LANG-ICONS:START -->
+
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css&logoColor=white)
@@ -200,6 +201,7 @@ namespace ProfileCard
 <br/>
 
 <!-- FWLIB-ICONS:START -->
+
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-512BD4?style=for-the-badge&logo=net-maui&logoColor=white)
 ![Blazor](https://img.shields.io/badge/Blazor-5C2D91?style=for-the-badge&logo=blazor&logoColor=white)
@@ -228,6 +230,7 @@ namespace ProfileCard
 <br/>
 
 <!-- DBCLOUD-ICONS:START -->
+
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
@@ -248,6 +251,7 @@ namespace ProfileCard
 <br/>
 
 <!-- TOOLS-ICONS:START -->
+
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![CI/CD](https://img.shields.io/badge/CI%2FCD-0B5FFF?style=for-the-badge&logo=githubactions&logoColor=white)
@@ -368,6 +372,16 @@ Image (svg)   10 mins         ░░░░░░░░░░░░░░░░�
 Last updated on 2025-10-07 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
+
+</details>
+
+<details>
+  <summary><b>⏱️ WakaTime Stats</b></summary>
+
+  <br/>
+
+![WakaTime](https://github-readme-stats-chi-woad.vercel.app/api/wakatime?username=Abdullah2907&layout=compact&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=0c1a25&hide_border=false&cache_seconds=7200&custom_title=WakaTime%20Stats)
+
 </details>
 
 <details>
