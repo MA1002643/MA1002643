@@ -364,12 +364,13 @@ Last Updated: Tuesday, October 7th, 2025, 9:30:08 AM
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      4 hrs 40 mins   █████████████████░░░░░░░░   71.80 %
-YAML          1 hrs 40 mins   ██████░░░░░░░░░░░░░░░░░░░   25.59 %
-Image (svg)   10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.62 %
+Markdown      6 hrs 30 mins   █████████████████░░░░░░░░   69.94 %
+YAML          2 hrs 29 mins   ██████░░░░░░░░░░░░░░░░░░░   26.71 %
+Image (svg)   10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.83 %
+TypeScript    8 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.52 %
 ```
 
-Last updated on 2025-10-07 (Displaying Data from past 7 days)
+Last updated on 2025-10-08 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
