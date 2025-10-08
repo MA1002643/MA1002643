@@ -89,24 +89,28 @@ jobs:
             return before + next + after;
           }
 
-          // ===== REPLACE your existing buildBadgeFn() with this version =====
+          // ===== UPDATED buildBadgeFn WITH 3-SOURCE FALLBACK (Simple Icons → alexandresanlim → Ileriayo) =====
           async function buildBadgeFn() {
             const SI = await import('simple-icons'); // ESM; exposes SI.get(slug)
 
+            // --- Normalization helpers ---
             const normalize = (s) =>
-              s.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+              String(s || '')
+                .normalize('NFKD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .trim();
 
             // Generate slug candidates (compact forms first -> no spaces)
             function candidatesFor(label) {
-              const raw = normalize(label);
-
-              // transforms
               const compact = (x) => x.replace(/[\s._-]+/g, '');
               const noDots  = (x) => x.replace(/\./g, '');
               const andFix  = (x) => x.replace(/&/g, 'and');
               const plusFix = (x) => x.replace(/\+/g, 'plus');
 
-              let base = raw;
+              let base = normalize(label);
+
+              // language/framework aliases
               base = base.replace(/\bc\+\+\b/g, 'cplusplus');
               base = base.replace(/\bc#\b/g, 'csharp');
               base = base.replace(/(^|\W)\.net(\W|$)/g, '$1dotnet$2');
@@ -126,11 +130,10 @@ jobs:
               base = base.replace(/\bgcp\b/g, 'googlecloud');
               base = base.replace(/\bamazon\s*web\s*services\b/g, 'amazonaws');
 
-              // Build candidate set (compact forms come FIRST)
               const forms = [];
               const add = (s) => { if (s && !forms.includes(s)) forms.push(s); };
 
-              // compacted first (space-free)
+              // compacted variants first
               add(compact(base));
               add(compact(andFix(base)));
               add(compact(plusFix(base)));
@@ -138,7 +141,7 @@ jobs:
               add(compact(andFix(noDots(base))));
               add(compact(plusFix(noDots(base))));
 
-              // then less strict variants (rarely needed)
+              // less strict variants
               add(base);
               add(andFix(base));
               add(plusFix(base));
@@ -149,40 +152,115 @@ jobs:
               return forms;
             }
 
-            function brandHexFor(label) {
+            // --- Parse shields badges out of README markdowns of fallback repos ---
+            async function fetchText(url) {
+              const res = await fetch(url, { headers: { 'Accept': 'text/plain' } });
+              if (!res.ok) return '';
+              return await res.text();
+            }
+
+            function decodeLabelPart(s) {
+              try { return decodeURIComponent(s); } catch { return s; }
+            }
+
+            // Extract logo+color from shields.io image links in README
+            // Example: https://img.shields.io/badge/React-20232A?style=...&logo=react&logoColor=61DAFB
+            function parseBadgeCatalog(md) {
+              const map = new Map(); // key -> { logo, color }
+              if (!md) return map;
+
+              const rx = /https:\/\/img\.shields\.io\/badge\/([^?\s)]+)-([0-9A-Fa-f]{3,6})\?[^)\s]*?(?:logo=([^&)\s]+))?/g;
+              let m;
+              while ((m = rx.exec(md)) !== null) {
+                const rawLabel = m[1];
+                const color = (m[2] || '').replace(/^#/, '');
+                const logo  = m[3] ? m[3] : null;
+
+                const label = decodeLabelPart(rawLabel).replace(/-/g, ' ').trim();
+                const key = normalize(label);
+
+                if (!map.has(key)) map.set(key, { logo, color: color || null });
+              }
+              return map;
+            }
+
+            // Load fallback catalogs once
+            const alexMd = await fetchText(
+              'https://raw.githubusercontent.com/alexandresanlim/Badges4-README.md-Profile/main/README.md'
+            );
+            const ileriayoMd = await fetchText(
+              'https://raw.githubusercontent.com/Ileriayo/markdown-badges/master/README.md'
+            );
+            const ALEX = parseBadgeCatalog(alexMd);
+            const ILERIAYO = parseBadgeCatalog(ileriayoMd);
+
+            // Attempt to pull a color from Simple Icons by any candidate slug
+            function hexFromSimpleIcons(label) {
               for (const slug of candidatesFor(label)) {
                 const icon = SI.get?.(slug);
                 if (icon?.hex) return icon.hex;
               }
+              // fall back to your COLOR_MAP if present
               if (typeof COLOR_MAP !== 'undefined' && COLOR_MAP[label]) return COLOR_MAP[label];
-              return '444444';
+              return null;
             }
 
-            return (label, preferredHex) => {
-              // pick the first real Simple Icons slug
-              let logoSlug = null;
+            // Try to find a Simple Icons slug first; otherwise try fallbacks
+            function logoFromAllSources(label) {
               for (const slug of candidatesFor(label)) {
                 const icon = SI.get?.(slug);
-                if (icon) { logoSlug = slug; break; }
+                if (icon) return { logo: slug, source: 'si' };
               }
-              // fallback: guaranteed space-free compact slug
-              if (!logoSlug) {
-                const compactFallback = normalize(label)
-                  .replace(/&/g, 'and')
-                  .replace(/\+/g, 'plus')
-                  .replace(/[\s._-]+/g, '')
-                  .replace(/\./g, '');
-                logoSlug = compactFallback || 'generic';
+
+              const keysToTry = new Set([normalize(label)]);
+              for (const c of candidatesFor(label)) keysToTry.add(c);
+
+              for (const key of keysToTry) {
+                const hitA = ALEX.get(key);
+                if (hitA?.logo) return { logo: hitA.logo, source: 'alex' };
+                const hitI = ILERIAYO.get(key);
+                if (hitI?.logo) return { logo: hitI.logo, source: 'ileriayo' };
               }
+
+              return { logo: null, source: null };
+            }
+
+            // Try to find a color across all sources with the precedence requested
+            function colorFromAllSources(label) {
+              const siHex = hexFromSimpleIcons(label);
+              if (siHex) return { hex: siHex, source: 'si' };
+
+              const keysToTry = new Set([normalize(label)]);
+              for (const c of candidatesFor(label)) keysToTry.add(c);
+
+              for (const key of keysToTry) {
+                const hitA = ALEX.get(key);
+                if (hitA?.color) return { hex: hitA.color, source: 'alex' };
+                const hitI = ILERIAYO.get(key);
+                if (hitI?.color) return { hex: hitI.color, source: 'ileriayo' };
+              }
+
+              return { hex: null, source: null };
+            }
+
+            // Build the final badge URL. Only include logo= when we truly have a logo.
+            return (label, preferredHex) => {
+              const { logo } = logoFromAllSources(label);
+              const colorPref = preferredHex || (colorFromAllSources(label).hex);
+              const hex = (colorPref || '444444').replace(/^#/, '');
 
               const encLabel = encodeURIComponent(label);
-              const encLogo  = encodeURIComponent(logoSlug); // <-- important: encode logo
-              const hex = (preferredHex || brandHexFor(label)).replace(/^#/, '');
 
-              return `![${label}](https://img.shields.io/badge/${encLabel}-${hex}?style=${BADGE_STYLE}&logo=${encLogo}&logoColor=white)`;
+              let url = `https://img.shields.io/badge/${encLabel}-${hex}?style=${BADGE_STYLE}`;
+              if (logo) {
+                const encLogo = encodeURIComponent(logo);
+                url += `&logo=${encLogo}&logoColor=white`;
+              }
+
+              return `![${label}](${url})`;
             };
           }
-          // ===== END REPLACEMENT =====
+          // ===== END UPDATED buildBadgeFn =====
 
           // ---------- Minimal fallback colors (used only if icon not found) ----------
           const COLOR_MAP = {
@@ -252,7 +330,7 @@ jobs:
             "redis":"Redis","ioredis":"ioredis","memcached":"Memcached","mongodb":"MongoDB","pymongo":"MongoDB",
             "@aws-sdk/":"AWS SDK (JS)","aws-sdk":"AWS SDK","boto3":"AWS SDK (Py)","firebase":"Firebase",
             "@google-cloud/storage":"Google Cloud Storage","@google-cloud/firestore":"Firestore","@google-cloud/pubsub":"Pub/Sub",
-            "@azure/storage-blob":"Azure Blob Storage","@azure/cosmos":"Azure Cosmos DB","supabase":"Supabase","appwrite":"Appwrite",
+            "@azure/cosmos":"Azure Cosmos DB","@azure/storage-blob":"Azure Blob Storage","supabase":"Supabase","appwrite":"Appwrite",
             "dynamoose":"DynamoDB","@aws-sdk/client-dynamodb":"DynamoDB","pocketbase":"PocketBase"
           };
 
@@ -353,7 +431,7 @@ jobs:
           const tools = new Set();
 
           (async () => {
-            // Create ONCE and reuse (avoid redeclare error)
+            // Create ONCE and reuse
             const makeBadge = await buildBadgeFn();
 
             const repos = await listAllRepos(REPO_OWNER);
@@ -422,7 +500,7 @@ jobs:
                     .map(line=>line.split('=')[0].trim().toLowerCase());
                   for (const n of deps) {
                     if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
-                    if (DB_KW[n]) dbcloud.add(DB_KW[n]);   // fixed typo
+                    if (DB_KW[n]) dbcloud.add(DB_KW[n]);
                     if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
                   }
                 }
@@ -564,7 +642,7 @@ jobs:
             for (const d of ALWAYS_DBCLOUD) dbcloud.add(d);
             for (const t of ALWAYS_TOOLS) tools.add(t);
 
-            // Build badges with auto brand colors
+            // Build badges with auto colors & fallbacks
             const langsSorted = [...langTotals.entries()]
               .sort((a,b)=>b[1]-a[1])
               .map(([l]) => LANGUAGE_RENAMES[l] || l);
@@ -585,7 +663,7 @@ jobs:
             readme = mergeSection(readme, TOOLS_START, TOOLS_END, toolsBadges);
             fs.writeFileSync(README_PATH, readme, 'utf8');
 
-            console.log('✅ README updated with auto Simple-Icons brand colors (no broken logos).');
+            console.log('✅ README updated (Simple Icons → Badges4 → Ileriayo fallbacks; gray if no color).');
           })().catch(e => { console.error('❌ Failed:', e); process.exit(1); });
           NODE
 
@@ -600,7 +678,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "${README_PATH}"
-          git commit -m "chore: refresh tech badges (deep scan, auto brand colors, slug fix)"
+          git commit -m "chore: refresh tech badges (deep scan, multi-source logo+color)"
           git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF_NAME:-main} || \
           git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:main || \
           git push https://x-access-token:${PAT_OR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:master
