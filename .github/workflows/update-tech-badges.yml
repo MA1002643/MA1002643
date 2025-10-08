@@ -1,4 +1,4 @@
-name: Update tech badges (deep scan, auto brand colors)
+name: Update tech badges
 
 on:
   schedule:
