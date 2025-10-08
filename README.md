@@ -380,7 +380,16 @@ Last updated on 2025-10-07 (Displaying Data from past 7 days)
 
   <br/>
 
-![WakaTime](https://github-readme-stats-chi-woad.vercel.app/api/wakatime?username=Abdullah2907&layout=compact&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=0c1a25&hide_border=false&cache_seconds=7200&custom_title=WakaTime%20Stats)
+<picture>
+  <source
+    media="(prefers-color-scheme: dark)"
+    srcset="https://github-readme-stats-chi-woad.vercel.app/api/wakatime?username=Abdullah2907&layout=compact&bg_color=0D1117&title_color=ff652f&text_color=ffffff&border_color=30363D&hide_border=false&cache_seconds=7200&custom_title=WakaTime%20Stats"
+  />
+  <img
+    alt="Muhammad Abdullah — WakaTime Stats"
+    src="https://github-readme-stats-chi-woad.vercel.app/api/wakatime?username=Abdullah2907&layout=compact&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=0c1a25&hide_border=false&cache_seconds=7200&custom_title=WakaTime%20Stats"
+  />
+</picture>
 
 </details>
 
