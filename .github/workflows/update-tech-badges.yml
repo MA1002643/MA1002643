@@ -1,4 +1,4 @@
-name: Update tech badges
+name: Update tech badges (deep scan, auto brand colors)
 
 on:
   schedule:
@@ -89,19 +89,18 @@ jobs:
             return before + next + after;
           }
 
-          // ---------- Auto Simple-Icons color + slug (compact + encoded) ----------
+          // ===== REPLACE your existing buildBadgeFn() with this version =====
           async function buildBadgeFn() {
-            const SI = await import('simple-icons'); // ESM with .get(slug)
+            const SI = await import('simple-icons'); // ESM; exposes SI.get(slug)
 
             const normalize = (s) =>
-              s.normalize('NFKD')
-               .replace(/[\u0300-\u036f]/g, '')
-               .toLowerCase()
-               .trim();
+              s.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 
-            // Generate slug candidates (compact, space-free first)
+            // Generate slug candidates (compact forms first -> no spaces)
             function candidatesFor(label) {
               const raw = normalize(label);
+
+              // transforms
               const compact = (x) => x.replace(/[\s._-]+/g, '');
               const noDots  = (x) => x.replace(/\./g, '');
               const andFix  = (x) => x.replace(/&/g, 'and');
@@ -111,10 +110,14 @@ jobs:
               base = base.replace(/\bc\+\+\b/g, 'cplusplus');
               base = base.replace(/\bc#\b/g, 'csharp');
               base = base.replace(/(^|\W)\.net(\W|$)/g, '$1dotnet$2');
+
+              // *.js families use *dotjs in Simple Icons
               base = base.replace(/node\.?\s*js\b/g, 'nodedotjs');
               base = base.replace(/next\.?\s*js\b/g, 'nextdotjs');
               base = base.replace(/three\.?\s*js\b/g, 'threedotjs');
               base = base.replace(/angular\.?\s*js\b/g, 'angularjs');
+
+              // common brand aliases
               base = base.replace(/\bvs\s*code\b/g, 'visualstudiocode');
               base = base.replace(/\bvisual\s*studio\s*code\b/g, 'visualstudiocode');
               base = base.replace(/\bmicrosoft\s*azure\b/g, 'microsoftazure');
@@ -123,10 +126,11 @@ jobs:
               base = base.replace(/\bgcp\b/g, 'googlecloud');
               base = base.replace(/\bamazon\s*web\s*services\b/g, 'amazonaws');
 
+              // Build candidate set (compact forms come FIRST)
               const forms = [];
               const add = (s) => { if (s && !forms.includes(s)) forms.push(s); };
 
-              // compact first (prevents broken logos with spaces)
+              // compacted first (space-free)
               add(compact(base));
               add(compact(andFix(base)));
               add(compact(plusFix(base)));
@@ -134,7 +138,7 @@ jobs:
               add(compact(andFix(noDots(base))));
               add(compact(plusFix(noDots(base))));
 
-              // fallbacks (rarely used)
+              // then less strict variants (rarely needed)
               add(base);
               add(andFix(base));
               add(plusFix(base));
@@ -155,11 +159,13 @@ jobs:
             }
 
             return (label, preferredHex) => {
+              // pick the first real Simple Icons slug
               let logoSlug = null;
               for (const slug of candidatesFor(label)) {
                 const icon = SI.get?.(slug);
                 if (icon) { logoSlug = slug; break; }
               }
+              // fallback: guaranteed space-free compact slug
               if (!logoSlug) {
                 const compactFallback = normalize(label)
                   .replace(/&/g, 'and')
@@ -170,12 +176,13 @@ jobs:
               }
 
               const encLabel = encodeURIComponent(label);
-              const encLogo  = encodeURIComponent(logoSlug); // avoid broken badges
+              const encLogo  = encodeURIComponent(logoSlug); // <-- important: encode logo
               const hex = (preferredHex || brandHexFor(label)).replace(/^#/, '');
 
               return `![${label}](https://img.shields.io/badge/${encLabel}-${hex}?style=${BADGE_STYLE}&logo=${encLogo}&logoColor=white)`;
             };
           }
+          // ===== END REPLACEMENT =====
 
           // ---------- Minimal fallback colors (used only if icon not found) ----------
           const COLOR_MAP = {
@@ -346,7 +353,7 @@ jobs:
           const tools = new Set();
 
           (async () => {
-            // Create ONCE and reuse (fixes redeclare error)
+            // Create ONCE and reuse (avoid redeclare error)
             const makeBadge = await buildBadgeFn();
 
             const repos = await listAllRepos(REPO_OWNER);
@@ -415,7 +422,7 @@ jobs:
                     .map(line=>line.split('=')[0].trim().toLowerCase());
                   for (const n of deps) {
                     if (FWLIB_KW[n]) fwlib.add(FWLIB_KW[n]);
-                    if (DB_KW[n]) dbcloud.add(DB_KW[n]);   // ✅ fixed typo
+                    if (DB_KW[n]) dbcloud.add(DB_KW[n]);   // fixed typo
                     if (TOOLS_KW[n]) tools.add(TOOLS_KW[n]);
                   }
                 }
