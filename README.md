@@ -190,6 +190,7 @@ namespace ProfileCard
 ![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
 ![MIPSAssembly](https://img.shields.io/badge/MIPS%20Assembly-444444?style=for-the-badge&logo=mips assembly&logoColor=white)
 ![MIPS Assembly](https://img.shields.io/badge/MIPS%20Assembly-444444?style=for-the-badge&logo=mipsassembly&logoColor=white)
+
 <!-- LANG-ICONS:END -->
 
 </details>
@@ -219,6 +220,7 @@ namespace ProfileCard
 ![TailwindCSS](https://img.shields.io/badge/Tailwind%20CSS-444444?style=for-the-badge&logo=tailwind css&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer%20Motion-444444?style=for-the-badge&logo=framermotion&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-444444?style=for-the-badge&logo=tailwindcss&logoColor=white)
+
 <!-- FWLIB-ICONS:END -->
 
 </details>
@@ -301,6 +303,7 @@ namespace ProfileCard
 ![Project Management](https://img.shields.io/badge/Project%20Management-444444?style=for-the-badge&logo=projectmanagement&logoColor=white)
 ![Software Design & Architecture](https://img.shields.io/badge/Software%20Design%20%26%20Architecture-444444?style=for-the-badge&logo=softwaredesignandarchitecture&logoColor=white)
 ![TS Node](https://img.shields.io/badge/TS%20Node-444444?style=for-the-badge&logo=tsnode&logoColor=white)
+
 <!-- TOOLS-ICONS:END -->
 
 </details>
