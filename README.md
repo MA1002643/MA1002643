@@ -361,13 +361,18 @@ Last Updated: Wednesday, October 8th, 2025, 9:30:36 AM
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      6 hrs 30 mins   █████████████████░░░░░░░░   69.94 %
-YAML          2 hrs 29 mins   ██████░░░░░░░░░░░░░░░░░░░   26.71 %
-Image (svg)   10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.83 %
-TypeScript    8 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.52 %
+Markdown      6 hrs 54 mins   ██████████████░░░░░░░░░░░   59.97 %
+YAML          2 hrs 29 mins   █████░░░░░░░░░░░░░░░░░░░░   21.57 %
+JavaScript    1 hrs 31 mins   ███░░░░░░░░░░░░░░░░░░░░░░   13.20 %
+Image (svg)   10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.48 %
+Other         8 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.30 %
+TypeScript    8 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.23 %
+Java          6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.89 %
+Git Config    2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.32 %
+INI           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.05 %
 ```
 
-Last updated on 2025-10-08 (Displaying Data from past 7 days)
+Last updated on 2025-10-09 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
