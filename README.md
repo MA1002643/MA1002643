@@ -361,18 +361,23 @@ Last Updated: Thursday, October 9th, 2025, 9:30:08 AM
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      6 hrs 54 mins   ██████████████░░░░░░░░░░░   59.97 %
-YAML          2 hrs 29 mins   █████░░░░░░░░░░░░░░░░░░░░   21.57 %
-JavaScript    1 hrs 31 mins   ███░░░░░░░░░░░░░░░░░░░░░░   13.20 %
-Image (svg)   10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.48 %
-Other         8 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.30 %
-TypeScript    8 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.23 %
-Java          6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.89 %
-Git Config    2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.32 %
-INI           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.05 %
+Markdown      6 hrs 54 mins   █████████████░░░░░░░░░░░░   55.60 %
+YAML          2 hrs 29 mins   ████░░░░░░░░░░░░░░░░░░░░░   19.98 %
+JavaScript    2 hrs 9 mins    ████░░░░░░░░░░░░░░░░░░░░░   17.32 %
+HTML          12 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.65 %
+Image (svg)   10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.37 %
+Other         8 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.20 %
+TypeScript    8 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.13 %
+Java          6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.82 %
+JSON          3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.53 %
+Git Config    2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.29 %
+INI           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
+CSS           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
+C#            0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.01 %
+XML           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.00 %
 ```
 
-Last updated on 2025-10-09 (Displaying Data from past 7 days)
+Last updated on 2025-10-10 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
