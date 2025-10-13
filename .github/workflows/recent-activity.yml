@@ -1,9 +1,9 @@
-name: Update recent activity
+name: Update recent activity (hybrid)
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 8 * * *" # every day at 08:00 UTC
+    - cron: "0 8 * * *" # daily 08:00 UTC
 
 permissions:
   contents: write
@@ -22,15 +22,14 @@ jobs:
       - name: "Build recent-activity block and inject into README (Hybrid: GraphQL + REST)"
         uses: actions/github-script@v7
         with:
-          # Use PAT if provided; otherwise use default workflow token
           github-token: ${{ secrets.ACTIVITY_GH_TOKEN || github.token }}
           script: |
             const fs = require('fs');
 
             // ---- settings ----
             const USER = 'MA1002643'; // <-- change if needed
-            const DAYS = 30;            // lookback window
-            const MAX_LINES = 30;       // how many items to show
+            const DAYS = 30;
+            const MAX_LINES = 30;
             const READ_ME = 'README.md';
             const ACT_START = '<!--RECENT_ACTIVITY:start-->';
             const ACT_END   = '<!--RECENT_ACTIVITY:end-->';
@@ -50,10 +49,9 @@ jobs:
             const prLink    = (full, n, url) => `[${full}#${n}](${url})`;
             const issueLink = (full, n, url) => `[${full}#${n}](${url})`;
 
-            // Accumulator
             const items = [];
 
-            // ============ GraphQL block (contributions + stars) ============
+            // ===== GraphQL: contributions + stars + created repositories (owner) =====
             const gql = `
               query($login:String!, $from:DateTime!, $to:DateTime!) {
                 user(login:$login) {
@@ -80,23 +78,19 @@ jobs:
                         issue { number url state repository { nameWithOwner url } }
                       }
                     }
-                    releaseContributions(first: 100) {
-                      nodes {
-                        occurredAt
-                        release { tagName url repository { nameWithOwner url } }
-                      }
-                    }
-                    repositoryContributions(first: 100, includeCreatedRepositories:true) {
-                      nodes {
-                        occurredAt
-                        repository { nameWithOwner url isFork }
-                      }
-                    }
                   }
                   starredRepositories(first: 100, orderBy:{field: STARRED_AT, direction: DESC}) {
                     edges {
                       starredAt
                       node { nameWithOwner url }
+                    }
+                  }
+                  repositories(ownerAffiliations: OWNER, first: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
+                    nodes {
+                      nameWithOwner
+                      url
+                      isFork
+                      createdAt
                     }
                   }
                 }
@@ -162,27 +156,13 @@ jobs:
               }
             }
 
-            // Releases
-            for (const n of (cc.releaseContributions && cc.releaseContributions.nodes) || []) {
-              if (!within(n.occurredAt)) continue;
-              const rel = n.release; if (!rel) continue;
-              const repo = rel.repository && rel.repository.nameWithOwner;
-              const tag  = rel.tagName;
-              if (repo && tag) {
-                items.push({ date: n.occurredAt, key: 'release:' + repo + ':' + tag, text: '🏷️ Released `' + tag + '` in ' + repoLink(repo) });
-              }
-            }
-
-            // Repo creations (incl. forks)
-            for (const n of (cc.repositoryContributions && cc.repositoryContributions.nodes) || []) {
-              if (!within(n.occurredAt)) continue;
-              const r = n.repository; if (!r) continue;
+            // Created repositories (owner), including forks; filter by createdAt
+            for (const r of (res.user.repositories && res.user.repositories.nodes) || []) {
+              if (!r || !r.createdAt || !within(r.createdAt)) continue;
               const full = r.nameWithOwner;
               const url  = r.url;
               const suffix = r.isFork ? ' (fork)' : '';
-              if (full && url) {
-                items.push({ date: n.occurredAt, key: 'repo-create:' + full, text: '📦 Created repository ' + repoLink(full, url) + suffix });
-              }
+              items.push({ date: r.createdAt, key: 'repo-create:' + full, text: '📦 Created repository ' + repoLink(full, url) + suffix });
             }
 
             // Stars (GraphQL — has starredAt)
@@ -196,7 +176,7 @@ jobs:
               }
             }
 
-            // ============ REST Events to capture “everything else” ============
+            // ===== REST: public events for everything else (forks, publicized, deletes, wiki, members, gists, releases, etc.) =====
             async function getEvents(username, pages) {
               const out = [];
               for (let page = 1; page <= pages; page++) {
@@ -211,7 +191,6 @@ jobs:
 
             const events = await getEvents(USER, 10);
 
-            // map REST events that aren’t guaranteed by GraphQL above
             for (const ev of events) {
               const t = ev.type;
               const when = ev.created_at;
@@ -228,7 +207,7 @@ jobs:
                   add('fork:' + full + ':' + (dst || when), left + right);
                   break;
                 }
-                case 'WatchEvent': { // “Starred” in Events API
+                case 'WatchEvent': {
                   if (full) add('watch:' + full + ':' + when, '⭐ Starred ' + repoLink(full));
                   break;
                 }
@@ -293,7 +272,7 @@ jobs:
                   break;
                 }
                 default:
-                  // Skip Push/PR/Issues here to avoid dupes (handled by GraphQL)
+                  // Skip Push/PR/Issues here to avoid dupes (GraphQL already covers your contributions)
                   break;
               }
             }
@@ -311,11 +290,7 @@ jobs:
             unique.sort((a,b) => new Date(b.date) - new Date(a.date));
             const lines = unique.slice(0, MAX_LINES).map(i => i.text + '<br>');
 
-            if (!lines.length) {
-              core.notice('No recent activity in the selected window.');
-            }
-
-            // ---- timestamp (Europe/London with ordinal) ----
+            // ---- timestamp (Europe/London) ----
             const ordinal = (n) => {
               const s = ['th','st','nd','rd'], v = n % 100;
               return n + (s[(v - 20) % 10] || s[v] || s[0]);
