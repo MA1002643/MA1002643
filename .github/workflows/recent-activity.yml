@@ -1,4 +1,4 @@
-name: Update recent activity
+name: Update recent activity (hybrid)
 
 on:
   workflow_dispatch:
@@ -49,9 +49,9 @@ jobs:
             const gh = github.getOctokit(process.env.GH_TOKEN);
 
             // ---- helpers ----
-            const repoLink = (full, url) => `[${full}](${url || 'https://github.com/'+full})`;
-            const prLink   = (full, n, url) => `[${full}#${n}](${url})`;
-            const issueLink= (full, n, url) => `[${full}#${n}](${url})`;
+            const repoLink  = (full, url) => `[${full}](${url || ('https://github.com/' + full)})`;
+            const prLink    = (full, n, url) => `[${full}#${n}](${url})`;
+            const issueLink = (full, n, url) => `[${full}#${n}](${url})`;
 
             // Accumulator
             const items = [];
@@ -111,80 +111,102 @@ jobs:
             const cc = res.user.contributionsCollection;
 
             // Commits (sum per repo, latest occurrence)
-            for (const r of cc.commitContributionsByRepository || []) {
-              const full = r.repository?.nameWithOwner, url = r.repository?.url;
+            for (const r of (cc.commitContributionsByRepository || [])) {
+              const full = r.repository && r.repository.nameWithOwner;
+              const url  = r.repository && r.repository.url;
               let total = 0, latestAt = null;
-              for (const n of (r.contributions?.nodes || [])) {
+              for (const n of (r.contributions && r.contributions.nodes) || []) {
                 if (!within(n.occurredAt)) continue;
                 total += (n.commitCount || 0);
                 if (!latestAt || new Date(n.occurredAt) > new Date(latestAt)) latestAt = n.occurredAt;
               }
-              if (total > 0) items.push({ date: latestAt, key:`commit:${full}`, text:`⬆️ Pushed ${total} commit(s) to ${repoLink(full, url)}` });
+              if (full && total > 0) {
+                items.push({ date: latestAt, key: 'commit:' + full, text: '⬆️ Pushed ' + total + ' commit(s) to ' + repoLink(full, url) });
+              }
             }
 
             // PRs
-            for (const n of (cc.pullRequestContributions?.nodes || [])) {
+            for (const n of (cc.pullRequestContributions && cc.pullRequestContributions.nodes) || []) {
               if (!within(n.occurredAt)) continue;
               const pr = n.pullRequest; if (!pr) continue;
-              const full = pr.repository?.nameWithOwner, url = pr.url, num = pr.number;
+              const full = pr.repository && pr.repository.nameWithOwner;
+              const url  = pr.url;
+              const num  = pr.number;
               const merged = !!pr.mergedAt;
-              const state = pr.state;
-              const label = merged ? '🎉 Merged' : (state === 'OPEN' ? '✨ Opened' : '❌ Closed');
-              items.push({ date: n.occurredAt, key:`pr:${full}#${num}:${label}`, text:`${label} ${prLink(full, num, url)}` });
+              const state  = pr.state;
+              const label  = merged ? '🎉 Merged' : (state === 'OPEN' ? '✨ Opened' : '❌ Closed');
+              if (full && url && num != null) {
+                items.push({ date: n.occurredAt, key: 'pr:' + full + '#' + num + ':' + label, text: label + ' ' + prLink(full, num, url) });
+              }
             }
 
             // Reviews
-            for (const n of (cc.pullRequestReviewContributions?.nodes || [])) {
+            for (const n of (cc.pullRequestReviewContributions && cc.pullRequestReviewContributions.nodes) || []) {
               if (!within(n.occurredAt)) continue;
               const pr = n.pullRequest; if (!pr) continue;
-              const full = pr.repository?.nameWithOwner, url = pr.url, num = pr.number;
-              items.push({ date: n.occurredAt, key:`review:${full}#${num}`, text:`🔍 Reviewed ${prLink(full, num, url)}` });
+              const full = pr.repository && pr.repository.nameWithOwner;
+              const url  = pr.url;
+              const num  = pr.number;
+              if (full && url && num != null) {
+                items.push({ date: n.occurredAt, key: 'review:' + full + '#' + num, text: '🔍 Reviewed ' + prLink(full, num, url) });
+              }
             }
 
             // Issues
-            for (const n of (cc.issueContributions?.nodes || [])) {
+            for (const n of (cc.issueContributions && cc.issueContributions.nodes) || []) {
               if (!within(n.occurredAt)) continue;
               const is = n.issue; if (!is) continue;
-              const full = is.repository?.nameWithOwner, url = is.url, num = is.number;
+              const full = is.repository && is.repository.nameWithOwner;
+              const url  = is.url;
+              const num  = is.number;
               const label = is.state === 'OPEN' ? '📝 Opened' : (is.state === 'CLOSED' ? '✔️ Closed' : '🔧 Updated');
-              items.push({ date: n.occurredAt, key:`issue:${full}#${num}:${label}`, text:`${label} ${issueLink(full, num, url)}` });
+              if (full && url && num != null) {
+                items.push({ date: n.occurredAt, key: 'issue:' + full + '#' + num + ':' + label, text: label + ' ' + issueLink(full, num, url) });
+              }
             }
 
             // Releases
-            for (const n of (cc.releaseContributions?.nodes || [])) {
+            for (const n of (cc.releaseContributions && cc.releaseContributions.nodes) || []) {
               if (!within(n.occurredAt)) continue;
               const rel = n.release; if (!rel) continue;
-              const full = rel.repository?.nameWithOwner;
-              items.push({ date: n.occurredAt, key:`release:${full}:${rel.tagName}`, text:`🏷️ Released \`${rel.tagName}\` in ${repoLink(full)}` });
+              const repo = rel.repository && rel.repository.nameWithOwner;
+              const tag  = rel.tagName;
+              if (repo && tag) {
+                items.push({ date: n.occurredAt, key: 'release:' + repo + ':' + tag, text: '🏷️ Released `' + tag + '` in ' + repoLink(repo) });
+              }
             }
 
             // Repo creations (incl. forks)
-            for (const n of (cc.repositoryContributions?.nodes || [])) {
+            for (const n of (cc.repositoryContributions && cc.repositoryContributions.nodes) || []) {
               if (!within(n.occurredAt)) continue;
               const r = n.repository; if (!r) continue;
-              const full = r.nameWithOwner, url = r.url;
-              items.push({
-                date: n.occurredAt,
-                key:`repo-create:${full}`,
-                text:`📦 Created repository ${repoLink(full, url)}${r.isFork ? ' (fork)' : ''}`
-              });
+              const full = r.nameWithOwner;
+              const url  = r.url;
+              const suffix = r.isFork ? ' (fork)' : '';
+              if (full && url) {
+                items.push({ date: n.occurredAt, key: 'repo-create:' + full, text: '📦 Created repository ' + repoLink(full, url) + suffix });
+              }
             }
 
             // Stars (GraphQL — has starredAt)
-            for (const e of (res.user.starredRepositories?.edges || [])) {
-              if (!e?.starredAt || !within(e.starredAt)) continue;
-              const full = e.node?.nameWithOwner, url = e.node?.url;
-              items.push({ date: e.starredAt, key:`star:${full}:${e.starredAt}`, text:`⭐ Starred ${repoLink(full, url)}` });
+            for (const e of (res.user.starredRepositories && res.user.starredRepositories.edges) || []) {
+              if (!e || !e.starredAt || !within(e.starredAt)) continue;
+              const node = e.node || {};
+              const full = node.nameWithOwner;
+              const url  = node.url;
+              if (full && url) {
+                items.push({ date: e.starredAt, key: 'star:' + full + ':' + e.starredAt, text: '⭐ Starred ' + repoLink(full, url) });
+              }
             }
 
             // ============ REST Events to capture “everything else” ============
-            async function getEvents(username, pages=10) {
+            async function getEvents(username, pages) {
               const out = [];
-              for (let page=1; page<=pages; page++) {
+              for (let page = 1; page <= pages; page++) {
                 const { data } = await gh.request('GET /users/{username}/events/public', {
                   username, per_page: 100, page
                 });
-                if (!data?.length) break;
+                if (!data || !data.length) break;
                 out.push(...data);
               }
               return out;
@@ -198,71 +220,79 @@ jobs:
               const when = ev.created_at;
               if (!within(when)) continue;
 
-              const full = ev.repo?.name;
-
+              const full = ev.repo && ev.repo.name;
               const add = (key, text) => items.push({ date: when, key, text });
 
               switch (t) {
                 case 'ForkEvent': {
-                  const dst = ev.payload?.forkee?.full_name;
-                  add(`fork:${full}:${dst}`, `🔱 Forked ${repoLink(full)}${dst ? ` → [${dst}](https://github.com/${dst})` : ''}`);
+                  const dst = ev.payload && ev.payload.forkee && ev.payload.forkee.full_name;
+                  const left = '🔱 Forked ' + (full ? repoLink(full) : 'a repository');
+                  const right = dst ? (' → [' + dst + '](https://github.com/' + dst + ')') : '';
+                  add('fork:' + full + ':' + (dst || when), left + right);
                   break;
                 }
                 case 'WatchEvent': { // “Starred” in Events API
-                  add(`watch:${full}:${when}`, `⭐ Starred ${repoLink(full)}`);
+                  if (full) add('watch:' + full + ':' + when, '⭐ Starred ' + repoLink(full));
                   break;
                 }
                 case 'CreateEvent': {
-                  const { ref_type, ref } = ev.payload || {};
+                  const payload = ev.payload || {};
+                  const ref_type = payload.ref_type;
+                  const ref = payload.ref;
                   if (ref_type === 'repository') {
-                    add(`create-repo:${full}`, `📦 Created repository ${repoLink(full)}`);
-                  } else {
-                    add(`create:${full}:${ref_type}:${ref}`, `📦 Created ${ref_type} \`${ref}\` in ${repoLink(full)}`);
+                    if (full) add('create-repo:' + full, '📦 Created repository ' + repoLink(full));
+                  } else if (ref_type && ref) {
+                    if (full) add('create:' + full + ':' + ref_type + ':' + ref, '📦 Created ' + ref_type + ' `' + ref + '` in ' + repoLink(full));
                   }
                   break;
                 }
                 case 'DeleteEvent': {
-                  const { ref_type, ref } = ev.payload || {};
-                  add(`delete:${full}:${ref_type}:${ref}`, `🗑️ Deleted ${ref_type} \`${ref}\` in ${repoLink(full)}`);
+                  const payload = ev.payload || {};
+                  const ref_type = payload.ref_type;
+                  const ref = payload.ref;
+                  if (full && ref_type && ref) add('delete:' + full + ':' + ref_type + ':' + ref, '🗑️ Deleted ' + ref_type + ' `' + ref + '` in ' + repoLink(full));
                   break;
                 }
                 case 'PublicEvent': {
-                  add(`public:${full}`, `🌐 Made ${repoLink(full)} public`);
+                  if (full) add('public:' + full, '🌐 Made ' + repoLink(full) + ' public');
                   break;
                 }
                 case 'MemberEvent': {
-                  const m = ev.payload?.member?.login;
-                  add(`member:${full}:${m}`, `👥 Added ${m ? `@${m} ` : ''}to ${repoLink(full)}`);
+                  const m = ev.payload && ev.payload.member && ev.payload.member.login;
+                  if (full) add('member:' + full + ':' + (m || when), '👥 Added ' + (m ? ('@' + m + ' ') : '') + 'to ' + repoLink(full));
                   break;
                 }
                 case 'GollumEvent': {
-                  add(`wiki:${full}:${when}`, `📝 Updated wiki in ${repoLink(full)}`);
+                  if (full) add('wiki:' + full + ':' + when, '📝 Updated wiki in ' + repoLink(full));
                   break;
                 }
                 case 'CommitCommentEvent': {
-                  add(`commitcomment:${full}:${when}`, `🗣️ Commented on a commit in ${repoLink(full)}`);
+                  if (full) add('commitcomment:' + full + ':' + when, '🗣️ Commented on a commit in ' + repoLink(full));
                   break;
                 }
                 case 'IssueCommentEvent': {
-                  const n = ev.payload?.issue?.number;
-                  if (n) add(`issuecomment:${full}#${n}:${when}`, `💬 Commented on ${issueLink(full, n, \`https://github.com/${full}/issues/${n}\`)}`);
+                  const n = ev.payload && ev.payload.issue && ev.payload.issue.number;
+                  if (full && n != null) {
+                    const url = 'https://github.com/' + full + '/issues/' + n;
+                    add('issuecomment:' + full + '#' + n + ':' + when, '💬 Commented on ' + issueLink(full, n, url));
+                  }
                   break;
                 }
                 case 'FollowEvent': {
-                  const tgt = ev.payload?.target?.login;
-                  if (tgt) items.push({ date: when, key:`follow:${tgt}:${when}`, text:`➕ Followed @${tgt}` });
+                  const tgt = ev.payload && ev.payload.target && ev.payload.target.login;
+                  if (tgt) items.push({ date: when, key: 'follow:' + tgt + ':' + when, text: '➕ Followed @' + tgt });
                   break;
                 }
                 case 'GistEvent': {
-                  const a = ev.payload?.action || 'updated';
-                  const gistId = ev.payload?.gist?.id;
-                  const url = gistId ? `https://gist.github.com/${gistId}` : 'https://gist.github.com/';
-                  add(`gist:${a}:${gistId || when}`, `📄 ${a === 'create' ? 'Created' : 'Updated'} a gist (${gistId})`);
+                  const a = (ev.payload && ev.payload.action) || 'updated';
+                  const gistId = ev.payload && ev.payload.gist && ev.payload.gist.id;
+                  const label = a === 'create' ? 'Created' : 'Updated';
+                  add('gist:' + a + ':' + (gistId || when), '📄 ' + label + ' a gist' + (gistId ? (' (' + gistId + ')') : ''));
                   break;
                 }
                 case 'ReleaseEvent': {
-                  const tag = ev.payload?.release?.tag_name || 'a release';
-                  add(`release:${full}:${tag}:${when}`, `🏷️ Released \`${tag}\` in ${repoLink(full)}`);
+                  const tag = ev.payload && ev.payload.release && ev.payload.release.tag_name;
+                  if (full && tag) add('release:' + full + ':' + tag + ':' + when, '🏷️ Released `' + tag + '` in ' + repoLink(full));
                   break;
                 }
                 default:
@@ -274,7 +304,7 @@ jobs:
             // ---- dedupe by key, prefer newest ----
             const map = new Map();
             for (const it of items) {
-              if (!it?.key || !it?.date || !it?.text) continue;
+              if (!it || !it.key || !it.date || !it.text) continue;
               const existing = map.get(it.key);
               if (!existing || new Date(it.date) > new Date(existing.date)) map.set(it.key, it);
             }
@@ -282,14 +312,14 @@ jobs:
 
             // ---- sort and limit ----
             unique.sort((a,b) => new Date(b.date) - new Date(a.date));
-            const lines = unique.slice(0, MAX_LINES).map(i => `${i.text}<br>`);
+            const lines = unique.slice(0, MAX_LINES).map(i => i.text + '<br>');
 
             if (!lines.length) {
               core.notice('No recent activity in the selected window.');
             }
 
             // ---- timestamp (Europe/London with ordinal) ----
-            const ordinal = n => {
+            const ordinal = (n) => {
               const s = ['th','st','nd','rd'], v = n % 100;
               return n + (s[(v - 20) % 10] || s[v] || s[0]);
             };
@@ -298,9 +328,11 @@ jobs:
               timeZone: tz, weekday:'long', month:'long', day:'numeric', year:'numeric',
               hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true
             }).formatToParts(new Date())
-              .reduce((a,p)=>(a[p.type]=p.value,a),{});
+              .reduce((a,p) => { a[p.type] = p.value; return a; }, {});
             const dayNum = parseInt(parts.day, 10);
-            const lastUpdated = `Last Updated: ${parts.weekday}, ${parts.month} ${ordinal(dayNum)}, ${parts.year}, ${parts.hour}:${parts.minute}:${parts.second} ${parts.dayPeriod}`;
+            const lastUpdated = 'Last Updated: '
+              + parts.weekday + ', ' + parts.month + ' ' + ordinal(dayNum) + ', ' + parts.year + ', '
+              + parts.hour + ':' + parts.minute + ':' + parts.second + ' ' + parts.dayPeriod;
 
             // ---- inject into README ----
             const inject = (src, start, end, payload) => {
@@ -313,14 +345,15 @@ jobs:
             let updated = inject(md, ACT_START, ACT_END, lines.join('\n'));
             if (!updated) core.setFailed('Markers not found: RECENT_ACTIVITY:start/end');
 
-            const blockRE = new RegExp(`${TS_START}[\\s\\S]*?${TS_END}`, 'm');
+            const blockRE = new RegExp(TS_START.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\s\\S]*?' + TS_END.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'm');
             if (blockRE.test(updated)) {
-              updated = updated.replace(blockRE, `${TS_START}\n\n${lastUpdated}\n\n${TS_END}`);
+              updated = updated.replace(blockRE, TS_START + '\n\n' + lastUpdated + '\n\n' + TS_END);
             } else {
               core.warning('Timestamp markers not found; skipping last-updated line.');
             }
 
             if (updated !== md) {
+              // remove stray lines that contain only "\n"
               updated = updated.replace(/^\s*\\n\s*$/gm, '');
               fs.writeFileSync(READ_ME, updated, 'utf8');
               core.notice('README updated with hybrid recent activity.');
