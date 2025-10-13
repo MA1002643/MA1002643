@@ -1,4 +1,4 @@
-name: Update recent activity (hybrid)
+name: Update recent activity
 
 on:
   workflow_dispatch:
@@ -21,9 +21,8 @@ jobs:
 
       - name: "Build recent-activity block and inject into README (Hybrid: GraphQL + REST)"
         uses: actions/github-script@v7
-        env:
-          GH_TOKEN: ${{ secrets.ACTIVITY_GH_TOKEN }}
         with:
+          github-token: ${{ secrets.ACTIVITY_GH_TOKEN }}
           script: |
             const fs = require('fs');
 
@@ -44,9 +43,6 @@ jobs:
               const dt = new Date(d);
               return dt >= from && dt <= now;
             };
-
-            // ---- GitHub client using PAT from env ----
-            const gh = github.getOctokit(process.env.GH_TOKEN);
 
             // ---- helpers ----
             const repoLink  = (full, url) => `[${full}](${url || ('https://github.com/' + full)})`;
@@ -107,7 +103,7 @@ jobs:
             `;
 
             const vars = { login: USER, from: from.toISOString(), to: now.toISOString() };
-            const res = await gh.graphql(gql, vars);
+            const res = await github.graphql(gql, vars);
             const cc = res.user.contributionsCollection;
 
             // Commits (sum per repo, latest occurrence)
@@ -203,7 +199,7 @@ jobs:
             async function getEvents(username, pages) {
               const out = [];
               for (let page = 1; page <= pages; page++) {
-                const { data } = await gh.request('GET /users/{username}/events/public', {
+                const { data } = await github.request('GET /users/{username}/events/public', {
                   username, per_page: 100, page
                 });
                 if (!data || !data.length) break;
@@ -323,9 +319,9 @@ jobs:
               const s = ['th','st','nd','rd'], v = n % 100;
               return n + (s[(v - 20) % 10] || s[v] || s[0]);
             };
-            const tz = 'Europe/London';
             const parts = new Intl.DateTimeFormat('en-GB', {
-              timeZone: tz, weekday:'long', month:'long', day:'numeric', year:'numeric',
+              timeZone: 'Europe/London',
+              weekday:'long', month:'long', day:'numeric', year:'numeric',
               hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true
             }).formatToParts(new Date())
               .reduce((a,p) => { a[p.type] = p.value; return a; }, {});
@@ -345,7 +341,8 @@ jobs:
             let updated = inject(md, ACT_START, ACT_END, lines.join('\n'));
             if (!updated) core.setFailed('Markers not found: RECENT_ACTIVITY:start/end');
 
-            const blockRE = new RegExp(TS_START.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\s\\S]*?' + TS_END.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'm');
+            const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const blockRE = new RegExp(esc(TS_START) + '[\\s\\S]*?' + esc(TS_END), 'm');
             if (blockRE.test(updated)) {
               updated = updated.replace(blockRE, TS_START + '\n\n' + lastUpdated + '\n\n' + TS_END);
             } else {
@@ -353,7 +350,6 @@ jobs:
             }
 
             if (updated !== md) {
-              // remove stray lines that contain only "\n"
               updated = updated.replace(/^\s*\\n\s*$/gm, '');
               fs.writeFileSync(READ_ME, updated, 'utf8');
               core.notice('README updated with hybrid recent activity.');
