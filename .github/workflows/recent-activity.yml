@@ -27,7 +27,7 @@ jobs:
             const fs = require('fs');
 
             // ---- settings ----
-            const USER = 'MA1002643'; // <-- change if needed
+            const USER = 'MA1002643'; // change if needed
             const DAYS = 30;
             const MAX_LINES = 30;
             const READ_ME = 'README.md';
@@ -48,65 +48,178 @@ jobs:
             const repoLink  = (full, url) => `[${full}](${url || ('https://github.com/' + full)})`;
             const prLink    = (full, n, url) => `[${full}#${n}](${url})`;
             const issueLink = (full, n, url) => `[${full}#${n}](${url})`;
-
             const items = [];
 
-            // ===== GraphQL: contributions + stars + created repositories (owner) =====
-            const gql = `
-              query($login:String!, $from:DateTime!, $to:DateTime!) {
-                user(login:$login) {
-                  contributionsCollection(from:$from, to:$to) {
-                    commitContributionsByRepository(maxRepositories: 100) {
-                      repository { nameWithOwner url }
-                      contributions(first: 100) { nodes { occurredAt commitCount } }
-                    }
-                    pullRequestContributions(first: 200) {
-                      nodes {
-                        occurredAt
-                        pullRequest { number url mergedAt state repository { nameWithOwner url } }
+            // ===== GraphQL pagination helpers =====
+            async function pageQuery(query, vars, pickPage) {
+              let after = null;
+              const nodes = [];
+              while (true) {
+                const v = Object.assign({}, vars, { after });
+                const res = await github.graphql(query, v);
+                const { page, pageInfo } = pickPage(res);
+                if (page && page.length) nodes.push(...page);
+                if (!pageInfo?.hasNextPage) break;
+                after = pageInfo.endCursor;
+              }
+              return nodes;
+            }
+
+            // Commits by repository (no pagination object for repos; limit to 100 repos)
+            async function getCommits(login, fromISO, toISO) {
+              const q = `
+                query($login:String!, $from:DateTime!, $to:DateTime!) {
+                  user(login:$login) {
+                    contributionsCollection(from:$from, to:$to) {
+                      commitContributionsByRepository(maxRepositories: 100) {
+                        repository { nameWithOwner url }
+                        contributions(first: 100) { nodes { occurredAt commitCount } }
                       }
-                    }
-                    pullRequestReviewContributions(first: 200) {
-                      nodes {
-                        occurredAt
-                        pullRequest { number url repository { nameWithOwner url } }
-                      }
-                    }
-                    issueContributions(first: 200) {
-                      nodes {
-                        occurredAt
-                        issue { number url state repository { nameWithOwner url } }
-                      }
-                    }
-                  }
-                  starredRepositories(first: 100, orderBy:{field: STARRED_AT, direction: DESC}) {
-                    edges {
-                      starredAt
-                      node { nameWithOwner url }
-                    }
-                  }
-                  repositories(ownerAffiliations: OWNER, first: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
-                    nodes {
-                      nameWithOwner
-                      url
-                      isFork
-                      createdAt
                     }
                   }
                 }
-              }
-            `;
+              `;
+              const res = await github.graphql(q, { login, from: fromISO, to: toISO });
+              return (res.user?.contributionsCollection?.commitContributionsByRepository) || [];
+            }
 
-            const vars = { login: USER, from: from.toISOString(), to: now.toISOString() };
-            const res = await github.graphql(gql, vars);
-            const cc = res.user.contributionsCollection;
+            async function getPRContribs(login, fromISO, toISO) {
+              const q = `
+                query($login:String!, $from:DateTime!, $to:DateTime!, $after:String) {
+                  user(login:$login) {
+                    contributionsCollection(from:$from, to:$to) {
+                      pullRequestContributions(first: 100, after: $after) {
+                        pageInfo { hasNextPage endCursor }
+                        nodes {
+                          occurredAt
+                          pullRequest { number url mergedAt state repository { nameWithOwner url } }
+                        }
+                      }
+                    }
+                  }
+                }
+              `;
+              return pageQuery(
+                q,
+                { login, from: from.toISOString(), to: now.toISOString() },
+                (res) => {
+                  const conn = res.user.contributionsCollection.pullRequestContributions;
+                  return { page: conn.nodes, pageInfo: conn.pageInfo };
+                }
+              );
+            }
 
-            // Commits (sum per repo, latest occurrence)
-            for (const r of (cc.commitContributionsByRepository || [])) {
+            async function getReviewContribs(login, fromISO, toISO) {
+              const q = `
+                query($login:String!, $from:DateTime!, $to:DateTime!, $after:String) {
+                  user(login:$login) {
+                    contributionsCollection(from:$from, to:$to) {
+                      pullRequestReviewContributions(first: 100, after: $after) {
+                        pageInfo { hasNextPage endCursor }
+                        nodes {
+                          occurredAt
+                          pullRequest { number url repository { nameWithOwner url } }
+                        }
+                      }
+                    }
+                  }
+                }
+              `;
+              return pageQuery(
+                q,
+                { login, from: from.toISOString(), to: now.toISOString() },
+                (res) => {
+                  const conn = res.user.contributionsCollection.pullRequestReviewContributions;
+                  return { page: conn.nodes, pageInfo: conn.pageInfo };
+                }
+              );
+            }
+
+            async function getIssueContribs(login, fromISO, toISO) {
+              const q = `
+                query($login:String!, $from:DateTime!, $to:DateTime!, $after:String) {
+                  user(login:$login) {
+                    contributionsCollection(from:$from, to:$to) {
+                      issueContributions(first: 100, after: $after) {
+                        pageInfo { hasNextPage endCursor }
+                        nodes {
+                          occurredAt
+                          issue { number url state repository { nameWithOwner url } }
+                        }
+                      }
+                    }
+                  }
+                }
+              `;
+              return pageQuery(
+                q,
+                { login, from: from.toISOString(), to: now.toISOString() },
+                (res) => {
+                  const conn = res.user.contributionsCollection.issueContributions;
+                  return { page: conn.nodes, pageInfo: conn.pageInfo };
+                }
+              );
+            }
+
+            async function getStars(login) {
+              const q = `
+                query($login:String!, $after:String) {
+                  user(login:$login) {
+                    starredRepositories(first: 100, orderBy:{field: STARRED_AT, direction: DESC}, after: $after) {
+                      pageInfo { hasNextPage endCursor }
+                      edges { starredAt node { nameWithOwner url } }
+                    }
+                  }
+                }
+              `;
+              return pageQuery(
+                q,
+                { login },
+                (res) => {
+                  const conn = res.user.starredRepositories;
+                  return { page: conn.edges, pageInfo: conn.pageInfo };
+                }
+              );
+            }
+
+            async function getCreatedRepos(login) {
+              const q = `
+                query($login:String!, $after:String) {
+                  user(login:$login) {
+                    repositories(ownerAffiliations: OWNER, first: 100, orderBy: {field: CREATED_AT, direction: DESC}, after: $after) {
+                      pageInfo { hasNextPage endCursor }
+                      nodes { nameWithOwner url isFork createdAt }
+                    }
+                  }
+                }
+              `;
+              return pageQuery(
+                q,
+                { login },
+                (res) => {
+                  const conn = res.user.repositories;
+                  return { page: conn.nodes, pageInfo: conn.pageInfo };
+                }
+              );
+            }
+
+            // ===== Fetch via GraphQL =====
+            const fromISO = from.toISOString();
+            const toISO = now.toISOString();
+
+            const commitRepos = await getCommits(USER, fromISO, toISO);
+            const prNodes     = await getPRContribs(USER, fromISO, toISO);
+            const reviewNodes = await getReviewContribs(USER, fromISO, toISO);
+            const issueNodes  = await getIssueContribs(USER, fromISO, toISO);
+            const starEdges   = await getStars(USER);
+            const createdRepos= await getCreatedRepos(USER);
+
+            // ---- Commits: sum per repo and take latest date
+            for (const r of commitRepos) {
               const full = r.repository && r.repository.nameWithOwner;
               const url  = r.repository && r.repository.url;
               let total = 0, latestAt = null;
-              for (const n of (r.contributions && r.contributions.nodes) || []) {
+              for (const n of (r.contributions?.nodes || [])) {
                 if (!within(n.occurredAt)) continue;
                 total += (n.commitCount || 0);
                 if (!latestAt || new Date(n.occurredAt) > new Date(latestAt)) latestAt = n.occurredAt;
@@ -116,8 +229,8 @@ jobs:
               }
             }
 
-            // PRs
-            for (const n of (cc.pullRequestContributions && cc.pullRequestContributions.nodes) || []) {
+            // ---- PRs
+            for (const n of prNodes) {
               if (!within(n.occurredAt)) continue;
               const pr = n.pullRequest; if (!pr) continue;
               const full = pr.repository && pr.repository.nameWithOwner;
@@ -131,8 +244,8 @@ jobs:
               }
             }
 
-            // Reviews
-            for (const n of (cc.pullRequestReviewContributions && cc.pullRequestReviewContributions.nodes) || []) {
+            // ---- Reviews
+            for (const n of reviewNodes) {
               if (!within(n.occurredAt)) continue;
               const pr = n.pullRequest; if (!pr) continue;
               const full = pr.repository && pr.repository.nameWithOwner;
@@ -143,8 +256,8 @@ jobs:
               }
             }
 
-            // Issues
-            for (const n of (cc.issueContributions && cc.issueContributions.nodes) || []) {
+            // ---- Issues
+            for (const n of issueNodes) {
               if (!within(n.occurredAt)) continue;
               const is = n.issue; if (!is) continue;
               const full = is.repository && is.repository.nameWithOwner;
@@ -156,18 +269,18 @@ jobs:
               }
             }
 
-            // Created repositories (owner), including forks; filter by createdAt
-            for (const r of (res.user.repositories && res.user.repositories.nodes) || []) {
-              if (!r || !r.createdAt || !within(r.createdAt)) continue;
+            // ---- Created repos (incl. forks) filtered by createdAt window
+            for (const r of createdRepos) {
+              if (!r?.createdAt || !within(r.createdAt)) continue;
               const full = r.nameWithOwner;
               const url  = r.url;
               const suffix = r.isFork ? ' (fork)' : '';
               items.push({ date: r.createdAt, key: 'repo-create:' + full, text: '📦 Created repository ' + repoLink(full, url) + suffix });
             }
 
-            // Stars (GraphQL — has starredAt)
-            for (const e of (res.user.starredRepositories && res.user.starredRepositories.edges) || []) {
-              if (!e || !e.starredAt || !within(e.starredAt)) continue;
+            // ---- Stars (GraphQL)
+            for (const e of starEdges) {
+              if (!e?.starredAt || !within(e.starredAt)) continue;
               const node = e.node || {};
               const full = node.nameWithOwner;
               const url  = node.url;
@@ -176,7 +289,7 @@ jobs:
               }
             }
 
-            // ===== REST: public events for everything else (forks, publicized, deletes, wiki, members, gists, releases, etc.) =====
+            // ===== REST: public events for everything else =====
             async function getEvents(username, pages) {
               const out = [];
               for (let page = 1; page <= pages; page++) {
@@ -272,7 +385,7 @@ jobs:
                   break;
                 }
                 default:
-                  // Skip Push/PR/Issues here to avoid dupes (GraphQL already covers your contributions)
+                  // Skip Push/PR/Issues here to avoid dupes (GraphQL covers your contributions)
                   break;
               }
             }
