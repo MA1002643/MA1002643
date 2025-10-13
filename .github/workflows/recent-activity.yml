@@ -22,7 +22,8 @@ jobs:
       - name: "Build recent-activity block and inject into README (Hybrid: GraphQL + REST)"
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.ACTIVITY_GH_TOKEN }}
+          # Use PAT if provided; otherwise use default workflow token
+          github-token: ${{ secrets.ACTIVITY_GH_TOKEN || github.token }}
           script: |
             const fs = require('fs');
 
