@@ -359,17 +359,12 @@ Last Updated: Friday, October 17th, 2025, 9:31:07 AM
 <!-- LANG-TIME:START -->
 
 ```text
-JavaScript    1 hrs 17 mins   █████████████░░░░░░░░░░░░   53.18 %
-YAML          50 mins         ████████░░░░░░░░░░░░░░░░░   34.65 %
-HTML          12 mins         ██░░░░░░░░░░░░░░░░░░░░░░░   08.46 %
-JSON          3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.72 %
-Markdown      1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.74 %
-CSS           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.17 %
-C#            0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.06 %
-XML           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.01 %
+JavaScript    39 mins         ████████████░░░░░░░░░░░░░   50.64 %
+YAML          37 mins         ████████████░░░░░░░░░░░░░   48.54 %
+Markdown      0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.81 %
 ```
 
-Last updated on 2025-10-17 (Displaying Data from past 7 days)
+Last updated on 2025-10-18 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
