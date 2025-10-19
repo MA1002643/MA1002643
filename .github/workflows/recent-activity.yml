@@ -1,4 +1,4 @@
-name: Update recent activity (hybrid)
+name: Update recent activity
 
 on:
   workflow_dispatch:
@@ -19,22 +19,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: "Build recent-activity block and inject into README (Hybrid: GraphQL + REST)"
+      - name: "Build recent-activity block and inject into README (Hybrid: GraphQL + REST + Cache)"
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.ACTIVITY_GH_TOKEN || github.token }}
           script: |
             const fs = require('fs');
+            const path = require('path');
 
             // ---- settings ----
             const USER = 'MA1002643'; // change if needed
             const DAYS = 30;
             const MAX_LINES = 30;
             const READ_ME = 'README.md';
+
             const ACT_START = '<!--RECENT_ACTIVITY:start-->';
             const ACT_END   = '<!--RECENT_ACTIVITY:end-->';
             const TS_START  = '<!--RECENT_ACTIVITY:last_update-->';
             const TS_END    = '<!--RECENT_ACTIVITY:last_update_end-->';
+
+            const CACHE_PATH = '.github/activity-cache.json';
 
             // ---- time window ----
             const now = new Date();
@@ -44,13 +48,14 @@ jobs:
               return dt >= from && dt <= now;
             };
 
-            // ---- helpers ----
-            const repoLink  = (full, url) => `[${full}](${url || ('https://github.com/' + full)})`;
-            const prLink    = (full, n, url) => `[${full}#${n}](${url})`;
-            const issueLink = (full, n, url) => `[${full}#${n}](${url})`;
+            // ---- tiny helpers ----
             const items = [];
+            const addItem = (date, key, text) => {
+              if (!date || !key || !text) return;
+              items.push({ date, key, text });
+            };
 
-            // ===== GraphQL pagination helpers =====
+            // ===== GraphQL pagination helper =====
             async function pageQuery(query, vars, pickPage) {
               let after = null;
               const nodes = [];
@@ -65,24 +70,7 @@ jobs:
               return nodes;
             }
 
-            // Commits by repository (no pagination object for repos; limit to 100 repos)
-            async function getCommits(login, fromISO, toISO) {
-              const q = `
-                query($login:String!, $from:DateTime!, $to:DateTime!) {
-                  user(login:$login) {
-                    contributionsCollection(from:$from, to:$to) {
-                      commitContributionsByRepository(maxRepositories: 100) {
-                        repository { nameWithOwner url }
-                        contributions(first: 100) { nodes { occurredAt commitCount } }
-                      }
-                    }
-                  }
-                }
-              `;
-              const res = await github.graphql(q, { login, from: fromISO, to: toISO });
-              return (res.user?.contributionsCollection?.commitContributionsByRepository) || [];
-            }
-
+            // ===== GraphQL: PR/Review/Issue contributions (your actions) =====
             async function getPRContribs(login, fromISO, toISO) {
               const q = `
                 query($login:String!, $from:DateTime!, $to:DateTime!, $after:String) {
@@ -92,7 +80,7 @@ jobs:
                         pageInfo { hasNextPage endCursor }
                         nodes {
                           occurredAt
-                          pullRequest { number url mergedAt state repository { nameWithOwner url } }
+                          pullRequest { number state mergedAt repository { nameWithOwner } }
                         }
                       }
                     }
@@ -101,7 +89,7 @@ jobs:
               `;
               return pageQuery(
                 q,
-                { login, from: from.toISOString(), to: now.toISOString() },
+                { login, from: fromISO, to: toISO },
                 (res) => {
                   const conn = res.user.contributionsCollection.pullRequestContributions;
                   return { page: conn.nodes, pageInfo: conn.pageInfo };
@@ -118,7 +106,7 @@ jobs:
                         pageInfo { hasNextPage endCursor }
                         nodes {
                           occurredAt
-                          pullRequest { number url repository { nameWithOwner url } }
+                          pullRequest { number repository { nameWithOwner } }
                         }
                       }
                     }
@@ -127,7 +115,7 @@ jobs:
               `;
               return pageQuery(
                 q,
-                { login, from: from.toISOString(), to: now.toISOString() },
+                { login, from: fromISO, to: toISO },
                 (res) => {
                   const conn = res.user.contributionsCollection.pullRequestReviewContributions;
                   return { page: conn.nodes, pageInfo: conn.pageInfo };
@@ -144,7 +132,7 @@ jobs:
                         pageInfo { hasNextPage endCursor }
                         nodes {
                           occurredAt
-                          issue { number url state repository { nameWithOwner url } }
+                          issue { number state repository { nameWithOwner } }
                         }
                       }
                     }
@@ -153,7 +141,7 @@ jobs:
               `;
               return pageQuery(
                 q,
-                { login, from: from.toISOString(), to: now.toISOString() },
+                { login, from: fromISO, to: toISO },
                 (res) => {
                   const conn = res.user.contributionsCollection.issueContributions;
                   return { page: conn.nodes, pageInfo: conn.pageInfo };
@@ -161,34 +149,27 @@ jobs:
               );
             }
 
-            async function getStars(login) {
+            // ===== GraphQL: Repos (for description/topics & created repos) =====
+            async function getOwnerRepos(login) {
               const q = `
                 query($login:String!, $after:String) {
                   user(login:$login) {
-                    starredRepositories(first: 100, orderBy:{field: STARRED_AT, direction: DESC}, after: $after) {
+                    repositories(ownerAffiliations: OWNER, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}, after: $after) {
                       pageInfo { hasNextPage endCursor }
-                      edges { starredAt node { nameWithOwner url } }
-                    }
-                  }
-                }
-              `;
-              return pageQuery(
-                q,
-                { login },
-                (res) => {
-                  const conn = res.user.starredRepositories;
-                  return { page: conn.edges, pageInfo: conn.pageInfo };
-                }
-              );
-            }
-
-            async function getCreatedRepos(login) {
-              const q = `
-                query($login:String!, $after:String) {
-                  user(login:$login) {
-                    repositories(ownerAffiliations: OWNER, first: 100, orderBy: {field: CREATED_AT, direction: DESC}, after: $after) {
-                      pageInfo { hasNextPage endCursor }
-                      nodes { nameWithOwner url isFork createdAt }
+                      nodes {
+                        nameWithOwner
+                        name
+                        owner { login }
+                        url
+                        isFork
+                        isPrivate
+                        createdAt
+                        updatedAt
+                        description
+                        repositoryTopics(first: 100) {
+                          nodes { topic { name } }
+                        }
+                      }
                     }
                   }
                 }
@@ -203,96 +184,10 @@ jobs:
               );
             }
 
-            // ===== Fetch via GraphQL =====
-            const fromISO = from.toISOString();
-            const toISO = now.toISOString();
-
-            const commitRepos = await getCommits(USER, fromISO, toISO);
-            const prNodes     = await getPRContribs(USER, fromISO, toISO);
-            const reviewNodes = await getReviewContribs(USER, fromISO, toISO);
-            const issueNodes  = await getIssueContribs(USER, fromISO, toISO);
-            const starEdges   = await getStars(USER);
-            const createdRepos= await getCreatedRepos(USER);
-
-            // ---- Commits: sum per repo and take latest date
-            for (const r of commitRepos) {
-              const full = r.repository && r.repository.nameWithOwner;
-              const url  = r.repository && r.repository.url;
-              let total = 0, latestAt = null;
-              for (const n of (r.contributions?.nodes || [])) {
-                if (!within(n.occurredAt)) continue;
-                total += (n.commitCount || 0);
-                if (!latestAt || new Date(n.occurredAt) > new Date(latestAt)) latestAt = n.occurredAt;
-              }
-              if (full && total > 0) {
-                items.push({ date: latestAt, key: 'commit:' + full, text: '⬆️ Pushed ' + total + ' commit(s) to ' + repoLink(full, url) });
-              }
-            }
-
-            // ---- PRs
-            for (const n of prNodes) {
-              if (!within(n.occurredAt)) continue;
-              const pr = n.pullRequest; if (!pr) continue;
-              const full = pr.repository && pr.repository.nameWithOwner;
-              const url  = pr.url;
-              const num  = pr.number;
-              const merged = !!pr.mergedAt;
-              const state  = pr.state;
-              const label  = merged ? '🎉 Merged' : (state === 'OPEN' ? '✨ Opened' : '❌ Closed');
-              if (full && url && num != null) {
-                items.push({ date: n.occurredAt, key: 'pr:' + full + '#' + num + ':' + label, text: label + ' ' + prLink(full, num, url) });
-              }
-            }
-
-            // ---- Reviews
-            for (const n of reviewNodes) {
-              if (!within(n.occurredAt)) continue;
-              const pr = n.pullRequest; if (!pr) continue;
-              const full = pr.repository && pr.repository.nameWithOwner;
-              const url  = pr.url;
-              const num  = pr.number;
-              if (full && url && num != null) {
-                items.push({ date: n.occurredAt, key: 'review:' + full + '#' + num, text: '🔍 Reviewed ' + prLink(full, num, url) });
-              }
-            }
-
-            // ---- Issues
-            for (const n of issueNodes) {
-              if (!within(n.occurredAt)) continue;
-              const is = n.issue; if (!is) continue;
-              const full = is.repository && is.repository.nameWithOwner;
-              const url  = is.url;
-              const num  = is.number;
-              const label = is.state === 'OPEN' ? '📝 Opened' : (is.state === 'CLOSED' ? '✔️ Closed' : '🔧 Updated');
-              if (full && url && num != null) {
-                items.push({ date: n.occurredAt, key: 'issue:' + full + '#' + num + ':' + label, text: label + ' ' + issueLink(full, num, url) });
-              }
-            }
-
-            // ---- Created repos (incl. forks) filtered by createdAt window
-            for (const r of createdRepos) {
-              if (!r?.createdAt || !within(r.createdAt)) continue;
-              const full = r.nameWithOwner;
-              const url  = r.url;
-              const suffix = r.isFork ? ' (fork)' : '';
-              items.push({ date: r.createdAt, key: 'repo-create:' + full, text: '📦 Created repository ' + repoLink(full, url) + suffix });
-            }
-
-            // ---- Stars (GraphQL)
-            for (const e of starEdges) {
-              if (!e?.starredAt || !within(e.starredAt)) continue;
-              const node = e.node || {};
-              const full = node.nameWithOwner;
-              const url  = node.url;
-              if (full && url) {
-                items.push({ date: e.starredAt, key: 'star:' + full + ':' + e.starredAt, text: '⭐ Starred ' + repoLink(full, url) });
-              }
-            }
-
-            // ===== REST: public events for everything else =====
-            async function getEvents(username, pages) {
+            // ===== REST: public events (to get PushEvent commit counts, stars, forks, etc.) =====
+            async function getPublicEvents(username, maxPages = 10) {
               const out = [];
-              for (let page = 1; page <= pages; page++) {
+              for (let page = 1; page <= maxPages; page++) {
                 const { data } = await github.request('GET /users/{username}/events/public', {
                   username, per_page: 100, page
                 });
@@ -302,108 +197,214 @@ jobs:
               return out;
             }
 
-            const events = await getEvents(USER, 10);
+            // ===== Load cache (descriptions & topics) =====
+            let cache = { repos: {} };
+            try {
+              if (fs.existsSync(CACHE_PATH)) {
+                cache = JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'));
+              }
+            } catch (e) {
+              core.warning('Could not read cache: ' + e.message);
+              cache = { repos: {} };
+            }
 
+            // ===== Gather data =====
+            const fromISO = from.toISOString();
+            const toISO = now.toISOString();
+
+            const [prNodes, reviewNodes, issueNodes, repos, events] = await Promise.all([
+              getPRContribs(USER, fromISO, toISO),
+              getReviewContribs(USER, fromISO, toISO),
+              getIssueContribs(USER, fromISO, toISO),
+              getOwnerRepos(USER),
+              getPublicEvents(USER, 10),
+            ]);
+
+            // ---- PRs (plain style)
+            for (const n of prNodes) {
+              if (!within(n.occurredAt)) continue;
+              const pr = n.pullRequest;
+              if (!pr) continue;
+              const repo = pr.repository?.nameWithOwner;
+              const num = pr.number;
+              const merged = !!pr.mergedAt;
+              const state = pr.state;
+              let label;
+              if (merged) label = '🎉 Merged PR';
+              else if (state === 'OPEN') label = '💪 Opened PR';
+              else label = '❌ Closed PR';
+              if (repo && num != null) {
+                addItem(n.occurredAt, `pr:${repo}#${num}:${label}`, `${label} #${num} in ${repo}`);
+              }
+            }
+
+            // ---- Reviews
+            for (const n of reviewNodes) {
+              if (!within(n.occurredAt)) continue;
+              const repo = n.pullRequest?.repository?.nameWithOwner;
+              const num = n.pullRequest?.number;
+              if (repo && num != null) {
+                addItem(n.occurredAt, `review:${repo}#${num}`, `🔍 Reviewed PR #${num} in ${repo}`);
+              }
+            }
+
+            // ---- Issues
+            for (const n of issueNodes) {
+              if (!within(n.occurredAt)) continue;
+              const is = n.issue;
+              if (!is) continue;
+              const repo = is.repository?.nameWithOwner;
+              const num = is.number;
+              const label = is.state === 'OPEN' ? '📝 Opened issue' : (is.state === 'CLOSED' ? '✔️ Closed issue' : '🔧 Updated issue');
+              if (repo && num != null) {
+                addItem(n.occurredAt, `issue:${repo}#${num}:${label}`, `${label} #${num} in ${repo}`);
+              }
+            }
+
+            // ---- REST events: Push (commit totals), stars, forks, releases, etc.
+            // Accumulate commits by repo using PushEvent payload.size
+            const pushAgg = new Map(); // repo -> {count, latest}
             for (const ev of events) {
-              const t = ev.type;
               const when = ev.created_at;
               if (!within(when)) continue;
+              const full = ev.repo?.name;
 
-              const full = ev.repo && ev.repo.name;
-              const add = (key, text) => items.push({ date: when, key, text });
-
-              switch (t) {
-                case 'ForkEvent': {
-                  const dst = ev.payload && ev.payload.forkee && ev.payload.forkee.full_name;
-                  const left = '🔱 Forked ' + (full ? repoLink(full) : 'a repository');
-                  const right = dst ? (' → [' + dst + '](https://github.com/' + dst + ')') : '';
-                  add('fork:' + full + ':' + (dst || when), left + right);
+              switch (ev.type) {
+                case 'PushEvent': {
+                  const sz = (ev.payload && typeof ev.payload.size === 'number') ? ev.payload.size : 0;
+                  if (!full || sz <= 0) break;
+                  const cur = pushAgg.get(full) || { count: 0, latest: when };
+                  cur.count += sz;
+                  if (new Date(when) > new Date(cur.latest)) cur.latest = when;
+                  pushAgg.set(full, cur);
                   break;
                 }
                 case 'WatchEvent': {
-                  if (full) add('watch:' + full + ':' + when, '⭐ Starred ' + repoLink(full));
+                  if (full) addItem(when, `watch:${full}:${when}`, `⭐ Starred ${full}`);
+                  break;
+                }
+                case 'ForkEvent': {
+                  const dst = ev.payload?.forkee?.full_name;
+                  const left = `🔱 Forked ${full || 'a repository'}`;
+                  const right = dst ? ` → ${dst}` : '';
+                  addItem(when, `fork:${full}:${dst || when}`, left + right);
                   break;
                 }
                 case 'CreateEvent': {
-                  const payload = ev.payload || {};
-                  const ref_type = payload.ref_type;
-                  const ref = payload.ref;
-                  if (ref_type === 'repository') {
-                    if (full) add('create-repo:' + full, '📦 Created repository ' + repoLink(full));
-                  } else if (ref_type && ref) {
-                    if (full) add('create:' + full + ':' + ref_type + ':' + ref, '📦 Created ' + ref_type + ' `' + ref + '` in ' + repoLink(full));
+                  const rt = ev.payload?.ref_type;
+                  const ref = ev.payload?.ref;
+                  if (rt === 'repository' && full) {
+                    addItem(when, `create-repo:${full}`, `📦 Created repository ${full}`);
+                  } else if (rt && ref && full) {
+                    addItem(when, `create:${full}:${rt}:${ref}`, `📦 Created ${rt} \`${ref}\` in ${full}`);
                   }
                   break;
                 }
                 case 'DeleteEvent': {
-                  const payload = ev.payload || {};
-                  const ref_type = payload.ref_type;
-                  const ref = payload.ref;
-                  if (full && ref_type && ref) add('delete:' + full + ':' + ref_type + ':' + ref, '🗑️ Deleted ' + ref_type + ' `' + ref + '` in ' + repoLink(full));
+                  const rt = ev.payload?.ref_type;
+                  const ref = ev.payload?.ref;
+                  if (full && rt && ref) addItem(when, `delete:${full}:${rt}:${ref}`, `🗑️ Deleted ${rt} \`${ref}\` in ${full}`);
                   break;
                 }
                 case 'PublicEvent': {
-                  if (full) add('public:' + full, '🌐 Made ' + repoLink(full) + ' public');
+                  if (full) addItem(when, `public:${full}`, `🌐 Made ${full} public`);
                   break;
                 }
                 case 'MemberEvent': {
-                  const m = ev.payload && ev.payload.member && ev.payload.member.login;
-                  if (full) add('member:' + full + ':' + (m || when), '👥 Added ' + (m ? ('@' + m + ' ') : '') + 'to ' + repoLink(full));
+                  const m = ev.payload?.member?.login;
+                  if (full) addItem(when, `member:${full}:${m || when}`, `👥 Added ${m ? '@'+m+' ' : ''}to ${full}`);
                   break;
                 }
                 case 'GollumEvent': {
-                  if (full) add('wiki:' + full + ':' + when, '📝 Updated wiki in ' + repoLink(full));
+                  if (full) addItem(when, `wiki:${full}:${when}`, `📝 Updated wiki in ${full}`);
                   break;
                 }
                 case 'CommitCommentEvent': {
-                  if (full) add('commitcomment:' + full + ':' + when, '🗣️ Commented on a commit in ' + repoLink(full));
+                  if (full) addItem(when, `commitcomment:${full}:${when}`, `🗣️ Commented on a commit in ${full}`);
                   break;
                 }
                 case 'IssueCommentEvent': {
-                  const n = ev.payload && ev.payload.issue && ev.payload.issue.number;
-                  if (full && n != null) {
-                    const url = 'https://github.com/' + full + '/issues/' + n;
-                    add('issuecomment:' + full + '#' + n + ':' + when, '💬 Commented on ' + issueLink(full, n, url));
-                  }
-                  break;
-                }
-                case 'FollowEvent': {
-                  const tgt = ev.payload && ev.payload.target && ev.payload.target.login;
-                  if (tgt) items.push({ date: when, key: 'follow:' + tgt + ':' + when, text: '➕ Followed @' + tgt });
+                  const n = ev.payload?.issue?.number;
+                  if (full && n != null) addItem(when, `issuecomment:${full}#${n}:${when}`, `💬 Commented on issue #${n} in ${full}`);
                   break;
                 }
                 case 'GistEvent': {
-                  const a = (ev.payload && ev.payload.action) || 'updated';
-                  const gistId = ev.payload && ev.payload.gist && ev.payload.gist.id;
+                  const a = ev.payload?.action || 'updated';
+                  const gistId = ev.payload?.gist?.id;
                   const label = a === 'create' ? 'Created' : 'Updated';
-                  add('gist:' + a + ':' + (gistId || when), '📄 ' + label + ' a gist' + (gistId ? (' (' + gistId + ')') : ''));
+                  addItem(when, `gist:${a}:${gistId || when}`, `📄 ${label} a gist${gistId ? ' ('+gistId+')' : ''}`);
                   break;
                 }
                 case 'ReleaseEvent': {
-                  const tag = ev.payload && ev.payload.release && ev.payload.release.tag_name;
-                  if (full && tag) add('release:' + full + ':' + tag + ':' + when, '🏷️ Released `' + tag + '` in ' + repoLink(full));
+                  const tag = ev.payload?.release?.tag_name;
+                  if (full && tag) addItem(when, `release:${full}:${tag}:${when}`, `🏷️ Released \`${tag}\` in ${full}`);
                   break;
                 }
                 default:
-                  // Skip Push/PR/Issues here to avoid dupes (GraphQL covers your contributions)
                   break;
               }
             }
+            // Emit commit totals
+            for (const [repo, agg] of pushAgg.entries()) {
+              addItem(agg.latest, `push:${repo}`, `⬆️ Pushed ${agg.count} commit(s) to ${repo}`);
+            }
 
-            // ---- dedupe by key, prefer newest ----
+            // ---- Created repos via GraphQL (covers private creations you own)
+            for (const r of repos) {
+              if (r?.createdAt && within(r.createdAt)) {
+                const full = r.nameWithOwner;
+                const suffix = r.isFork ? ' (fork)' : '';
+                addItem(r.createdAt, `repo-create:${full}`, `📦 Created repository ${full}${suffix}`);
+              }
+            }
+
+            // ---- Description & topics changes (compare to cache)
+            function arrEq(a, b) {
+              const A = (a || []).slice().sort();
+              const B = (b || []).slice().sort();
+              if (A.length !== B.length) return false;
+              for (let i=0;i<A.length;i++) if (A[i] !== B[i]) return false;
+              return true;
+            }
+
+            const newCache = { repos: {} };
+
+            for (const r of repos) {
+              const full = r.nameWithOwner;
+              const updatedAt = r.updatedAt;
+              const description = r.description || '';
+              const topics = (r.repositoryTopics?.nodes || []).map(n => n?.topic?.name).filter(Boolean);
+
+              // previous snapshot
+              const prev = cache.repos[full] || { description: null, topics: null, updatedAt: null };
+
+              // Only announce if the repo update is within the window and a field changed
+              if (within(updatedAt)) {
+                if (prev.description !== null && prev.description !== description) {
+                  addItem(updatedAt, `desc-update:${full}:${updatedAt}`, `📝 Updated description in ${full}`);
+                }
+                if (prev.topics !== null && !arrEq(prev.topics, topics)) {
+                  addItem(updatedAt, `topics-update:${full}:${updatedAt}`, `🏷️ Updated topics in ${full}`);
+                }
+              }
+
+              // Always refresh cache snapshot
+              newCache.repos[full] = { description, topics, updatedAt };
+            }
+
+            // ---- de-duplicate by key (keep newest)
             const map = new Map();
             for (const it of items) {
-              if (!it || !it.key || !it.date || !it.text) continue;
               const existing = map.get(it.key);
               if (!existing || new Date(it.date) > new Date(existing.date)) map.set(it.key, it);
             }
             const unique = Array.from(map.values());
 
-            // ---- sort and limit ----
+            // ---- sort & format
             unique.sort((a,b) => new Date(b.date) - new Date(a.date));
-            const lines = unique.slice(0, MAX_LINES).map(i => i.text + '<br>');
+            const lines = unique.slice(0, MAX_LINES).map(i => `- ${i.text}`);
 
-            // ---- timestamp (Europe/London) ----
+            // ---- timestamp (Europe/London)
             const ordinal = (n) => {
               const s = ['th','st','nd','rd'], v = n % 100;
               return n + (s[(v - 20) % 10] || s[v] || s[0]);
@@ -438,16 +439,22 @@ jobs:
               core.warning('Timestamp markers not found; skipping last-updated line.');
             }
 
+            // ---- write outputs ----
             if (updated !== md) {
-              updated = updated.replace(/^\s*\\n\s*$/gm, '');
               fs.writeFileSync(READ_ME, updated, 'utf8');
-              core.notice('README updated with hybrid recent activity.');
+              core.notice('README updated with recent activity.');
             } else {
               core.notice('No README changes were necessary.');
             }
+
+            // persist cache
+            fs.mkdirSync(path.dirname(CACHE_PATH), { recursive: true });
+            fs.writeFileSync(CACHE_PATH, JSON.stringify(newCache, null, 2), 'utf8');
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "docs: update recent activity"
-          file_pattern: README.md
+          file_pattern: |
+            README.md
+            .github/activity-cache.json
