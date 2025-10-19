@@ -364,12 +364,12 @@ Last Updated: Sunday, October 19th, 2025, 4:33:07 am
 <!-- LANG-TIME:START -->
 
 ```text
-JavaScript    39 mins         ████████████░░░░░░░░░░░░░   50.64 %
-YAML          37 mins         ████████████░░░░░░░░░░░░░   48.54 %
-Markdown      0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.81 %
+YAML          39 mins         ████████████░░░░░░░░░░░░░   49.37 %
+JavaScript    39 mins         ████████████░░░░░░░░░░░░░   48.89 %
+Markdown      1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.74 %
 ```
 
-Last updated on 2025-10-18 (Displaying Data from past 7 days)
+Last updated on 2025-10-19 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
