@@ -364,9 +364,9 @@ Last Updated: Sunday, October 19th, 2025, 4:33:07 am
 <!-- LANG-TIME:START -->
 
 ```text
-YAML          39 mins         ████████████░░░░░░░░░░░░░   49.37 %
-JavaScript    39 mins         ████████████░░░░░░░░░░░░░   48.89 %
-Markdown      1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.74 %
+YAML          39 mins         ███████████░░░░░░░░░░░░░░   45.72 %
+JavaScript    39 mins         ███████████░░░░░░░░░░░░░░   45.28 %
+Markdown      7 mins          ██░░░░░░░░░░░░░░░░░░░░░░░   09.01 %
 ```
 
 Last updated on 2025-10-19 (Displaying Data from past 7 days)
