@@ -359,12 +359,13 @@ Last Updated: Sunday, October 19th, 2025, 9:26:18 AM
 <!-- LANG-TIME:START -->
 
 ```text
-YAML          39 mins         ███████████░░░░░░░░░░░░░░   45.72 %
-JavaScript    39 mins         ███████████░░░░░░░░░░░░░░   45.28 %
-Markdown      7 mins          ██░░░░░░░░░░░░░░░░░░░░░░░   09.01 %
+Markdown      3 hrs 40 mins   ████████████████░░░░░░░░░   64.32 %
+YAML          1 hrs 19 mins   █████░░░░░░░░░░░░░░░░░░░░   23.07 %
+JavaScript    39 mins         ██░░░░░░░░░░░░░░░░░░░░░░░   11.49 %
+Git           3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.11 %
 ```
 
-Last updated on 2025-10-19 (Displaying Data from past 7 days)
+Last updated on 2025-10-20 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
