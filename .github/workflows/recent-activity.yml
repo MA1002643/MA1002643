@@ -271,10 +271,8 @@ jobs:
 
               switch (ev.type) {
                 case 'PushEvent': {
-                  const sz = (ev.payload && typeof ev.payload.size === 'number') ? ev.payload.size : 0;
-                  if (!full || sz <= 0) break;
+                  if (!full) break;
                   const cur = pushAgg.get(full) || { count: 0, latest: when };
-                  cur.count += sz;
                   if (new Date(when) > new Date(cur.latest)) cur.latest = when;
                   pushAgg.set(full, cur);
                   break;
