@@ -185,14 +185,29 @@ jobs:
             }
 
             // ===== REST: public events (to get PushEvent commit counts, stars, forks, etc.) =====
-            async function getPublicEvents(username, maxPages = 10) {
+            async function getPublicEvents(username, maxPages = 3) {
+              // GitHub caps this resource to the most recent ~300 events.
+              // With per_page=100, safely limit to <= 3 pages to avoid 422 errors.
+              const SAFE_MAX_PAGES = 3;
+              const limit = Math.min(maxPages || SAFE_MAX_PAGES, SAFE_MAX_PAGES);
               const out = [];
-              for (let page = 1; page <= maxPages; page++) {
-                const { data } = await github.request('GET /users/{username}/events/public', {
-                  username, per_page: 100, page
-                });
-                if (!data || !data.length) break;
-                out.push(...data);
+              for (let page = 1; page <= limit; page++) {
+                try {
+                  const { data } = await github.request('GET /users/{username}/events/public', {
+                    username, per_page: 100, page
+                  });
+                  if (!data || !data.length) break;
+                  out.push(...data);
+                } catch (err) {
+                  if (err?.status === 422) {
+                    core.warning(`Public events pagination capped at page ${page}. Using events fetched so far.`);
+                    break;
+                  }
+                  throw err; // bubble up other errors
+                }
+              }
+              if (limit < (maxPages || SAFE_MAX_PAGES)) {
+                core.notice('Using truncated public events due to GitHub pagination cap.');
               }
               return out;
             }
@@ -217,7 +232,7 @@ jobs:
               getReviewContribs(USER, fromISO, toISO),
               getIssueContribs(USER, fromISO, toISO),
               getOwnerRepos(USER),
-              getPublicEvents(USER, 10),
+              getPublicEvents(USER, 3), // cap at 3 pages (<= ~300 events)
             ]);
 
             // ---- PRs (plain style)
@@ -262,7 +277,6 @@ jobs:
             }
 
             // ---- REST events: Push (commit totals), stars, forks, releases, etc.
-            // Accumulate commits by repo using PushEvent payload.size
             const pushAgg = new Map(); // repo -> {count, latest}
             for (const ev of events) {
               const when = ev.created_at;
@@ -273,6 +287,7 @@ jobs:
                 case 'PushEvent': {
                   if (!full) break;
                   const cur = pushAgg.get(full) || { count: 0, latest: when };
+                  // Note: we summarize as a single line per repo; keep most recent timestamp
                   if (new Date(when) > new Date(cur.latest)) cur.latest = when;
                   pushAgg.set(full, cur);
                   break;
@@ -339,7 +354,7 @@ jobs:
                   break;
               }
             }
-            // Emit commit totals
+            // Emit push summaries per repo
             for (const [repo, agg] of pushAgg.entries()) {
               addItem(agg.latest, `push:${repo}`, `⬆️ Pushed to ${repo}`);
             }
