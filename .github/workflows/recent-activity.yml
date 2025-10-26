@@ -234,7 +234,7 @@ jobs:
               else if (state === 'OPEN') label = '💪 Opened PR';
               else label = '❌ Closed PR';
               if (repo && num != null) {
-                addItem(n.occurredAt, `pr:${repo}#${num}:${label}`, `${label} #${num} in ${repo}`);
+                addItem(n.occurredAt, `pr:${repo}#${num}:${label}`, `${label} in ${repo}`);
               }
             }
 
@@ -244,7 +244,7 @@ jobs:
               const repo = n.pullRequest?.repository?.nameWithOwner;
               const num = n.pullRequest?.number;
               if (repo && num != null) {
-                addItem(n.occurredAt, `review:${repo}#${num}`, `🔍 Reviewed PR #${num} in ${repo}`);
+                addItem(n.occurredAt, `review:${repo}#${num}`, `🔍 Reviewed PR in ${repo}`);
               }
             }
 
@@ -257,7 +257,7 @@ jobs:
               const num = is.number;
               const label = is.state === 'OPEN' ? '📝 Opened issue' : (is.state === 'CLOSED' ? '✔️ Closed issue' : '🔧 Updated issue');
               if (repo && num != null) {
-                addItem(n.occurredAt, `issue:${repo}#${num}:${label}`, `${label} #${num} in ${repo}`);
+                addItem(n.occurredAt, `issue:${repo}#${num}:${label}`, `${label} in ${repo}`);
               }
             }
 
@@ -285,9 +285,7 @@ jobs:
                 }
                 case 'ForkEvent': {
                   const dst = ev.payload?.forkee?.full_name;
-                  const left = `🔱 Forked ${full || 'a repository'}`;
-                  const right = dst ? ` → ${dst}` : '';
-                  addItem(when, `fork:${full}:${dst || when}`, left + right);
+                  addItem(when, `fork:${full}:${dst || when}`, `🔱 Forked ${full || 'repository'}`);
                   break;
                 }
                 case 'CreateEvent': {
@@ -296,14 +294,14 @@ jobs:
                   if (rt === 'repository' && full) {
                     addItem(when, `create-repo:${full}`, `📦 Created repository ${full}`);
                   } else if (rt && ref && full) {
-                    addItem(when, `create:${full}:${rt}:${ref}`, `📦 Created ${rt} \`${ref}\` in ${full}`);
+                    addItem(when, `create:${full}:${rt}:${ref}`, `📦 Created ${rt} in ${full}`);
                   }
                   break;
                 }
                 case 'DeleteEvent': {
                   const rt = ev.payload?.ref_type;
                   const ref = ev.payload?.ref;
-                  if (full && rt && ref) addItem(when, `delete:${full}:${rt}:${ref}`, `🗑️ Deleted ${rt} \`${ref}\` in ${full}`);
+                  if (full && rt && ref) addItem(when, `delete:${full}:${rt}:${ref}`, `🗑️ Deleted ${rt} in ${full}`);
                   break;
                 }
                 case 'PublicEvent': {
@@ -312,7 +310,7 @@ jobs:
                 }
                 case 'MemberEvent': {
                   const m = ev.payload?.member?.login;
-                  if (full) addItem(when, `member:${full}:${m || when}`, `👥 Added ${m ? '@'+m+' ' : ''}to ${full}`);
+                  if (full) addItem(when, `member:${full}:${m || when}`, `👥 Added member to ${full}`);
                   break;
                 }
                 case 'GollumEvent': {
@@ -325,19 +323,18 @@ jobs:
                 }
                 case 'IssueCommentEvent': {
                   const n = ev.payload?.issue?.number;
-                  if (full && n != null) addItem(when, `issuecomment:${full}#${n}:${when}`, `💬 Commented on issue #${n} in ${full}`);
+                  if (full && n != null) addItem(when, `issuecomment:${full}#${n}:${when}`, `💬 Commented on issue in ${full}`);
                   break;
                 }
                 case 'GistEvent': {
                   const a = ev.payload?.action || 'updated';
-                  const gistId = ev.payload?.gist?.id;
                   const label = a === 'create' ? 'Created' : 'Updated';
-                  addItem(when, `gist:${a}:${gistId || when}`, `📄 ${label} a gist${gistId ? ' ('+gistId+')' : ''}`);
+                  addItem(when, `gist:${a}:${when}`, `📄 ${label} a gist`);
                   break;
                 }
                 case 'ReleaseEvent': {
                   const tag = ev.payload?.release?.tag_name;
-                  if (full && tag) addItem(when, `release:${full}:${tag}:${when}`, `🏷️ Released \`${tag}\` in ${full}`);
+                  if (full && tag) addItem(when, `release:${full}:${tag}:${when}`, `🏷️ Released ${tag} in ${full}`);
                   break;
                 }
                 default:
@@ -346,7 +343,7 @@ jobs:
             }
             // Emit commit totals
             for (const [repo, agg] of pushAgg.entries()) {
-              addItem(agg.latest, `push:${repo}`, `⬆️ Pushed ${agg.count} commit(s) to ${repo}`);
+              addItem(agg.latest, `push:${repo}`, `⬆️ Pushed to ${repo}`);
             }
 
             // ---- Created repos via GraphQL (covers private creations you own)
@@ -402,7 +399,7 @@ jobs:
 
             // ---- sort & format
             unique.sort((a,b) => new Date(b.date) - new Date(a.date));
-            const lines = unique.slice(0, MAX_LINES).map(i => `- ${i.text}`);
+            const lines = unique.slice(0, MAX_LINES).map((i, index) => `${index + 1}. ${i.text}<br>`);
 
             // ---- timestamp (Europe/London)
             const ordinal = (n) => {
