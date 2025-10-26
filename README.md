@@ -379,15 +379,16 @@ Last Updated: Sunday, October 26th, 2025, 2:46:59 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      13 hrs 19 mins  ██████████████████░░░░░░░   73.72 %
-YAML          3 hrs 55 mins   █████░░░░░░░░░░░░░░░░░░░░   21.74 %
-JavaScript    28 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.60 %
-Other         16 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.56 %
-Git           3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.36 %
-Git Config    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.02 %
+Markdown      19 hrs 4 mins   ███████████████████░░░░░░   76.64 %
+YAML          4 hrs 38 mins   ████░░░░░░░░░░░░░░░░░░░░░   18.65 %
+JavaScript    30 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.03 %
+Other         19 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.28 %
+Git Config    10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.70 %
+TSConfig      6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.43 %
+Git           3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.26 %
 ```
 
-Last updated on 2025-10-25 (Displaying Data from past 7 days)
+Last updated on 2025-10-26 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
