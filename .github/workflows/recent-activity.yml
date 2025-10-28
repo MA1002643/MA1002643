@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: "Build recent-activity block and inject into README (Hybrid: GraphQL + REST + Cache)"
+      - name: "Build recent-activity block and inject into README (Repo-only, strict format)"
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.ACTIVITY_GH_TOKEN || github.token }}
@@ -233,105 +233,101 @@ jobs:
               getPublicEvents(USER, 3),
             ]);
 
-            // ---- PRs (force "to owner/repo")
+            // ---- PRs (strict: "<icon> <action> to owner/repo")
             for (const n of prNodes) {
               if (!within(n.occurredAt)) continue;
               const pr = n.pullRequest;
-              if (!pr) continue;
-              const repo = pr.repository?.nameWithOwner;
+              const repo = pr?.repository?.nameWithOwner;
+              if (!repo) continue;
               const merged = !!pr.mergedAt;
               const state = pr.state;
               let label;
               if (merged) label = '🎉 Merged PR';
               else if (state === 'OPEN') label = '💪 Opened PR';
               else label = '❌ Closed PR';
-              if (repo) addItem(n.occurredAt, `pr:${repo}:${label}`, `${label} to ${repo}`);
+              addItem(n.occurredAt, `pr:${repo}:${label}`, `${label} to ${repo}`);
             }
 
             // ---- Reviews
             for (const n of reviewNodes) {
               if (!within(n.occurredAt)) continue;
               const repo = n.pullRequest?.repository?.nameWithOwner;
-              if (repo) addItem(n.occurredAt, `review:${repo}`, `🔍 Reviewed PR to ${repo}`);
+              if (!repo) continue;
+              addItem(n.occurredAt, `review:${repo}`, `🔍 Reviewed PR to ${repo}`);
             }
 
             // ---- Issues
             for (const n of issueNodes) {
               if (!within(n.occurredAt)) continue;
               const is = n.issue;
-              if (!is) continue;
-              const repo = is.repository?.nameWithOwner;
+              const repo = is?.repository?.nameWithOwner;
+              if (!repo) continue;
               const label = is.state === 'OPEN' ? '📝 Opened issue' : (is.state === 'CLOSED' ? '✔️ Closed issue' : '🔧 Updated issue');
-              if (repo) addItem(n.occurredAt, `issue:${repo}:${label}`, `${label} to ${repo}`);
+              addItem(n.occurredAt, `issue:${repo}:${label}`, `${label} to ${repo}`);
             }
 
-            // ---- REST events: summarize with "to owner/repo", never include commit counts or links
+            // ---- REST events: REPO-ONLY summary, no commit counts, no links
             const pushLatest = new Map(); // repo -> latest timestamp
             for (const ev of events) {
               const when = ev.created_at;
               if (!within(when)) continue;
-              const full = ev.repo?.name; // owner/repo
+              const full = ev.repo?.name; // owner/repo (required for inclusion)
+              if (!full) continue;
 
               switch (ev.type) {
                 case 'PushEvent': {
-                  if (!full) break;
                   const prev = pushLatest.get(full);
                   if (!prev || new Date(when) > new Date(prev)) pushLatest.set(full, when);
                   break;
                 }
                 case 'WatchEvent': {
-                  if (full) addItem(when, `watch:${full}`, `⭐ Starred to ${full}`);
+                  addItem(when, `watch:${full}`, `⭐ Starred to ${full}`);
                   break;
                 }
                 case 'ForkEvent': {
-                  if (full) addItem(when, `fork:${full}`, `🔱 Forked to ${full}`);
+                  addItem(when, `fork:${full}`, `🔱 Forked to ${full}`);
                   break;
                 }
                 case 'CreateEvent': {
                   const rt = ev.payload?.ref_type;
-                  if (rt === 'repository' && full) {
+                  if (rt === 'repository') {
                     addItem(when, `create-repo:${full}`, `📦 Created repository to ${full}`);
-                  } else if (rt && full) {
+                  } else if (rt) {
                     addItem(when, `create:${full}:${rt}`, `📦 Created ${rt} to ${full}`);
                   }
                   break;
                 }
                 case 'DeleteEvent': {
                   const rt = ev.payload?.ref_type;
-                  if (full && rt) addItem(when, `delete:${full}:${rt}`, `🗑️ Deleted ${rt} to ${full}`);
+                  if (rt) addItem(when, `delete:${full}:${rt}`, `🗑️ Deleted ${rt} to ${full}`);
                   break;
                 }
                 case 'PublicEvent': {
-                  if (full) addItem(when, `public:${full}`, `🌐 Made public to ${full}`);
+                  addItem(when, `public:${full}`, `🌐 Made public to ${full}`);
                   break;
                 }
                 case 'MemberEvent': {
-                  if (full) addItem(when, `member:${full}`, `👥 Added member to ${full}`);
+                  addItem(when, `member:${full}`, `👥 Added member to ${full}`);
                   break;
                 }
                 case 'GollumEvent': {
-                  if (full) addItem(when, `wiki:${full}`, `📝 Updated wiki to ${full}`);
+                  addItem(when, `wiki:${full}`, `📝 Updated wiki to ${full}`);
                   break;
                 }
                 case 'CommitCommentEvent': {
-                  if (full) addItem(when, `commitcomment:${full}`, `🗣️ Commented on a commit to ${full}`);
+                  addItem(when, `commitcomment:${full}`, `🗣️ Commented on a commit to ${full}`);
                   break;
                 }
                 case 'IssueCommentEvent': {
-                  if (full) addItem(when, `issuecomment:${full}`, `💬 Commented on issue to ${full}`);
-                  break;
-                }
-                case 'GistEvent': {
-                  const a = ev.payload?.action || 'updated';
-                  const label = a === 'create' ? 'Created' : 'Updated';
-                  addItem(when, `gist:${a}:${when}`, `📄 ${label} a gist`);
+                  addItem(when, `issuecomment:${full}`, `💬 Commented on issue to ${full}`);
                   break;
                 }
                 case 'ReleaseEvent': {
-                  if (full) addItem(when, `release:${full}`, `🏷️ Released to ${full}`);
+                  addItem(when, `release:${full}`, `🏷️ Released to ${full}`);
                   break;
                 }
                 default:
+                  // Ignore events that are not clearly repo-targeted or add noise
                   break;
               }
             }
@@ -344,12 +340,12 @@ jobs:
             for (const r of repos) {
               if (r?.createdAt && within(r.createdAt)) {
                 const full = r.nameWithOwner;
-                const suffix = r.isFork ? ' (fork)' : '';
-                addItem(r.createdAt, `repo-create:${full}`, `📦 Created repository to ${full}${suffix}`);
+                if (!full) continue;
+                addItem(r.createdAt, `repo-create:${full}`, `📦 Created repository to ${full}${r.isFork ? ' (fork)' : ''}`);
               }
             }
 
-            // ---- Description & topics changes (compare to cache) -> keep plain text
+            // ---- Description & topics changes (compare to cache) -> plain text, repo-only
             function arrEq(a, b) {
               const A = (a || []).slice().sort();
               const B = (b || []).slice().sort();
@@ -388,7 +384,7 @@ jobs:
             }
             const unique = Array.from(map.values());
 
-            // ---- sort & format (strict format: "<icon> <action> to owner/repo")
+            // ---- sort & format (STRICT format: "<icon> <action> to owner/repo")
             unique.sort((a,b) => new Date(b.date) - new Date(a.date));
             const lines = unique.slice(0, MAX_LINES).map((i, index) => `${index + 1}. ${i.text}<br>`);
 
@@ -418,19 +414,23 @@ jobs:
             let md = fs.readFileSync(READ_ME, 'utf8');
 
             // strip any previous markdown link patterns within the block to avoid old format
+            const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             const blockRe = new RegExp(
-              ACT_START.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\s\\S]*?' +
-              ACT_END.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+              esc(ACT_START) + '[\\s\\S]*?' + esc(ACT_END),
               'm'
             );
             md = md.replace(blockRe, (m) => m
-              .replace(/\[([^\]]+)\]\((?:https?:\/\/)?github\.com\/[^\)]+\)/g, '$1') // [text](github link) -> text
+              // [text](github link) -> text (belt-and-braces cleanup)
+              .replace(/\[([^\]]+)\]\((?:https?:\/\/)?github\.com\/[^\)]+\)/g, '$1')
+              // remove any residual "(X commits)" or "commit(s)" phrases
+              .replace(/\b\d+\s+commit\(s\)\b/gi, '')
+              .replace(/\bcommit\(s\)\b/gi, '')
+              .replace(/\(\s*\)/g, '')
             );
 
             let updated = inject(md, ACT_START, ACT_END, lines.join('\n'));
             if (!updated) core.setFailed('Markers not found: RECENT_ACTIVITY:start/end');
 
-            const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             const tsBlockRE = new RegExp(esc(TS_START) + '[\\s\\S]*?' + esc(TS_END), 'm');
             if (tsBlockRE.test(updated)) {
               updated = updated.replace(tsBlockRE, TS_START + '\n\n' + lastUpdated + '\n\n' + TS_END);
@@ -441,7 +441,7 @@ jobs:
             // ---- write outputs ----
             if (updated !== md) {
               fs.writeFileSync(READ_ME, updated, 'utf8');
-              core.notice('README updated with recent activity (locked format).');
+              core.notice('README updated with recent activity (strict repo-only format).');
             } else {
               core.notice('No README changes were necessary (format already correct).');
             }
