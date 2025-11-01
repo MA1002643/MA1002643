@@ -18,7 +18,6 @@ jobs:
       - name: Build recent-activity block (STRICT, overwrite, MA1002643 only)
         uses: actions/github-script@v7
         with:
-          # Prefer a PAT with read:org, repo, read:user, gist
           github-token: ${{ secrets.ACTIVITY_GH_TOKEN || github.token }}
           script: |
             const fs = require("fs");
@@ -27,31 +26,23 @@ jobs:
             // ------------------------------------------------------------
             // CONFIG
             // ------------------------------------------------------------
-            const USER = "MA1002643";              // GitHub username (owner)
-            const OWNER_PREFIX = USER + "/";       // only repos owned by this user
-            const DAYS = 30;                       // look back N days
-            const MAX_LINES = 30;                  // max items to write to README
-            const README = "README.md";            // profile README
+            const USER = "MA1002643";
+            const OWNER_PREFIX = USER + "/";
+            const DAYS = 30;
+            const MAX_LINES = 12;              // <- you wanted 1..12
+            const README = "README.md";
+
             const ACT_START = "<!--RECENT_ACTIVITY:start-->";
             const ACT_END   = "<!--RECENT_ACTIVITY:end-->";
             const TS_START  = "<!--RECENT_ACTIVITY:last_update-->";
             const TS_END    = "<!--RECENT_ACTIVITY:last_update_end-->";
+
             const CACHE_DIR = ".github";
             const CACHE_FILE = path.join(CACHE_DIR, "activity-cache.json");
 
-            // ------------------------------------------------------------
-            // helpers
-            // ------------------------------------------------------------
-            function log(...args) {
-              core.info(args.join(" "));
-            }
-
-            // date helpers
             const now = new Date();
-            const nowISO = now.toISOString();
             const cutoff = new Date(Date.now() - DAYS * 24 * 60 * 60 * 1000);
 
-            // London time (Europe/London) — GitHub runners have Node with Intl
             const londonFmt = new Intl.DateTimeFormat("en-GB", {
               timeZone: "Europe/London",
               dateStyle: "full",
@@ -59,12 +50,10 @@ jobs:
             });
             const londonTimestamp = londonFmt.format(now);
 
-            // ensure cache dir
             if (!fs.existsSync(CACHE_DIR)) {
               fs.mkdirSync(CACHE_DIR, { recursive: true });
             }
 
-            // read old cache
             let cache = {};
             try {
               if (fs.existsSync(CACHE_FILE)) {
@@ -76,18 +65,11 @@ jobs:
             }
 
             // ------------------------------------------------------------
-            // 1) COLLECT ACTIVITIES
-            // We’ll combine:
-            //  - GraphQL: recent contributions (PRs, issues, reviews, commits)
-            //  - REST: user events (push, create, fork, etc.)
-            // Then filter to repos owned by USER
+            // 1) GRAPHQL CONTRIBUTIONS
             // ------------------------------------------------------------
-
-            // GRAPHQL query for contributions
             const gql = `
               query($login: String!, $from: DateTime!) {
                 user(login: $login) {
-                  login
                   contributionsCollection(from: $from) {
                     pullRequestContributions(last: 50) {
                       nodes {
@@ -96,9 +78,7 @@ jobs:
                           title
                           url
                           number
-                          repository {
-                            nameWithOwner
-                          }
+                          repository { nameWithOwner }
                           merged
                         }
                       }
@@ -110,9 +90,7 @@ jobs:
                           title
                           url
                           number
-                          repository {
-                            nameWithOwner
-                          }
+                          repository { nameWithOwner }
                         }
                       }
                     }
@@ -123,16 +101,12 @@ jobs:
                           title
                           url
                           number
-                          repository {
-                            nameWithOwner
-                          }
+                          repository { nameWithOwner }
                         }
                       }
                     }
                     commitContributionsByRepository(maxRepositories: 30) {
-                      repository {
-                        nameWithOwner
-                      }
+                      repository { nameWithOwner }
                       contributions(first: 30) {
                         nodes {
                           occurredAt
@@ -145,13 +119,14 @@ jobs:
               }
             `;
 
-            // run GraphQL
-            const fromISO = cutoff.toISOString();
-            const gqlResp = await github.graphql(gql, { login: USER, from: fromISO });
+            const gqlResp = await github.graphql(gql, {
+              login: USER,
+              from: cutoff.toISOString()
+            });
 
             const activities = [];
 
-            // pull requests
+            // PRs
             for (const prNode of gqlResp.user.contributionsCollection.pullRequestContributions.nodes) {
               const dt = new Date(prNode.occurredAt);
               if (dt < cutoff) continue;
@@ -161,13 +136,10 @@ jobs:
                 type: prNode.pullRequest.merged ? "pr_merged" : "pr_opened",
                 date: dt.toISOString(),
                 repo,
-                title: prNode.pullRequest.title,
-                number: prNode.pullRequest.number,
-                url: prNode.pullRequest.url
               });
             }
 
-            // issues
+            // Issues
             for (const isNode of gqlResp.user.contributionsCollection.issueContributions.nodes) {
               const dt = new Date(isNode.occurredAt);
               if (dt < cutoff) continue;
@@ -177,13 +149,10 @@ jobs:
                 type: "issue",
                 date: dt.toISOString(),
                 repo,
-                title: isNode.issue.title,
-                number: isNode.issue.number,
-                url: isNode.issue.url
               });
             }
 
-            // reviews
+            // Reviews
             for (const rvNode of gqlResp.user.contributionsCollection.pullRequestReviewContributions.nodes) {
               const dt = new Date(rvNode.occurredAt);
               if (dt < cutoff) continue;
@@ -193,13 +162,10 @@ jobs:
                 type: "review",
                 date: dt.toISOString(),
                 repo,
-                title: rvNode.pullRequest.title,
-                number: rvNode.pullRequest.number,
-                url: rvNode.pullRequest.url
               });
             }
 
-            // commits (we only know counts per repo, so we phrase it generically)
+            // Commits (generic push)
             for (const cRepo of gqlResp.user.contributionsCollection.commitContributionsByRepository) {
               const repo = cRepo.repository?.nameWithOwner;
               if (!repo || !repo.startsWith(OWNER_PREFIX)) continue;
@@ -210,15 +176,13 @@ jobs:
                   type: "push",
                   date: dt.toISOString(),
                   repo,
-                  title: `${cNode.commitCount} commit(s) pushed`,
-                  number: null,
-                  url: null
                 });
               }
             }
 
-            // REST: user events (for create repo, fork, star, etc.)
-            // We will fetch a few pages to be safe
+            // ------------------------------------------------------------
+            // 2) REST EVENTS
+            // ------------------------------------------------------------
             async function fetchUserEvents(username, pages = 3) {
               const events = [];
               for (let page = 1; page <= pages; page++) {
@@ -238,44 +202,31 @@ jobs:
             for (const ev of restEvents) {
               const dt = new Date(ev.created_at);
               if (dt < cutoff) continue;
-
-              // repo name from event
               const fullName = ev.repo?.name;
-              if (!fullName || !fullName.startsWith(OWNER_PREFIX)) {
-                // we only want repos owned by USER
-                continue;
-              }
+              if (!fullName || !fullName.startsWith(OWNER_PREFIX)) continue;
 
-              // map types
               switch (ev.type) {
                 case "CreateEvent":
                   activities.push({
                     type: "repo_created",
                     date: dt.toISOString(),
                     repo: fullName,
-                    title: `Created ${ev.payload.ref_type || "repository"}`,
-                    number: null,
-                    url: null
                   });
                   break;
-                case "PushEvent":
+                case "PushEvent": {
+                  // make sure we never get undefined
                   activities.push({
                     type: "push",
                     date: dt.toISOString(),
                     repo: fullName,
-                    title: `Pushed ${ev.payload.size} commit(s)`,
-                    number: null,
-                    url: null
                   });
                   break;
+                }
                 case "PullRequestEvent":
                   activities.push({
                     type: ev.payload.action === "closed" && ev.payload.pull_request.merged ? "pr_merged" : "pr",
                     date: dt.toISOString(),
                     repo: fullName,
-                    title: ev.payload.pull_request.title,
-                    number: ev.payload.pull_request.number,
-                    url: ev.payload.pull_request.html_url
                   });
                   break;
                 case "IssuesEvent":
@@ -283,9 +234,6 @@ jobs:
                     type: "issue",
                     date: dt.toISOString(),
                     repo: fullName,
-                    title: ev.payload.issue.title,
-                    number: ev.payload.issue.number,
-                    url: ev.payload.issue.html_url
                   });
                   break;
                 case "WatchEvent":
@@ -293,9 +241,6 @@ jobs:
                     type: "star",
                     date: dt.toISOString(),
                     repo: fullName,
-                    title: "Starred repository",
-                    number: null,
-                    url: null
                   });
                   break;
                 case "ForkEvent":
@@ -303,20 +248,15 @@ jobs:
                     type: "fork",
                     date: dt.toISOString(),
                     repo: fullName,
-                    title: "Forked repository",
-                    number: null,
-                    url: null
                   });
                   break;
                 default:
-                  // ignore others
                   break;
               }
             }
 
             // ------------------------------------------------------------
-            // 2) DEDUP + SORT
-            // we dedup by: type + repo + number + date (down to minute)
+            // 3) DEDUP + SORT
             // ------------------------------------------------------------
             const seen = new Set();
             const filtered = [];
@@ -325,23 +265,18 @@ jobs:
               const key = [
                 act.type,
                 act.repo,
-                act.number ?? "none",
-                act.title ?? "none",
-                act.date.slice(0, 16), // minute-level
+                act.date.slice(0, 16),
               ].join("|");
-
               if (seen.has(key)) continue;
               seen.add(key);
               filtered.push(act);
             }
 
             filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            // trim
             const finalActivities = filtered.slice(0, MAX_LINES);
 
             // ------------------------------------------------------------
-            // 3) FORMAT AS MARKDOWN LIST
+            // 4) FORMAT (NO LINKS, NO DETAILS)
             // ------------------------------------------------------------
             function emojiForType(t) {
               switch (t) {
@@ -358,46 +293,35 @@ jobs:
               }
             }
 
-            function formatItem(act, idx) {
-              const em = emojiForType(act.type);
-              const dateShort = new Date(act.date).toISOString().slice(0, 10);
-              const repo = act.repo;
-              const title = act.title ? act.title.replace(/\r?\n/g, " ") : "(no title)";
-
-              // if URL exists, make title clickable
-              const titlePart = act.url ? `[${title}](${act.url})` : title;
-
+            function actionText(act) {
               switch (act.type) {
-                case "pr_merged":
-                  return `${idx}. ${em} Merged PR to **${repo}** – ${titlePart} (${dateShort})`;
+                case "pr_merged": return "Merged PR in";
                 case "pr_opened":
-                case "pr":
-                  return `${idx}. ${em} Opened PR in **${repo}** – ${titlePart} (${dateShort})`;
-                case "issue":
-                  return `${idx}. ${em} Worked on issue in **${repo}** – ${titlePart} (${dateShort})`;
-                case "review":
-                  return `${idx}. ${em} Reviewed PR in **${repo}** – ${titlePart} (${dateShort})`;
-                case "push":
-                  return `${idx}. ${em} Pushed to **${repo}** – ${titlePart} (${dateShort})`;
-                case "repo_created":
-                  return `${idx}. ${em} Created repo **${repo}** (${dateShort})`;
-                case "star":
-                  return `${idx}. ${em} Starred **${repo}** (${dateShort})`;
-                case "fork":
-                  return `${idx}. ${em} Forked **${repo}** (${dateShort})`;
-                default:
-                  return `${idx}. ${em} Activity in **${repo}** – ${titlePart} (${dateShort})`;
+                case "pr": return "Opened PR in";
+                case "issue": return "Worked on issue in";
+                case "review": return "Reviewed PR in";
+                case "push": return "Pushed to";
+                case "repo_created": return "Created";
+                case "star": return "Starred";
+                case "fork": return "Forked";
+                default: return "Activity in";
               }
             }
 
-            const mdLines = finalActivities.map((act, i) => formatItem(act, i + 1));
+            const mdLines = finalActivities.map((act, idx) => {
+              const em = emojiForType(act.type);
+              const actTxt = actionText(act);
+              // <- NO LINK, ONLY TEXT + BRACKETS
+              return `${idx + 1}. ${em} ${actTxt} [${act.repo}]`;
+            });
+
             const activityBlock = mdLines.join("\n");
 
             // ------------------------------------------------------------
-            // 4) UPDATE README
+            // 5) UPDATE README
             // ------------------------------------------------------------
             if (!fs.existsSync(README)) {
-              throw new Error(`README file "${README}" not found in repository root.`);
+              throw new Error(`README file "${README}" not found.`);
             }
 
             let readmeTxt = fs.readFileSync(README, "utf8");
@@ -406,7 +330,6 @@ jobs:
               throw new Error("README does not contain recent activity markers.");
             }
 
-            // replace activity block strictly
             const before = readmeTxt.split(ACT_START)[0];
             const after = readmeTxt.split(ACT_END)[1];
 
@@ -420,7 +343,7 @@ jobs:
               after
             ].join("");
 
-            // update timestamp block
+            // timestamp block
             if (readmeTxt.includes(TS_START) && readmeTxt.includes(TS_END)) {
               const b2 = readmeTxt.split(TS_START)[0];
               const a2 = readmeTxt.split(TS_END)[1];
@@ -438,8 +361,7 @@ jobs:
             fs.writeFileSync(README, readmeTxt, "utf8");
 
             // ------------------------------------------------------------
-            // 5) REFRESH CACHE (descriptions, topics)
-            // we pull all repos for USER via REST and store
+            // 6) REFRESH CACHE (leave as-is)
             // ------------------------------------------------------------
             async function fetchAllRepos(username) {
               const all = [];
@@ -461,13 +383,10 @@ jobs:
             const myRepos = await fetchAllRepos(USER);
             const repoCache = {};
             for (const r of myRepos) {
-              // fetch topics
               const { data: repoData } = await github.request("GET /repos/{owner}/{repo}", {
                 owner: USER,
                 repo: r.name,
-                mediaType: {
-                  previews: ["mercy"]
-                }
+                mediaType: { previews: ["mercy"] }
               });
               repoCache[r.full_name] = {
                 description: repoData.description || "",
@@ -477,8 +396,6 @@ jobs:
             }
 
             fs.writeFileSync(CACHE_FILE, JSON.stringify(repoCache, null, 2), "utf8");
-
-            core.info("README and cache updated.");
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
