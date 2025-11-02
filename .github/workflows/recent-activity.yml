@@ -1,0 +1,481 @@
+name: Update recent activity
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "0 8 * * *" # daily 08:00 UTC
+
+permissions:
+    contents: write
+
+concurrency:
+    group: recent-activity
+    cancel-in-progress: false
+
+jobs:
+    update:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: "Build recent-activity block (strict, no commits, no links)"
+              uses: actions/github-script@v7
+              with:
+                  github-token: ${{ secrets.ACTIVITY_GH_TOKEN || github.token }}
+                  script: |
+                      const fs = require('fs');
+                      const path = require('path');
+
+                      // ------------------------------------------------------------
+                      // SETTINGS
+                      // ------------------------------------------------------------
+                      const USER = 'MA1002643';     // <-- your username
+                      const DAYS = 30;
+                      const MAX_LINES = 30;
+                      const READ_ME = 'README.md';
+
+                      const ACT_START = '<!--RECENT_ACTIVITY:start-->';
+                      const ACT_END   = '<!--RECENT_ACTIVITY:end-->';
+                      const TS_START  = '<!--RECENT_ACTIVITY:last_update-->';
+                      const TS_END    = '<!--RECENT_ACTIVITY:last_update_end-->';
+
+                      const CACHE_PATH = '.github/activity-cache.json';
+
+                      // ------------------------------------------------------------
+                      // TIME WINDOW
+                      // ------------------------------------------------------------
+                      const now = new Date();
+                      const from = new Date(now.getTime() - DAYS * 24 * 60 * 60 * 1000);
+                      const within = (d) => {
+                        const dt = new Date(d);
+                        return dt >= from && dt <= now;
+                      };
+
+                      // ------------------------------------------------------------
+                      // UTILS
+                      // ------------------------------------------------------------
+                      const items = [];
+                      const addItem = (date, key, text) => {
+                        if (!date || !key || !text) return;
+                        items.push({ date, key, text });
+                      };
+
+                      async function pageQuery(query, vars, pickPage) {
+                        let after = null;
+                        const nodes = [];
+                        while (true) {
+                          const v = Object.assign({}, vars, { after });
+                          const res = await github.graphql(query, v);
+                          const { page, pageInfo } = pickPage(res);
+                          if (page && page.length) nodes.push(...page);
+                          if (!pageInfo?.hasNextPage) break;
+                          after = pageInfo.endCursor;
+                        }
+                        return nodes;
+                      }
+
+                      // ------------------------------------------------------------
+                      // GRAPHQL QUERIES
+                      // ------------------------------------------------------------
+                      async function getPRContribs(login, fromISO, toISO) {
+                        const q = `
+                          query($login:String!, $from:DateTime!, $to:DateTime!, $after:String) {
+                            user(login:$login) {
+                              contributionsCollection(from:$from, to:$to) {
+                                pullRequestContributions(first: 100, after: $after) {
+                                  pageInfo { hasNextPage endCursor }
+                                  nodes {
+                                    occurredAt
+                                    pullRequest {
+                                      mergedAt
+                                      state
+                                      repository { nameWithOwner }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        `;
+                        return pageQuery(q, { login, from: fromISO, to: toISO }, (res) => {
+                          const conn = res.user.contributionsCollection.pullRequestContributions;
+                          return { page: conn.nodes, pageInfo: conn.pageInfo };
+                        });
+                      }
+
+                      async function getReviewContribs(login, fromISO, toISO) {
+                        const q = `
+                          query($login:String!, $from:DateTime!, $to:DateTime!, $after:String) {
+                            user(login:$login) {
+                              contributionsCollection(from:$from, to:$to) {
+                                pullRequestReviewContributions(first: 100, after: $after) {
+                                  pageInfo { hasNextPage endCursor }
+                                  nodes {
+                                    occurredAt
+                                    pullRequest {
+                                      repository { nameWithOwner }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        `;
+                        return pageQuery(q, { login, from: fromISO, to: toISO }, (res) => {
+                          const conn = res.user.contributionsCollection.pullRequestReviewContributions;
+                          return { page: conn.nodes, pageInfo: conn.pageInfo };
+                        });
+                      }
+
+                      async function getIssueContribs(login, fromISO, toISO) {
+                        const q = `
+                          query($login:String!, $from:DateTime!, $to:DateTime!, $after:String) {
+                            user(login:$login) {
+                              contributionsCollection(from:$from, to:$to) {
+                                issueContributions(first: 100, after: $after) {
+                                  pageInfo { hasNextPage endCursor }
+                                  nodes {
+                                    occurredAt
+                                    issue {
+                                      state
+                                      repository { nameWithOwner }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        `;
+                        return pageQuery(q, { login, from: fromISO, to: toISO }, (res) => {
+                          const conn = res.user.contributionsCollection.issueContributions;
+                          return { page: conn.nodes, pageInfo: conn.pageInfo };
+                        });
+                      }
+
+                      async function getOwnerRepos(login) {
+                        const q = `
+                          query($login:String!, $after:String) {
+                            user(login:$login) {
+                              repositories(
+                                ownerAffiliations: OWNER,
+                                first: 100,
+                                orderBy: {field: UPDATED_AT, direction: DESC},
+                                after: $after
+                              ) {
+                                pageInfo { hasNextPage endCursor }
+                                nodes {
+                                  nameWithOwner
+                                  isFork
+                                  createdAt
+                                  updatedAt
+                                  description
+                                  repositoryTopics(first: 100) {
+                                    nodes { topic { name } }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        `;
+                        return pageQuery(q, { login }, (res) => {
+                          const conn = res.user.repositories;
+                          return { page: conn.nodes, pageInfo: conn.pageInfo };
+                        });
+                      }
+
+                      async function getPublicEvents(username, maxPages = 3) {
+                        const SAFE_MAX_PAGES = 3;
+                        const limit = Math.min(maxPages || SAFE_MAX_PAGES, SAFE_MAX_PAGES);
+                        const out = [];
+                        for (let page = 1; page <= limit; page++) {
+                          const { data } = await github.request('GET /users/{username}/events/public', {
+                            username,
+                            per_page: 100,
+                            page,
+                          });
+                          if (!data || !data.length) break;
+                          out.push(...data);
+                        }
+                        return out;
+                      }
+
+                      // ------------------------------------------------------------
+                      // LOAD CACHE
+                      // ------------------------------------------------------------
+                      let cache = { repos: {} };
+                      try {
+                        if (fs.existsSync(CACHE_PATH)) {
+                          cache = JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'));
+                        }
+                      } catch (e) {
+                        cache = { repos: {} };
+                      }
+
+                      // ------------------------------------------------------------
+                      // GATHER
+                      // ------------------------------------------------------------
+                      const fromISO = from.toISOString();
+                      const toISO = now.toISOString();
+
+                      const [
+                        prNodes,
+                        reviewNodes,
+                        issueNodes,
+                        repos,
+                        events,
+                      ] = await Promise.all([
+                        getPRContribs(USER, fromISO, toISO),
+                        getReviewContribs(USER, fromISO, toISO),
+                        getIssueContribs(USER, fromISO, toISO),
+                        getOwnerRepos(USER),
+                        getPublicEvents(USER, 3),
+                      ]);
+
+                      // ------------------------------------------------------------
+                      // PRs
+                      // ------------------------------------------------------------
+                      for (const n of prNodes) {
+                        if (!within(n.occurredAt)) continue;
+                        const repo = n.pullRequest?.repository?.nameWithOwner;
+                        if (!repo) continue;
+                        const merged = !!n.pullRequest.mergedAt;
+                        const state = n.pullRequest.state;
+                        let label;
+                        if (merged) label = '🎉 Merged PR';
+                        else if (state === 'OPEN') label = '💪 Opened PR';
+                        else label = '❌ Closed PR';
+                        addItem(n.occurredAt, `pr:${repo}:${label}`, `${label} to ${repo}`);
+                      }
+
+                      // ------------------------------------------------------------
+                      // Reviews
+                      // ------------------------------------------------------------
+                      for (const n of reviewNodes) {
+                        if (!within(n.occurredAt)) continue;
+                        const repo = n.pullRequest?.repository?.nameWithOwner;
+                        if (!repo) continue;
+                        addItem(n.occurredAt, `review:${repo}`, `🔍 Reviewed PR to ${repo}`);
+                      }
+
+                      // ------------------------------------------------------------
+                      // Issues
+                      // ------------------------------------------------------------
+                      for (const n of issueNodes) {
+                        if (!within(n.occurredAt)) continue;
+                        const issue = n.issue;
+                        const repo = issue?.repository?.nameWithOwner;
+                        if (!repo) continue;
+                        const label = issue.state === 'OPEN'
+                          ? '📝 Opened issue'
+                          : issue.state === 'CLOSED'
+                            ? '✔️ Closed issue'
+                            : '🔧 Updated issue';
+                        addItem(n.occurredAt, `issue:${repo}:${label}`, `${label} to ${repo}`);
+                      }
+
+                      // ------------------------------------------------------------
+                      // REST EVENTS -> STRICT, REPO-ONLY, NO COMMITS
+                      // ------------------------------------------------------------
+                      const pushLatest = new Map(); // repo -> latest time
+                      for (const ev of events) {
+                        const when = ev.created_at;
+                        if (!within(when)) continue;
+                        const fullRepo = ev.repo?.name;
+                        if (!fullRepo) continue; // must have owner/repo
+
+                        switch (ev.type) {
+                          case 'PushEvent': {
+                            // we DO NOT read commit count
+                            const prev = pushLatest.get(fullRepo);
+                            if (!prev || new Date(when) > new Date(prev)) {
+                              pushLatest.set(fullRepo, when);
+                            }
+                            break;
+                          }
+                          case 'WatchEvent': {
+                            addItem(when, `star:${fullRepo}`, `⭐ Starred to ${fullRepo}`);
+                            break;
+                          }
+                          case 'ForkEvent': {
+                            addItem(when, `fork:${fullRepo}`, `🔱 Forked to ${fullRepo}`);
+                            break;
+                          }
+                          case 'CreateEvent': {
+                            const rt = ev.payload?.ref_type;
+                            if (rt === 'repository') {
+                              addItem(when, `create-repo:${fullRepo}`, `📦 Created repository to ${fullRepo}`);
+                            } else if (rt) {
+                              addItem(when, `create:${fullRepo}:${rt}`, `📦 Created ${rt} to ${fullRepo}`);
+                            }
+                            break;
+                          }
+                          case 'DeleteEvent': {
+                            const rt = ev.payload?.ref_type;
+                            if (rt) {
+                              addItem(when, `delete:${fullRepo}:${rt}`, `🗑️ Deleted ${rt} to ${fullRepo}`);
+                            }
+                            break;
+                          }
+                          case 'PublicEvent': {
+                            addItem(when, `public:${fullRepo}`, `🌐 Made public to ${fullRepo}`);
+                            break;
+                          }
+                          default:
+                            // ignore noisy events
+                            break;
+                        }
+                      }
+
+                      // Add one push line per repo
+                      for (const [repo, latest] of pushLatest.entries()) {
+                        addItem(latest, `push:${repo}`, `⬆️ Pushed to ${repo}`);
+                      }
+
+                      // ------------------------------------------------------------
+                      // DESCRIPTION/TOPICS (REPO-ONLY)
+                      // ------------------------------------------------------------
+                      function arrEq(a, b) {
+                        const A = (a || []).slice().sort();
+                        const B = (b || []).slice().sort();
+                        if (A.length !== B.length) return false;
+                        for (let i = 0; i < A.length; i++) if (A[i] !== B[i]) return false;
+                        return true;
+                      }
+
+                      const newCache = { repos: {} };
+                      for (const r of repos) {
+                        const full = r.nameWithOwner;
+                        const updatedAt = r.updatedAt;
+                        const description = r.description || '';
+                        const topics = (r.repositoryTopics?.nodes || [])
+                          .map(n => n?.topic?.name)
+                          .filter(Boolean);
+
+                        const prev = cache.repos[full] || { description: null, topics: null, updatedAt: null };
+
+                        if (within(updatedAt)) {
+                          if (prev.description !== null && prev.description !== description) {
+                            addItem(updatedAt, `desc-update:${full}:${updatedAt}`, `📝 Updated description to ${full}`);
+                          }
+                          if (prev.topics !== null && !arrEq(prev.topics, topics)) {
+                            addItem(updatedAt, `topics-update:${full}:${updatedAt}`, `🏷️ Updated topics to ${full}`);
+                          }
+                        }
+
+                        newCache.repos[full] = { description, topics, updatedAt };
+                      }
+
+                      // ------------------------------------------------------------
+                      // DEDUP + SORT
+                      // ------------------------------------------------------------
+                      const map = new Map();
+                      for (const it of items) {
+                        const existing = map.get(it.key);
+                        if (!existing || new Date(it.date) > new Date(existing.date)) {
+                          map.set(it.key, it);
+                        }
+                      }
+                      const unique = Array.from(map.values());
+                      unique.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                      // ------------------------------------------------------------
+                      // FORMAT (NO <br>, NO LINKS)
+                      // ------------------------------------------------------------
+                      let lines = unique.slice(0, MAX_LINES).map((item, index) => {
+                        // force-clean incoming text just in case
+                        let text = item.text;
+
+                        // 1) kill any "undefined commit(s)" if somehow present
+                        text = text.replace(/undefined commit\(s\)\s+to\s+/gi, 'to ');
+
+                        // 2) kill any "(N commit(s))"
+                        text = text.replace(/\(?\d+\s+commit\(s\)\)?/gi, '');
+
+                        // 3) kill any leftover double spaces
+                        text = text.replace(/\s{2,}/g, ' ').trim();
+
+                        // 4) final shape should ALREADY be: "<icon> Action to owner/repo"
+                        return `${index + 1}. ${text}`;
+                      });
+
+                      // ------------------------------------------------------------
+                      // TIMESTAMP (Europe/London)
+                      // ------------------------------------------------------------
+                      const ordinal = (n) => {
+                        const s = ['th','st','nd','rd'], v = n % 100;
+                        return n + (s[(v - 20) % 10] || s[v] || s[0]);
+                      };
+                      const parts = new Intl.DateTimeFormat('en-GB', {
+                        timeZone: 'Europe/London',
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: true
+                      }).formatToParts(new Date())
+                        .reduce((a, p) => { a[p.type] = p.value; return a; }, {});
+                      const dayNum = parseInt(parts.day, 10);
+                      const lastUpdated = 'Last Updated: '
+                        + parts.weekday + ', '
+                        + parts.month + ' ' + ordinal(dayNum) + ', '
+                        + parts.year + ', '
+                        + parts.hour + ':' + parts.minute + ':' + parts.second + ' ' + parts.dayPeriod;
+
+                      // ------------------------------------------------------------
+                      // INJECT INTO README
+                      // ------------------------------------------------------------
+                      const inject = (src, start, end, payload) => {
+                        const i1 = src.indexOf(start);
+                        const i2 = src.indexOf(end);
+                        if (i1 === -1 || i2 === -1) return null;
+                        return src.slice(0, i1 + start.length) + '\n\n' + payload + '\n' + src.slice(i2);
+                      };
+
+                      let md = fs.readFileSync(READ_ME, 'utf8');
+
+                      // ALWAYS sanitize existing block first (remove old links & old "commit(s)")
+                      const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                      const blockRe = new RegExp(esc(ACT_START) + '[\\s\\S]*?' + esc(ACT_END), 'm');
+                      md = md.replace(blockRe, (m) => m
+                        // remove markdown links
+                        .replace(/\[([^\]]+)\]\((?:https?:\/\/)?github\.com\/[^\)]+\)/gi, '$1')
+                        // remove any "undefined commit(s)" from old runs
+                        .replace(/undefined commit\(s\)\s+to\s+/gi, 'to ')
+                        // remove "(X commit(s))"
+                        .replace(/\(?\d+\s+commit\(s\)\)?/gi, '')
+                      );
+
+                      let updated = inject(md, ACT_START, ACT_END, lines.join('\n'));
+                      if (!updated) {
+                        core.setFailed('Markers not found: RECENT_ACTIVITY:start/end');
+                      }
+
+                      // Update timestamp
+                      const tsBlockRE = new RegExp(esc(TS_START) + '[\\s\\S]*?' + esc(TS_END), 'm');
+                      if (tsBlockRE.test(updated)) {
+                        updated = updated.replace(tsBlockRE, TS_START + '\n\n' + lastUpdated + '\n\n' + TS_END);
+                      }
+
+                      // WRITE
+                      if (updated !== md) {
+                        fs.writeFileSync(READ_ME, updated, 'utf8');
+                        core.notice('README updated with strict recent activity.');
+                      } else {
+                        core.notice('No README changes were necessary.');
+                      }
+
+                      // SAVE CACHE
+                      fs.mkdirSync(path.dirname(CACHE_PATH), { recursive: true });
+                      fs.writeFileSync(CACHE_PATH, JSON.stringify(newCache, null, 2), 'utf8');
+
+            - name: Commit changes
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                  commit_message: "docs: update recent activity"
+                  file_pattern: |
+                      README.md
+                      .github/activity-cache.json

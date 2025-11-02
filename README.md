@@ -316,6 +316,19 @@ namespace ProfileCard
 ---
 
 <details>
+
+<summary><b>🕒 Recent GitHub Activity</b></summary>
+<br />
+<!--RECENT_ACTIVITY:start-->
+
+<!--RECENT_ACTIVITY:end-->
+
+<!--RECENT_ACTIVITY:last_update-->
+
+<!--RECENT_ACTIVITY:last_update_end-->
+</details>
+
+<details>
   <summary><b>📈 GitHub Pulse</b></summary>
 
   <br />
