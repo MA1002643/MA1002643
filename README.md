@@ -342,19 +342,17 @@ namespace ProfileCard
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      10 hrs 48 mins  ██████████████████░░░░░░░   73.97 %
-YAML          3 hrs 12 mins   █████░░░░░░░░░░░░░░░░░░░░   21.96 %
-Git Config    10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.17 %
-JSON          9 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.03 %
-TSConfig      6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.74 %
-JavaScript    5 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.60 %
-Other         3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.43 %
-CSS           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.05 %
-HTML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
-Git           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.01 %
+Markdown      6 hrs 19 mins   █████████████████░░░░░░░░   70.90 %
+YAML          2 hrs 13 mins   ██████░░░░░░░░░░░░░░░░░░░   24.89 %
+JSON          9 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.69 %
+TSConfig      6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.21 %
+JavaScript    4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.75 %
+Other         2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.40 %
+CSS           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.08 %
+HTML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.07 %
 ```
 
-Last updated on 2025-11-01 (Displaying Data from past 7 days)
+Last updated on 2025-11-02 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
