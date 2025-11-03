@@ -373,17 +373,16 @@ Last Updated: Sunday, November 2nd, 2025, 1:47:34 pm
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      6 hrs 19 mins   █████████████████░░░░░░░░   70.90 %
-YAML          2 hrs 13 mins   ██████░░░░░░░░░░░░░░░░░░░   24.89 %
-JSON          9 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.69 %
-TSConfig      6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.21 %
-JavaScript    4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.75 %
-Other         2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.40 %
-CSS           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.08 %
-HTML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.07 %
+YAML          1 hrs 21 mins   ████████████░░░░░░░░░░░░░   50.18 %
+Markdown      1 hrs 10 mins   ██████████░░░░░░░░░░░░░░░   43.28 %
+JSON          9 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   05.70 %
+Other         0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.28 %
+CSS           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.28 %
+HTML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.22 %
+JavaScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.06 %
 ```
 
-Last updated on 2025-11-02 (Displaying Data from past 7 days)
+Last updated on 2025-11-03 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
