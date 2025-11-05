@@ -369,10 +369,10 @@ Last Updated: Wednesday, November 5th, 2025, 10:12:04 pm
 <!-- LANG-TIME:START -->
 
 ```text
-YAML          28 mins         ███████████████████░░░░░░   79.64 %
-Markdown      6 mins          ████░░░░░░░░░░░░░░░░░░░░░   19.25 %
-JSON          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.83 %
-JavaScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.28 %
+YAML          32 mins         ████████████████████░░░░░   81.44 %
+Markdown      6 mins          ████░░░░░░░░░░░░░░░░░░░░░   17.56 %
+JSON          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.76 %
+JavaScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.25 %
 ```
 
 Last updated on 2025-11-05 (Displaying Data from past 7 days)
