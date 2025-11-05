@@ -355,13 +355,13 @@ Last Updated: Tuesday, November 4th, 2025, 8:32:17 AM
 <!-- LANG-TIME:START -->
 
 ```text
-YAML          52 mins         █████████████████████░░░░   84.67 %
-Markdown      6 mins          ██░░░░░░░░░░░░░░░░░░░░░░░   11.30 %
-JSON          2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   03.87 %
-JavaScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.16 %
+YAML          28 mins         ███████████████████░░░░░░   79.64 %
+Markdown      6 mins          ████░░░░░░░░░░░░░░░░░░░░░   19.25 %
+JSON          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.83 %
+JavaScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.28 %
 ```
 
-Last updated on 2025-11-04 (Displaying Data from past 7 days)
+Last updated on 2025-11-05 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
