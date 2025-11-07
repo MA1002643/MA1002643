@@ -373,13 +373,14 @@ Last Updated: Thursday, November 6th, 2025, 8:24:17 am
 <!-- LANG-TIME:START -->
 
 ```text
-YAML          32 mins         ████████████████████░░░░░   80.02 %
-Markdown      7 mins          ████░░░░░░░░░░░░░░░░░░░░░   18.98 %
-JSON          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.74 %
-JavaScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.25 %
+YAML          32 mins         ███████████░░░░░░░░░░░░░░   47.21 %
+Python        17 mins         ██████░░░░░░░░░░░░░░░░░░░   26.17 %
+Markdown      16 mins         ██████░░░░░░░░░░░░░░░░░░░   24.23 %
+JSON          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.24 %
+JavaScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.15 %
 ```
 
-Last updated on 2025-11-06 (Displaying Data from past 7 days)
+Last updated on 2025-11-07 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
