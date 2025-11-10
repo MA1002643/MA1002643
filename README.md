@@ -370,13 +370,12 @@ Last Updated: Sunday, November 9th, 2025, 8:19:26 am
 <!-- LANG-TIME:START -->
 
 ```text
-Python        54 mins         █████████████░░░░░░░░░░░░   55.12 %
-YAML          26 mins         ██████░░░░░░░░░░░░░░░░░░░   27.37 %
-Markdown      15 mins         ████░░░░░░░░░░░░░░░░░░░░░   16.06 %
-JSON          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.46 %
+Python        54 mins         ████████████████████░░░░░   83.33 %
+Markdown      9 mins          ███░░░░░░░░░░░░░░░░░░░░░░   14.78 %
+JSON          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.90 %
 ```
 
-Last updated on 2025-11-09 (Displaying Data from past 7 days)
+Last updated on 2025-11-10 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
