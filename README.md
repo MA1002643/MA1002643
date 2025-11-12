@@ -366,12 +366,14 @@ Last Updated: Tuesday, November 11th, 2025, 8:23:24 am
 <!-- LANG-TIME:START -->
 
 ```text
-Python        54 mins         ████████████████████░░░░░   83.33 %
-Markdown      9 mins          ███░░░░░░░░░░░░░░░░░░░░░░   14.78 %
-JSON          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.90 %
+Python        54 mins         ████████████████████░░░░░   80.74 %
+Markdown      10 mins         ███░░░░░░░░░░░░░░░░░░░░░░   15.93 %
+JSON          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.84 %
+Prolog        0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.27 %
+Cabal Config  0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.22 %
 ```
 
-Last updated on 2025-11-11 (Displaying Data from past 7 days)
+Last updated on 2025-11-12 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
