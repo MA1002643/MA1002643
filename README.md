@@ -366,13 +366,12 @@ Last Updated: Saturday, November 15th, 2025, 8:20:17 am
 <!-- LANG-TIME:START -->
 
 ```text
-Python        35 mins         █████████████████████░░░░   86.43 %
-Prolog        4 mins          ██░░░░░░░░░░░░░░░░░░░░░░░   10.59 %
-Markdown      1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.62 %
-Cabal Config  0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.36 %
+Prolog        4 mins          ███████████████████░░░░░░   78.04 %
+Markdown      1 mins          ████░░░░░░░░░░░░░░░░░░░░░   19.29 %
+Cabal Config  0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.67 %
 ```
 
-Last updated on 2025-11-15 (Displaying Data from past 7 days)
+Last updated on 2025-11-16 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
