@@ -366,12 +366,18 @@ Last Updated: Sunday, November 16th, 2025, 8:21:00 am
 <!-- LANG-TIME:START -->
 
 ```text
-Prolog        4 mins          ███████████████████░░░░░░   78.04 %
-Markdown      1 mins          ████░░░░░░░░░░░░░░░░░░░░░   19.29 %
-Cabal Config  0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.67 %
+Markdown                          1 hrs 54 mins   ██████████████░░░░░░░░░░░   58.64 %
+XML                               55 mins         ███████░░░░░░░░░░░░░░░░░░   28.49 %
+Java                              8 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   04.52 %
+Image (svg)                       8 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   04.10 %
+Prolog                            4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.25 %
+JSON                              2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.08 %
+Microsoft Visual Studio Solution  1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.64 %
+CSV                               0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.24 %
+Other                             0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
 ```
 
-Last updated on 2025-11-16 (Displaying Data from past 7 days)
+Last updated on 2025-11-17 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
