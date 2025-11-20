@@ -364,19 +364,18 @@ Last Updated: Wednesday, November 19th, 2025, 8:23:58 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown                          1 hrs 54 mins   ██████████████░░░░░░░░░░░   58.63 %
-XML                               55 mins         ███████░░░░░░░░░░░░░░░░░░   28.48 %
-Java                              8 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   04.52 %
-Image (svg)                       8 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   04.10 %
-Prolog                            4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.25 %
-JSON                              2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.08 %
-Microsoft Visual Studio Solution  1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.64 %
+Markdown                          1 hrs 54 mins   ██████████████░░░░░░░░░░░   59.98 %
+XML                               55 mins         ███████░░░░░░░░░░░░░░░░░░   29.14 %
+Java                              8 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   04.62 %
+Image (svg)                       8 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   04.19 %
+JSON                              2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.11 %
+Microsoft Visual Studio Solution  1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.66 %
 CSV                               0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.24 %
 Other                             0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
 C#                                0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.02 %
 ```
 
-Last updated on 2025-11-19 (Displaying Data from past 7 days)
+Last updated on 2025-11-20 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
