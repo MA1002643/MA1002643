@@ -360,21 +360,19 @@ Last Updated: Monday, November 24th, 2025, 8:26:05 am
 <!-- LANG-TIME:START -->
 
 ```text
-XAML                              4 hrs 34 mins   ████████░░░░░░░░░░░░░░░░░   33.27 %
-C#                                4 hrs 18 mins   ███████░░░░░░░░░░░░░░░░░░   31.38 %
-Markdown                          2 hrs 17 mins   ████░░░░░░░░░░░░░░░░░░░░░   16.69 %
-XML                               1 hrs 17 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   09.44 %
-CSV                               38 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   04.62 %
-Java                              21 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.60 %
-Image (svg)                       8 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.97 %
-Microsoft Visual Studio Solution  5 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.66 %
-JSON                              2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.26 %
-Other                             0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.07 %
-Text                              0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
+XAML                              8 hrs 23 mins   ██████████████░░░░░░░░░░░   57.08 %
+C#                                4 hrs 26 mins   ███████░░░░░░░░░░░░░░░░░░   30.21 %
+CSV                               37 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   04.27 %
+XML                               33 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.83 %
+Markdown                          23 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.62 %
+Java                              12 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.43 %
+Microsoft Visual Studio Solution  4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.48 %
+Other                             0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.06 %
+Text                              0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.02 %
 execline                          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.01 %
 ```
 
-Last updated on 2025-11-24 (Displaying Data from past 7 days)
+Last updated on 2025-11-25 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
