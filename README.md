@@ -355,19 +355,20 @@ Last Updated: Friday, November 28th, 2025, 8:24:49 am
 <!-- LANG-TIME:START -->
 
 ```text
-XAML                              9 hrs 38 mins   ███████████████░░░░░░░░░░   60.46 %
-C#                                4 hrs 26 mins   ██████░░░░░░░░░░░░░░░░░░░   27.83 %
-CSV                               37 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.93 %
-XML                               33 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.52 %
-Markdown                          23 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.42 %
-Java                              12 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.32 %
-Microsoft Visual Studio Solution  4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.44 %
-Other                             0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.05 %
-Text                              0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.02 %
+XAML                              7 hrs 13 mins   ███████████████░░░░░░░░░░   61.42 %
+C#                                3 hrs 4 mins    ██████░░░░░░░░░░░░░░░░░░░   26.17 %
+Markdown                          22 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.25 %
+CSV                               20 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.97 %
+XML                               16 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.35 %
+HTML                              9 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.28 %
+Java                              6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.98 %
+CSS                               6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.91 %
+Microsoft Visual Studio Solution  4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.60 %
+Other                             0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.07 %
 execline                          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.01 %
 ```
 
-Last updated on 2025-11-28 (Displaying Data from past 7 days)
+Last updated on 2025-11-29 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
