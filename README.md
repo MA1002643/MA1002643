@@ -16,6 +16,9 @@
     <a href="https://muhammadabdullah227.co.uk/" target="_blank">
      <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white" target="_blank" />
   </a>
+  <a href="https://wakatime.com/@c6d912e0-7fef-41da-8c0e-1df782a8dd33" target="_blank">
+    <img src="https://wakatime.com/badge/user/c6d912e0-7fef-41da-8c0e-1df782a8dd33.svg" alt="wakatime" style="height:28px; display:inline-block;" />
+  </a>
   <br/>
   <a href="https://github.com/MA1002643?tab=repositories&sort=stargazers">
     <img alt="total stars" title="Total stars on GitHub"
