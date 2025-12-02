@@ -63,18 +63,10 @@
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
 <td align="center" valign="top" width="50%" style="padding:12px 24px 12px 0px; border:0;">
-  <a href="https://github.com/MA1002643/ai-powered-recipe-search-platform">
-    <div style="padding:10px; box-sizing:border-box;">
-      <img alt="ai-powered-recipe-search-platform" src="https://opengraph.githubassets.com/1/MA1002643/ai-powered-recipe-search-platform" width="480" style="max-width:100%; height:auto; display:block; border-radius:6px;">
-    </div>
-  </a>
+<a href="https://github.com/MA1002643/ai-powered-recipe-search-platform"><div style="padding:10px; box-sizing:border-box;"><picture><source media="(prefers-color-scheme: dark)" srcset="https://opengraph.githubassets.com/1/MA1002643/ai-powered-recipe-search-platform?theme=dark"><img alt="ai-powered-recipe-search-platform" src="https://opengraph.githubassets.com/1/MA1002643/ai-powered-recipe-search-platform" width="480" style="max-width:100%; height:auto; display:block; border-radius:6px;"></picture></div><div style="text-align:center; margin-top:8px; font-weight:600; color:#0C1A25;">ai-powered-recipe-search-platform</div></a>
 </td>
 <td align="center" valign="top" width="50%" style="padding:12px 0px 12px 24px; border:0;">
-  <a href="https://github.com/MA1002643/muhammadabdullah-portfolio">
-    <div style="padding:10px; box-sizing:border-box;">
-      <img alt="muhammadabdullah-portfolio" src="https://opengraph.githubassets.com/1/MA1002643/muhammadabdullah-portfolio" width="480" style="max-width:100%; height:auto; display:block; border-radius:6px;">
-    </div>
-  </a>
+<a href="https://github.com/MA1002643/muhammadabdullah-portfolio"><div style="padding:10px; box-sizing:border-box;"><picture><source media="(prefers-color-scheme: dark)" srcset="https://opengraph.githubassets.com/1/MA1002643/muhammadabdullah-portfolio?theme=dark"><img alt="muhammadabdullah-portfolio" src="https://opengraph.githubassets.com/1/MA1002643/muhammadabdullah-portfolio" width="480" style="max-width:100%; height:auto; display:block; border-radius:6px;"></picture></div><div style="text-align:center; margin-top:8px; font-weight:600; color:#0C1A25;">muhammadabdullah-portfolio</div></a>
 </td>
 </tr>
 </table>
