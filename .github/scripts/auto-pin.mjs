@@ -40,6 +40,35 @@ const headers = {
   "X-GitHub-Api-Version": "2022-11-28",
 };
 
+// small XML escape for embedding text inside SVG
+function escapeXml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+const encodeDataUri = (s) => encodeURIComponent(s).replace(/'/g, "%27");
+
+function makeSvg(name, stars, theme) {
+  const isDark = theme === "dark";
+  const bg = isDark ? "#0D1117" : "#ffffff";
+  const text = isDark ? "#E5E7EB" : "#0C1A25";
+  const width = 960;
+  const height = 300;
+  const rx = 16;
+
+  const svg = `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns='http://www.w3.org/2000/svg' width='${width}' height='${height}' viewBox='0 0 ${width} ${height}'>\n  <rect x='0' y='0' width='${width}' height='${height}' rx='${rx}' fill='${bg}' />\n  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial">\n    <text x='48' y='120' font-size='44' fill='${text}' font-weight='700'>${escapeXml(
+    name
+  )}</text>\n    <g transform='translate(48,170)'>\n      <text x='0' y='0' font-size='20' fill='${text}'>★ ${escapeXml(
+    String(stars || "")
+  )}</text>\n    </g>\n  </g>\n</svg>`;
+
+  return `data:image/svg+xml;utf8,${encodeDataUri(svg)}`;
+}
+
 async function fetchJson(url) {
   const res = await fetch(url, { headers });
   if (!res.ok) {
@@ -72,22 +101,24 @@ async function fetchFallbackUpdatedRepos(user) {
   return (data || []).map((r) => `${r.owner.login}/${r.name}`);
 }
 
-function opengraphCard(owner, repo) {
-  const ogLight = `https://opengraph.githubassets.com/1/${owner}/${repo}`;
-  const ogDark = `${ogLight}?theme=dark`;
-  // Render a picture element that prefers a dark opengraph image in dark mode,
-  // and include a caption showing only the repository name (no owner).
-  // Caption color chosen to match the repo's light theme; dark-mode image will be used when available.
-  return `<a href="https://github.com/${owner}/${repo}"><div style="padding:${INNER_CARD_PAD}px; box-sizing:border-box;"><picture><source media="(prefers-color-scheme: dark)" srcset="${ogDark}"><img alt="${repo}" src="${ogLight}" width="480" style="max-width:100%; height:auto; display:block; border-radius:6px;"></picture></div><div style="text-align:center; margin-top:8px; font-weight:600; color:#0C1A25;">${repo}</div></a>`;
+function opengraphCard(owner, repo, stars) {
+  // Use the top-level makeSvg to generate light and dark SVG data URIs.
+  const light = makeSvg(repo, stars, "light");
+  const dark = makeSvg(repo, stars, "dark");
+
+  // Default to dark as the img src so GitHub shows dark cards by default.
+  // Provide a light source for light-mode viewers.
+  return `<a href="https://github.com/${owner}/${repo}"><div style="padding:${INNER_CARD_PAD}px; box-sizing:border-box;"><picture><source media="(prefers-color-scheme: light)" srcset="${light}"><img alt="${repo}" src="${dark}" width="480" style="max-width:100%; height:auto; display:block; border-radius:12px;"></picture></div></a>`;
 }
 
 // side: "left" | "right"
-function td(owner, repo, side) {
+function td(owner, repo, side, stars) {
   const leftPad = side === "right" ? GAP_BETWEEN_CARDS : 0; // gap on left of right card
   const rightPad = side === "left" ? GAP_BETWEEN_CARDS : 0; // gap on right of left card
   return `<td align="center" valign="top" width="50%" style="padding:${OUTER_CELL_PAD_TB}px ${rightPad}px ${OUTER_CELL_PAD_TB}px ${leftPad}px; border:0;">\n${opengraphCard(
     owner,
-    repo
+    repo,
+    stars
   )}\n</td>`;
 }
 
@@ -125,11 +156,28 @@ async function main() {
   const [o1, r1] = top[0].split("/");
   const [o2, r2] = (top[1] || top[0]).split("/");
 
+  // Fetch stargazers count for each repo (best-effort)
+  let stars1 = "";
+  let stars2 = "";
+  try {
+    const repo1 = await fetchJson(`https://api.github.com/repos/${o1}/${r1}`);
+    stars1 = repo1.stargazers_count || "";
+  } catch (e) {
+    // ignore; leave stars1 blank
+  }
+  try {
+    const repo2 = await fetchJson(`https://api.github.com/repos/${o2}/${r2}`);
+    stars2 = repo2.stargazers_count || "";
+  } catch (e) {
+    // ignore; leave stars2 blank
+  }
+
   const body = `<table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">\n<tr>\n${td(
     o1,
     r1,
-    "left"
-  )}\n${td(o2, r2, "right")}\n</tr>\n</table>`;
+    "left",
+    stars1
+  )}\n${td(o2, r2, "right", stars2)}\n</tr>\n</table>`;
 
   const newBlock = `${START_MARK}\n<h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>\n${body}\n${END_MARK}`;
 
