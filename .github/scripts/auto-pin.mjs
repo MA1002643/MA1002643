@@ -102,21 +102,18 @@ async function fetchFallbackUpdatedRepos(user) {
 }
 
 function opengraphCard(owner, repo, stars) {
-  // Use the top-level makeSvg to generate light and dark SVG data URIs.
-  const light = makeSvg(repo, stars, "light");
-  const dark = makeSvg(repo, stars, "dark");
+  // Use GitHub's opengraph images instead of generated SVGs.
+  // Provide a light-mode source and use the dark-themed image by default.
+  const lightUrl = `https://opengraph.githubassets.com/1/${owner}/${repo}?theme=light`;
+  const darkUrl = `https://opengraph.githubassets.com/1/${owner}/${repo}?theme=dark`;
 
-  // Default to dark as the img src so dark-mode viewers see the dark card.
-  // Wrap the <picture> in a rounded container with overflow hidden so
-  // all four corners are curved (GitHub sanitization sometimes strips
-  // styling on the <img>, so we apply the radius to the wrapper).
   return `
   <a href="https://github.com/${owner}/${repo}">
     <div style="padding:${INNER_CARD_PAD}px; box-sizing:border-box;">
       <div style="display:inline-block; border-radius:12px; overflow:hidden;">
         <picture>
-          <source media="(prefers-color-scheme: light)" srcset="${light}">
-          <img alt="${repo}" src="${dark}" width="480" style="max-width:100%; height:auto; display:block; border:0;">
+          <source media="(prefers-color-scheme: light)" srcset="${lightUrl}">
+          <img alt="${repo}" src="${darkUrl}" width="480" style="max-width:100%; height:auto; display:block; border:0;">
         </picture>
       </div>
     </div>
