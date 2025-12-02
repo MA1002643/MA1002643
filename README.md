@@ -8,28 +8,31 @@
 <p align="center">
 <br/>
   <a href="mailto:muhammad.abdullah33176444@gmail.com">
-    <img src="https://img.shields.io/badge/Gmail-333333?style=for-the-badge&logo=gmail&logoColor=red" />
+    <img src="https://img.shields.io/badge/Gmail-333333?style=for-the-badge&logo=gmail&logoColor=red" height="22" />
   </a>
   <a href="https://linkedin.com/in/muhammad-abdullah227" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" />
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" height="22" />
   </a>
     <a href="https://muhammadabdullah227.co.uk/" target="_blank">
-     <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white" target="_blank" />
+     <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white" target="_blank" height="22" />
   </a>
   <a href="https://wakatime.com/@c6d912e0-7fef-41da-8c0e-1df782a8dd33" target="_blank">
-    <img src="https://wakatime.com/badge/user/c6d912e0-7fef-41da-8c0e-1df782a8dd33.svg" alt="wakatime" style="height:28px; display:inline-block;" />
+    <img src="https://wakatime.com/badge/user/c6d912e0-7fef-41da-8c0e-1df782a8dd33.svg" alt="wakatime" height="22" />
+  </a>
+  <a href="https://developers.google.com/profile/u/117687534681375612751" target="_blank">
+    <img src="https://img.shields.io/badge/Google-Developer_Profile-blue?style=for-the-badge&logo=google&logoColor=white" alt="Google Developer Profile" height="22" />
   </a>
   <br/>
   <a href="https://github.com/MA1002643?tab=repositories&sort=stargazers">
     <img alt="total stars" title="Total stars on GitHub"
-         src="https://custom-icon-badges.demolab.com/github/stars/MA1002643?color=55960c&style=for-the-badge&labelColor=488207&logo=star" />
+         src="https://custom-icon-badges.demolab.com/github/stars/MA1002643?color=55960c&style=for-the-badge&labelColor=488207&logo=star" height="22" />
   </a>
   <a href="https://github.com/MA1002643?tab=followers">
     <img alt="followers" title="Follow me on GitHub"
-         src="https://custom-icon-badges.demolab.com/github/followers/MA1002643?color=236ad3&labelColor=1155ba&style=for-the-badge&logo=person-add&label=Follow&logoColor=white" />
+         src="https://custom-icon-badges.demolab.com/github/followers/MA1002643?color=236ad3&labelColor=1155ba&style=for-the-badge&logo=person-add&label=Follow&logoColor=white" height="22" />
   </a>
     </a>
-    <img src="https://img.shields.io/badge/Mindset-Agile%20%7C%20Problem%20Solver-orange?style=for-the-badge&logo=lightbulb&logoColor=white" alt="Mindset"/>
+    <img src="https://img.shields.io/badge/Mindset-Agile%20%7C%20Problem%20Solver-orange?style=for-the-badge&logo=lightbulb&logoColor=white" alt="Mindset" height="22" />
   </a>
 </p>
 
