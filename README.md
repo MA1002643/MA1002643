@@ -63,24 +63,18 @@
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
 <td align="center" valign="top" width="50%" style="padding:12px 24px 12px 0px; border:0;">
-<a href="https://github.com/MA1002643/ai-powered-recipe-search-platform">
-<div style="padding:10px; box-sizing:border-box;">
-<picture>
-<source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=ai-powered-recipe-search-platform&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117">
-<img alt="ai-powered-recipe-search-platform" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=ai-powered-recipe-search-platform&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff" width="480" style="max-width:100%; height:auto; display:block;">
-</picture>
-</div>
-</a>
+  <a href="https://github.com/MA1002643/ai-powered-recipe-search-platform">
+    <div style="padding:10px; box-sizing:border-box;">
+      <img alt="ai-powered-recipe-search-platform" src="https://opengraph.githubassets.com/1/MA1002643/ai-powered-recipe-search-platform" width="480" style="max-width:100%; height:auto; display:block; border-radius:6px;">
+    </div>
+  </a>
 </td>
 <td align="center" valign="top" width="50%" style="padding:12px 0px 12px 24px; border:0;">
-<a href="https://github.com/MA1002643/muhammadabdullah-portfolio">
-<div style="padding:10px; box-sizing:border-box;">
-<picture>
-<source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=muhammadabdullah-portfolio&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=ffffff&bg_color=0D1117">
-<img alt="muhammadabdullah-portfolio" src="https://github-readme-stats.vercel.app/api/pin/?username=MA1002643&repo=muhammadabdullah-portfolio&show_owner=false&hide_border=true&title_color=ff652f&icon_color=FFE400&cache_seconds=21600&text_color=0c1a25&bg_color=ffffff" width="480" style="max-width:100%; height:auto; display:block;">
-</picture>
-</div>
-</a>
+  <a href="https://github.com/MA1002643/muhammadabdullah-portfolio">
+    <div style="padding:10px; box-sizing:border-box;">
+      <img alt="muhammadabdullah-portfolio" src="https://opengraph.githubassets.com/1/MA1002643/muhammadabdullah-portfolio" width="480" style="max-width:100%; height:auto; display:block; border-radius:6px;">
+    </div>
+  </a>
 </td>
 </tr>
 </table>
@@ -164,6 +158,7 @@ namespace ProfileCard
 <br/>
 
 <!-- LANG-ICONS:START -->
+
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css&logoColor=white)
@@ -198,6 +193,7 @@ namespace ProfileCard
 <br/>
 
 <!-- FWLIB-ICONS:START -->
+
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-512BD4?style=for-the-badge&logo=net-maui&logoColor=white)
 ![Blazor](https://img.shields.io/badge/Blazor-5C2D91?style=for-the-badge&logo=blazor&logoColor=white)
@@ -226,6 +222,7 @@ namespace ProfileCard
 <br/>
 
 <!-- DBCLOUD-ICONS:START -->
+
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
@@ -246,6 +243,7 @@ namespace ProfileCard
 <br/>
 
 <!-- TOOLS-ICONS:START -->
+
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![CI/CD](https://img.shields.io/badge/CI%2FCD-0B5FFF?style=for-the-badge&logo=githubactions&logoColor=white)

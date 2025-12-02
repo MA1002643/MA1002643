@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-
 # Prevent overlapping scheduled runs from piling up
 concurrency:
   group: auto-pin-top-repos
