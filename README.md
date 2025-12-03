@@ -64,8 +64,9 @@
 
 ---
 
+## 📌 Pinned Repositories
+
 <!-- PINNED: START -->
-<h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
 <tr>
 <td align="center" valign="top" width="50%" style="padding:12px 24px 12px 0px; border:0;">

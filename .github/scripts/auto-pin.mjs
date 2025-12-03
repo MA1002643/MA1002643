@@ -188,7 +188,10 @@ async function main() {
     stars1
   )}\n${td(o2, r2, "right", stars2)}\n</tr>\n</table>`;
 
-  const newBlock = `${START_MARK}\n<h3 align="center" style="margin:0 0 12px; color:#FF652F; font-weight:800;">📌 Pinned Repositories</h3>\n${body}\n${END_MARK}`;
+  // Only include the table body in the pinned block. The visible
+  // header is kept outside the markers in README.md so we don't
+  // overwrite it when the script runs.
+  const newBlock = `${START_MARK}\n${body}\n${END_MARK}`;
 
   const readme = fs.readFileSync(README_PATH, "utf8");
   const i1 = readme.indexOf(START_MARK);
