@@ -372,17 +372,15 @@ Last Updated: Tuesday, December 2nd, 2025, 8:27:02 am
 <!-- LANG-TIME:START -->
 
 ```text
-XAML          5 hrs 9 mins    ██████████████████░░░░░░░   73.12 %
-Markdown      1 hrs 7 mins    ████░░░░░░░░░░░░░░░░░░░░░   16.01 %
-HTML          20 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   04.72 %
-XML           9 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.32 %
-C#            7 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.84 %
-CSS           6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.52 %
-YAML          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.29 %
-JavaScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.18 %
+Markdown      1 hrs 28 mins   ███████████░░░░░░░░░░░░░░   45.00 %
+XAML          1 hrs 20 mins   ██████████░░░░░░░░░░░░░░░   40.50 %
+HTML          20 mins         ██░░░░░░░░░░░░░░░░░░░░░░░   10.11 %
+CSS           6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   03.26 %
+YAML          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.62 %
+JavaScript    1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.51 %
 ```
 
-Last updated on 2025-12-02 (Displaying Data from past 7 days)
+Last updated on 2025-12-03 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
