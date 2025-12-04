@@ -372,15 +372,14 @@ Last Updated: Wednesday, December 3rd, 2025, 8:26:10 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      1 hrs 28 mins   ███████████░░░░░░░░░░░░░░   45.00 %
-XAML          1 hrs 20 mins   ██████████░░░░░░░░░░░░░░░   40.50 %
-HTML          20 mins         ██░░░░░░░░░░░░░░░░░░░░░░░   10.11 %
-CSS           6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   03.26 %
-YAML          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.62 %
-JavaScript    1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.51 %
+Markdown      1 hrs 28 mins   ██████████████████░░░░░░░   75.62 %
+HTML          20 mins         ████░░░░░░░░░░░░░░░░░░░░░   17.00 %
+CSS           6 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   05.48 %
+YAML          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.05 %
+JavaScript    1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.85 %
 ```
 
-Last updated on 2025-12-03 (Displaying Data from past 7 days)
+Last updated on 2025-12-04 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
