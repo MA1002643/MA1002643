@@ -372,14 +372,12 @@ Last Updated: Saturday, December 6th, 2025, 8:21:50 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      1 hrs 28 mins   ██████████████████░░░░░░░   75.62 %
-HTML          20 mins         ████░░░░░░░░░░░░░░░░░░░░░   17.00 %
-CSS           6 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   05.48 %
-YAML          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.05 %
-JavaScript    1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.85 %
+Markdown      1 hrs 28 mins   ████████████████████████░   97.55 %
+YAML          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.35 %
+JavaScript    1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.10 %
 ```
 
-Last updated on 2025-12-06 (Displaying Data from past 7 days)
+Last updated on 2025-12-07 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
