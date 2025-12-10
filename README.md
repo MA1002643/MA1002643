@@ -368,12 +368,11 @@ Last Updated: Tuesday, December 9th, 2025, 8:26:41 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      1 hrs 26 mins   ████████████████████████░   97.49 %
-YAML          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.39 %
-JavaScript    1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.12 %
+Markdown      21 mins         ████████████████████████░   98.83 %
+JavaScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.17 %
 ```
 
-Last updated on 2025-12-09 (Displaying Data from past 7 days)
+Last updated on 2025-12-10 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
