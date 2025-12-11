@@ -368,11 +368,11 @@ Last Updated: Wednesday, December 10th, 2025, 8:26:15 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      21 mins         ████████████████████████░   98.83 %
-JavaScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.17 %
+Markdown      47 mins         ███████████████████░░░░░░   79.32 %
+HTML          12 mins         █████░░░░░░░░░░░░░░░░░░░░   20.68 %
 ```
 
-Last updated on 2025-12-10 (Displaying Data from past 7 days)
+Last updated on 2025-12-11 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
