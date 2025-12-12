@@ -368,11 +368,14 @@ Last Updated: Thursday, December 11th, 2025, 8:27:06 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      47 mins         ███████████████████░░░░░░   79.32 %
-HTML          12 mins         █████░░░░░░░░░░░░░░░░░░░░   20.68 %
+Markdown      47 mins         ██████████████████░░░░░░░   75.55 %
+HTML          12 mins         ████░░░░░░░░░░░░░░░░░░░░░   19.70 %
+Java          2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   03.76 %
+Text          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.92 %
+XML           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.08 %
 ```
 
-Last updated on 2025-12-11 (Displaying Data from past 7 days)
+Last updated on 2025-12-12 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
