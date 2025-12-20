@@ -366,13 +366,9 @@ Last Updated: Friday, December 19th, 2025, 8:26:35 am
 
 <!-- LANG-TIME:START -->
 
-```text
-Java          2 mins          ███████████████████░░░░░░   79.01 %
-Text          0 mins          ████░░░░░░░░░░░░░░░░░░░░░   19.34 %
-XML           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.66 %
-```
+> No editor activity recorded in the selected window.
 
-Last updated on 2025-12-19 (Displaying Data from past 7 days)
+Last updated on 2025-12-20 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
