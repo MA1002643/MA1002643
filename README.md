@@ -367,11 +367,11 @@ Last Updated: Wednesday, December 24th, 2025, 8:27:07 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      2 hrs 24 mins   █████████████████████░░░░   85.89 %
-CSV           23 mins         ███░░░░░░░░░░░░░░░░░░░░░░   14.11 %
+Markdown      4 hrs 46 mins   ███████████████████████░░   92.33 %
+CSV           23 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   07.67 %
 ```
 
-Last updated on 2025-12-24 (Displaying Data from past 7 days)
+Last updated on 2025-12-25 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
