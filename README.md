@@ -367,13 +367,18 @@ Last Updated: Saturday, December 27th, 2025, 8:23:54 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      13 hrs 44 mins  ████████████████████████░   96.36 %
-CSV           23 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.78 %
-Java          6 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.80 %
-HTML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.06 %
+Markdown      19 hrs          ██████████████████████░░░   91.35 %
+Java          1 hrs 7 mins    █░░░░░░░░░░░░░░░░░░░░░░░░   05.40 %
+CSV           25 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.07 %
+Python        7 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.59 %
+XML           4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.36 %
+JSON          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.14 %
+HTML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
+execline      0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
+Git Config    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
 ```
 
-Last updated on 2025-12-27 (Displaying Data from past 7 days)
+Last updated on 2025-12-28 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
