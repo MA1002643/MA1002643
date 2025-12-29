@@ -367,18 +367,18 @@ Last Updated: Sunday, December 28th, 2025, 8:24:03 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      19 hrs          ██████████████████████░░░   91.35 %
-Java          1 hrs 7 mins    █░░░░░░░░░░░░░░░░░░░░░░░░   05.40 %
-CSV           25 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.07 %
-Python        7 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.59 %
-XML           4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.36 %
-JSON          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.14 %
+Markdown      19 hrs          █████████████████████░░░░   84.65 %
+Java          2 hrs 46 mins   ███░░░░░░░░░░░░░░░░░░░░░░   12.33 %
+CSV           25 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.91 %
+Python        7 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.55 %
+XML           4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.33 %
+JSON          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.13 %
 HTML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
 execline      0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
 Git Config    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
 ```
 
-Last updated on 2025-12-28 (Displaying Data from past 7 days)
+Last updated on 2025-12-29 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
