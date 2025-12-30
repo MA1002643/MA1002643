@@ -367,18 +367,21 @@ Last Updated: Monday, December 29th, 2025, 8:28:38 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      19 hrs          █████████████████████░░░░   84.65 %
-Java          2 hrs 46 mins   ███░░░░░░░░░░░░░░░░░░░░░░   12.33 %
-CSV           25 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.91 %
-Python        7 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.55 %
-XML           4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.33 %
-JSON          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.13 %
+Markdown      18 hrs 50 mins  ██████████████████░░░░░░░   74.87 %
+Java          5 hrs 43 mins   █████░░░░░░░░░░░░░░░░░░░░   22.73 %
+Python        18 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.24 %
+XML           5 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.33 %
+CSV           4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.27 %
+XAML          3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.26 %
+JSON          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.11 %
+Text          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.07 %
 HTML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
-execline      0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
-Git Config    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
+execline      0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
+Git Config    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.02 %
+Other         0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.02 %
 ```
 
-Last updated on 2025-12-29 (Displaying Data from past 7 days)
+Last updated on 2025-12-30 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
