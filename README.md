@@ -367,17 +367,16 @@ Last Updated: Saturday, January 10th, 2026, 8:23:10 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      52 mins         ███████████████░░░░░░░░░░   61.91 %
-Python        13 mins         ████░░░░░░░░░░░░░░░░░░░░░   16.23 %
-Bash          7 mins          ██░░░░░░░░░░░░░░░░░░░░░░░   09.29 %
-CSV           5 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   05.97 %
-Java          4 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   05.27 %
-Git Config    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.95 %
-Text          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.32 %
-XML           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.06 %
+Markdown      52 mins         ██████████████████░░░░░░░   73.01 %
+Python        13 mins         ████░░░░░░░░░░░░░░░░░░░░░   18.23 %
+CSV           4 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   06.08 %
+Bash          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.36 %
+Git Config    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.89 %
+Text          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.37 %
+XML           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.07 %
 ```
 
-Last updated on 2026-01-10 (Displaying Data from past 7 days)
+Last updated on 2026-01-11 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
