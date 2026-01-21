@@ -371,15 +371,15 @@ Last Updated: Tuesday, January 20th, 2026, 8:07:19 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      6 hrs 37 mins   ███████████████████████░░   94.31 %
-Git Config    19 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   04.51 %
-XAML          3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.88 %
-CSS           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.23 %
-JSON          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
-C#            0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
+Markdown      3 hrs 27 mins   █████████████████░░░░░░░░   70.64 %
+HTML          38 mins         ███░░░░░░░░░░░░░░░░░░░░░░   13.23 %
+Git Config    36 mins         ███░░░░░░░░░░░░░░░░░░░░░░   12.41 %
+Other         10 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.67 %
+JSON          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
+XAML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.02 %
 ```
 
-Last updated on 2026-01-20 (Displaying Data from past 7 days)
+Last updated on 2026-01-21 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
