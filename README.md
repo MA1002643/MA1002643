@@ -229,6 +229,7 @@ namespace ProfileCard
 ![Framer Motion](https://img.shields.io/badge/Framer%20Motion-444444?style=for-the-badge&logo=framermotion&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-444444?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![Entity Framework](https://img.shields.io/badge/Entity%20Framework-444444?style=for-the-badge)
+
 <!-- FWLIB-ICONS:END -->
 
 </details>
