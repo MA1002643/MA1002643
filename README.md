@@ -369,17 +369,17 @@ Last Updated: Tuesday, January 27th, 2026, 8:07:26 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      1 hrs 26 mins   ███████████░░░░░░░░░░░░░░   44.50 %
-HTML          38 mins         █████░░░░░░░░░░░░░░░░░░░░   20.11 %
-Git Config    27 mins         ███░░░░░░░░░░░░░░░░░░░░░░   14.29 %
-Image (svg)   13 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   07.09 %
-Bash          13 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   06.78 %
-Other         10 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   05.57 %
-nvmrc         3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.62 %
+Markdown      1 hrs 23 mins   ██████████░░░░░░░░░░░░░░░   43.81 %
+HTML          38 mins         █████░░░░░░░░░░░░░░░░░░░░   20.36 %
+Git Config    27 mins         ███░░░░░░░░░░░░░░░░░░░░░░   14.47 %
+Image (svg)   13 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   07.18 %
+Bash          13 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   06.86 %
+Other         10 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   05.64 %
+nvmrc         3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.64 %
 JSON          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
 ```
 
-Last updated on 2026-01-27 (Displaying Data from past 7 days)
+Last updated on 2026-01-28 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
