@@ -369,17 +369,14 @@ Last Updated: Wednesday, January 28th, 2026, 8:07:10 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      1 hrs 23 mins   ██████████░░░░░░░░░░░░░░░   43.81 %
-HTML          38 mins         █████░░░░░░░░░░░░░░░░░░░░   20.36 %
-Git Config    27 mins         ███░░░░░░░░░░░░░░░░░░░░░░   14.47 %
-Image (svg)   13 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   07.18 %
-Bash          13 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   06.86 %
-Other         10 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   05.64 %
-nvmrc         3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.64 %
-JSON          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
+Markdown      59 mins         ████████████████░░░░░░░░░   64.41 %
+Image (svg)   13 mins         ███░░░░░░░░░░░░░░░░░░░░░░   14.96 %
+Bash          13 mins         ███░░░░░░░░░░░░░░░░░░░░░░   14.30 %
+nvmrc         3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   03.42 %
+Git Config    2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.91 %
 ```
 
-Last updated on 2026-01-28 (Displaying Data from past 7 days)
+Last updated on 2026-01-29 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
