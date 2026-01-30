@@ -369,14 +369,13 @@ Last Updated: Thursday, January 29th, 2026, 8:11:43 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      59 mins         ████████████████░░░░░░░░░   64.41 %
-Image (svg)   13 mins         ███░░░░░░░░░░░░░░░░░░░░░░   14.96 %
-Bash          13 mins         ███░░░░░░░░░░░░░░░░░░░░░░   14.30 %
-nvmrc         3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   03.42 %
-Git Config    2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.91 %
+Markdown      29 mins         ████████████░░░░░░░░░░░░░   50.84 %
+Image (svg)   13 mins         █████░░░░░░░░░░░░░░░░░░░░   23.70 %
+Bash          12 mins         █████░░░░░░░░░░░░░░░░░░░░   20.85 %
+Git Config    2 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   04.61 %
 ```
 
-Last updated on 2026-01-29 (Displaying Data from past 7 days)
+Last updated on 2026-01-30 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
