@@ -369,14 +369,11 @@ Last Updated: Saturday, January 31st, 2026, 8:06:50 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      28 mins         ████████████░░░░░░░░░░░░░   49.94 %
-Image (svg)   13 mins         ██████░░░░░░░░░░░░░░░░░░░   24.08 %
-Bash          12 mins         █████░░░░░░░░░░░░░░░░░░░░   21.18 %
-Git Config    2 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   04.69 %
-XAML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.12 %
+Markdown      0 mins          █████████████████████░░░░   86.67 %
+XAML          0 mins          ███░░░░░░░░░░░░░░░░░░░░░░   13.33 %
 ```
 
-Last updated on 2026-01-31 (Displaying Data from past 7 days)
+Last updated on 2026-02-01 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
