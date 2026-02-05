@@ -146,18 +146,20 @@ namespace ProfileCard
   <table>
     <tr>
       <td align="center" width="50%" style="padding:16px;">
-        <a href="https://users.grcelearning.com/badges/badge.php?hash=dd9b191d5d6b98438eae0d6184fa1f8739de00e7" target="_blank" rel="noopener noreferrer">
-          <img src="./assets/badges/Cyber_Security_Staff_Awareness_E-Learning_Course.png" alt="Cyber Security Staff Awareness Badge" width="100" />
-        </a>
-        <br/><br/>
+        <p align="center">
+          <a href="https://users.grcelearning.com/badges/badge.php?hash=dd9b191d5d6b98438eae0d6184fa1f8739de00e7" target="_blank" rel="noopener noreferrer">
+            <img src="./assets/badges/Cyber_Security_Staff_Awareness_E-Learning_Course.png" alt="Cyber Security Staff Awareness Badge" width="100" />
+          </a>
+        </p>
         <h4>Cyber Security Staff Awareness</h4>
         <p>GRC Solutions · Feb 2026 · 🔗 Verified</p>
       </td>
       <td align="center" width="50%" style="padding:16px;">
-        <a href="https://developers.google.com/profile/badges/activity/chrome-devtools/chrome-devtools-user" target="_blank" rel="noopener noreferrer" title="Click to verify credential">
-          <img src="assets/badges/badge.svg" alt="Chrome DevTools User — Google Chrome Developers" width="100" />
-        </a>
-        <br/><br/>
+        <p align="center">
+          <a href="https://developers.google.com/profile/badges/activity/chrome-devtools/chrome-devtools-user" target="_blank" rel="noopener noreferrer" title="Click to verify credential">
+            <img src="assets/badges/badge.svg" alt="Chrome DevTools User — Google Chrome Developers" width="100" />
+          </a>
+        </p>
         <h4>Chrome DevTools User</h4>
         <p>Google Chrome Developers · Dec 2025 · 🔗 Verified</p>
       </td>
