@@ -147,20 +147,21 @@ namespace ProfileCard
     <tr>
       <td align="center" width="50%" style="padding:16px;">
         <a href="https://users.grcelearning.com/badges/badge.php?hash=dd9b191d5d6b98438eae0d6184fa1f8739de00e7" target="_blank" rel="noopener noreferrer">
-          <img src="./assets/badges/Cyber_Security_Staff_Awareness_E-Learning_Course.png" alt="Cyber Security Staff Awareness Badge" style="max-width:160px; width:100%; height:auto;" />
+          <img src="./assets/badges/Cyber_Security_Staff_Awareness_E-Learning_Course.png" alt="Cyber Security Staff Awareness Badge" width="100" />
         </a>
         <br/><br/>
-        <b>Cyber Security Staff Awareness</b><br/>
-        <sub>GRC Solutions · Feb 2026 · 🔗 Verified</sub>
+        <h4>Cyber Security Staff Awareness</h4>
+        <p>GRC Solutions · Feb 2026 · 🔗 Verified</p>
       </td>
       <td align="center" width="50%" style="padding:16px;">
         <a href="https://developers.google.com/profile/badges/activity/chrome-devtools/chrome-devtools-user" target="_blank" rel="noopener noreferrer" title="Click to verify credential">
-          <img src="assets/badges/badge.svg" alt="Chrome DevTools User — Google Chrome Developers" style="max-width:160px; width:100%; height:auto;" />
+          <img src="assets/badges/badge.svg" alt="Chrome DevTools User — Google Chrome Developers" width="100" />
         </a>
         <br/><br/>
-        <b>Chrome DevTools User</b><br/>
-        <sub>Google Chrome Developers · Dec 2025 · 🔗 Verified</sub>
+        <h4>Chrome DevTools User</h4>
+        <p>Google Chrome Developers · Dec 2025 · 🔗 Verified</p>
       </td>
+    </tr>
   </table>
 </div>
 
@@ -199,6 +200,7 @@ namespace ProfileCard
 <br/>
 
 <!-- LANG-ICONS:START -->
+
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css&logoColor=white)
@@ -232,6 +234,7 @@ namespace ProfileCard
 <br/>
 
 <!-- FWLIB-ICONS:START -->
+
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-512BD4?style=for-the-badge&logo=net-maui&logoColor=white)
 ![Blazor](https://img.shields.io/badge/Blazor-5C2D91?style=for-the-badge&logo=blazor&logoColor=white)
@@ -260,6 +263,7 @@ namespace ProfileCard
 <br/>
 
 <!-- DBCLOUD-ICONS:START -->
+
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
@@ -279,6 +283,7 @@ namespace ProfileCard
 <br/>
 
 <!-- TOOLS-ICONS:START -->
+
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![CI/CD](https://img.shields.io/badge/CI%2FCD-0B5FFF?style=for-the-badge&logo=githubactions&logoColor=white)
