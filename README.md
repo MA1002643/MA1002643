@@ -31,9 +31,7 @@
     <img alt="followers" title="Follow me on GitHub"
          src="https://custom-icon-badges.demolab.com/github/followers/MA1002643?color=236ad3&labelColor=1155ba&style=for-the-badge&logo=person-add&label=Follow&logoColor=white" height="22" />
   </a>
-    </a>
-    <img src="https://img.shields.io/badge/Mindset-Agile%20%7C%20Problem%20Solver-orange?style=for-the-badge&logo=lightbulb&logoColor=white" alt="Mindset" height="22" />
-  </a>
+  <img src="https://img.shields.io/badge/Mindset-Agile%20%7C%20Problem%20Solver-orange?style=for-the-badge&logo=lightbulb&logoColor=white" alt="Mindset" height="22" />
 </p>
 
 <!-- gradient underline -->
@@ -42,7 +40,6 @@
 </p>
 
 <!-- Quote Section -->
-
 <div align="center">
   <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Random Dev Quote"/>
 </div>
@@ -143,6 +140,32 @@ namespace ProfileCard
 
 ---
 
+## 🛡️ Badges & Training
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="50%" style="padding:16px;">
+        <a href="https://users.grcelearning.com/badges/badge.php?hash=dd9b191d5d6b98438eae0d6184fa1f8739de00e7" target="_blank" rel="noopener noreferrer">
+          <img src="./assets/badges/Cyber_Security_Staff_Awareness_E-Learning_Course.png" alt="Cyber Security Staff Awareness Badge" style="max-width:160px; width:100%; height:auto;" />
+        </a>
+        <br/><br/>
+        <b>Cyber Security Staff Awareness</b><br/>
+        <sub>GRC Solutions · Feb 2026 · 🔗 Verified</sub>
+      </td>
+      <td align="center" width="50%" style="padding:16px;">
+        <a href="https://developers.google.com/profile/badges/activity/chrome-devtools/chrome-devtools-user" target="_blank" rel="noopener noreferrer" title="Click to verify credential">
+          <img src="assets/badges/badge.svg" alt="Chrome DevTools User — Google Chrome Developers" style="max-width:160px; width:100%; height:auto;" />
+        </a>
+        <br/><br/>
+        <b>Chrome DevTools User</b><br/>
+        <sub>Google Chrome Developers · Dec 2025 · 🔗 Verified</sub>
+      </td>
+  </table>
+</div>
+
+---
+
 ## 🎯 What I Do
 
 <div align="center">
@@ -172,7 +195,6 @@ namespace ProfileCard
 ## 🛠️ Tech Arsenal
 
 <details>
-
 <summary><b>👨‍💻 Programming and Markup Languages</b></summary>
 <br/>
 
@@ -206,7 +228,6 @@ namespace ProfileCard
 </details>
 
 <details>
-
 <summary><b>🧰 Frameworks and Libraries</b></summary>
 <br/>
 
@@ -235,7 +256,6 @@ namespace ProfileCard
 </details>
 
 <details>
-
 <summary><b>🗄️ Databases and Cloud Hosting</b></summary>
 <br/>
 
@@ -255,7 +275,6 @@ namespace ProfileCard
 </details>
 
 <details>
-
 <summary><b>💻 Software and Tools</b></summary>
 <br/>
 
@@ -326,7 +345,6 @@ namespace ProfileCard
 ---
 
 <details>
-
 <summary><b>🕒 Recent GitHub Activity</b></summary>
 <br />
 <!--RECENT_ACTIVITY:start-->
@@ -354,7 +372,6 @@ Last Updated: Thursday, February 5th, 2026, 8:14:06 am
 </details>
 
 <details>
-
 <summary><b>📊 Most Used Languages</b></summary>
 <br />
 <picture>
