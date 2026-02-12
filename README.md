@@ -390,11 +390,11 @@ Last Updated: Wednesday, February 11th, 2026, 8:15:49 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      40 mins         ████████████████████████░   97.52 %
-XAML          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   02.48 %
+JSON          29 mins         ████████████░░░░░░░░░░░░░   51.89 %
+Markdown      27 mins         ████████████░░░░░░░░░░░░░   48.11 %
 ```
 
-Last updated on 2026-02-11 (Displaying Data from past 7 days)
+Last updated on 2026-02-12 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
