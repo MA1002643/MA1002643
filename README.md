@@ -390,13 +390,13 @@ Last Updated: Friday, February 20th, 2026, 8:14:30 am
 <!-- LANG-TIME:START -->
 
 ```text
-JSON          12 hrs 50 mins  ████████████████████░░░░░   81.67 %
-SQL           1 hrs 24 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   08.99 %
-Other         56 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   06.00 %
-Text          31 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.34 %
+JSON          10 hrs 37 mins  █████████████████░░░░░░░░   69.02 %
+SQL           2 hrs 14 mins   ███░░░░░░░░░░░░░░░░░░░░░░   14.58 %
+Other         2 hrs           ███░░░░░░░░░░░░░░░░░░░░░░   13.00 %
+Text          31 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.41 %
 ```
 
-Last updated on 2026-02-20 (Displaying Data from past 7 days)
+Last updated on 2026-02-21 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
