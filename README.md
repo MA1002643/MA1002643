@@ -389,14 +389,17 @@ Last Updated: Friday, February 27th, 2026, 8:13:45 am
 <!-- LANG-TIME:START -->
 
 ```text
-Other         12 hrs 31 mins  ████████████████████░░░░░   81.83 %
-SQL           1 hrs 20 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   08.78 %
-JSON          1 hrs 3 mins    █░░░░░░░░░░░░░░░░░░░░░░░░   06.90 %
-Markdown      22 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.46 %
-Git Config    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
+Other         13 hrs 25 mins  ██████████████████░░░░░░░   75.01 %
+JSON          1 hrs 44 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   09.71 %
+C#            57 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   05.32 %
+SQL           46 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   04.31 %
+XAML          23 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.19 %
+Markdown      22 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.11 %
+XML           13 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.24 %
+Git Config    1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.12 %
 ```
 
-Last updated on 2026-02-27 (Displaying Data from past 7 days)
+Last updated on 2026-02-28 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
