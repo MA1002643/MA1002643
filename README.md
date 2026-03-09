@@ -388,16 +388,14 @@ Last Updated: Sunday, March 8th, 2026, 8:07:27 am
 <!-- LANG-TIME:START -->
 
 ```text
-SQL           2 hrs 24 mins   █████░░░░░░░░░░░░░░░░░░░░   23.34 %
-C#            2 hrs 14 mins   █████░░░░░░░░░░░░░░░░░░░░   21.82 %
-Other         2 hrs 11 mins   █████░░░░░░░░░░░░░░░░░░░░   21.23 %
-JSON          1 hrs 38 mins   ███░░░░░░░░░░░░░░░░░░░░░░   15.86 %
-XAML          1 hrs 28 mins   ███░░░░░░░░░░░░░░░░░░░░░░   14.31 %
-Markdown      21 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.41 %
-XML           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.02 %
+SQL           2 hrs 24 mins   ███████░░░░░░░░░░░░░░░░░░   29.20 %
+C#            2 hrs 8 mins    ██████░░░░░░░░░░░░░░░░░░░   25.97 %
+Other         1 hrs 51 mins   █████░░░░░░░░░░░░░░░░░░░░   22.63 %
+JSON          1 hrs 38 mins   ████░░░░░░░░░░░░░░░░░░░░░   19.84 %
+Markdown      11 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.36 %
 ```
 
-Last updated on 2026-03-08 (Displaying Data from past 7 days)
+Last updated on 2026-03-09 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
