@@ -388,14 +388,16 @@ Last Updated: Saturday, March 14th, 2026, 8:09:23 am
 <!-- LANG-TIME:START -->
 
 ```text
-SQL           7 hrs 7 mins    ███████████░░░░░░░░░░░░░░   45.73 %
-Other         6 hrs 16 mins   ██████████░░░░░░░░░░░░░░░   40.29 %
-JSON          1 hrs 54 mins   ███░░░░░░░░░░░░░░░░░░░░░░   12.30 %
-C#            15 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.67 %
+SQL           11 hrs 34 mins  ████████████████░░░░░░░░░   67.60 %
+Other         4 hrs 57 mins   ███████░░░░░░░░░░░░░░░░░░   28.95 %
+JSON          19 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.91 %
+C#            15 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.52 %
+Markdown      0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.01 %
 XML           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.01 %
+YAML          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.00 %
 ```
 
-Last updated on 2026-03-12 (Displaying Data from past 7 days)
+Last updated on 2026-03-14 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
