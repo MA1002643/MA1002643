@@ -389,18 +389,18 @@ Last Updated: Monday, March 23rd, 2026, 8:21:16 am
 <!-- LANG-TIME:START -->
 
 ```text
-Other                             6 hrs 29 mins   █████████░░░░░░░░░░░░░░░░   39.38 %
-JSON                              4 hrs 43 mins   ███████░░░░░░░░░░░░░░░░░░   28.65 %
-SQL                               3 hrs 6 mins    ████░░░░░░░░░░░░░░░░░░░░░   18.89 %
-Markdown                          1 hrs 11 mins   █░░░░░░░░░░░░░░░░░░░░░░░░   07.19 %
-C#                                46 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   04.72 %
-XAML                              4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.47 %
-Git Config                        4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.44 %
-Microsoft Visual Studio Solution  2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.21 %
-INI                               0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.05 %
+Other                             6 hrs 53 mins   ████████████░░░░░░░░░░░░░   49.93 %
+SQL                               2 hrs 44 mins   ████░░░░░░░░░░░░░░░░░░░░░   19.83 %
+JSON                              1 hrs 48 mins   ███░░░░░░░░░░░░░░░░░░░░░░   13.04 %
+Markdown                          1 hrs 23 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   10.14 %
+C#                                46 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   05.63 %
+XAML                              4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.59 %
+Git Config                        4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.53 %
+Microsoft Visual Studio Solution  2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.25 %
+INI                               0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.06 %
 ```
 
-Last updated on 2026-03-23 (Displaying Data from past 7 days)
+Last updated on 2026-03-24 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
