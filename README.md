@@ -390,19 +390,20 @@ Last Updated: Friday, March 27th, 2026, 8:17:16 am
 <!-- LANG-TIME:START -->
 
 ```text
-SQL                               2 hrs 47 mins   ██████░░░░░░░░░░░░░░░░░░░   27.84 %
-Other                             2 hrs 45 mins   ██████░░░░░░░░░░░░░░░░░░░   27.48 %
-JSON                              1 hrs 44 mins   ████░░░░░░░░░░░░░░░░░░░░░   17.38 %
-Markdown                          1 hrs 28 mins   ███░░░░░░░░░░░░░░░░░░░░░░   14.75 %
-C#                                39 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   06.59 %
-JavaScript                        24 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.99 %
-XAML                              4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.81 %
-Git Config                        4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.74 %
-Microsoft Visual Studio Solution  2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.35 %
-INI                               0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.08 %
+SQL                               2 hrs 47 mins   ██████░░░░░░░░░░░░░░░░░░░   25.33 %
+Other                             2 hrs 45 mins   ██████░░░░░░░░░░░░░░░░░░░   24.99 %
+JSON                              1 hrs 44 mins   ███░░░░░░░░░░░░░░░░░░░░░░   15.81 %
+JavaScript                        1 hrs 30 mins   ███░░░░░░░░░░░░░░░░░░░░░░   13.70 %
+Markdown                          1 hrs 28 mins   ███░░░░░░░░░░░░░░░░░░░░░░   13.41 %
+C#                                25 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.83 %
+YAML                              7 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.14 %
+XAML                              4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.74 %
+Git Config                        4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.67 %
+Microsoft Visual Studio Solution  2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.31 %
+INI                               0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.07 %
 ```
 
-Last updated on 2026-03-27 (Displaying Data from past 7 days)
+Last updated on 2026-03-28 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
