@@ -393,20 +393,21 @@ Last Updated: Saturday, March 28th, 2026, 8:12:49 am
 <!-- LANG-TIME:START -->
 
 ```text
-SQL                               2 hrs 47 mins   ██████░░░░░░░░░░░░░░░░░░░   25.33 %
-Other                             2 hrs 45 mins   ██████░░░░░░░░░░░░░░░░░░░   24.99 %
-JSON                              1 hrs 44 mins   ███░░░░░░░░░░░░░░░░░░░░░░   15.81 %
-JavaScript                        1 hrs 30 mins   ███░░░░░░░░░░░░░░░░░░░░░░   13.70 %
-Markdown                          1 hrs 28 mins   ███░░░░░░░░░░░░░░░░░░░░░░   13.41 %
-C#                                25 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.83 %
-YAML                              7 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.14 %
-XAML                              4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.74 %
-Git Config                        4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.67 %
-Microsoft Visual Studio Solution  2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.31 %
-INI                               0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.07 %
+SQL                               2 hrs 47 mins   ██████░░░░░░░░░░░░░░░░░░░   26.49 %
+Other                             2 hrs 45 mins   ██████░░░░░░░░░░░░░░░░░░░   26.15 %
+JSON                              1 hrs 44 mins   ████░░░░░░░░░░░░░░░░░░░░░   16.54 %
+JavaScript                        1 hrs 30 mins   ███░░░░░░░░░░░░░░░░░░░░░░   14.33 %
+Markdown                          1 hrs 29 mins   ███░░░░░░░░░░░░░░░░░░░░░░   14.08 %
+YAML                              7 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.19 %
+Git Config                        4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.70 %
+Microsoft Visual Studio Solution  2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.33 %
+INI                               0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.08 %
+Bash                              0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.06 %
+XAML                              0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
+C#                                0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.02 %
 ```
 
-Last updated on 2026-03-28 (Displaying Data from past 7 days)
+Last updated on 2026-03-29 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
