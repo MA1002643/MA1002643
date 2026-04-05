@@ -393,13 +393,10 @@ Last Updated: Saturday, April 4th, 2026, 9:13:43 am
 <!-- LANG-TIME:START -->
 
 ```text
-JavaScript    1 hrs 6 mins    ██████████████████████░░░   88.66 %
-YAML          7 mins          ██░░░░░░░░░░░░░░░░░░░░░░░   10.03 %
-Markdown      0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.78 %
-Bash          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.53 %
+Bash          0 mins          █████████████████████████   100.00 %
 ```
 
-Last updated on 2026-04-04 (Displaying Data from past 7 days)
+Last updated on 2026-04-05 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
