@@ -393,9 +393,11 @@ Last Updated: Tuesday, April 7th, 2026, 9:28:30 am
 <!-- LANG-TIME:START -->
 
 ```text
-Markdown      2 hrs 14 mins   ███████████████████████░░   92.99 %
-Git Config    10 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   07.00 %
-Other         0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.01 %
+Markdown      2 hrs 14 mins   ████████████████████░░░░░   82.95 %
+Git Config    10 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   06.24 %
+SQL           9 mins          █░░░░░░░░░░░░░░░░░░░░░░░░   05.68 %
+JSON          5 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   03.62 %
+Other         2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   01.51 %
 ```
 
 Last updated on 2026-04-07 (Displaying Data from past 7 days)
