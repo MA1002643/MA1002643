@@ -394,18 +394,19 @@ Last Updated: Sunday, April 19th, 2026, 9:22:11 am
 <!-- LANG-TIME:START -->
 
 ```text
-Other         7 hrs 34 mins   ██████████░░░░░░░░░░░░░░░   40.04 %
-JavaScript    3 hrs 52 mins   █████░░░░░░░░░░░░░░░░░░░░   20.49 %
-SQL           3 hrs 7 mins    ████░░░░░░░░░░░░░░░░░░░░░   16.51 %
-JSON          2 hrs 59 mins   ███░░░░░░░░░░░░░░░░░░░░░░   15.83 %
-CSS           40 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.59 %
-Markdown      33 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.93 %
-Git Config    3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.31 %
-Image (png)   2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.23 %
-TypeScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.08 %
+Other         9 hrs 30 mins   ██████████░░░░░░░░░░░░░░░   43.91 %
+JavaScript    4 hrs 19 mins   █████░░░░░░░░░░░░░░░░░░░░   20.02 %
+SQL           3 hrs 7 mins    ███░░░░░░░░░░░░░░░░░░░░░░   14.42 %
+JSON          2 hrs 59 mins   ███░░░░░░░░░░░░░░░░░░░░░░   13.82 %
+CSS           40 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.13 %
+Markdown      29 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.28 %
+Mermaid       24 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.87 %
+Git Config    3 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.27 %
+Image (png)   2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.20 %
+TypeScript    0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.07 %
 ```
 
-Last updated on 2026-04-19 (Displaying Data from past 7 days)
+Last updated on 2026-04-20 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
