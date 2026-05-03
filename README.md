@@ -394,17 +394,16 @@ Last Updated: Saturday, May 2nd, 2026, 9:32:34 am
 <!-- LANG-TIME:START -->
 
 ```text
-JavaScript    9 hrs 17 mins   ███████████░░░░░░░░░░░░░░   46.16 %
-Other         5 hrs 2 mins    ██████░░░░░░░░░░░░░░░░░░░   25.02 %
-SQL           2 hrs 49 mins   ███░░░░░░░░░░░░░░░░░░░░░░   14.02 %
-JSON          1 hrs 40 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   08.31 %
-YAML          46 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   03.84 %
-Markdown      16 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.35 %
-Git Config    9 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.81 %
-CSS           5 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.49 %
+JavaScript    11 hrs 6 mins   ████████████░░░░░░░░░░░░░   48.92 %
+Other         5 hrs 53 mins   ██████░░░░░░░░░░░░░░░░░░░   25.98 %
+SQL           2 hrs 49 mins   ███░░░░░░░░░░░░░░░░░░░░░░   12.43 %
+JSON          1 hrs 56 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   08.54 %
+CSS           29 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.17 %
+Markdown      16 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.25 %
+Git Config    9 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.72 %
 ```
 
-Last updated on 2026-05-02 (Displaying Data from past 7 days)
+Last updated on 2026-05-03 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
