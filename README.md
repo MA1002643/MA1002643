@@ -394,16 +394,16 @@ Last Updated: Thursday, May 7th, 2026, 9:56:00 am
 <!-- LANG-TIME:START -->
 
 ```text
-JavaScript    6 hrs 59 mins   ████████░░░░░░░░░░░░░░░░░   35.54 %
-Other         5 hrs 39 mins   ███████░░░░░░░░░░░░░░░░░░   28.75 %
-Markdown      3 hrs 33 mins   ████░░░░░░░░░░░░░░░░░░░░░   18.08 %
-JSON          1 hrs 8 mins    █░░░░░░░░░░░░░░░░░░░░░░░░   05.77 %
-YAML          1 hrs 1 mins    █░░░░░░░░░░░░░░░░░░░░░░░░   05.19 %
-SQL           50 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   04.25 %
-CSS           28 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.41 %
+JavaScript    6 hrs 4 mins    ████████░░░░░░░░░░░░░░░░░   35.09 %
+Other         4 hrs 58 mins   ███████░░░░░░░░░░░░░░░░░░   28.75 %
+Markdown      3 hrs 41 mins   █████░░░░░░░░░░░░░░░░░░░░   21.32 %
+YAML          1 hrs 1 mins    █░░░░░░░░░░░░░░░░░░░░░░░░   05.91 %
+JSON          49 mins         █░░░░░░░░░░░░░░░░░░░░░░░░   04.80 %
+CSS           26 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.58 %
+SQL           16 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.55 %
 ```
 
-Last updated on 2026-05-07 (Displaying Data from past 7 days)
+Last updated on 2026-05-08 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
