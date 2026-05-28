@@ -393,18 +393,18 @@ Last Updated: Wednesday, May 27th, 2026, 10:10:49 am
 <!-- LANG-TIME:START -->
 
 ```text
-JavaScript    31 hrs 9 mins   ███████████████████░░░░░░   79.89 %
-Other         3 hrs 4 mins    █░░░░░░░░░░░░░░░░░░░░░░░░   07.90 %
-CSS           2 hrs 4 mins    █░░░░░░░░░░░░░░░░░░░░░░░░   05.32 %
-JSON          51 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.19 %
-Markdown      50 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.15 %
-YAML          36 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.56 %
-Text          17 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.76 %
+JavaScript    30 hrs 59 mins  ███████████████████░░░░░░   76.74 %
+CSS           3 hrs 49 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   09.46 %
+Other         2 hrs 53 mins   █░░░░░░░░░░░░░░░░░░░░░░░░   07.14 %
+JSON          51 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.12 %
+Markdown      50 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.08 %
+YAML          36 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.51 %
+Text          17 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.73 %
 Mermaid       5 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.22 %
 Prisma        0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.00 %
 ```
 
-Last updated on 2026-05-27 (Displaying Data from past 7 days)
+Last updated on 2026-05-28 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
