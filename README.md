@@ -393,18 +393,18 @@ Last Updated: Friday, May 29th, 2026, 10:12:22 am
 <!-- LANG-TIME:START -->
 
 ```text
-JavaScript    34 hrs 25 mins  ███████████████████░░░░░░   78.88 %
-CSS           4 hrs 15 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   09.77 %
-Other         2 hrs 37 mins   █░░░░░░░░░░░░░░░░░░░░░░░░   06.00 %
-JSON          45 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.75 %
-YAML          36 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.40 %
-Markdown      35 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.35 %
-Text          17 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.68 %
-Mermaid       4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.17 %
-Prisma        0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.00 %
+JavaScript    35 hrs 18 mins  ████████████████████░░░░░   81.55 %
+CSS           4 hrs 36 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   10.66 %
+JSON          55 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.15 %
+Other         49 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.92 %
+Markdown      45 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.76 %
+YAML          33 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.30 %
+Text          14 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.57 %
+XAML          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.04 %
+Bash          0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
 ```
 
-Last updated on 2026-05-29 (Displaying Data from past 7 days)
+Last updated on 2026-05-30 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
