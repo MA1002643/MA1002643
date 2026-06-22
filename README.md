@@ -81,12 +81,12 @@
 </td>
 <td align="center" valign="top" width="50%" style="padding:12px 0px 12px 24px; border:0;">
 
-  <a href="https://github.com/MA1002643/muhammadabdullah-portfolio">
+  <a href="https://github.com/MA1002643/article-server-full-stack-blogging-platform">
     <div style="padding:10px; box-sizing:border-box;">
       <div style="display:inline-block; border-radius:12px; overflow:hidden;">
         <picture>
-          <source media="(prefers-color-scheme: light)" srcset="https://opengraph.githubassets.com/1/MA1002643/muhammadabdullah-portfolio?theme=light">
-          <img alt="muhammadabdullah-portfolio" src="https://opengraph.githubassets.com/1/MA1002643/muhammadabdullah-portfolio?theme=dark" width="480" style="max-width:100%; height:auto; display:block; border:0;">
+          <source media="(prefers-color-scheme: light)" srcset="https://opengraph.githubassets.com/1/MA1002643/article-server-full-stack-blogging-platform?theme=light">
+          <img alt="article-server-full-stack-blogging-platform" src="https://opengraph.githubassets.com/1/MA1002643/article-server-full-stack-blogging-platform?theme=dark" width="480" style="max-width:100%; height:auto; display:block; border:0;">
         </picture>
       </div>
     </div>
