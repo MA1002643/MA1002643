@@ -393,18 +393,17 @@ Last Updated: Wednesday, June 24th, 2026, 10:08:31 am
 <!-- LANG-TIME:START -->
 
 ```text
-JavaScript    19 hrs 1 mins   ██████████░░░░░░░░░░░░░░░   40.07 %
-C#            17 hrs 24 mins  █████████░░░░░░░░░░░░░░░░   36.65 %
-XAML          6 hrs 15 mins   ███░░░░░░░░░░░░░░░░░░░░░░   13.17 %
-CSS           2 hrs 37 mins   █░░░░░░░░░░░░░░░░░░░░░░░░   05.54 %
-Other         58 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   02.05 %
-JSON          28 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.99 %
-Image (svg)   18 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.64 %
-XML           13 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.47 %
-Markdown      12 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.42 %
+JavaScript    17 hrs 32 mins  █████████░░░░░░░░░░░░░░░░   39.26 %
+C#            16 hrs 22 mins  █████████░░░░░░░░░░░░░░░░   36.67 %
+XAML          6 hrs 8 mins    ███░░░░░░░░░░░░░░░░░░░░░░   13.73 %
+CSS           2 hrs 51 mins   █░░░░░░░░░░░░░░░░░░░░░░░░   06.38 %
+Other         53 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.99 %
+JSON          28 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.05 %
+XML           12 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.47 %
+Markdown      12 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   00.45 %
 ```
 
-Last updated on 2026-06-24 (Displaying Data from past 7 days)
+Last updated on 2026-06-25 (Displaying Data from past 7 days)
 
 <!-- LANG-TIME:END -->
 
