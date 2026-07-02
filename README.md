@@ -6,39 +6,20 @@
 ═════════════════════════════════════════════════════════════════════════ -->
 
 <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
-<a href="https://ma.codes/">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/hero-pro-dark.svg">
-    <img src="./assets/hero-pro-light.svg" alt="Muhammad Abdullah — Full-Stack Software Engineer" width="100%">
-  </picture>
-</a>
+<a href="https://ma.codes/"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/hero-pro-dark.svg"><img src="./assets/hero-pro-light.svg" alt="Muhammad Abdullah — Full-Stack Software Engineer" width="100%"></picture></a>
 
 <!-- ═══════════════════════ IDENTITY / CONTACT ═══════════════════════ -->
 <p align="center">
-  <a href="mailto:muhammad.abdullah33176444@gmail.com">
-    <img src="https://img.shields.io/badge/Email-333333?style=for-the-badge&logo=gmail&logoColor=FF652F" height="26" alt="Email" />
-  </a>
-  <a href="https://linkedin.com/in/muhammad-abdullah227" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" height="26" alt="LinkedIn" />
-  </a>
-  <a href="https://ma.codes/" target="_blank">
-    <img src="https://img.shields.io/badge/Portfolio-FF652F?style=for-the-badge&logo=safari&logoColor=white" height="26" alt="Portfolio" />
-  </a>
-  <a href="https://developers.google.com/profile/u/117687534681375612751" target="_blank">
-    <img src="https://img.shields.io/badge/Google_Developer-0F172A?style=for-the-badge&logo=google&logoColor=4285F4" height="26" alt="Google Developer Profile" />
-  </a>
-  <a href="https://wakatime.com/@c6d912e0-7fef-41da-8c0e-1df782a8dd33" target="_blank">
-    <img src="https://img.shields.io/badge/WakaTime-0F172A?style=for-the-badge&logo=wakatime&logoColor=FFC857" height="26" alt="WakaTime" />
-  </a>
+  <a href="mailto:muhammad.abdullah33176444@gmail.com"><img src="https://img.shields.io/badge/Email-333333?style=for-the-badge&logo=gmail&logoColor=FF652F" height="26" alt="Email" /></a>
+  <a href="https://linkedin.com/in/muhammad-abdullah227" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" height="26" alt="LinkedIn" /></a>
+  <a href="https://ma.codes/" target="_blank"><img src="https://img.shields.io/badge/Portfolio-FF652F?style=for-the-badge&logo=safari&logoColor=white" height="26" alt="Portfolio" /></a>
+  <a href="https://developers.google.com/profile/u/117687534681375612751" target="_blank"><img src="https://img.shields.io/badge/Google_Developer-0F172A?style=for-the-badge&logo=google&logoColor=4285F4" height="26" alt="Google Developer Profile" /></a>
+  <a href="https://wakatime.com/@c6d912e0-7fef-41da-8c0e-1df782a8dd33" target="_blank"><img src="https://img.shields.io/badge/WakaTime-0F172A?style=for-the-badge&logo=wakatime&logoColor=FFC857" height="26" alt="WakaTime" /></a>
 </p>
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=MA1002643&label=Profile%20views&color=ff652f&style=for-the-badge" height="24" alt="Profile views" />
-  <a href="https://github.com/MA1002643?tab=repositories&sort=stargazers">
-    <img alt="Total stars" src="https://custom-icon-badges.demolab.com/github/stars/MA1002643?color=ff652f&style=for-the-badge&labelColor=0F172A&logo=star&logoColor=FFC857" height="24" />
-  </a>
-  <a href="https://github.com/MA1002643?tab=followers">
-    <img alt="Followers" src="https://custom-icon-badges.demolab.com/github/followers/MA1002643?color=0969da&labelColor=0F172A&style=for-the-badge&logo=person-add&label=Follow&logoColor=white" height="24" />
-  </a>
+  <a href="https://github.com/MA1002643?tab=repositories&sort=stargazers"><img alt="Total stars" src="https://custom-icon-badges.demolab.com/github/stars/MA1002643?color=ff652f&style=for-the-badge&labelColor=0F172A&logo=star&logoColor=FFC857" height="24" /></a>
+  <a href="https://github.com/MA1002643?tab=followers"><img alt="Followers" src="https://custom-icon-badges.demolab.com/github/followers/MA1002643?color=0969da&labelColor=0F172A&style=for-the-badge&logo=person-add&label=Follow&logoColor=white" height="24" /></a>
   <img src="https://img.shields.io/badge/Based_in-United_Kingdom-0F172A?style=for-the-badge&logo=googlemaps&logoColor=FF652F" height="24" alt="Location: United Kingdom" />
 </p>
 
@@ -164,18 +145,8 @@
 
 <!-- PINNED: START -->
 <div align="center">
-  <a href="https://github.com/MA1002643/theabdullahfolio">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=theabdullahfolio&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=0D1117&title_color=ff652f&icon_color=FFC857&text_color=E5E7EB&border_color=243042">
-      <img alt="theabdullahfolio" src="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=theabdullahfolio&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=ffffff&title_color=ff652f&icon_color=D98324&text_color=0C1A25&border_color=D0D7DE" width="49%">
-    </picture>
-  </a>
-  <a href="https://github.com/MA1002643/article-server-full-stack-blogging-platform">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=article-server-full-stack-blogging-platform&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=0D1117&title_color=ff652f&icon_color=FFC857&text_color=E5E7EB&border_color=243042">
-      <img alt="article-server-full-stack-blogging-platform" src="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=article-server-full-stack-blogging-platform&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=ffffff&title_color=ff652f&icon_color=D98324&text_color=0C1A25&border_color=D0D7DE" width="49%">
-    </picture>
-  </a>
+  <a href="https://github.com/MA1002643/theabdullahfolio"><picture><source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=theabdullahfolio&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=0D1117&title_color=ff652f&icon_color=FFC857&text_color=E5E7EB&border_color=243042"><img alt="theabdullahfolio" src="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=theabdullahfolio&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=ffffff&title_color=ff652f&icon_color=D98324&text_color=0C1A25&border_color=D0D7DE" width="49%"></picture></a>
+  <a href="https://github.com/MA1002643/article-server-full-stack-blogging-platform"><picture><source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=article-server-full-stack-blogging-platform&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=0D1117&title_color=ff652f&icon_color=FFC857&text_color=E5E7EB&border_color=243042"><img alt="article-server-full-stack-blogging-platform" src="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=article-server-full-stack-blogging-platform&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=ffffff&title_color=ff652f&icon_color=D98324&text_color=0C1A25&border_color=D0D7DE" width="49%"></picture></a>
 </div>
 <!-- PINNED: END -->
 
@@ -365,8 +336,6 @@ public sealed record MuhammadAbdullah
 
 <i>Thanks for scrolling. If something here is useful, a ⭐ on a repo is always appreciated — and I'm always open to a good conversation.</i>
 
-<a href="https://linkedin.com/in/muhammad-abdullah227">
-  <img src="https://img.shields.io/badge/Let's_build_something-FF652F?style=for-the-badge&logo=linkedin&logoColor=white" height="30" alt="Let's connect" />
-</a>
+<a href="https://linkedin.com/in/muhammad-abdullah227"><img src="https://img.shields.io/badge/Let's_build_something-FF652F?style=for-the-badge&logo=linkedin&logoColor=white" height="30" alt="Let's connect" /></a>
 
 </div>

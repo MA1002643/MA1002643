@@ -82,13 +82,11 @@ function pinCard(owner, repo) {
   // description_lines_count keeps both cards the same height so the
   // side-by-side pair stays aligned. Stars/forks are rendered live by the
   // pin card, so no API lookup is needed here.
+  // The whole anchor stays on one line with no whitespace between tags:
+  // GitHub underlines README links, so a stray space or newline inside
+  // <a> renders as a blue underline hanging off the card.
   const base = `${PIN_API}?username=${owner}&repo=${repo}&description_lines_count=2&hide_border=false&cache_seconds=7200`;
-  return `  <a href="https://github.com/${owner}/${repo}">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="${base}&${THEME_DARK}">
-      <img alt="${repo}" src="${base}&${THEME_LIGHT}" width="49%">
-    </picture>
-  </a>`;
+  return `  <a href="https://github.com/${owner}/${repo}"><picture><source media="(prefers-color-scheme: dark)" srcset="${base}&${THEME_DARK}"><img alt="${repo}" src="${base}&${THEME_LIGHT}" width="49%"></picture></a>`;
 }
 
 async function main() {
