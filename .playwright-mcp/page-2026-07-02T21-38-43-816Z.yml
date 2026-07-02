@@ -1,0 +1,7 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]: DARK — github dark mode
+    - img [ref=e4]
+  - generic [ref=e5]:
+    - generic [ref=e6]: LIGHT — github light mode
+    - img [ref=e7]

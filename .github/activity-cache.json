@@ -1,0 +1,263 @@
+{
+  "repos": {
+    "MA1002643/MA1002643": {
+      "description": "A personal GitHub profile README repository that highlights my projects, skills, and developer journey.",
+      "topics": [
+        "github-profile",
+        "profile-readme",
+        "software-engineering",
+        "web-development"
+      ],
+      "updatedAt": "2026-07-02T19:56:29Z"
+    },
+    "MA1002643/theabdullahfolio": {
+      "description": "Next.js-powered portfolio with dynamic GitHub integrations, automated stats, neon UI, and cinematic motion design for professional branding.",
+      "topics": [
+        "framer-motion",
+        "frontend-development",
+        "github-api",
+        "github-stats",
+        "lazy-loading",
+        "modern-ui",
+        "neon-theme",
+        "nextjs",
+        "personal-branding",
+        "personal-portfolio",
+        "portfolio-website",
+        "projects-showcase",
+        "react",
+        "responsive-design",
+        "scroll-animations",
+        "software-engineer",
+        "tailwindcss",
+        "vercel",
+        "cinematic-animations"
+      ],
+      "updatedAt": "2026-07-01T23:59:28Z"
+    },
+    "MA1002643/mobcomp-assessment-MA1002643": {
+      "description": "A modern, scalable mobile app with clean UI, efficient state management, and seamless integration of core device features.",
+      "topics": [
+        "android-application",
+        "app-design",
+        "cross-platform-app",
+        "csharp",
+        "dotnet-maui",
+        "healthtech",
+        "hydration-tracker",
+        "local-database",
+        "mobile-app",
+        "mobile-development",
+        "mvvm",
+        "notifications",
+        "nutrition-app",
+        "ui-ux",
+        "wellness",
+        "xaml",
+        "meal-reminder"
+      ],
+      "updatedAt": "2026-06-29T23:56:43Z"
+    },
+    "MA1002643/article-server-full-stack-blogging-platform": {
+      "description": "A full-stack blogging platform with article management, user authentication and dynamic content delivery.",
+      "topics": [
+        "blogging-platform",
+        "express-js",
+        "fullstack-development",
+        "mongodb",
+        "nextjs",
+        "nodejs",
+        "react",
+        "tailwindcss"
+      ],
+      "updatedAt": "2026-06-21T14:43:50Z"
+    },
+    "MA1002643/CMSGTechnical": {
+      "description": "Junior Software Developer - Case Management Solutions Group Ltd Assessment",
+      "topics": [],
+      "updatedAt": "2026-04-24T15:44:17Z"
+    },
+    "MA1002643/abdullah_portfolio": {
+      "description": "",
+      "topics": [],
+      "updatedAt": "2026-03-28T02:03:11Z"
+    },
+    "MA1002643/muhammadabdullah-portfolio": {
+      "description": "An elite, motion-driven Next.js portfolio showcasing my projects, skills, and creative design in an immersive scroll experience.",
+      "topics": [
+        "cosmic-theme",
+        "creative-portfolio",
+        "developer-portfolio",
+        "framermotion",
+        "frontend-development",
+        "immersive-experience",
+        "interactive-design",
+        "modern-ui",
+        "motion-design",
+        "nextjs",
+        "portfolio-website",
+        "responsive-design",
+        "scroll-animations",
+        "tailwindcss"
+      ],
+      "updatedAt": "2026-02-26T16:47:25Z"
+    },
+    "MA1002643/AfaaqX": {
+      "description": "Design and Implementation of a Role-Based Multi-Tenant Business Management System with Integrated Authentication, Real-Time Notifications, and AI-Assisted Customer Support",
+      "topics": [
+        "business-management",
+        "nextjs",
+        "nodejs",
+        "authentication",
+        "azure-ad",
+        "booking-system",
+        "crm",
+        "dashboard",
+        "ecommerce",
+        "fullstack",
+        "i18n",
+        "postgresql",
+        "prisma",
+        "rbac",
+        "real-time",
+        "socketio",
+        "stripe",
+        "tailwindcss",
+        "typescript",
+        "university-project"
+      ],
+      "updatedAt": "2026-01-21T06:29:46Z"
+    },
+    "MA1002643/ai-powered-recipe-search-platform": {
+      "description": "A smart recipe search platform leveraging AI to help users discover, filter and personalise cooking ideas.",
+      "topics": [
+        "ai",
+        "fullstack",
+        "machine-learning",
+        "mongodb",
+        "nextjs",
+        "nodejs",
+        "recipe-app"
+      ],
+      "updatedAt": "2025-11-17T01:52:14Z"
+    },
+    "MA1002643/fullstack-singer-platform": {
+      "description": "A full-stack music platform built with Next.js, Prisma, and PostgreSQL — featuring artist management, streaming, and an admin dashboard.",
+      "topics": [
+        "admin-dashboard",
+        "artist-management",
+        "audio-streaming-bot",
+        "authentication",
+        "crud",
+        "events-management",
+        "fullstack",
+        "music-platform",
+        "nextjs",
+        "nodejs",
+        "postgresql-database",
+        "prisma",
+        "react",
+        "stripe-payments-api",
+        "tailwindcss",
+        "typescript",
+        "vercel"
+      ],
+      "updatedAt": "2025-10-26T22:29:03Z"
+    },
+    "MA1002643/jokes-platform": {
+      "description": "Full-stack jokes platform built with Express, Prisma, PostgreSQL, Redis, and React — includes REST API, JWT auth, moderation, votes, favorites, and PWA support.",
+      "topics": [
+        "admin-panel",
+        "api",
+        "docker",
+        "expressjs",
+        "fullstack",
+        "github-actions",
+        "jwt-authentication",
+        "moderation",
+        "nodejs",
+        "postgresql",
+        "prisma",
+        "pwa",
+        "react",
+        "redis",
+        "rest-api",
+        "swagger",
+        "tailwindcss",
+        "typescript",
+        "vitejs"
+      ],
+      "updatedAt": "2025-10-26T21:19:33Z"
+    },
+    "MA1002643/vevox-real-time-chat-web-application": {
+      "description": "A real-time web chat application with instant messaging, responsive design, and a clean, modern interface.",
+      "topics": [
+        "chat-application",
+        "css",
+        "frontend",
+        "html",
+        "javascript",
+        "open-source-project",
+        "real-time-chat",
+        "socket-based-communication",
+        "web-application"
+      ],
+      "updatedAt": "2025-10-26T01:43:12Z"
+    },
+    "MA1002643/aura-motion": {
+      "description": "An immersive interactive project blending motion capture and visual effects to create responsive, dynamic digital experiences.",
+      "topics": [
+        "creative-coding",
+        "interactive-media",
+        "motion-capture",
+        "visual-effects",
+        "web-application"
+      ],
+      "updatedAt": "2025-10-22T09:09:09Z"
+    },
+    "MA1002643/github-readme-streak-stats": {
+      "description": "🔥 Stay motivated and show off your contribution streak! 🌟 Display your total contributions, current streak, and longest streak on your GitHub profile README",
+      "topics": [
+        "github-readme",
+        "github-stats",
+        "javascript",
+        "open-source",
+        "php",
+        "profile-badges",
+        "readme-badges",
+        "self-hostable",
+        "svg-icons"
+      ],
+      "updatedAt": "2025-10-19T01:44:16Z"
+    },
+    "MA1002643/github-readme-stats": {
+      "description": ":zap: Dynamically generated stats for your github readmes",
+      "topics": [
+        "dynamic-metrics",
+        "github-api-integration",
+        "github-profile",
+        "javascript",
+        "open-source",
+        "readme-widget",
+        "stats-card",
+        "svg-badges"
+      ],
+      "updatedAt": "2025-10-18T08:07:00Z"
+    },
+    "MA1002643/ChatWeb": {
+      "description": "A real-time web chat application with instant messaging, responsive design, and a clean, modern interface.",
+      "topics": [
+        "chat-application",
+        "css",
+        "frontend",
+        "html",
+        "javascript",
+        "open-source-project",
+        "real-time-chat",
+        "socket-based-communication",
+        "web-application"
+      ],
+      "updatedAt": "2025-10-18T07:44:07Z"
+    }
+  }
+}

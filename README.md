@@ -95,6 +95,19 @@
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="./assets/ops-board-dark.svg"><img src="./assets/ops-board-light.svg" alt="Scheduled automation — daily-language-time (daily): coding time by language via WakaTime · recent-activity (daily): recent GitHub activity feed · auto-pin-top-repos (weekly): pinned repositories ranked by activity, card artwork included · update-experience (weekly): years-of-experience metric from first-repo date · snake (daily): contribution snake animation" width="100%"></picture>
 
+### 🕒 Recent GitHub Activity
+
+<sub><i>And here is that pipeline's freshest output — a live event stream, re-rendered as bespoke SVG artwork from the GitHub API every morning by the <code>recent-activity</code> workflow.</i></sub>
+
+<!--RECENT_ACTIVITY:start-->
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/activity-feed-dark.svg">
+    <img src="./assets/activity-feed-light.svg" alt="Recent GitHub activity — refreshed daily: Pushed commits to MA1002643/MA1002643 (1h ago); Created a branch in MA1002643/theabdullahfolio (20h ago); Pruned a branch in MA1002643/theabdullahfolio (21h ago); Pushed commits to MA1002643/theabdullahfolio (21h ago); Merged a pull request in MA1002643/theabdullahfolio (2d ago)" width="100%">
+  </picture>
+</div>
+<!--RECENT_ACTIVITY:end-->
+
 <!-- divider -->
 <picture><source media="(prefers-color-scheme: dark)" srcset="./assets/divider-dark.svg"><img src="./assets/divider-light.svg" alt="" width="100%"></picture>
 
@@ -127,39 +140,19 @@
 <summary><b>📈 Most Used Languages &amp; Daily Coding Time</b></summary>
 <br/>
 
+<!-- Both cards live in ONE inline row (no blank lines between them):
+     side by side on desktop, wrapping into a stack on narrow screens. -->
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=0D1117&title_color=ff652f&text_color=E5E7EB&border_color=243042&hide_border=false&cache_seconds=7200" />
-    <img alt="Muhammad Abdullah — Most Used Languages" height="180" src="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=D0D7DE&hide_border=false&cache_seconds=7200" />
+    <img alt="Muhammad Abdullah — Most Used Languages" height="192" src="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=D0D7DE&hide_border=false&cache_seconds=7200" />
   </picture>
+  <!-- LANG-TIME:START -->
+  <picture><source media="(prefers-color-scheme: dark)" srcset="./assets/lang-time-dark.svg"><img src="./assets/lang-time-light.svg" alt="Daily coding time by language over the past 7 days — JavaScript 22 hrs 19 mins (48.8%), Markdown 10 hrs 56 mins (23.9%), C# 4 hrs 27 mins (9.7%), CSS 2 hrs 16 mins (5.0%), XAML 2 hrs 4 mins (4.5%), Other 1 hrs 6 mins (2.4%), Image (svg) 1 hrs 3 mins (2.3%). Total 45 hrs 44 mins. Updated 2026-07-02." width="460" height="192"></picture>
+  <!-- LANG-TIME:END -->
 </div>
 
-<sub><b>Note:</b> Top languages reflect the makeup of my public code, not experience or skill level.</sub>
-
-#### ⏱️ Daily Coding Time by Language
-
-<!-- LANG-TIME:START -->
-
-```text
-JavaScript    22 hrs 19 mins  ████████████░░░░░░░░░░░░░   48.67 %
-Markdown      10 hrs 56 mins  █████░░░░░░░░░░░░░░░░░░░░   23.87 %
-C#            4 hrs 27 mins   ██░░░░░░░░░░░░░░░░░░░░░░░   09.72 %
-CSS           2 hrs 16 mins   █░░░░░░░░░░░░░░░░░░░░░░░░   04.94 %
-XAML          2 hrs 4 mins    █░░░░░░░░░░░░░░░░░░░░░░░░   04.54 %
-Other         1 hrs 6 mins    ░░░░░░░░░░░░░░░░░░░░░░░░░   02.41 %
-Image (svg)   1 hrs 3 mins    ░░░░░░░░░░░░░░░░░░░░░░░░░   02.30 %
-JSON          45 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.66 %
-YAML          31 mins         ░░░░░░░░░░░░░░░░░░░░░░░░░   01.16 %
-HTML          7 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.27 %
-Git Config    5 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.22 %
-XML           4 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.16 %
-Text          1 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.05 %
-MDX           0 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.03 %
-```
-
-Last updated on 2026-07-02 (Displaying Data from past 7 days)
-
-<!-- LANG-TIME:END -->
+<p align="center"><sub><b>Note:</b> Top languages reflect the makeup of my public code, not experience or skill level. Coding time is tracked by WakaTime and re-rendered daily by a GitHub Action.</sub></p>
 
 </details>
 
@@ -184,26 +177,6 @@ Last updated on 2026-07-02 (Displaying Data from past 7 days)
 <sub>Generated daily by the <code>snake</code> GitHub Action.</sub>
 </details>
 
-<details>
-<summary><b>🕒 Recent GitHub Activity</b></summary>
-<br />
-<!--RECENT_ACTIVITY:start-->
-
-1. ⬆️ Pushed to MA1002643/MA1002643
-2. 📦 Created branch to MA1002643/theabdullahfolio
-3. 🗑️ Deleted branch to MA1002643/theabdullahfolio
-4. ⬆️ Pushed to MA1002643/theabdullahfolio
-5. 🎉 Merged PR to MA1002643/theabdullahfolio
-<!--RECENT_ACTIVITY:end-->
-
-<!--RECENT_ACTIVITY:last_update-->
-
-Last Updated: Thursday, July 2nd, 2026, 10:05:43 am
-
-<!--RECENT_ACTIVITY:last_update_end-->
-</details>
-
-
 <!-- divider -->
 <picture><source media="(prefers-color-scheme: dark)" srcset="./assets/divider-dark.svg"><img src="./assets/divider-light.svg" alt="" width="100%"></picture>
 
@@ -212,38 +185,10 @@ Last Updated: Thursday, July 2nd, 2026, 10:05:43 am
 <summary><b>🌃 Beyond the Code</b> — the human behind the commits</summary>
 <br/>
 
-```csharp
-// .NET 10 · C# 14 · <Nullable>enable</Nullable> · warnings as errors
-namespace ProfileCard;
-
-/// <summary>
-/// Immutable by design — the values below never mutate at runtime.
-/// </summary>
-public sealed record MuhammadAbdullah
-{
-    public string Role       => "Full-Stack Software Engineer";
-    public string Education  => "First-Class BSc (Hons)";
-    public string Philosophy => "If it's structured, it can be automated.";
-
-    public IReadOnlyList<string> OffTheClock { get; } =
-    [
-        "🚚 Happiest at the wheel of an HGV",
-        "✈️ One day — a pilot's licence",
-        "👨‍👩‍👧 Husband & father first",
-    ];
-
-    public IEnumerable<string> DailyRoutine()
-    {
-        while (true) // no exit condition — by design
-        {
-            yield return "☕ Coffee + code";
-            yield return "🧠 Learn something new";
-            yield return "🔧 Build & automate";
-            yield return "📚 Share what I learn";
-        }
-    }
-}
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/beyond-code-dark.svg">
+  <img src="./assets/beyond-code-light.svg" alt="MuhammadAbdullah.cs — an immutable C# record. Role: Full-Stack Software Engineer. Education: First-Class BSc (Hons). Philosophy: if it's structured, it can be automated. Off the clock: happiest at the wheel of an HGV, one day a pilot's licence, husband and father first. DailyRoutine() loops forever: coffee + code, learn something new, build and automate, share what I learn — no exit condition, by design." width="100%">
+</picture>
 
 > 🤝 Open to collaborating with juniors and seniors alike — and to contributing more to open source.
 
