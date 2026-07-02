@@ -1,67 +1,166 @@
-<!-- HERO -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/hero-pro-dark.svg">
-  <img src="./assets/hero-pro-light.svg" alt="Muhammad Abdullah — Professional Header">
-</picture>
+<!-- ════════════════════════════════════════════════════════════════════════
+     MUHAMMAD ABDULLAH · github.com/MA1002643 · profile README
+     "Engineering Mission-Control" — bespoke animated SVGs live in /assets
+     ⚠ Auto-maintained blocks (DO NOT remove the marker comments):
+        PINNED · RECENT_ACTIVITY · LANG-TIME
+═════════════════════════════════════════════════════════════════════════ -->
 
-<!-- Social icons section -->
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<a href="https://ma.codes/">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/hero-pro-dark.svg">
+    <img src="./assets/hero-pro-light.svg" alt="Muhammad Abdullah — Full-Stack Software Engineer" width="100%">
+  </picture>
+</a>
+
+<!-- ═══════════════════════ IDENTITY / CONTACT ═══════════════════════ -->
 <p align="center">
-<br/>
   <a href="mailto:muhammad.abdullah33176444@gmail.com">
-    <img src="https://img.shields.io/badge/Gmail-333333?style=for-the-badge&logo=gmail&logoColor=red" height="22" />
+    <img src="https://img.shields.io/badge/Email-333333?style=for-the-badge&logo=gmail&logoColor=FF652F" height="26" alt="Email" />
   </a>
   <a href="https://linkedin.com/in/muhammad-abdullah227" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" height="22" />
+    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" height="26" alt="LinkedIn" />
   </a>
-    <a href="https://muhammadabdullah227.co.uk/" target="_blank">
-     <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white" target="_blank" height="22" />
-  </a>
-  <a href="https://wakatime.com/@c6d912e0-7fef-41da-8c0e-1df782a8dd33" target="_blank">
-    <img src="https://wakatime.com/badge/user/c6d912e0-7fef-41da-8c0e-1df782a8dd33.svg" alt="wakatime" height="22" />
+  <a href="https://ma.codes/" target="_blank">
+    <img src="https://img.shields.io/badge/Portfolio-FF652F?style=for-the-badge&logo=safari&logoColor=white" height="26" alt="Portfolio" />
   </a>
   <a href="https://developers.google.com/profile/u/117687534681375612751" target="_blank">
-    <img src="https://img.shields.io/badge/Google-Developer_Profile-blue?style=for-the-badge&logo=google&logoColor=white" alt="Google Developer Profile" height="22" />
+    <img src="https://img.shields.io/badge/Google_Developer-0F172A?style=for-the-badge&logo=google&logoColor=4285F4" height="26" alt="Google Developer Profile" />
   </a>
-  <br/>
+  <a href="https://wakatime.com/@c6d912e0-7fef-41da-8c0e-1df782a8dd33" target="_blank">
+    <img src="https://img.shields.io/badge/WakaTime-0F172A?style=for-the-badge&logo=wakatime&logoColor=FFC857" height="26" alt="WakaTime" />
+  </a>
+</p>
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=MA1002643&label=Profile%20views&color=ff652f&style=for-the-badge" height="24" alt="Profile views" />
   <a href="https://github.com/MA1002643?tab=repositories&sort=stargazers">
-    <img alt="total stars" title="Total stars on GitHub"
-         src="https://custom-icon-badges.demolab.com/github/stars/MA1002643?color=55960c&style=for-the-badge&labelColor=488207&logo=star" height="22" />
+    <img alt="Total stars" src="https://custom-icon-badges.demolab.com/github/stars/MA1002643?color=ff652f&style=for-the-badge&labelColor=0F172A&logo=star&logoColor=FFC857" height="24" />
   </a>
   <a href="https://github.com/MA1002643?tab=followers">
-    <img alt="followers" title="Follow me on GitHub"
-         src="https://custom-icon-badges.demolab.com/github/followers/MA1002643?color=236ad3&labelColor=1155ba&style=for-the-badge&logo=person-add&label=Follow&logoColor=white" height="22" />
+    <img alt="Followers" src="https://custom-icon-badges.demolab.com/github/followers/MA1002643?color=0969da&labelColor=0F172A&style=for-the-badge&logo=person-add&label=Follow&logoColor=white" height="24" />
   </a>
-  <img src="https://img.shields.io/badge/Mindset-Agile%20%7C%20Problem%20Solver-orange?style=for-the-badge&logo=lightbulb&logoColor=white" alt="Mindset" height="22" />
+  <img src="https://img.shields.io/badge/Based_in-United_Kingdom-0F172A?style=for-the-badge&logo=googlemaps&logoColor=FF652F" height="24" alt="Location: United Kingdom" />
 </p>
 
-<!-- gradient underline -->
-<p align="center">
-  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="400" height="3">
-</p>
-
-<!-- Quote Section -->
-<div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Random Dev Quote"/>
-</div>
-
-<!-- gradient underline -->
-<p align="center">
-  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="400" height="3">
-</p>
-
-<!-- Typing Headline -->
+<!-- ═══════════════════════ TYPING HEADLINE ═══════════════════════ -->
 <p align="center">
   <picture>
-    <!-- Dark mode: light text -->
-    <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2800&pause=600&center=true&vCenter=true&width=900&color=E5E7EB&lines=Building+polished+experiences+for+web%2C+mobile+%26+cloud;Obsessed+with+clean+architecture%2C+CI%2FCD%2C+and+DX;Let%E2%80%99s+ship+something+people+love+%F0%9F%9A%80">
-    <!-- Light mode: dark text -->
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2800&pause=600&center=true&vCenter=true&width=900&color=0C1A25&lines=Building+polished+experiences+for+web%2C+mobile+%26+cloud;Obsessed+with+clean+architecture%2C+CI%2FCD%2C+and+DX;Let%E2%80%99s+ship+something+people+love+%F0%9F%9A%80" alt="Typing headline" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2800&pause=700&center=true&vCenter=true&width=900&color=E5E7EB&lines=Full-Stack+Software+Engineer+%E2%80%94+C%23%2F.NET+%C2%B7+Node+%C2%B7+Next.js;Clean+architecture%2C+CI%2FCD%2C+and+developer+experience;I+build+self-updating+systems+%26+polished+apps+%F0%9F%9A%80">
+    <img alt="Full-Stack Software Engineer — C#/.NET · Node · Next.js" src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2800&pause=700&center=true&vCenter=true&width=900&color=0C1A25&lines=Full-Stack+Software+Engineer+%E2%80%94+C%23%2F.NET+%C2%B7+Node+%C2%B7+Next.js;Clean+architecture%2C+CI%2FCD%2C+and+developer+experience;I+build+self-updating+systems+%26+polished+apps+%F0%9F%9A%80" />
   </picture>
 </p>
 
----
+<!-- divider -->
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/divider-dark.svg"><img src="./assets/divider-light.svg" alt="" width="100%"></picture>
 
-## 📌 Pinned Repositories
+<!-- ═══════════════════════ WHOAMI (terminal) ═══════════════════════ -->
+<h2 align="center">🧑‍💻 <code>whoami</code></h2>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/terminal-card-dark.svg">
+  <img src="./assets/terminal-card-light.svg" alt="whoami — Muhammad Abdullah, Full-Stack Software Engineer" width="100%">
+</picture>
+
+<!-- ═══════════════════════ METRICS STRIP ═══════════════════════ -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/metrics-strip-dark.svg">
+  <img src="./assets/metrics-strip-light.svg" alt="Years of experience · First-Class BSc (Hons) · Full-Stack · 100% self-updating profile" width="100%">
+</picture>
+
+<!-- divider -->
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/divider-dark.svg"><img src="./assets/divider-light.svg" alt="" width="100%"></picture>
+
+<!-- ═══════════════════════ SKILLS RADAR ═══════════════════════ -->
+<h2 align="center">🧭 Skills Radar</h2>
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/skills-radar-dark.svg">
+    <img src="./assets/skills-radar-light.svg" alt="Skills radar — Backend/.NET, Frontend, Databases, Cloud/DevOps, Testing, Automation" width="720">
+  </picture>
+</div>
+
+<h3 align="center">🧰 Core Stack</h3>
+
+<div align="center">
+<table>
+  <tr>
+    <td align="right" valign="top"><b>Languages</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/C%23-239120?style=flat-square&logo=csharp&logoColor=white" alt="C#"/>
+      <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"/>
+      <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript"/>
+      <img src="https://img.shields.io/badge/SQL-025E8C?style=flat-square" alt="SQL"/>
+      <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5"/>
+      <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="right" valign="top"><b>Frameworks &amp; Runtime</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/.NET-512BD4?style=flat-square&logo=dotnet&logoColor=white" alt=".NET"/>
+      <img src="https://img.shields.io/badge/Blazor-512BD4?style=flat-square&logo=blazor&logoColor=white" alt="Blazor"/>
+      <img src="https://img.shields.io/badge/.NET%20MAUI-512BD4?style=flat-square&logo=dotnet&logoColor=white" alt=".NET MAUI"/>
+      <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js"/>
+      <img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white" alt="Express"/>
+      <img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js"/>
+      <img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React"/>
+      <img src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="right" valign="top"><b>Data &amp; Cloud</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
+      <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL"/>
+      <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB"/>
+      <img src="https://img.shields.io/badge/Redis-FF4438?style=flat-square&logo=redis&logoColor=white" alt="Redis"/>
+      <img src="https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white" alt="Prisma"/>
+      <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker"/>
+      <img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=FF9900" alt="AWS"/>
+      <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="right" valign="top"><b>Tooling &amp; CI/CD</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white" alt="Git"/>
+      <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white" alt="GitHub Actions"/>
+      <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white" alt="Postman"/>
+      <img src="https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=jest&logoColor=white" alt="Jest"/>
+      <img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=eslint&logoColor=white" alt="ESLint"/>
+      <img src="https://img.shields.io/badge/Visual%20Studio-5C2D91?style=flat-square&logo=visualstudio&logoColor=white" alt="Visual Studio"/>
+    </td>
+  </tr>
+</table>
+</div>
+
+<!-- divider -->
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/divider-dark.svg"><img src="./assets/divider-light.svg" alt="" width="100%"></picture>
+
+<!-- ═══════════════════════ FEATURED PROJECTS ═══════════════════════ -->
+<h2 align="center">🚀 Featured Project</h2>
+
+<p align="center"><i>The one I'm most comfortable putting my name on — a full-stack recipe app with a documented REST API. My other repos are honest works in progress.</i></p>
+
+<div align="center">
+<table>
+  <tr>
+    <td width="620" valign="top">
+      <h3 align="center">🍳 <a href="https://github.com/MA1002643/ai-powered-recipe-search-platform">Full-Stack Recipe Platform</a></h3>
+      <p align="center"><sub><code>ai-powered-recipe-search-platform</code></sub></p>
+      <p>A <b>Vue 3</b> single-page app backed by an <b>Express + SQLite</b> REST API — user signup &amp; login, recipe creation and browsing, and ratings, with a <b>Swagger</b>-documented API and a Mocha/Chai test suite.</p>
+      <p align="center"><img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white"/> <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white"/> <img src="https://img.shields.io/badge/Express-000?style=flat-square&logo=express&logoColor=white"/> <img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white"/> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black"/></p>
+    </td>
+  </tr>
+</table>
+</div>
+
+<p align="center"><sub>Browse <a href="https://github.com/MA1002643?tab=repositories">all repositories →</a> — several are early works in progress.</sub></p>
+
+### 📌 Most Active Repositories
+
+<sub><i>Auto-pinned weekly by a GitHub Action, ranked by recent activity — so this always reflects what I'm building right now.</i></sub>
 
 <!-- PINNED: START -->
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
@@ -96,301 +195,75 @@
 </table>
 <!-- PINNED: END -->
 
----
+<!-- divider -->
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/divider-dark.svg"><img src="./assets/divider-light.svg" alt="" width="100%"></picture>
 
-## 💫 What Drives Me
+<!-- ═══════════════════════ LIVING SYSTEM (pipeline) ═══════════════════════ -->
+<h2 align="center">⚙️ This Profile Is a Living System</h2>
 
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Text;
+<p align="center">Every section below stays current on its own — no manual edits. GitHub Actions run on a schedule, pull from the GitHub &amp; WakaTime APIs, and commit the refreshed sections back to this README. The profile <i>is</i> the CI/CD demo.</p>
 
-namespace ProfileCard
-{
-    public sealed class MA1002643
-    {
-        public string Role { get; } = "Software Engineer";
-        public string Experience { get; } = "2+ years";
-        public string Philosophy { get; } = "If it's structured, it can be automated";
-
-        public string AlwaysLearning { get; } = "🌱 Always learning (and shipping) — web, mobile, cloud.";
-        public string OpenToCollabs { get; } = "🤝 Open to collabs with juniors & seniors alike.";
-        public string Goal2025 { get; } = "🎯 2025 Goal: contribute more to open-source, ship impactful tools.";
-
-        public IReadOnlyList<string> Highlights() => new List<string>
-        {
-            AlwaysLearning,
-            OpenToCollabs,
-            Goal2025
-        };
-
-        public IReadOnlyList<string> DailyRoutine() => new List<string>
-        {
-            "☕ Coffee + Code",
-            "🧠 Learn something new",
-            "🔧 Build & Automate",
-            "📚 Share knowledge",
-        };
-
-        public string FunFact() =>
-            $"I love driving HGVs and I’d love to become a pilot one day. ({DateTime.UtcNow:yyyy})";
-    }
-}
-```
-
----
-
-## 🛡️ Badges & Training
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="50%" style="padding:16px;">
-        <p align="center">
-          <a href="https://users.grcelearning.com/badges/badge.php?hash=dd9b191d5d6b98438eae0d6184fa1f8739de00e7" target="_blank" rel="noopener noreferrer">
-            <img src="./assets/badges/Cyber_Security_Staff_Awareness_E-Learning_Course.png" alt="Cyber Security Staff Awareness Badge" width="100" />
-          </a>
-        </p>
-        <h4>Cyber Security Staff Awareness</h4>
-        <p>GRC Solutions · Feb 2026 · 🔗 Verified</p>
-      </td>
-      <td align="center" width="50%" style="padding:16px;">
-        <p align="center">
-          <a href="https://developers.google.com/profile/badges/activity/chrome-devtools/chrome-devtools-user" target="_blank" rel="noopener noreferrer" title="Click to verify credential">
-            <img src="assets/badges/badge.svg" alt="Chrome DevTools User — Google Chrome Developers" width="100" />
-          </a>
-        </p>
-        <h4>Chrome DevTools User</h4>
-        <p>Google Chrome Developers · Dec 2025 · 🔗 Verified</p>
-      </td>
-    </tr>
-  </table>
-</div>
-
----
-
-## 🎯 What I Do
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="33%">
-        <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt=".NET / C#" width="96" height="96"/>
-        <h3>🔧 Development</h3>
-        <p>Shipping .NET/C# and Next.js apps with clean architecture, CI/CD, and cloud deployments</p>
-      </td>
-      <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/artificial-intelligence.png" alt="AI & Automation"/>
-        <h3>🤖 AI & Automation</h3>
-        <p>Developing AI-powered features and automation within web and .NET applications</p>
-      </td>
-      <td align="center" width="33%">
-        <img src="https://img.icons8.com/glyph-neue/96/github.png" alt="Knowledge Sharing"/>
-        <h3>📚 Knowledge Sharing</h3>
-        <p>Sharing project insights, templates, and clean documentation across GitHub and daily.dev</p>
-      </td>
-    </tr>
-  </table>
-</div>
-
----
-
-## 🛠️ Tech Arsenal
-
-<details>
-<summary><b>👨‍💻 Programming and Markup Languages</b></summary>
-<br/>
-
-<!-- LANG-ICONS:START -->
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css&logoColor=white)
-![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
-![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript (ES6+)](<https://img.shields.io/badge/JavaScript%20(ES6%2B)-444444?style=for-the-badge&logo=javascript-(es6plus)&logoColor=white>)
-![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=sql&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-444444?style=for-the-badge&logo=php&logoColor=white)
-![Processing](https://img.shields.io/badge/Processing-444444?style=for-the-badge&logo=processing&logoColor=white)
-![Vue](https://img.shields.io/badge/Vue-444444?style=for-the-badge&logo=vue&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Shell](https://img.shields.io/badge/Shell-444444?style=for-the-badge&logo=shell&logoColor=white)
-![Dockerfile](https://img.shields.io/badge/Dockerfile-444444?style=for-the-badge&logo=dockerfile&logoColor=white)
-![Procfile](https://img.shields.io/badge/Procfile-444444?style=for-the-badge&logo=procfile&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Prolog](https://img.shields.io/badge/Prolog-444444?style=for-the-badge&logo=prolog&logoColor=white)
-![Haskell](https://img.shields.io/badge/Haskell-444444?style=for-the-badge&logo=haskell&logoColor=white)
-![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c++&logoColor=white)
-![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)
-![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
-![MIPS Assembly](https://img.shields.io/badge/MIPS%20Assembly-444444?style=for-the-badge&logo=mipsassembly&logoColor=white)
-
-<!-- LANG-ICONS:END -->
-
-</details>
-
-<details>
-<summary><b>🧰 Frameworks and Libraries</b></summary>
-<br/>
-
-<!-- FWLIB-ICONS:START -->
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-512BD4?style=for-the-badge&logo=net-maui&logoColor=white)
-![Blazor](https://img.shields.io/badge/Blazor-5C2D91?style=for-the-badge&logo=blazor&logoColor=white)
-![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=expressjs&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodejs&logoColor=white)
-![.NET](https://img.shields.io/badge/.NET-444444?style=for-the-badge&logo=dotnet&logoColor=white)
-![Angular.js](https://img.shields.io/badge/Angular.js-444444?style=for-the-badge&logo=angularjs&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-444444?style=for-the-badge&logo=bootstrap&logoColor=white)
-![Express](https://img.shields.io/badge/Express-444444?style=for-the-badge&logo=express&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-444444?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![Rollup](https://img.shields.io/badge/Rollup-444444?style=for-the-badge&logo=rollup&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-444444?style=for-the-badge&logo=threedotjs&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-444444?style=for-the-badge&logo=vite&logoColor=white)
-![Vue.js](https://img.shields.io/badge/Vue.js-444444?style=for-the-badge&logo=vue.js&logoColor=white)
-![Webpack](https://img.shields.io/badge/Webpack-444444?style=for-the-badge&logo=webpack&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer%20Motion-444444?style=for-the-badge&logo=framermotion&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-444444?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![Entity Framework](https://img.shields.io/badge/Entity%20Framework-444444?style=for-the-badge)
-
-<!-- FWLIB-ICONS:END -->
-
-</details>
-
-<details>
-<summary><b>🗄️ Databases and Cloud Hosting</b></summary>
-<br/>
-
-<!-- DBCLOUD-ICONS:START -->
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
-![YAML](https://img.shields.io/badge/YAML-000000?style=for-the-badge&logo=yaml&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-444444?style=for-the-badge&logo=prisma&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-444444?style=for-the-badge&logo=vercel&logoColor=white)
-
-<!-- DBCLOUD-ICONS:END -->
-
-</details>
-
-<details>
-<summary><b>💻 Software and Tools</b></summary>
-<br/>
-
-<!-- TOOLS-ICONS:START -->
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
-![CI/CD](https://img.shields.io/badge/CI%2FCD-0B5FFF?style=for-the-badge&logo=githubactions&logoColor=white)
-![Database Integration](https://img.shields.io/badge/Database%20Integration-4DB33D?style=for-the-badge&logo=mongodb&logoColor=white)
-![DevOps automation](https://img.shields.io/badge/DevOps%20automation-444444?style=for-the-badge&logo=githubactions&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
-![Integration](https://img.shields.io/badge/Integration-444444?style=for-the-badge&logo=integration&logoColor=white)
-![JUnit](https://img.shields.io/badge/JUnit-444444?style=for-the-badge&logo=junit5&logoColor=white)
-![Jira](https://img.shields.io/badge/Jira-2684FF?style=for-the-badge&logo=jira&logoColor=white)
-![NPM](https://img.shields.io/badge/NPM-444444?style=for-the-badge&logo=npm&logoColor=white)
-![NUnit](https://img.shields.io/badge/NUnit-444444?style=for-the-badge&logo=nunit&logoColor=white)
-![Photoshop](https://img.shields.io/badge/Photoshop-31A8FF?style=for-the-badge&logo=photoshop&logoColor=white)
-![Tomcat](https://img.shields.io/badge/Tomcat-F8DC75?style=for-the-badge&logo=tomcat&logoColor=white)
-![UML](https://img.shields.io/badge/UML-1B72BE?style=for-the-badge&logo=plantuml&logoColor=white)
-![UX Design](https://img.shields.io/badge/UX%20Design-FF4081?style=for-the-badge&logo=figma&logoColor=white)
-![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
-![Unit](https://img.shields.io/badge/Unit-444444?style=for-the-badge&logo=unit&logoColor=white)
-![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91?style=for-the-badge&logo=visual-studio&logoColor=white)
-![Azure DevOps](https://img.shields.io/badge/Azure%20DevOps-444444?style=for-the-badge&logo=azuredevops&logoColor=white)
-![Babel](https://img.shields.io/badge/Babel-444444?style=for-the-badge&logo=babel&logoColor=white)
-![Chai](https://img.shields.io/badge/Chai-444444?style=for-the-badge&logo=chai&logoColor=white)
-![Commitizen](https://img.shields.io/badge/Commitizen-444444?style=for-the-badge&logo=commitizen&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-444444?style=for-the-badge&logo=docker&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-444444?style=for-the-badge&logo=eslint&logoColor=white)
-![Husky](https://img.shields.io/badge/Husky-444444?style=for-the-badge&logo=husky&logoColor=white)
-![Jest](https://img.shields.io/badge/Jest-444444?style=for-the-badge&logo=jest&logoColor=white)
-![MSBuild](https://img.shields.io/badge/MSBuild-444444?style=for-the-badge&logo=msbuild&logoColor=white)
-![Make](https://img.shields.io/badge/Make-444444?style=for-the-badge&logo=make&logoColor=white)
-![Mocha](https://img.shields.io/badge/Mocha-444444?style=for-the-badge&logo=mocha&logoColor=white)
-![Nodemon](https://img.shields.io/badge/Nodemon-444444?style=for-the-badge&logo=nodemon&logoColor=white)
-![NuGet](https://img.shields.io/badge/NuGet-444444?style=for-the-badge&logo=nuget&logoColor=white)
-![PHPUnit](https://img.shields.io/badge/PHPUnit-444444?style=for-the-badge&logo=phpunit&logoColor=white)
-![Prettier](https://img.shields.io/badge/Prettier-444444?style=for-the-badge&logo=prettier&logoColor=white)
-![System](https://img.shields.io/badge/System-444444?style=for-the-badge&logo=system&logoColor=white)
-![Testing](https://img.shields.io/badge/Testing-444444?style=for-the-badge&logo=testing&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-444444?style=for-the-badge&logo=vite&logoColor=white)
-![Webpack](https://img.shields.io/badge/Webpack-444444?style=for-the-badge&logo=webpack&logoColor=white)
-![Yarn](https://img.shields.io/badge/Yarn-444444?style=for-the-badge&logo=yarn&logoColor=white)
-![commitlint](https://img.shields.io/badge/commitlint-444444?style=for-the-badge&logo=commitlint&logoColor=white)
-![lint-staged](https://img.shields.io/badge/lint-staged-444444?style=for-the-badge&logo=lint-staged&logoColor=white)
-![npm](https://img.shields.io/badge/npm-444444?style=for-the-badge&logo=npm&logoColor=white)
-![nyc/Istanbul](https://img.shields.io/badge/nyc%2FIstanbul-444444?style=for-the-badge&logo=nyc/istanbul&logoColor=white)
-![Docker Compose](https://img.shields.io/badge/Docker%20Compose-444444?style=for-the-badge&logo=dockercompose&logoColor=white)
-![Project Management](https://img.shields.io/badge/Project%20Management-444444?style=for-the-badge&logo=projectmanagement&logoColor=white)
-![Software Design & Architecture](https://img.shields.io/badge/Software%20Design%20%26%20Architecture-444444?style=for-the-badge&logo=softwaredesignandarchitecture&logoColor=white)
-![TS Node](https://img.shields.io/badge/TS%20Node-444444?style=for-the-badge&logo=tsnode&logoColor=white)
-
-<!-- TOOLS-ICONS:END -->
-
-</details>
-
----
-
-## 🧪 Featured Projects
-
-> Want a collab? Open an issue or DM on LinkedIn — I’m always up for building something bold.
-
-- **AMC** — Full-stack for a small business (Next.js, Node/Express, MongoDB, CI/CD).
-- **SmartMeal / NutriTimer** — .NET MAUI apps (barcode nutrition, hydration/meal reminders).
-- **Portfolio** — brand new website: <a href="https://muhammadabdullah227.co.uk/">mabdullah.co.uk</a>
-
----
-
-<details>
-<summary><b>🕒 Recent GitHub Activity</b></summary>
-<br />
-<!--RECENT_ACTIVITY:start-->
-
-1. ⬆️ Pushed to MA1002643/theabdullahfolio
-2. 💪 Opened PR to MA1002643/theabdullahfolio
-3. 📦 Created branch to MA1002643/theabdullahfolio
-4. 🎉 Merged PR to MA1002643/theabdullahfolio
-5. 🗑️ Deleted branch to MA1002643/theabdullahfolio
-<!--RECENT_ACTIVITY:end-->
-
-<!--RECENT_ACTIVITY:last_update-->
-
-Last Updated: Wednesday, July 1st, 2026, 10:09:56 am
-
-<!--RECENT_ACTIVITY:last_update_end-->
-</details>
-
-<details>
-  <summary><b>📈 GitHub Pulse</b></summary>
-
-  <br />
-        <!-- GitHub Stats -->
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=0D1117&text_color=ffffff&border_color=30363D&cache_seconds=7200" />
-          <img alt="Muhammad Abdullah — GitHub Stats" height="180" src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=ffffff&text_color=0C1A25&border_color=0c1a25&cache_seconds=7200" />
-        </picture>
-</details>
-
-<details>
-<summary><b>📊 Most Used Languages</b></summary>
-<br />
 <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=0D1117&title_color=ff652f&text_color=ffffff&border_color=30363D&hide_border=false&cache_seconds=7200" />
-          <img alt="Muhammad Abdullah — Most Used Languages" height="180" src="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=0c1a25&hide_border=false&cache_seconds=7200" />
-        </picture>
-        <br/>
-    <b>Note:</b> Top languages is only a metric of the languages my public code consists of and doesn't reflect experience or skill level. <br />
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/pipeline-dark.svg">
+  <img src="./assets/pipeline-light.svg" alt="Automation pipeline: GitHub Actions → WakaTime, Activity, Auto-Pin, Experience → README → Rendered Profile" width="100%">
+</picture>
 
-## Daily Coding Time by Language
+<div align="center">
+
+| Workflow | Cadence | Keeps live |
+|---|---|---|
+| `daily-language-time` | daily | ⏱️ Coding time by language (WakaTime) |
+| `recent-activity` | daily | 🕒 Recent GitHub activity feed |
+| `auto-pin-top-repos` | weekly | 📌 Pinned repositories (by activity) |
+| `update-experience` | weekly | 🗓️ Years-of-experience metric (from first-repo date) |
+| `snake` | daily | 🐍 Contribution snake animation |
+
+</div>
+
+<!-- divider -->
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/divider-dark.svg"><img src="./assets/divider-light.svg" alt="" width="100%"></picture>
+
+<!-- ═══════════════════════ GITHUB ANALYTICS ═══════════════════════ -->
+<details>
+<summary><b>📊 GitHub Analytics</b></summary>
+<br/>
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFC857&bg_color=0D1117&text_color=E5E7EB&border_color=243042&cache_seconds=7200" />
+    <img alt="Muhammad Abdullah — GitHub Stats" height="170" src="https://github-readme-stats-chi-woad.vercel.app/api?username=MA1002643&show_icons=true&hide_border=false&title_color=ff652f&icon_color=D98324&bg_color=ffffff&text_color=0C1A25&border_color=D0D7DE&cache_seconds=7200" />
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-streak-stats.herokuapp.com/?user=MA1002643&hide_border=false&background=0D1117&border=243042&ring=ff652f&fire=FFC857&currStreakNum=E5E7EB&currStreakLabel=E5E7EB&sideNums=E5E7EB&sideLabels=E5E7EB&dates=9CA3AF" />
+    <img alt="Muhammad Abdullah — GitHub Streak" height="170" src="https://github-readme-streak-stats.herokuapp.com/?user=MA1002643&hide_border=false&background=ffffff&border=D0D7DE&ring=ff652f&fire=D98324&currStreakNum=0C1A25&currStreakLabel=0C1A25&sideNums=0C1A25&sideLabels=0C1A25&dates=6B7280" />
+  </picture>
+</div>
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=MA1002643&bg_color=0D1117&color=E5E7EB&line=FF652F&point=FFC857&area=true&area_color=FF652F&hide_border=false&border_color=243042&custom_title=Contribution%20Graph" />
+    <img alt="Muhammad Abdullah — Contribution Graph" src="https://github-readme-activity-graph.vercel.app/graph?username=MA1002643&bg_color=ffffff&color=0C1A25&line=FF652F&point=D98324&area=true&area_color=FF652F&hide_border=false&border_color=D0D7DE&custom_title=Contribution%20Graph" width="100%" />
+  </picture>
+</div>
+
+</details>
+
+<details>
+<summary><b>📈 Most Used Languages &amp; Daily Coding Time</b></summary>
+<br/>
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=0D1117&title_color=ff652f&text_color=E5E7EB&border_color=243042&hide_border=false&cache_seconds=7200" />
+    <img alt="Muhammad Abdullah — Most Used Languages" height="180" src="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=D0D7DE&hide_border=false&cache_seconds=7200" />
+  </picture>
+</div>
+
+<sub><b>Note:</b> Top languages reflect the makeup of my public code, not experience or skill level.</sub>
+
+#### ⏱️ Daily Coding Time by Language
 
 <!-- LANG-TIME:START -->
-
 ```text
 JavaScript    20 hrs 41 mins  █████████████░░░░░░░░░░░░   53.69 %
 Markdown      8 hrs 2 mins    █████░░░░░░░░░░░░░░░░░░░░   20.87 %
@@ -408,56 +281,105 @@ MDX           0 mins          ░░░░░░░░░░░░░░░░�
 ```
 
 Last updated on 2026-07-01 (Displaying Data from past 7 days)
-
 <!-- LANG-TIME:END -->
 
 </details>
 
 <details>
-  <summary><b>⏱️ WakaTime Stats</b></summary>
-
-  <br/>
-
+<summary><b>⏱️ WakaTime Stats</b></summary>
+<br/>
 <picture>
-  <source
-    media="(prefers-color-scheme: dark)"
-    srcset="https://github-readme-stats-chi-woad.vercel.app/api/wakatime?username=Abdullah2907&layout=compact&bg_color=0D1117&title_color=ff652f&text_color=ffffff&border_color=30363D&hide_border=false&cache_seconds=7200&custom_title=WakaTime%20Stats"
-  />
-  <img
-    alt="Muhammad Abdullah — WakaTime Stats"
-    src="https://github-readme-stats-chi-woad.vercel.app/api/wakatime?username=Abdullah2907&layout=compact&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=0c1a25&hide_border=false&cache_seconds=7200&custom_title=WakaTime%20Stats"
-  />
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/wakatime?username=Abdullah2907&layout=compact&bg_color=0D1117&title_color=ff652f&text_color=E5E7EB&border_color=243042&hide_border=false&cache_seconds=7200&custom_title=WakaTime%20Stats" />
+  <img alt="Muhammad Abdullah — WakaTime Stats" src="https://github-readme-stats-chi-woad.vercel.app/api/wakatime?username=Abdullah2907&layout=compact&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=D0D7DE&hide_border=false&cache_seconds=7200&custom_title=WakaTime%20Stats" />
 </picture>
-
 </details>
 
 <details>
-  <summary><b>🔥 Github Streaks</b></summary>
-
-  <br />
-<!-- GitHub Streak (matches your theme) -->
+<summary><b>🐍 Contribution Snake</b></summary>
+<br/>
+<div align="center">
   <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-streak-stats.herokuapp.com/?user=MA1002643&hide_border=false&background=0D1117&border=30363D&ring=ff652f&fire=FFE400&currStreakNum=ffffff&currStreakLabel=ffffff&sideNums=ffffff&sideLabels=ffffff&dates=9CA3AF" />
-          <img alt="Muhammad Abdullah — GitHub Streak" height="180" src="https://github-readme-streak-stats.herokuapp.com/?user=MA1002643&hide_border=false&background=ffffff&border=0c1a25&ring=ff652f&fire=FFE400&currStreakNum=0C1A25&currStreakLabel=0C1A25&sideNums=0C1A25&sideLabels=0C1A25&dates=6B7280" />
-        </picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MA1002643/MA1002643/output/github-snake-dark.svg" />
+    <img alt="Muhammad Abdullah — contribution snake" src="https://raw.githubusercontent.com/MA1002643/MA1002643/output/github-snake.svg" width="100%" />
+  </picture>
+</div>
+<sub>Generated daily by the <code>snake</code> GitHub Action.</sub>
 </details>
 
----
+<details>
+<summary><b>🕒 Recent GitHub Activity</b></summary>
+<br />
+<!--RECENT_ACTIVITY:start-->
+1. ⬆️ Pushed to MA1002643/theabdullahfolio
+2. 💪 Opened PR to MA1002643/theabdullahfolio
+3. 📦 Created branch to MA1002643/theabdullahfolio
+4. 🎉 Merged PR to MA1002643/theabdullahfolio
+5. 🗑️ Deleted branch to MA1002643/theabdullahfolio
+<!--RECENT_ACTIVITY:end-->
 
-## 💡 Philosophy
+<!--RECENT_ACTIVITY:last_update-->
+Last Updated: Wednesday, July 1st, 2026, 10:09:56 am
+<!--RECENT_ACTIVITY:last_update_end-->
+</details>
+
+
+<!-- divider -->
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/divider-dark.svg"><img src="./assets/divider-light.svg" alt="" width="100%"></picture>
+
+<!-- ═══════════════════════ BEYOND THE CODE (personality, tucked away) ═══════════════════════ -->
+<details>
+<summary><b>🌃 Beyond the Code</b> — the human behind the commits</summary>
+<br/>
+
+```csharp
+// .NET 10 · C# 14 · <Nullable>enable</Nullable> · warnings as errors
+namespace ProfileCard;
+
+/// <summary>
+/// Immutable by design — the values below never mutate at runtime.
+/// </summary>
+public sealed record MuhammadAbdullah
+{
+    public string Role       => "Full-Stack Software Engineer";
+    public string Education  => "First-Class BSc (Hons)";
+    public string Philosophy => "If it's structured, it can be automated.";
+
+    public IReadOnlyList<string> OffTheClock { get; } =
+    [
+        "🚚 Happiest at the wheel of an HGV",
+        "✈️ One day — a pilot's licence",
+        "👨‍👩‍👧 Husband & father first",
+    ];
+
+    public IEnumerable<string> DailyRoutine()
+    {
+        while (true) // no exit condition — by design
+        {
+            yield return "☕ Coffee + code";
+            yield return "🧠 Learn something new";
+            yield return "🔧 Build & automate";
+            yield return "📚 Share what I learn";
+        }
+    }
+}
+```
+
+> 🤝 Open to collaborating with juniors and seniors alike — and to contributing more to open source.
+
+</details>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/divider-dark.svg">
+  <img src="./assets/divider-light.svg" alt="" width="100%">
+</picture>
 
 <div align="center">
-  <a href="https://github.com/piyushsuthar/github-readme-quotes">
-    <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical&quote=If%20it%27s%20structured%2C%20it%20can%20be%20automated.&author=Shishir%20Srivastav&border=true" alt="Philosophy Quote"/>
-  </a>
-</div>
 
-> **"If it's structured, it can be automated"** - This drives my approach to solving complex problems through elegant, scalable solutions.
+<i>Thanks for scrolling. If something here is useful, a ⭐ on a repo is always appreciated — and I'm always open to a good conversation.</i>
 
-#
-
-<div align="center">
-
-### Show some ❤️ by starring some of the repositories!
+<a href="https://linkedin.com/in/muhammad-abdullah227">
+  <img src="https://img.shields.io/badge/Let's_build_something-FF652F?style=for-the-badge&logo=linkedin&logoColor=white" height="30" alt="Let's connect" />
+</a>
 
 </div>

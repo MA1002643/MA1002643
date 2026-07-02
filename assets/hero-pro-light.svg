@@ -1,65 +1,153 @@
-<svg viewBox="0 0 1200 260" width="1200" height="260" xmlns="http://www.w3.org/2000/svg" text-rendering="geometricPrecision">
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Muhammad Abdullah — Full-Stack Software Engineer. Open to opportunities." viewBox="0 0 1200 300" width="1200" height="300" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
+  <title>Muhammad Abdullah — Full-Stack Software Engineer</title>
+  <desc>Cinematic light hero banner with animated constellation, accent glow, name title with shimmer sweep, an orange-to-amber underline, and a crossfading role line.</desc>
+
   <defs>
-    <!-- Calm light gradient -->
-    <linearGradient id="bgL" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#F8FAFC"/>
-      <stop offset="50%" stop-color="#EEF2F7"/>
-      <stop offset="100%" stop-color="#F3F4F6"/>
-      <animateTransform attributeName="gradientTransform" type="translate" from="-120 0" to="120 0" dur="18s" begin="0.7s" repeatCount="indefinite"/>
+    <!-- Base light gradient with slow horizontal drift -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#FFFFFF"/>
+      <stop offset="55%" stop-color="#F6F8FA"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-90 0; 90 0; -90 0" dur="18s" begin="0s" repeatCount="indefinite"/>
     </linearGradient>
 
-    <!-- Faint grid -->
-    <pattern id="gridL" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="translate(0,0)">
-      <path d="M32 0H0V32" fill="none" stroke="#CBD5E1" stroke-width="0.5" opacity="0.45"/>
-      <animateTransform attributeName="patternTransform" type="translate" from="0 0" to="48 0" dur="30s" begin="1.0s" repeatCount="indefinite"/>
+    <!-- Faint grid panning slowly -->
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#E6EAEF" stroke-width="0.6"/>
+      <animateTransform attributeName="patternTransform" type="translate" from="0 0" to="34 0" dur="28s" begin="0s" repeatCount="indefinite"/>
     </pattern>
 
-    <!-- Accent underline gradient -->
-    <linearGradient id="accL" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%"  stop-color="#FF652F"/>
-      <stop offset="50%" stop-color="#7C3AED"/>
-      <stop offset="100%" stop-color="#FF652F"/>
-      <animateTransform attributeName="gradientTransform" type="translate" from="-200 0" to="200 0" dur="9s" begin="1.2s" repeatCount="indefinite"/>
+    <!-- Soft radial accent glow near top-center -->
+    <radialGradient id="glow" cx="50%" cy="20%" r="55%">
+      <stop offset="0%"  stop-color="#FF652F" stop-opacity="0.16"/>
+      <stop offset="45%" stop-color="#FF652F" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#FF652F" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Accent gradient (orange -> amber, darkened amber for white bg) -->
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#FF652F"/>
+      <stop offset="100%" stop-color="#D98324"/>
     </linearGradient>
+
+    <!-- Shimmer band that sweeps across the name once -->
+    <linearGradient id="shimmer" x1="0" y1="0" x2="300" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#0C1A25"/>
+      <stop offset="42%"  stop-color="#0C1A25"/>
+      <stop offset="50%"  stop-color="#FF652F"/>
+      <stop offset="58%"  stop-color="#0C1A25"/>
+      <stop offset="100%" stop-color="#0C1A25"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="-340 0" to="1540 0" dur="1.5s" begin="1.9s" fill="freeze"/>
+    </linearGradient>
+
+    <!-- Clip the name glyphs for the shimmer overlay -->
+    <clipPath id="nameClip">
+      <text x="600" y="150" font-size="58" font-weight="800" text-anchor="middle"
+            font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif">Muhammad Abdullah</text>
+    </clipPath>
+
+    <style>
+      @media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important } }
+    </style>
   </defs>
 
-  <!-- Background -->
-  <rect width="100%" height="100%" fill="url(#bgL)"/>
-  <rect width="100%" height="100%" fill="url(#gridL)" opacity="0.25"/>
+  <!-- ===== BACKGROUND LAYERS ===== -->
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  <rect width="1200" height="300" fill="url(#grid)" opacity="0.55"/>
+  <rect width="1200" height="300" fill="url(#glow)">
+    <animate attributeName="opacity" values="0.75;1;0.75" dur="7s" repeatCount="indefinite"/>
+  </rect>
 
-  <!-- Title + underline (NO filter -> crisp on mobile) -->
-  <g font-family="Inter, Segoe UI, Roboto, Arial, sans-serif" text-anchor="middle">
-    <!-- Title shadow (crisp: duplicate + tiny offset) -->
-    <text x="600" y="131" font-size="60" font-weight="800" fill="#000000" fill-opacity="0.18" opacity="0">
-      Muhammad Abdullah
-      <animate attributeName="opacity" from="0" to="1" dur="0.7s" begin="0.95s" fill="freeze"/>
-    </text>
+  <!-- ===== CONSTELLATION (parallax drift) ===== -->
+  <g stroke="#D0D7DE" stroke-width="1" fill="none" opacity="0.8">
+    <g>
+      <line x1="150" y1="70" x2="262" y2="118"/>
+      <line x1="262" y1="118" x2="200" y2="210"/>
+      <line x1="262" y1="118" x2="370" y2="92"/>
+      <line x1="950" y1="80" x2="1040" y2="140"/>
+      <line x1="1040" y1="140" x2="960" y2="216"/>
+      <line x1="1040" y1="140" x2="1100" y2="74"/>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 10 6; 0 0" dur="22s" repeatCount="indefinite"/>
+    </g>
+  </g>
+  <g fill="#0969DA">
+    <g>
+      <circle cx="150" cy="70" r="2.2" opacity="0.8"/>
+      <circle cx="262" cy="118" r="2.6" fill="#D98324" opacity="0.9"/>
+      <circle cx="200" cy="210" r="2" opacity="0.6"/>
+      <circle cx="370" cy="92" r="2.2" opacity="0.7"/>
+      <circle cx="950" cy="80" r="2.2" opacity="0.7"/>
+      <circle cx="1040" cy="140" r="2.6" fill="#FF652F" opacity="0.9"/>
+      <circle cx="960" cy="216" r="2" opacity="0.6"/>
+      <circle cx="1100" cy="74" r="2.2" opacity="0.7"/>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 10 6; 0 0" dur="22s" repeatCount="indefinite"/>
+    </g>
+  </g>
 
-    <!-- Title main -->
-    <text x="600" y="130" font-size="60" font-weight="800" fill="#0C1A25" opacity="0"
-          style="paint-order: stroke fill; stroke:#000000; stroke-opacity:0.08; stroke-width:0.6;">
-      Muhammad Abdullah
-      <animate attributeName="opacity" from="0" to="1" dur="0.7s" begin="0.95s" fill="freeze"/>
-    </text>
+  <!-- ===== TOP-LEFT MONO TAG ===== -->
+  <text x="48" y="44" font-size="15" fill="#57606A" opacity="0"
+        font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">~/MA1002643
+    <animate attributeName="opacity" values="0;1" dur="0.6s" begin="0.2s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+  </text>
 
-    <!-- Underline shadow (crisp: duplicate + 1px offset) -->
-    <rect x="600" y="146" height="9" rx="1.5" width="0" fill="#000000" opacity="0.14">
-      <animate attributeName="width" from="0" to="520" dur="0.7s" begin="1.05s" fill="freeze"/>
-      <animate attributeName="x" from="600" to="340" dur="0.7s" begin="1.05s" fill="freeze"/>
+  <!-- ===== TOP-RIGHT STATUS PILL ===== -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.6s" begin="0.35s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+    <rect x="952" y="26" width="200" height="30" rx="15" fill="#1A7F37" fill-opacity="0.10" stroke="#1A7F37" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="972" cy="41" r="4" fill="#1A7F37">
+      <animate attributeName="opacity" values="1;0.3;1" dur="1.6s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="4;4.8;4" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+    <text x="986" y="45" font-size="13" fill="#1A7F37"
+          font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif">Open to opportunities</text>
+  </g>
+
+  <!-- ===== TITLE ===== -->
+  <g text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif">
+    <g opacity="0">
+      <animateTransform attributeName="transform" type="translate" values="0 12; 0 0" dur="0.7s" begin="0.55s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1"/>
+      <animate attributeName="opacity" values="0;1" dur="0.7s" begin="0.55s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1"/>
+      <text x="600" y="150" font-size="58" font-weight="800" fill="#0C1A25">Muhammad Abdullah</text>
+    </g>
+    <!-- One-time shimmer sweep clipped to the glyphs -->
+    <g clip-path="url(#nameClip)">
+      <rect x="0" y="100" width="1200" height="70" fill="url(#shimmer)" opacity="0">
+        <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.55;0.56;0.95;1" dur="3.4s" begin="0.55s" fill="freeze"/>
+      </rect>
+    </g>
+  </g>
+
+  <!-- ===== ACCENT UNDERLINE ===== -->
+  <g>
+    <rect x="600" y="170" width="0" height="6" rx="3" fill="url(#acc)">
+      <animate attributeName="width" values="0;520" dur="0.7s" begin="1.15s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1"/>
+      <animate attributeName="x" values="600;340" dur="0.7s" begin="1.15s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1"/>
     </rect>
-
-    <!-- Underline (accent gradient) -->
-    <rect x="600" y="145" height="9" rx="1.5" width="0" fill="url(#accL)">
-      <animate attributeName="width" from="0" to="520" dur="0.7s" begin="1.05s" fill="freeze"/>
-      <animate attributeName="x" from="600" to="340" dur="0.7s" begin="1.05s" fill="freeze"/>
+    <!-- travelling highlight along the bar -->
+    <rect x="340" y="170" width="46" height="6" rx="3" fill="#FFFFFF" opacity="0">
+      <animate attributeName="opacity" values="0;0.6;0" keyTimes="0;0.5;1" dur="2.6s" begin="2s" repeatCount="indefinite"/>
+      <animate attributeName="x" values="346;806" dur="2.6s" begin="2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.45 0 0.55 1"/>
     </rect>
   </g>
 
-  <!-- Subtitle (already crisp; outside any shadow) -->
-  <text x="600" y="180" font-size="26" fill="#334155"
-        text-rendering="optimizeLegibility" filter="none" fill-opacity="0"
-        font-family="Inter, Segoe UI, Roboto, Arial, sans-serif" text-anchor="middle">
-    Husband • Father • Software Engineer
-    <animate attributeName="fill-opacity" from="0" to="1" dur="0.8s" begin="1.25s" fill="freeze"/>
-  </text>
+  <!-- ===== ROLE LINE ===== -->
+  <g text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif">
+    <text x="600" y="216" font-size="24" font-weight="600" fill="#0C1A25" opacity="0">Full-Stack Software Engineer
+      <animate attributeName="opacity" values="0;1" dur="0.7s" begin="1.3s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1"/>
+    </text>
+
+    <!-- Crossfading secondary roles -->
+    <g font-size="17" fill="#57606A"
+       font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">
+      <text x="600" y="248" opacity="0">C# · .NET · Blazor · MAUI
+        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.27;0.30;0.97;1" dur="9s" begin="1.55s" repeatCount="indefinite"/>
+      </text>
+      <text x="600" y="248" opacity="0">Node.js · Next.js · React
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.34;0.37;0.60;0.63;1" dur="9s" begin="1.55s" repeatCount="indefinite"/>
+      </text>
+      <text x="600" y="248" opacity="0">Cloud · CI/CD · Automation
+        <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.67;0.70;0.93;0.96;1" dur="9s" begin="1.55s" repeatCount="indefinite"/>
+      </text>
+    </g>
+  </g>
 </svg>
