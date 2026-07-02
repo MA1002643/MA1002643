@@ -163,36 +163,20 @@
 <sub><i>Auto-pinned weekly by a GitHub Action, ranked by recent activity — so this always reflects what I'm building right now.</i></sub>
 
 <!-- PINNED: START -->
-<table align="center" cellspacing="0" cellpadding="0" border="0" style="border:0; border-collapse:separate; margin:0 auto;">
-<tr>
-<td align="center" valign="top" width="50%" style="padding:12px 24px 12px 0px; border:0;">
-
+<div align="center">
   <a href="https://github.com/MA1002643/theabdullahfolio">
-    <div style="padding:10px; box-sizing:border-box;">
-      <div style="display:inline-block; border-radius:12px; overflow:hidden;">
-        <picture>
-          <source media="(prefers-color-scheme: light)" srcset="https://opengraph.githubassets.com/1/MA1002643/theabdullahfolio?theme=light">
-          <img alt="theabdullahfolio" src="https://opengraph.githubassets.com/1/MA1002643/theabdullahfolio?theme=dark" width="480" style="max-width:100%; height:auto; display:block; border:0;">
-        </picture>
-      </div>
-    </div>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=theabdullahfolio&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=0D1117&title_color=ff652f&icon_color=FFC857&text_color=E5E7EB&border_color=243042">
+      <img alt="theabdullahfolio" src="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=theabdullahfolio&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=ffffff&title_color=ff652f&icon_color=D98324&text_color=0C1A25&border_color=D0D7DE" width="49%">
+    </picture>
   </a>
-</td>
-<td align="center" valign="top" width="50%" style="padding:12px 0px 12px 24px; border:0;">
-
   <a href="https://github.com/MA1002643/article-server-full-stack-blogging-platform">
-    <div style="padding:10px; box-sizing:border-box;">
-      <div style="display:inline-block; border-radius:12px; overflow:hidden;">
-        <picture>
-          <source media="(prefers-color-scheme: light)" srcset="https://opengraph.githubassets.com/1/MA1002643/article-server-full-stack-blogging-platform?theme=light">
-          <img alt="article-server-full-stack-blogging-platform" src="https://opengraph.githubassets.com/1/MA1002643/article-server-full-stack-blogging-platform?theme=dark" width="480" style="max-width:100%; height:auto; display:block; border:0;">
-        </picture>
-      </div>
-    </div>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=article-server-full-stack-blogging-platform&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=0D1117&title_color=ff652f&icon_color=FFC857&text_color=E5E7EB&border_color=243042">
+      <img alt="article-server-full-stack-blogging-platform" src="https://github-readme-stats-chi-woad.vercel.app/api/pin/?username=MA1002643&repo=article-server-full-stack-blogging-platform&description_lines_count=2&hide_border=false&cache_seconds=7200&bg_color=ffffff&title_color=ff652f&icon_color=D98324&text_color=0C1A25&border_color=D0D7DE" width="49%">
+    </picture>
   </a>
-</td>
-</tr>
-</table>
+</div>
 <!-- PINNED: END -->
 
 <!-- divider -->
@@ -310,6 +294,7 @@ Last updated on 2026-07-01 (Displaying Data from past 7 days)
 <summary><b>🕒 Recent GitHub Activity</b></summary>
 <br />
 <!--RECENT_ACTIVITY:start-->
+
 1. ⬆️ Pushed to MA1002643/theabdullahfolio
 2. 💪 Opened PR to MA1002643/theabdullahfolio
 3. 📦 Created branch to MA1002643/theabdullahfolio
@@ -318,7 +303,9 @@ Last updated on 2026-07-01 (Displaying Data from past 7 days)
 <!--RECENT_ACTIVITY:end-->
 
 <!--RECENT_ACTIVITY:last_update-->
+
 Last Updated: Wednesday, July 1st, 2026, 10:09:56 am
+
 <!--RECENT_ACTIVITY:last_update_end-->
 </details>
 
