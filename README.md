@@ -43,17 +43,8 @@
 <!-- divider -->
 <picture><source media="(prefers-color-scheme: dark)" srcset="./assets/divider-dark.svg"><img src="./assets/divider-light.svg" alt="" width="100%"></picture>
 
-<!-- ═══════════════════════ SKILLS RADAR ═══════════════════════ -->
-<h2 align="center">🧭 Skills Radar</h2>
-
-<div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/skills-radar-dark.svg">
-    <img src="./assets/skills-radar-light.svg" alt="Skills radar — Backend/.NET, Frontend, Databases, Cloud/DevOps, Testing, Automation" width="720">
-  </picture>
-</div>
-
-<h3 align="center">🧰 Core Stack</h3>
+<!-- ═══════════════════════ CORE STACK ═══════════════════════ -->
+<h2 align="center">🧰 Core Stack</h2>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="./assets/core-stack-dark.svg"><img src="./assets/core-stack-light.svg" alt="Core stack — Languages: C#, TypeScript, JavaScript, SQL, HTML5, CSS3 · Frameworks & Runtime: .NET, Blazor, .NET MAUI, Node.js, Express, Next.js, React, Tailwind CSS · Data & Cloud: PostgreSQL, MySQL, MongoDB, Redis, Prisma, Docker, AWS, Vercel · Tooling & CI/CD: Git, GitHub Actions, Postman, Jest, ESLint, Visual Studio" width="100%"></picture>
 
@@ -93,7 +84,7 @@
   <img src="./assets/pipeline-light.svg" alt="Automation pipeline: GitHub Actions → WakaTime, Activity, Auto-Pin, Experience → README → Rendered Profile" width="100%">
 </picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/ops-board-dark.svg"><img src="./assets/ops-board-light.svg" alt="Scheduled automation — daily-language-time (daily): coding time by language via WakaTime · recent-activity (daily): recent GitHub activity feed · auto-pin-top-repos (weekly): pinned repositories ranked by activity, card artwork included · update-experience (weekly): years-of-experience metric from first-repo date · snake (daily): contribution snake animation" width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/ops-board-dark.svg"><img src="./assets/ops-board-light.svg" alt="Scheduled automation — daily-language-time (daily): coding time by language via WakaTime · recent-activity (daily): recent GitHub activity feed · auto-pin-top-repos (weekly): pinned repositories ranked by activity, card artwork included · update-experience (weekly): years-of-experience metric from first-repo date" width="100%"></picture>
 
 ### 🕒 Recent GitHub Activity
 
@@ -154,27 +145,6 @@
 
 <p align="center"><sub><b>Note:</b> Top languages reflect the makeup of my public code, not experience or skill level. Coding time is tracked by WakaTime and re-rendered daily by a GitHub Action.</sub></p>
 
-</details>
-
-<details>
-<summary><b>⏱️ WakaTime Stats</b></summary>
-<br/>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-chi-woad.vercel.app/api/wakatime?username=Abdullah2907&layout=compact&bg_color=0D1117&title_color=ff652f&text_color=E5E7EB&border_color=243042&hide_border=false&cache_seconds=7200&custom_title=WakaTime%20Stats" />
-  <img alt="Muhammad Abdullah — WakaTime Stats" src="https://github-readme-stats-chi-woad.vercel.app/api/wakatime?username=Abdullah2907&layout=compact&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=D0D7DE&hide_border=false&cache_seconds=7200&custom_title=WakaTime%20Stats" />
-</picture>
-</details>
-
-<details>
-<summary><b>🐍 Contribution Snake</b></summary>
-<br/>
-<div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MA1002643/MA1002643/output/github-snake-dark.svg" />
-    <img alt="Muhammad Abdullah — contribution snake" src="https://raw.githubusercontent.com/MA1002643/MA1002643/output/github-snake.svg" width="100%" />
-  </picture>
-</div>
-<sub>Generated daily by the <code>snake</code> GitHub Action.</sub>
 </details>
 
 <!-- divider -->

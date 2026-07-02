@@ -46,17 +46,21 @@
             font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif">Muhammad Abdullah</text>
     </clipPath>
 
+    <clipPath id="bgClip"><rect width="1200" height="300" rx="16"/></clipPath>
+
     <style>
       @media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important } }
     </style>
   </defs>
 
-  <!-- ===== BACKGROUND LAYERS ===== -->
+  <!-- ===== BACKGROUND LAYERS (clipped to rounded card shape) ===== -->
+  <g clip-path="url(#bgClip)">
   <rect width="1200" height="300" fill="url(#bg)"/>
   <rect width="1200" height="300" fill="url(#grid)" opacity="0.25"/>
   <rect width="1200" height="300" fill="url(#glow)">
     <animate attributeName="opacity" values="0.75;1;0.75" dur="7s" repeatCount="indefinite"/>
   </rect>
+  </g>
 
   <!-- ===== CONSTELLATION (parallax drift) ===== -->
   <g stroke="#243042" stroke-width="1" fill="none" opacity="0.55">

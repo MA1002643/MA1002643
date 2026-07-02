@@ -54,14 +54,17 @@
     </filter>
 
     <clipPath id="win"><rect x="40" y="30" width="1120" height="780" rx="18"/></clipPath>
+    <clipPath id="bgClip"><rect width="1200" height="840" rx="16"/></clipPath>
   </defs>
 
-  <!-- ===== Backdrop ===== -->
+  <!-- ===== Backdrop (clipped to rounded card shape) ===== -->
+  <g clip-path="url(#bgClip)">
   <rect width="1200" height="840" fill="url(#sky)"/>
   <rect width="1200" height="840" fill="url(#grid)" opacity="0.35"/>
   <rect width="1200" height="840" fill="url(#glowA)"/>
   <rect width="1200" height="840" fill="url(#glowB)"/>
   <rect width="1200" height="840" fill="url(#glowC)"/>
+  </g>
 
   <!-- ===== Editor window ===== -->
   <g filter="url(#shadow)">

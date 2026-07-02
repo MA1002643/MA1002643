@@ -56,8 +56,8 @@
   </defs>
 
   <!-- background -->
-  <rect width="1200" height="360" fill="url(#bg)"/>
-  <rect width="1200" height="360" fill="url(#grid)" class="shimmer"/>
+  <rect width="1200" height="360" rx="16" fill="url(#bg)"/>
+  <rect width="1200" height="360" rx="16" fill="url(#grid)" class="shimmer"/>
   <rect x="0.5" y="0.5" width="1199" height="359" rx="16" fill="none" stroke="#D0D7DE"/>
 
   <!-- title row -->

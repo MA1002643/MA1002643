@@ -39,11 +39,15 @@
     <clipPath id="screenClip">
       <path d="M44 96 H1156 V306 A16 16 0 0 1 1140 322 H60 A16 16 0 0 1 44 306 Z"/>
     </clipPath>
+
+    <clipPath id="bgClip"><rect width="1200" height="350" rx="16"/></clipPath>
   </defs>
 
-  <!-- Background fill -->
+  <!-- Background fill (clipped to rounded card shape) -->
+  <g clip-path="url(#bgClip)">
   <rect width="1200" height="350" fill="#0B1220"/>
   <rect width="1200" height="350" fill="url(#grid)" opacity="0.5"/>
+  </g>
 
   <!-- ===== Outer terminal window ===== -->
   <g filter="url(#shadow)">

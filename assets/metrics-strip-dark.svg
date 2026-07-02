@@ -16,7 +16,7 @@
     <filter id="m-shadow" x="-10%" y="-10%" width="120%" height="140%">
       <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.35"/>
     </filter>
-    <clipPath id="m-clip"><rect x="0" y="0" width="1200" height="150"/></clipPath>
+    <clipPath id="m-clip"><rect x="0" y="0" width="1200" height="150" rx="16"/></clipPath>
   </defs>
 
   <style>
@@ -29,7 +29,7 @@
     @media (prefers-reduced-motion: reduce){ * { animation: none !important; transition: none !important } .tile { opacity: 1; transform: none; } }
   </style>
 
-  <rect x="0" y="0" width="1200" height="150" fill="#0B1220"/>
+  <rect x="0" y="0" width="1200" height="150" rx="16" fill="#0B1220"/>
 
   <!-- Tile 1 -->
   <g class="tile t1">

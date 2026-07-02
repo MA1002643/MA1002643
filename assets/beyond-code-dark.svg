@@ -54,9 +54,11 @@
     </filter>
 
     <clipPath id="win"><rect x="40" y="30" width="1120" height="780" rx="18"/></clipPath>
+    <clipPath id="bgClip"><rect width="1200" height="840" rx="16"/></clipPath>
   </defs>
 
-  <!-- ===== Backdrop ===== -->
+  <!-- ===== Backdrop (clipped to rounded card shape) ===== -->
+  <g clip-path="url(#bgClip)">
   <rect width="1200" height="840" fill="url(#sky)"/>
   <rect width="1200" height="840" fill="url(#grid)" opacity="0.35"/>
   <rect width="1200" height="840" fill="url(#glowA)"/>
@@ -76,6 +78,7 @@
     <circle cx="240"  cy="828" r="1.0"><animate attributeName="opacity" values="0.25;0.8;0.25" dur="4.7s" begin="0.3s" repeatCount="indefinite"/></circle>
     <circle cx="760"  cy="830" r="1.1"><animate attributeName="opacity" values="0.8;0.2;0.8"  dur="5.6s" begin="1.9s" repeatCount="indefinite"/></circle>
     <circle cx="1050" cy="826" r="0.8"><animate attributeName="opacity" values="0.2;0.9;0.2"  dur="4.3s" begin="0.6s" repeatCount="indefinite"/></circle>
+  </g>
   </g>
 
   <!-- ===== Editor window ===== -->

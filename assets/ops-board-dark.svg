@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scheduled automation. daily-language-time, daily: coding time by language from WakaTime. recent-activity, daily: recent GitHub activity feed. auto-pin-top-repos, weekly: pinned repositories ranked by activity. update-experience, weekly: years-of-experience metric from first-repo date. snake, daily: contribution snake animation." viewBox="0 0 1200 300" width="1200" height="300" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scheduled automation. daily-language-time, daily: coding time by language from WakaTime. recent-activity, daily: recent GitHub activity feed. auto-pin-top-repos, weekly: pinned repositories ranked by activity. update-experience, weekly: years-of-experience metric from first-repo date." viewBox="0 0 1200 258" width="1200" height="258" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
   <title>Scheduled automation — ops board</title>
-  <desc>Dark navy operations board listing five scheduled GitHub Actions workflows with cadence tags, live status dots, and what each keeps current.</desc>
+  <desc>Dark navy operations board listing four scheduled GitHub Actions workflows with cadence tags, live status dots, and what each keeps current.</desc>
 
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="300" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="258" gradientUnits="userSpaceOnUse">
       <stop offset="0%"  stop-color="#0B1220"/>
       <stop offset="55%" stop-color="#0D1117"/>
       <stop offset="100%" stop-color="#0F172A"/>
@@ -16,16 +16,16 @@
       <stop offset="60%" stop-color="#FF652F" stop-opacity="0.02"/>
       <stop offset="100%" stop-color="#FF652F" stop-opacity="0"/>
     </radialGradient>
-    <clipPath id="cardClip"><rect x="1" y="1" width="1198" height="298" rx="16"/></clipPath>
+    <clipPath id="cardClip"><rect x="1" y="1" width="1198" height="256" rx="16"/></clipPath>
     <style>@media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important } }</style>
   </defs>
 
   <g clip-path="url(#cardClip)">
-    <rect x="1" y="1" width="1198" height="298" fill="url(#bg)"/>
-    <rect x="1" y="1" width="1198" height="298" fill="url(#grid)" opacity="0.22"/>
-    <rect x="1" y="1" width="1198" height="298" fill="url(#glow)"/>
+    <rect x="1" y="1" width="1198" height="256" fill="url(#bg)"/>
+    <rect x="1" y="1" width="1198" height="256" fill="url(#grid)" opacity="0.22"/>
+    <rect x="1" y="1" width="1198" height="256" fill="url(#glow)"/>
   </g>
-  <rect x="1" y="1" width="1198" height="298" rx="16" fill="none" stroke="#243042" stroke-width="1.5"/>
+  <rect x="1" y="1" width="1198" height="256" rx="16" fill="none" stroke="#243042" stroke-width="1.5"/>
 
   <g opacity="0">
     <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.15s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
@@ -83,14 +83,5 @@
       <text x="470" y="227" fill="#9DA9B8">🗓️ Years-of-experience metric (from first-repo date)</text>
     </g>
 
-    <g opacity="0">
-      <animate attributeName="opacity" values="0;1" dur="0.45s" begin="0.78s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
-      <circle cx="56" cy="264" r="4" fill="#3FB950"><animate attributeName="opacity" values="1;0.45;1" dur="3s" begin="3.4s" repeatCount="indefinite"/></circle>
-      <text x="76" y="269" fill="#E5E7EB" textLength="44" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">snake</text>
-      <line x1="132" y1="264" x2="308" y2="264" stroke="#243042" stroke-width="1" stroke-dasharray="2 5"/>
-      <rect x="320" y="254" width="57" height="20" rx="10" fill="#58A6FF" fill-opacity="0.08" stroke="#58A6FF" stroke-opacity="0.4" stroke-width="1"/>
-      <text x="348.5" y="268" font-size="11" letter-spacing="1" fill="#58A6FF" text-anchor="middle" textLength="33" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">DAILY</text>
-      <text x="470" y="269" fill="#9DA9B8">🐍 Contribution snake animation</text>
-    </g>
   </g>
 </svg>
