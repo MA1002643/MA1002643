@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="article-server-full-stack-blogging-platform. A full-stack blogging platform with article management, user authentication and dynamic content delivery. JavaScript. 1 stars, 1 forks." viewBox="0 0 600 190" width="600" height="190" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
+  <title>article-server-full-stack-blogging-platform</title>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="600" y2="190" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#0B1220"/>
+      <stop offset="55%" stop-color="#0D1117"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#1E293B" stroke-width="0.6"/>
+    </pattern>
+    <radialGradient id="glow" cx="12%" cy="0%" r="65%">
+      <stop offset="0%"  stop-color="#FF652F" stop-opacity="0.09"/>
+      <stop offset="60%" stop-color="#FF652F" stop-opacity="0.025"/>
+      <stop offset="100%" stop-color="#FF652F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#FF652F"/>
+      <stop offset="100%" stop-color="#FFC857"/>
+    </linearGradient>
+    <clipPath id="cardClip"><rect x="1" y="1" width="598" height="188" rx="14"/></clipPath>
+    <style>@media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important } }</style>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="1" y="1" width="598" height="188" fill="url(#bg)"/>
+    <rect x="1" y="1" width="598" height="188" fill="url(#grid)" opacity="0.22"/>
+    <rect x="1" y="1" width="598" height="188" fill="url(#glow)"/>
+  </g>
+  <rect x="1" y="1" width="598" height="188" rx="14" fill="none" stroke="#243042" stroke-width="1.5"/>
+
+  <g font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif" opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.15s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+
+    <text x="32" y="48" font-size="19" font-weight="600" fill="#E5E7EB" textLength="531" lengthAdjust="spacingAndGlyphs"
+          font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">~/article-server-full-stack-blogging-platform</text>
+
+    <line x1="32" y1="64" x2="568" y2="64" stroke="#243042" stroke-width="1" opacity="0.8"/>
+    <rect x="32" y="62.5" width="0" height="3" rx="1.5" fill="url(#acc)">
+      <animate attributeName="width" values="0;80" dur="0.5s" begin="0.5s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1"/>
+    </rect>
+
+    <g font-size="13.5" fill="#9DA9B8">
+      <text x="32" y="94">A full-stack blogging platform with article management, user authentication</text>
+      <text x="32" y="116">and dynamic content delivery.</text>
+    </g>
+
+    <g>
+      <circle cx="39" cy="153.5" r="5" fill="#F1E05A"/>
+      <text x="52" y="158" font-size="12.5" fill="#C9D1D9">JavaScript</text>
+      <text x="400" y="158" font-size="13" fill="#FFC857">★</text>
+      <text x="418" y="158" font-size="12.5" fill="#C9D1D9">1</text>
+      <g stroke="#94A3B8" stroke-width="1.6" fill="none">
+        <circle cx="478" cy="147" r="2.6"/>
+        <circle cx="490" cy="147" r="2.6"/>
+        <circle cx="484" cy="159" r="2.6"/>
+        <path d="M478 149.6 v1.4 a3 3 0 0 0 3 3 h6 a3 3 0 0 0 3 -3 v-1.4 M484 154 v2.4"/>
+      </g>
+      <text x="500" y="158" font-size="12.5" fill="#C9D1D9">1</text>
+    </g>
+  </g>
+</svg>

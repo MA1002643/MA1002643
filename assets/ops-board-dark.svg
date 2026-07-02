@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scheduled automation. daily-language-time, daily: coding time by language from WakaTime. recent-activity, daily: recent GitHub activity feed. auto-pin-top-repos, weekly: pinned repositories ranked by activity. update-experience, weekly: years-of-experience metric from first-repo date. snake, daily: contribution snake animation." viewBox="0 0 1200 300" width="1200" height="300" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
+  <title>Scheduled automation — ops board</title>
+  <desc>Dark navy operations board listing five scheduled GitHub Actions workflows with cadence tags, live status dots, and what each keeps current.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#0B1220"/>
+      <stop offset="55%" stop-color="#0D1117"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#1E293B" stroke-width="0.6"/>
+    </pattern>
+    <radialGradient id="glow" cx="50%" cy="0%" r="70%">
+      <stop offset="0%"  stop-color="#FF652F" stop-opacity="0.07"/>
+      <stop offset="60%" stop-color="#FF652F" stop-opacity="0.02"/>
+      <stop offset="100%" stop-color="#FF652F" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="cardClip"><rect x="1" y="1" width="1198" height="298" rx="16"/></clipPath>
+    <style>@media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important } }</style>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="1" y="1" width="1198" height="298" fill="url(#bg)"/>
+    <rect x="1" y="1" width="1198" height="298" fill="url(#grid)" opacity="0.22"/>
+    <rect x="1" y="1" width="1198" height="298" fill="url(#glow)"/>
+  </g>
+  <rect x="1" y="1" width="1198" height="298" rx="16" fill="none" stroke="#243042" stroke-width="1.5"/>
+
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.15s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+
+    <!-- column header -->
+    <g font-size="11" letter-spacing="1.5" fill="#64748B"
+       font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">
+      <text x="76" y="56">WORKFLOW</text>
+      <text x="320" y="56">CADENCE</text>
+      <text x="470" y="56">KEEPS LIVE</text>
+    </g>
+    <line x1="56" y1="68" x2="1144" y2="68" stroke="#243042" stroke-width="1" opacity="0.8"/>
+  </g>
+
+  <!-- rows: status dot · mono name · dotted leader · cadence tag · description -->
+  <g font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif" font-size="14.5">
+
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.45s" begin="0.3s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <circle cx="56" cy="96" r="4" fill="#3FB950"><animate attributeName="opacity" values="1;0.45;1" dur="3s" begin="1s" repeatCount="indefinite"/></circle>
+      <text x="76" y="101" fill="#E5E7EB" textLength="165" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">daily-language-time</text>
+      <line x1="253" y1="96" x2="308" y2="96" stroke="#243042" stroke-width="1" stroke-dasharray="2 5"/>
+      <rect x="320" y="86" width="57" height="20" rx="10" fill="#58A6FF" fill-opacity="0.08" stroke="#58A6FF" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="348.5" y="100" font-size="11" letter-spacing="1" fill="#58A6FF" text-anchor="middle" textLength="33" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">DAILY</text>
+      <text x="470" y="101" fill="#9DA9B8">⏱️ Coding time by language (WakaTime)</text>
+    </g>
+
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.45s" begin="0.42s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <circle cx="56" cy="138" r="4" fill="#3FB950"><animate attributeName="opacity" values="1;0.45;1" dur="3s" begin="1.6s" repeatCount="indefinite"/></circle>
+      <text x="76" y="143" fill="#E5E7EB" textLength="130" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">recent-activity</text>
+      <line x1="218" y1="138" x2="308" y2="138" stroke="#243042" stroke-width="1" stroke-dasharray="2 5"/>
+      <rect x="320" y="128" width="57" height="20" rx="10" fill="#58A6FF" fill-opacity="0.08" stroke="#58A6FF" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="348.5" y="142" font-size="11" letter-spacing="1" fill="#58A6FF" text-anchor="middle" textLength="33" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">DAILY</text>
+      <text x="470" y="143" fill="#9DA9B8">🕒 Recent GitHub activity feed</text>
+    </g>
+
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.45s" begin="0.54s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <circle cx="56" cy="180" r="4" fill="#3FB950"><animate attributeName="opacity" values="1;0.45;1" dur="3s" begin="2.2s" repeatCount="indefinite"/></circle>
+      <text x="76" y="185" fill="#E5E7EB" textLength="157" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">auto-pin-top-repos</text>
+      <line x1="245" y1="180" x2="308" y2="180" stroke="#243042" stroke-width="1" stroke-dasharray="2 5"/>
+      <rect x="320" y="170" width="64" height="20" rx="10" fill="#FFC857" fill-opacity="0.08" stroke="#FFC857" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="352" y="184" font-size="11" letter-spacing="1" fill="#FFC857" text-anchor="middle" textLength="40" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">WEEKLY</text>
+      <text x="470" y="185" fill="#9DA9B8">📌 Pinned repositories, ranked by activity — card artwork included</text>
+    </g>
+
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.45s" begin="0.66s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <circle cx="56" cy="222" r="4" fill="#3FB950"><animate attributeName="opacity" values="1;0.45;1" dur="3s" begin="2.8s" repeatCount="indefinite"/></circle>
+      <text x="76" y="227" fill="#E5E7EB" textLength="148" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">update-experience</text>
+      <line x1="236" y1="222" x2="308" y2="222" stroke="#243042" stroke-width="1" stroke-dasharray="2 5"/>
+      <rect x="320" y="212" width="64" height="20" rx="10" fill="#FFC857" fill-opacity="0.08" stroke="#FFC857" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="352" y="226" font-size="11" letter-spacing="1" fill="#FFC857" text-anchor="middle" textLength="40" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">WEEKLY</text>
+      <text x="470" y="227" fill="#9DA9B8">🗓️ Years-of-experience metric (from first-repo date)</text>
+    </g>
+
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.45s" begin="0.78s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <circle cx="56" cy="264" r="4" fill="#3FB950"><animate attributeName="opacity" values="1;0.45;1" dur="3s" begin="3.4s" repeatCount="indefinite"/></circle>
+      <text x="76" y="269" fill="#E5E7EB" textLength="44" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">snake</text>
+      <line x1="132" y1="264" x2="308" y2="264" stroke="#243042" stroke-width="1" stroke-dasharray="2 5"/>
+      <rect x="320" y="254" width="57" height="20" rx="10" fill="#58A6FF" fill-opacity="0.08" stroke="#58A6FF" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="348.5" y="268" font-size="11" letter-spacing="1" fill="#58A6FF" text-anchor="middle" textLength="33" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">DAILY</text>
+      <text x="470" y="269" fill="#9DA9B8">🐍 Contribution snake animation</text>
+    </g>
+  </g>
+</svg>

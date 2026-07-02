@@ -33,14 +33,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # default repo token
           GH_USERNAME: MA1002643
-          STATS_DOMAIN: ${{ vars.STATS_DOMAIN }}
         with:
           max_attempts: 4
           timeout_minutes: 5
           command: node .github/scripts/auto-pin.mjs
 
-      - name: Commit README change
+      - name: Commit README and generated card assets
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore(readme): auto-update pinned repositories"
-          file_pattern: README.md
+          file_pattern: "README.md assets/pinned-*.svg"

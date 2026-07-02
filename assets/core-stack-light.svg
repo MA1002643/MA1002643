@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Core stack. Languages: C#, TypeScript, JavaScript, SQL, HTML5, CSS3. Frameworks and runtime: .NET, Blazor, .NET MAUI, Node.js, Express, Next.js, React, Tailwind CSS. Data and cloud: PostgreSQL, MySQL, MongoDB, Redis, Prisma, Docker, AWS, Vercel. Tooling and CI/CD: Git, GitHub Actions, Postman, Jest, ESLint, Visual Studio." viewBox="0 0 1200 280" width="1200" height="280" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
+  <title>Core Stack — system backplane</title>
+  <desc>Light schematic: a vertical accent bus connects four layer nodes — languages, frameworks, data and cloud, tooling — each listing its technologies.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#FFFFFF"/>
+      <stop offset="55%" stop-color="#FBFCFD"/>
+      <stop offset="100%" stop-color="#F6F8FA"/>
+    </linearGradient>
+
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#D8DEE4" stroke-width="0.6"/>
+    </pattern>
+
+    <radialGradient id="glow" cx="8%" cy="0%" r="55%">
+      <stop offset="0%"  stop-color="#FF652F" stop-opacity="0.05"/>
+      <stop offset="60%" stop-color="#FF652F" stop-opacity="0.015"/>
+      <stop offset="100%" stop-color="#FF652F" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="bus" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#FF652F"/>
+      <stop offset="100%" stop-color="#FFC857"/>
+    </linearGradient>
+
+    <clipPath id="cardClip">
+      <rect x="1" y="1" width="1198" height="278" rx="16"/>
+    </clipPath>
+
+    <style>
+      @media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important } }
+    </style>
+  </defs>
+
+  <!-- ===== CARD SURFACE ===== -->
+  <g clip-path="url(#cardClip)">
+    <rect x="1" y="1" width="1198" height="278" fill="url(#bg)"/>
+    <rect x="1" y="1" width="1198" height="278" fill="url(#grid)" opacity="0.35"/>
+    <rect x="1" y="1" width="1198" height="278" fill="url(#glow)"/>
+  </g>
+  <rect x="1" y="1" width="1198" height="278" rx="16" fill="none" stroke="#D0D7DE" stroke-width="1.5"/>
+
+  <!-- ===== BACKPLANE BUS (draws in on load) ===== -->
+  <rect x="70.5" y="60" width="3" height="0" rx="1.5" fill="url(#bus)">
+    <animate attributeName="height" values="0;168" dur="0.6s" begin="0.2s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1"/>
+  </rect>
+
+  <!-- ===== LAYER ROWS ===== -->
+  <g font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif">
+
+    <!-- languages -->
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.35s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <animateTransform attributeName="transform" type="translate" values="-8 0; 0 0" dur="0.5s" begin="0.35s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <circle cx="72" cy="64" r="9" fill="none" stroke="#D98324" stroke-opacity="0.3" stroke-width="1.5"/>
+      <circle cx="72" cy="64" r="4.5" fill="#D98324"/>
+      <text x="96" y="68.5" font-size="12" letter-spacing="1.5" fill="#57606A"
+            font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">LANGUAGES</text>
+      <text x="330" y="69" font-size="15" font-weight="500" fill="#334155">C#<tspan fill="#A8B3BD"> · </tspan>TypeScript<tspan fill="#A8B3BD"> · </tspan>JavaScript<tspan fill="#A8B3BD"> · </tspan>SQL<tspan fill="#A8B3BD"> · </tspan>HTML5<tspan fill="#A8B3BD"> · </tspan>CSS3</text>
+    </g>
+
+    <!-- frameworks & runtime -->
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.5s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <animateTransform attributeName="transform" type="translate" values="-8 0; 0 0" dur="0.5s" begin="0.5s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <circle cx="72" cy="120" r="9" fill="none" stroke="#0969DA" stroke-opacity="0.3" stroke-width="1.5"/>
+      <circle cx="72" cy="120" r="4.5" fill="#0969DA"/>
+      <text x="96" y="124.5" font-size="12" letter-spacing="1.5" fill="#57606A"
+            font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">FRAMEWORKS &amp; RUNTIME</text>
+      <text x="330" y="125" font-size="15" font-weight="500" fill="#334155">.NET<tspan fill="#A8B3BD"> · </tspan>Blazor<tspan fill="#A8B3BD"> · </tspan>.NET MAUI<tspan fill="#A8B3BD"> · </tspan>Node.js<tspan fill="#A8B3BD"> · </tspan>Express<tspan fill="#A8B3BD"> · </tspan>Next.js<tspan fill="#A8B3BD"> · </tspan>React<tspan fill="#A8B3BD"> · </tspan>Tailwind CSS</text>
+    </g>
+
+    <!-- data & cloud -->
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.65s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <animateTransform attributeName="transform" type="translate" values="-8 0; 0 0" dur="0.5s" begin="0.65s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <circle cx="72" cy="176" r="9" fill="none" stroke="#1A7F37" stroke-opacity="0.3" stroke-width="1.5"/>
+      <circle cx="72" cy="176" r="4.5" fill="#1A7F37"/>
+      <text x="96" y="180.5" font-size="12" letter-spacing="1.5" fill="#57606A"
+            font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">DATA &amp; CLOUD</text>
+      <text x="330" y="181" font-size="15" font-weight="500" fill="#334155">PostgreSQL<tspan fill="#A8B3BD"> · </tspan>MySQL<tspan fill="#A8B3BD"> · </tspan>MongoDB<tspan fill="#A8B3BD"> · </tspan>Redis<tspan fill="#A8B3BD"> · </tspan>Prisma<tspan fill="#A8B3BD"> · </tspan>Docker<tspan fill="#A8B3BD"> · </tspan>AWS<tspan fill="#A8B3BD"> · </tspan>Vercel</text>
+    </g>
+
+    <!-- tooling & ci/cd — node pulses: the automation layer is live -->
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.8s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <animateTransform attributeName="transform" type="translate" values="-8 0; 0 0" dur="0.5s" begin="0.8s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <circle cx="72" cy="232" r="9" fill="none" stroke="#E8590C" stroke-opacity="0.3" stroke-width="1.5"/>
+      <circle cx="72" cy="232" r="4.5" fill="#E8590C">
+        <animate attributeName="opacity" values="1;0.4;1" dur="2s" begin="1.4s" repeatCount="indefinite"/>
+      </circle>
+      <text x="96" y="236.5" font-size="12" letter-spacing="1.5" fill="#57606A"
+            font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">TOOLING &amp; CI/CD</text>
+      <text x="330" y="237" font-size="15" font-weight="500" fill="#334155">Git<tspan fill="#A8B3BD"> · </tspan>GitHub Actions<tspan fill="#A8B3BD"> · </tspan>Postman<tspan fill="#A8B3BD"> · </tspan>Jest<tspan fill="#A8B3BD"> · </tspan>ESLint<tspan fill="#A8B3BD"> · </tspan>Visual Studio</text>
+    </g>
+  </g>
+</svg>
