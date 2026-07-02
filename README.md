@@ -124,18 +124,7 @@
 
 <p align="center"><i>The one I'm most comfortable putting my name on — a full-stack recipe app with a documented REST API. My other repos are honest works in progress.</i></p>
 
-<div align="center">
-<table>
-  <tr>
-    <td width="620" valign="top">
-      <h3 align="center">🍳 <a href="https://github.com/MA1002643/ai-powered-recipe-search-platform">Full-Stack Recipe Platform</a></h3>
-      <p align="center"><sub><code>ai-powered-recipe-search-platform</code></sub></p>
-      <p>A <b>Vue 3</b> single-page app backed by an <b>Express + SQLite</b> REST API — user signup &amp; login, recipe creation and browsing, and ratings, with a <b>Swagger</b>-documented API and a Mocha/Chai test suite.</p>
-      <p align="center"><img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white"/> <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white"/> <img src="https://img.shields.io/badge/Express-000?style=flat-square&logo=express&logoColor=white"/> <img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white"/> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black"/></p>
-    </td>
-  </tr>
-</table>
-</div>
+<a href="https://github.com/MA1002643/ai-powered-recipe-search-platform"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/featured-card-dark.svg"><img src="./assets/featured-card-light.svg" alt="Featured project: Full-Stack Recipe Platform — a Vue 3 single-page app with an Express + SQLite REST API, Swagger-documented, tested with Mocha/Chai" width="100%"></picture></a>
 
 <p align="center"><sub>Browse <a href="https://github.com/MA1002643?tab=repositories">all repositories →</a> — several are early works in progress.</sub></p>
 

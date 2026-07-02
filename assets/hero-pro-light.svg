@@ -93,12 +93,13 @@
   <!-- ===== TOP-RIGHT STATUS PILL ===== -->
   <g opacity="0">
     <animate attributeName="opacity" values="0;1" dur="0.6s" begin="0.35s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
-    <rect x="952" y="26" width="200" height="30" rx="15" fill="#1A7F37" fill-opacity="0.10" stroke="#1A7F37" stroke-opacity="0.35" stroke-width="1"/>
-    <circle cx="972" cy="41" r="4" fill="#1A7F37">
+    <!-- textLength pins the label width so the 16px side paddings hold on every platform's fallback font -->
+    <rect x="974" y="26" width="178" height="30" rx="15" fill="#1A7F37" fill-opacity="0.10" stroke="#1A7F37" stroke-opacity="0.35" stroke-width="1"/>
+    <circle cx="994" cy="41" r="4" fill="#1A7F37">
       <animate attributeName="opacity" values="1;0.3;1" dur="1.6s" repeatCount="indefinite"/>
       <animate attributeName="r" values="4;4.8;4" dur="1.6s" repeatCount="indefinite"/>
     </circle>
-    <text x="986" y="45" font-size="13" fill="#1A7F37"
+    <text x="1008" y="45" font-size="13" font-weight="500" fill="#1A7F37" textLength="128" lengthAdjust="spacingAndGlyphs"
           font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif">Open to opportunities</text>
   </g>
 
