@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Decorative animated section divider" viewBox="0 0 1200 30" width="1200" height="30">
+  <title>Section divider</title>
+  <desc>A faint hairline that brightens to orange and amber at center, with a small luminous comet travelling left to right on a continuous loop.</desc>
+  <style>
+    @media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important } }
+  </style>
+  <defs>
+    <linearGradient id="l_line" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D0D7DE" stop-opacity="0"/>
+      <stop offset="0.12" stop-color="#D0D7DE" stop-opacity="0.7"/>
+      <stop offset="0.40" stop-color="#FF652F" stop-opacity="0.9"/>
+      <stop offset="0.50" stop-color="#D98324"/>
+      <stop offset="0.60" stop-color="#FF652F" stop-opacity="0.9"/>
+      <stop offset="0.88" stop-color="#D0D7DE" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#D0D7DE" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="l_comet" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.35" stop-color="#D98324"/>
+      <stop offset="0.75" stop-color="#FF652F"/>
+      <stop offset="1" stop-color="#FF652F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="l_tail" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF652F" stop-opacity="0"/>
+      <stop offset="0.7" stop-color="#FF652F" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#D98324" stop-opacity="0.85"/>
+    </linearGradient>
+    <filter id="l_glow" x="-200%" y="-400%" width="500%" height="900%">
+      <feGaussianBlur stdDeviation="1.4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- hairline -->
+  <rect x="44" y="14" width="1112" height="2" rx="1" fill="url(#l_line)"/>
+
+  <!-- center accent ticks -->
+  <rect x="592" y="9" width="2" height="12" rx="1" fill="#FF652F" opacity="0.9"/>
+  <rect x="606" y="9" width="2" height="12" rx="1" fill="#D98324" opacity="0.9"/>
+
+  <!-- comet group travelling across -->
+  <g filter="url(#l_glow)">
+    <g transform="translate(44,15)">
+      <animateTransform attributeName="transform" type="translate"
+        values="90,15; 1156,15" dur="6s" repeatCount="indefinite"
+        calcMode="spline" keyTimes="0;1" keySplines="0.45 0 0.55 1"/>
+      <!-- fading trail -->
+      <rect x="-46" y="-1.5" width="46" height="3" rx="1.5" fill="url(#l_tail)"/>
+      <!-- comet node -->
+      <circle cx="0" cy="0" r="3.2" fill="url(#l_comet)"/>
+      <circle cx="0" cy="0" r="1.4" fill="#FFFFFF"/>
+    </g>
+  </g>
+</svg>

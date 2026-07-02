@@ -1,0 +1,35 @@
+name: Update experience metric
+
+on:
+  schedule:
+    - cron: "0 8 * * 1" # Mondays 08:00 UTC (only ever changes once a year)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-experience
+  cancel-in-progress: true
+
+jobs:
+  update-experience:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Recompute "N yrs" from the first-repo anchor date and rewrite the
+      # EXPERIENCE tile in both metric SVGs (dark + light).
+      - name: Recompute experience from first-repo anchor date
+        run: node .github/scripts/update-experience.mjs
+
+      - name: Commit metric change
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(readme): update experience metric"
+          file_pattern: assets/metrics-strip-dark.svg assets/metrics-strip-light.svg

@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://storage.googleapis.com/coderabbit_public_assets/schema.v2.json
+# CodeRabbit config for the MA1002643 profile-README repo.
+# Scope: README + hand-authored animated SVGs + the GitHub Actions that keep them live.
+
+language: en
+tone_instructions: 'Focus on correctness of GitHub Actions workflows and scripts, and on README/SVG consistency (dark & light variants, marker blocks). Be concise and concrete.'
+
+reviews:
+  profile: assertive
+  high_level_summary: true
+  sequence_diagrams: false
+  estimate_code_review_effort: true
+  related_issues: true
+  related_prs: true
+  poem: false
+  path_filters:
+    - '!node_modules/**'
+    - '!package-lock.json'
+  path_instructions:
+    - path: 'README.md'
+      instructions: >-
+        Never flag content between the auto-generated marker comments (PINNED,
+        LANG-TIME, RECENT_ACTIVITY) — GitHub Actions rewrite those blocks.
+        Do check that the marker comments themselves stay intact, that all
+        image/link references resolve, and that dark/light <picture> pairs are
+        consistent. Remember GitHub strips style/class/script from README HTML.
+    - path: '.github/workflows/**'
+      instructions: >-
+        Check cron syntax, least-privilege permissions, concurrency guards,
+        secret handling, and that commit/push steps are idempotent (no-op when
+        nothing changed).
+    - path: '.github/scripts/**'
+      instructions: >-
+        Node ESM scripts that run in CI and rewrite README/SVG sections: check
+        error handling, API-failure behavior, and that the marker/regex
+        patterns stay in sync with the files they rewrite.
+    - path: 'assets/*.svg'
+      instructions: >-
+        Hand-authored animated SVGs rendered as <img> on GitHub: check that
+        each dark/light pair stays visually and textually in sync, that
+        prefers-reduced-motion fallbacks exist, that entrance animations end at
+        a visible resting state, and that <desc>/aria-label match the rendered
+        content.
+  auto_review:
+    enabled: true

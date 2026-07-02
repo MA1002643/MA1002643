@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Terminal whoami boot card for Muhammad Abdullah, Full-Stack Software Engineer" viewBox="0 0 1200 350" width="1200" height="350" text-rendering="geometricPrecision">
+  <title>whoami — Muhammad Abdullah · Full-Stack Software Engineer</title>
+  <desc>An animated terminal window that types out whoami, stack and focus commands describing Muhammad Abdullah, a Full-Stack Software Engineer working in C#/.NET and JavaScript/Node.</desc>
+
+  <style>
+    @media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important } }
+    .mono{ font-family:'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace; }
+  </style>
+
+  <defs>
+    <!-- Outer panel gradient (theme = dark navy) with slow drift -->
+    <linearGradient id="panel" x1="0" y1="0" x2="1200" y2="350" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="55%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#0D1117"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="-90 0" to="90 0" dur="18s" begin="0.6s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <!-- Faint grid texture over outer panel -->
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#1E293B" stroke-width="0.5" opacity="0.5"/>
+      <animateTransform attributeName="patternTransform" type="translate" from="0 0" to="34 0" dur="30s" begin="1s" repeatCount="indefinite"/>
+    </pattern>
+
+    <!-- Accent gradient (orange -> amber) for title-bar shimmer -->
+    <linearGradient id="acc" x1="0" y1="0" x2="240" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF652F"/>
+      <stop offset="50%" stop-color="#FFC857"/>
+      <stop offset="100%" stop-color="#FF652F"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="-240 0" to="240 0" dur="8s" begin="1.2s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <!-- Soft panel drop shadow -->
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="124%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+
+    <!-- Clip for the inner terminal screen: square top (meets divider), rounded bottom (matches panel r=16) -->
+    <clipPath id="screenClip">
+      <path d="M44 96 H1156 V306 A16 16 0 0 1 1140 322 H60 A16 16 0 0 1 44 306 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background fill -->
+  <rect width="1200" height="350" fill="#0B1220"/>
+  <rect width="1200" height="350" fill="url(#grid)" opacity="0.5"/>
+
+  <!-- ===== Outer terminal window ===== -->
+  <g filter="url(#shadow)">
+    <rect x="44" y="28" width="1112" height="294" rx="16" fill="url(#panel)" stroke="#243042" stroke-width="1"/>
+  </g>
+
+  <!-- Title bar -->
+  <g class="mono">
+    <!-- Traffic lights -->
+    <circle cx="80" cy="68" r="7" fill="#FF5F56"/>
+    <circle cx="104" cy="68" r="7" fill="#FFBD2E"/>
+    <circle cx="128" cy="68" r="7" fill="#27C93F"/>
+    <!-- Centered window label -->
+    <text x="600" y="73" font-size="14" fill="#94A3B8" text-anchor="middle">muhammad@portfolio: ~/whoami</text>
+    <!-- Subtle accent tick near label -->
+    <rect x="1108" y="62" width="40" height="3" rx="1.5" fill="url(#acc)" opacity="0.85"/>
+    <!-- Divider under title bar -->
+    <line x1="45" y1="96" x2="1155" y2="96" stroke="#243042" stroke-width="1"/>
+  </g>
+
+  <!-- ===== Inner dark terminal screen (always dark) ===== -->
+  <g clip-path="url(#screenClip)">
+    <rect x="44" y="96" width="1112" height="226" fill="#010409"/>
+    <!-- very faint scanline grid inside screen for depth -->
+    <rect x="44" y="96" width="1112" height="226" fill="url(#grid)" opacity="0.25"/>
+  </g>
+
+  <!-- ===== Terminal body text ===== -->
+  <g class="mono" font-size="17">
+
+    <!-- Line 1: $ whoami -->
+    <g opacity="0" transform="translate(8 0)">
+      <animate attributeName="opacity" from="0" to="1" dur="0.45s" begin="0.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <animateTransform attributeName="transform" type="translate" from="8 0" to="0 0" dur="0.45s" begin="0.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <text x="76" y="134" fill="#3FB950">$</text>
+      <text x="96" y="134" fill="#E5E7EB">whoami</text>
+    </g>
+
+    <!-- Line 2: output -->
+    <g opacity="0" transform="translate(8 0)">
+      <animate attributeName="opacity" from="0" to="1" dur="0.45s" begin="1.4s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <animateTransform attributeName="transform" type="translate" from="8 0" to="0 0" dur="0.45s" begin="1.4s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <text x="76" y="162" fill="#FF652F">&#8594;</text>
+      <text x="100" y="162" fill="#E5E7EB">Muhammad Abdullah <tspan fill="#64748B">&#8212;</tspan> <tspan fill="#FFC857">Full-Stack Software Engineer</tspan> <tspan fill="#64748B">&#183;</tspan> <tspan fill="#58A6FF">First-Class BSc (Hons)</tspan></text>
+    </g>
+
+    <!-- Line 3: $ cat stack.txt -->
+    <g opacity="0" transform="translate(8 0)">
+      <animate attributeName="opacity" from="0" to="1" dur="0.45s" begin="1.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <animateTransform attributeName="transform" type="translate" from="8 0" to="0 0" dur="0.45s" begin="1.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <text x="76" y="196" fill="#3FB950">$</text>
+      <text x="96" y="196" fill="#E5E7EB">cat stack.txt</text>
+    </g>
+
+    <!-- Line 4: output -->
+    <g opacity="0" transform="translate(8 0)">
+      <animate attributeName="opacity" from="0" to="1" dur="0.45s" begin="2.4s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <animateTransform attributeName="transform" type="translate" from="8 0" to="0 0" dur="0.45s" begin="2.4s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <text x="76" y="224" fill="#FF652F">&#8594;</text>
+      <text x="100" y="224" fill="#E5E7EB"><tspan fill="#FFC857">C#</tspan> &#183; <tspan fill="#FFC857">.NET</tspan> &#183; <tspan fill="#FFC857">Blazor</tspan> &#183; <tspan fill="#FFC857">MAUI</tspan>   <tspan fill="#64748B">|</tspan>   <tspan fill="#58A6FF">JS</tspan> &#183; <tspan fill="#58A6FF">TS</tspan> &#183; <tspan fill="#58A6FF">Node</tspan> &#183; <tspan fill="#58A6FF">Next.js</tspan> &#183; <tspan fill="#58A6FF">React</tspan>   <tspan fill="#64748B">|</tspan>   <tspan fill="#3FB950">SQL</tspan> &#183; <tspan fill="#3FB950">PostgreSQL</tspan></text>
+    </g>
+
+    <!-- Line 5: focus command -->
+    <g opacity="0" transform="translate(8 0)">
+      <animate attributeName="opacity" from="0" to="1" dur="0.45s" begin="2.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <animateTransform attributeName="transform" type="translate" from="8 0" to="0 0" dur="0.45s" begin="2.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <text x="76" y="258" fill="#3FB950">$</text>
+      <text x="96" y="258" fill="#E5E7EB">./focus <tspan fill="#94A3B8">--now</tspan></text>
+    </g>
+
+    <!-- Line 6: output -->
+    <g opacity="0" transform="translate(8 0)">
+      <animate attributeName="opacity" from="0" to="1" dur="0.45s" begin="3.4s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <animateTransform attributeName="transform" type="translate" from="8 0" to="0 0" dur="0.45s" begin="3.4s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1"/>
+      <text x="76" y="286" fill="#FF652F">&#8594;</text>
+      <text x="100" y="286" fill="#E5E7EB"><tspan fill="#FFC857">clean architecture</tspan> &#183; <tspan fill="#FFC857">CI/CD</tspan> &#183; <tspan fill="#FFC857">automation</tspan> &#183; <tspan fill="#FFC857">developer experience</tspan></text>
+    </g>
+
+    <!-- Final prompt + blinking block cursor -->
+    <g opacity="0">
+      <animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="3.9s" fill="freeze"/>
+      <text x="76" y="312" fill="#3FB950">$</text>
+      <rect x="98" y="299" width="11" height="18" fill="#E5E7EB">
+        <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1s" begin="4.3s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+  </g>
+</svg>
