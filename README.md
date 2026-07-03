@@ -6,7 +6,7 @@
 ═════════════════════════════════════════════════════════════════════════ -->
 
 <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
-<a href="https://ma.codes/"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/hero-pro-dark.svg"><img src="./assets/hero-pro-light.svg" alt="Muhammad Abdullah — Full-Stack Software Engineer" width="100%"></picture></a>
+<a name="hero"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/hero-pro-dark.svg"><img src="./assets/hero-pro-light.svg" alt="Muhammad Abdullah — Full-Stack Software Engineer" width="100%"></picture></a>
 
 <!-- ═══════════════════════ IDENTITY / CONTACT ═══════════════════════ -->
 <p align="center">
@@ -17,10 +17,10 @@
   <a href="https://wakatime.com/@c6d912e0-7fef-41da-8c0e-1df782a8dd33" target="_blank"><img src="https://img.shields.io/badge/WakaTime-0F172A?style=for-the-badge&logo=wakatime&logoColor=FFC857" height="26" alt="WakaTime" /></a>
 </p>
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=MA1002643&label=Profile%20views&color=ff652f&style=for-the-badge" height="24" alt="Profile views" />
+  <a name="profile-views"><img src="https://komarev.com/ghpvc/?username=MA1002643&label=Profile%20views&color=ff652f&style=for-the-badge" height="24" alt="Profile views" /></a>
   <a href="https://github.com/MA1002643?tab=repositories&sort=stargazers"><img alt="Total stars" src="https://custom-icon-badges.demolab.com/github/stars/MA1002643?color=ff652f&style=for-the-badge&labelColor=0F172A&logo=star&logoColor=FFC857" height="24" /></a>
   <a href="https://github.com/MA1002643?tab=followers"><img alt="Followers" src="https://custom-icon-badges.demolab.com/github/followers/MA1002643?color=0969da&labelColor=0F172A&style=for-the-badge&logo=person-add&label=Follow&logoColor=white" height="24" /></a>
-  <img src="https://img.shields.io/badge/Based_in-United_Kingdom-0F172A?style=for-the-badge&logo=googlemaps&logoColor=FF652F" height="24" alt="Location: United Kingdom" />
+  <a name="based-in"><img src="https://img.shields.io/badge/Based_in-United_Kingdom-0F172A?style=for-the-badge&logo=googlemaps&logoColor=FF652F" height="24" alt="Location: United Kingdom" /></a>
 </p>
 
 <!-- divider -->

@@ -53,6 +53,9 @@
     <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
       <path d="M34 0H0V34" fill="none" stroke="#E6EAEF" stroke-width="1"/>
     </pattern>
+    <clipPath id="p-src"><rect x="60" y="170" width="176" height="70" rx="12"/></clipPath>
+    <clipPath id="p-readme"><rect x="792" y="175" width="148" height="60" rx="12"/></clipPath>
+    <clipPath id="p-render"><rect x="1004" y="175" width="152" height="60" rx="12"/></clipPath>
   </defs>
 
   <!-- background -->
@@ -109,7 +112,7 @@
   <g class="enter e1">
     <circle cx="148" cy="205" r="70" fill="url(#glowOrange)" class="pulse"/>
     <rect x="60" y="170" width="176" height="70" rx="12" fill="#FFFFFF" stroke="#D0D7DE" filter="url(#soft)"/>
-    <rect x="60" y="170" width="4" height="70" rx="2" fill="url(#accGrad)"/>
+    <rect x="60" y="170" width="4" height="70" fill="url(#accGrad)" clip-path="url(#p-src)"/>
     <text x="80" y="200" class="body ntitle">⏱ GitHub Actions</text>
     <text x="80" y="222" class="mono nmonoAcc">cron · scheduled</text>
   </g>
@@ -143,7 +146,7 @@
   <!-- ===================== README NODE ===================== -->
   <g class="enter e5">
     <rect x="792" y="175" width="148" height="60" rx="12" fill="#FFFFFF" stroke="#D0D7DE" filter="url(#soft)"/>
-    <rect x="792" y="175" width="4" height="60" rx="2" fill="url(#accGrad)"/>
+    <rect x="792" y="175" width="4" height="60" fill="url(#accGrad)" clip-path="url(#p-readme)"/>
     <text x="812" y="201" class="body ntitle">README.md</text>
     <text x="812" y="221" class="mono nmono">git commit · push</text>
   </g>
@@ -152,7 +155,7 @@
   <g class="enter e6">
     <circle cx="1084" cy="205" r="66" fill="url(#glowGreen)" class="pulse"/>
     <rect x="1004" y="175" width="152" height="60" rx="12" fill="#FFFFFF" stroke="#D0D7DE" filter="url(#soft)"/>
-    <rect x="1004" y="175" width="4" height="60" rx="2" fill="#1A7F37"/>
+    <rect x="1004" y="175" width="4" height="60" fill="#1A7F37" clip-path="url(#p-render)"/>
     <text x="1024" y="201" class="body ntitle">Rendered Profile</text>
     <g>
       <circle cx="1030" cy="216" r="7" fill="#1A7F37" opacity=".16"/>
