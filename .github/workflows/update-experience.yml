@@ -2,7 +2,7 @@ name: Update experience metric
 
 on:
   schedule:
-    - cron: "0 8 * * 1" # Mondays 08:00 UTC (only ever changes once a year)
+    - cron: "30 8 * * 1" # Mondays 08:30 UTC, staggered after auto-pin to avoid push races (only ever changes once a year)
   workflow_dispatch: {}
 
 permissions:

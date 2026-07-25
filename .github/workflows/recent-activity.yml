@@ -3,7 +3,7 @@ name: Update recent activity
 on:
     workflow_dispatch:
     schedule:
-        - cron: "0 8 * * *" # daily 08:00 UTC
+        - cron: "10 8 * * *" # daily 08:10 UTC (staggered after daily-language-time to avoid push races)
 
 permissions:
     contents: write
