@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Recent GitHub activity for MA1002643, refreshed daily. Pushed commits to MA1002643/MA1002643 (1h ago). Created a branch in MA1002643/theabdullahfolio (20h ago). Pruned a branch in MA1002643/theabdullahfolio (21h ago). Pushed commits to MA1002643/theabdullahfolio (21h ago). Merged a pull request in MA1002643/theabdullahfolio (2d ago)." viewBox="0 0 1200 358" width="1200" height="358" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Recent GitHub activity for MA1002643, refreshed daily. Pushed commits to MA1002643/MA1002643 (1m ago). Pushed commits to MA1002643/muhammadabdullah-portfolio (2h ago). Closed an issue in MA1002643/muhammadabdullah-portfolio (yesterday). Opened an issue in MA1002643/muhammadabdullah-portfolio (yesterday). Opened an issue in MA1002643/theabdullahfolio (yesterday). Created a branch in MA1002643/theabdullahfolio (yesterday). Pruned a branch in MA1002643/theabdullahfolio (yesterday). Pushed commits to MA1002643/theabdullahfolio (yesterday)." viewBox="0 0 1200 490" width="1200" height="490" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
   <title>Recent GitHub activity — live feed</title>
   <desc>Auto-generated event stream for @MA1002643: color-coded timeline of pushes, pull requests, branches, and releases, re-rendered daily by a GitHub Action.</desc>
 
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="358" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="490" gradientUnits="userSpaceOnUse">
       <stop offset="0%"  stop-color="#FFFFFF"/>
       <stop offset="55%" stop-color="#FBFCFD"/>
       <stop offset="100%" stop-color="#F6F8FA"/>
@@ -20,16 +20,16 @@
       <stop offset="0%"   stop-color="#FF652F"/>
       <stop offset="100%" stop-color="#FFC857"/>
     </linearGradient>
-    <clipPath id="cardClip"><rect x="1" y="1" width="1198" height="356" rx="16"/></clipPath>
+    <clipPath id="cardClip"><rect x="1" y="1" width="1198" height="488" rx="16"/></clipPath>
     <style>@media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important } }</style>
   </defs>
 
   <g clip-path="url(#cardClip)">
-    <rect x="1" y="1" width="1198" height="356" fill="url(#bg)"/>
-    <rect x="1" y="1" width="1198" height="356" fill="url(#grid)" opacity="0.35"/>
-    <rect x="1" y="1" width="1198" height="356" fill="url(#glow)"/>
+    <rect x="1" y="1" width="1198" height="488" fill="url(#bg)"/>
+    <rect x="1" y="1" width="1198" height="488" fill="url(#grid)" opacity="0.35"/>
+    <rect x="1" y="1" width="1198" height="488" fill="url(#glow)"/>
   </g>
-  <rect x="1" y="1" width="1198" height="356" rx="16" fill="none" stroke="#D0D7DE" stroke-width="1.5"/>
+  <rect x="1" y="1" width="1198" height="488" rx="16" fill="none" stroke="#D0D7DE" stroke-width="1.5"/>
 
   <!-- header -->
   <g opacity="0" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">
@@ -39,7 +39,7 @@
     </circle>
     <text x="58" y="45" font-size="11.5" letter-spacing="2" fill="#1A7F37">LIVE</text>
     <text x="112" y="45" font-size="11" letter-spacing="1.5" fill="#6E7781">· EVENT STREAM — @MA1002643</text>
-    <text x="1160" y="45" font-size="11" letter-spacing="1" fill="#6E7781" text-anchor="end">LAST SYNC · 2 JUL 2026, 21:27 UTC</text>
+    <text x="1160" y="45" font-size="11" letter-spacing="1" fill="#6E7781" text-anchor="end">LAST SYNC · 1 AUG 2026, 18:03 UTC</text>
     <line x1="40" y1="64" x2="1160" y2="64" stroke="#D8DEE4" stroke-width="1" opacity="0.8"/>
     <rect x="40" y="62.5" width="0" height="3" rx="1.5" fill="url(#acc)">
       <animate attributeName="width" values="0;96" dur="0.5s" begin="0.5s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1"/>
@@ -49,7 +49,7 @@
   <!-- timeline -->
   <g opacity="0">
     <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.25s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
-    <line x1="56" y1="104" x2="56" y2="280" stroke="#D8DEE4" stroke-width="1.5" opacity="0.9"/>
+    <line x1="56" y1="104" x2="56" y2="412" stroke="#D8DEE4" stroke-width="1.5" opacity="0.9"/>
   </g>
 
   <g font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif">
@@ -69,7 +69,7 @@
       <text x="200" y="109" font-size="14.5" fill="#4B5563" textLength="118" lengthAdjust="spacingAndGlyphs">Pushed commits to</text>
       <text x="327" y="109" font-size="13.5" textLength="154" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">MA1002643</tspan></text>
       <line x1="497" y1="104" x2="1099" y2="104" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
-      <text x="1160" y="108" font-size="12" fill="#6E7781" text-anchor="end" textLength="43" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">1h ago</text>
+      <text x="1160" y="108" font-size="12" fill="#6E7781" text-anchor="end" textLength="43" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">1m ago</text>
     </g>
 
     <g opacity="0" transform="translate(-10 0)">
@@ -77,14 +77,14 @@
       <animateTransform attributeName="transform" type="translate" values="-10 0;0 0" dur="0.45s" begin="0.39s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
       
       
-      <circle cx="56" cy="148" r="7.5" fill="#FBFCFD" stroke="#0969DA" stroke-width="1.6"/>
-      <circle cx="56" cy="148" r="2.8" fill="#0969DA"/>
-      <rect x="84" y="137" width="88" height="22" rx="11" fill="#0969DA" fill-opacity="0.08" stroke="#0969DA" stroke-opacity="0.4" stroke-width="1"/>
-      <text x="128" y="152" font-size="11" letter-spacing="1" fill="#0969DA" text-anchor="middle" textLength="40" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">BRANCH</text>
-      <text x="200" y="153" font-size="14.5" fill="#4B5563" textLength="132" lengthAdjust="spacingAndGlyphs">Created a branch in</text>
-      <text x="341" y="153" font-size="13.5" textLength="211" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">theabdullahfolio</tspan></text>
-      <line x1="568" y1="148" x2="1092" y2="148" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
-      <text x="1160" y="152" font-size="12" fill="#6E7781" text-anchor="end" textLength="50" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">20h ago</text>
+      <circle cx="56" cy="148" r="7.5" fill="#FBFCFD" stroke="#BC4C00" stroke-width="1.6"/>
+      <circle cx="56" cy="148" r="2.8" fill="#BC4C00"/>
+      <rect x="84" y="137" width="88" height="22" rx="11" fill="#BC4C00" fill-opacity="0.08" stroke="#BC4C00" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="128" y="152" font-size="11" letter-spacing="1" fill="#BC4C00" text-anchor="middle" textLength="26" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">PUSH</text>
+      <text x="200" y="153" font-size="14.5" fill="#4B5563" textLength="118" lengthAdjust="spacingAndGlyphs">Pushed commits to</text>
+      <text x="327" y="153" font-size="13.5" textLength="292" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">muhammadabdullah-portfolio</tspan></text>
+      <line x1="635" y1="148" x2="1099" y2="148" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
+      <text x="1160" y="152" font-size="12" fill="#6E7781" text-anchor="end" textLength="43" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">2h ago</text>
     </g>
 
     <g opacity="0" transform="translate(-10 0)">
@@ -92,14 +92,14 @@
       <animateTransform attributeName="transform" type="translate" values="-10 0;0 0" dur="0.45s" begin="0.48s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
       
       
-      <circle cx="56" cy="192" r="7.5" fill="#FBFCFD" stroke="#6E7781" stroke-width="1.6"/>
-      <circle cx="56" cy="192" r="2.8" fill="#6E7781"/>
-      <rect x="84" y="181" width="88" height="22" rx="11" fill="#6E7781" fill-opacity="0.08" stroke="#6E7781" stroke-opacity="0.4" stroke-width="1"/>
-      <text x="128" y="196" font-size="11" letter-spacing="1" fill="#6E7781" text-anchor="middle" textLength="46" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">CLEANUP</text>
-      <text x="200" y="197" font-size="14.5" fill="#4B5563" textLength="125" lengthAdjust="spacingAndGlyphs">Pruned a branch in</text>
-      <text x="334" y="197" font-size="13.5" textLength="211" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">theabdullahfolio</tspan></text>
-      <line x1="561" y1="192" x2="1092" y2="192" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
-      <text x="1160" y="196" font-size="12" fill="#6E7781" text-anchor="end" textLength="50" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">21h ago</text>
+      <circle cx="56" cy="192" r="7.5" fill="#FBFCFD" stroke="#8250DF" stroke-width="1.6"/>
+      <circle cx="56" cy="192" r="2.8" fill="#8250DF"/>
+      <rect x="84" y="181" width="88" height="22" rx="11" fill="#8250DF" fill-opacity="0.08" stroke="#8250DF" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="128" y="196" font-size="11" letter-spacing="1" fill="#8250DF" text-anchor="middle" textLength="33" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">ISSUE</text>
+      <text x="200" y="197" font-size="14.5" fill="#4B5563" textLength="125" lengthAdjust="spacingAndGlyphs">Closed an issue in</text>
+      <text x="334" y="197" font-size="13.5" textLength="292" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">muhammadabdullah-portfolio</tspan></text>
+      <line x1="642" y1="192" x2="1077" y2="192" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
+      <text x="1160" y="196" font-size="12" fill="#6E7781" text-anchor="end" textLength="65" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">yesterday</text>
     </g>
 
     <g opacity="0" transform="translate(-10 0)">
@@ -107,14 +107,14 @@
       <animateTransform attributeName="transform" type="translate" values="-10 0;0 0" dur="0.45s" begin="0.57s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
       
       
-      <circle cx="56" cy="236" r="7.5" fill="#FBFCFD" stroke="#BC4C00" stroke-width="1.6"/>
-      <circle cx="56" cy="236" r="2.8" fill="#BC4C00"/>
-      <rect x="84" y="225" width="88" height="22" rx="11" fill="#BC4C00" fill-opacity="0.08" stroke="#BC4C00" stroke-opacity="0.4" stroke-width="1"/>
-      <text x="128" y="240" font-size="11" letter-spacing="1" fill="#BC4C00" text-anchor="middle" textLength="26" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">PUSH</text>
-      <text x="200" y="241" font-size="14.5" fill="#4B5563" textLength="118" lengthAdjust="spacingAndGlyphs">Pushed commits to</text>
-      <text x="327" y="241" font-size="13.5" textLength="211" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">theabdullahfolio</tspan></text>
-      <line x1="554" y1="236" x2="1092" y2="236" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
-      <text x="1160" y="240" font-size="12" fill="#6E7781" text-anchor="end" textLength="50" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">21h ago</text>
+      <circle cx="56" cy="236" r="7.5" fill="#FBFCFD" stroke="#1A7F37" stroke-width="1.6"/>
+      <circle cx="56" cy="236" r="2.8" fill="#1A7F37"/>
+      <rect x="84" y="225" width="88" height="22" rx="11" fill="#1A7F37" fill-opacity="0.08" stroke="#1A7F37" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="128" y="240" font-size="11" letter-spacing="1" fill="#1A7F37" text-anchor="middle" textLength="33" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">ISSUE</text>
+      <text x="200" y="241" font-size="14.5" fill="#4B5563" textLength="125" lengthAdjust="spacingAndGlyphs">Opened an issue in</text>
+      <text x="334" y="241" font-size="13.5" textLength="292" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">muhammadabdullah-portfolio</tspan></text>
+      <line x1="642" y1="236" x2="1077" y2="236" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
+      <text x="1160" y="240" font-size="12" fill="#6E7781" text-anchor="end" textLength="65" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">yesterday</text>
     </g>
 
     <g opacity="0" transform="translate(-10 0)">
@@ -122,26 +122,71 @@
       <animateTransform attributeName="transform" type="translate" values="-10 0;0 0" dur="0.45s" begin="0.66s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
       
       
-      <circle cx="56" cy="280" r="7.5" fill="#FBFCFD" stroke="#8250DF" stroke-width="1.6"/>
-      <circle cx="56" cy="280" r="2.8" fill="#8250DF"/>
-      <rect x="84" y="269" width="88" height="22" rx="11" fill="#8250DF" fill-opacity="0.08" stroke="#8250DF" stroke-opacity="0.4" stroke-width="1"/>
-      <text x="128" y="284" font-size="11" letter-spacing="1" fill="#8250DF" text-anchor="middle" textLength="33" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">MERGE</text>
-      <text x="200" y="285" font-size="14.5" fill="#4B5563" textLength="167" lengthAdjust="spacingAndGlyphs">Merged a pull request in</text>
-      <text x="376" y="285" font-size="13.5" textLength="211" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">theabdullahfolio</tspan></text>
-      <line x1="603" y1="280" x2="1099" y2="280" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
-      <text x="1160" y="284" font-size="12" fill="#6E7781" text-anchor="end" textLength="43" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">2d ago</text>
+      <circle cx="56" cy="280" r="7.5" fill="#FBFCFD" stroke="#1A7F37" stroke-width="1.6"/>
+      <circle cx="56" cy="280" r="2.8" fill="#1A7F37"/>
+      <rect x="84" y="269" width="88" height="22" rx="11" fill="#1A7F37" fill-opacity="0.08" stroke="#1A7F37" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="128" y="284" font-size="11" letter-spacing="1" fill="#1A7F37" text-anchor="middle" textLength="33" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">ISSUE</text>
+      <text x="200" y="285" font-size="14.5" fill="#4B5563" textLength="125" lengthAdjust="spacingAndGlyphs">Opened an issue in</text>
+      <text x="334" y="285" font-size="13.5" textLength="211" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">theabdullahfolio</tspan></text>
+      <line x1="561" y1="280" x2="1077" y2="280" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
+      <text x="1160" y="284" font-size="12" fill="#6E7781" text-anchor="end" textLength="65" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">yesterday</text>
+    </g>
+
+    <g opacity="0" transform="translate(-10 0)">
+      <animate attributeName="opacity" values="0;1" dur="0.45s" begin="0.75s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <animateTransform attributeName="transform" type="translate" values="-10 0;0 0" dur="0.45s" begin="0.75s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      
+      
+      <circle cx="56" cy="324" r="7.5" fill="#FBFCFD" stroke="#0969DA" stroke-width="1.6"/>
+      <circle cx="56" cy="324" r="2.8" fill="#0969DA"/>
+      <rect x="84" y="313" width="88" height="22" rx="11" fill="#0969DA" fill-opacity="0.08" stroke="#0969DA" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="128" y="328" font-size="11" letter-spacing="1" fill="#0969DA" text-anchor="middle" textLength="40" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">BRANCH</text>
+      <text x="200" y="329" font-size="14.5" fill="#4B5563" textLength="132" lengthAdjust="spacingAndGlyphs">Created a branch in</text>
+      <text x="341" y="329" font-size="13.5" textLength="211" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">theabdullahfolio</tspan></text>
+      <line x1="568" y1="324" x2="1077" y2="324" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
+      <text x="1160" y="328" font-size="12" fill="#6E7781" text-anchor="end" textLength="65" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">yesterday</text>
+    </g>
+
+    <g opacity="0" transform="translate(-10 0)">
+      <animate attributeName="opacity" values="0;1" dur="0.45s" begin="0.84s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <animateTransform attributeName="transform" type="translate" values="-10 0;0 0" dur="0.45s" begin="0.84s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      
+      
+      <circle cx="56" cy="368" r="7.5" fill="#FBFCFD" stroke="#6E7781" stroke-width="1.6"/>
+      <circle cx="56" cy="368" r="2.8" fill="#6E7781"/>
+      <rect x="84" y="357" width="88" height="22" rx="11" fill="#6E7781" fill-opacity="0.08" stroke="#6E7781" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="128" y="372" font-size="11" letter-spacing="1" fill="#6E7781" text-anchor="middle" textLength="46" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">CLEANUP</text>
+      <text x="200" y="373" font-size="14.5" fill="#4B5563" textLength="125" lengthAdjust="spacingAndGlyphs">Pruned a branch in</text>
+      <text x="334" y="373" font-size="13.5" textLength="211" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">theabdullahfolio</tspan></text>
+      <line x1="561" y1="368" x2="1077" y2="368" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
+      <text x="1160" y="372" font-size="12" fill="#6E7781" text-anchor="end" textLength="65" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">yesterday</text>
+    </g>
+
+    <g opacity="0" transform="translate(-10 0)">
+      <animate attributeName="opacity" values="0;1" dur="0.45s" begin="0.93s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <animateTransform attributeName="transform" type="translate" values="-10 0;0 0" dur="0.45s" begin="0.93s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      
+      
+      <circle cx="56" cy="412" r="7.5" fill="#FBFCFD" stroke="#BC4C00" stroke-width="1.6"/>
+      <circle cx="56" cy="412" r="2.8" fill="#BC4C00"/>
+      <rect x="84" y="401" width="88" height="22" rx="11" fill="#BC4C00" fill-opacity="0.08" stroke="#BC4C00" stroke-opacity="0.4" stroke-width="1"/>
+      <text x="128" y="416" font-size="11" letter-spacing="1" fill="#BC4C00" text-anchor="middle" textLength="26" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">PUSH</text>
+      <text x="200" y="417" font-size="14.5" fill="#4B5563" textLength="118" lengthAdjust="spacingAndGlyphs">Pushed commits to</text>
+      <text x="327" y="417" font-size="13.5" textLength="211" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace"><tspan fill="#6E7781">MA1002643/</tspan><tspan fill="#0C1A25">theabdullahfolio</tspan></text>
+      <line x1="554" y1="412" x2="1077" y2="412" stroke="#D8DEE4" stroke-width="1" stroke-dasharray="2 5"/>
+      <text x="1160" y="416" font-size="12" fill="#6E7781" text-anchor="end" textLength="65" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">yesterday</text>
     </g>
     
   </g>
 
   <!-- footer -->
   <g opacity="0" font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace" font-size="11">
-    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.80s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
-    <line x1="40" y1="312" x2="1160" y2="312" stroke="#D8DEE4" stroke-width="1" opacity="0.8"/>
-    <text x="40" y="338" fill="#6E7781" textLength="488" lengthAdjust="spacingAndGlyphs">$ gh api /users/MA1002643/events --window 30d | render --svg --theme light</text>
-    <rect x="536" y="328" width="7" height="13" fill="#E5531A">
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.07s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+    <line x1="40" y1="444" x2="1160" y2="444" stroke="#D8DEE4" stroke-width="1" opacity="0.8"/>
+    <text x="40" y="470" fill="#6E7781" textLength="488" lengthAdjust="spacingAndGlyphs">$ gh api /users/MA1002643/events --window 30d | render --svg --theme light</text>
+    <rect x="536" y="460" width="7" height="13" fill="#E5531A">
       <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.2s" repeatCount="indefinite"/>
     </rect>
-    <text x="1160" y="338" fill="#6E7781" text-anchor="end">showing 5 of 5 events · refreshed daily 08:00 UTC</text>
+    <text x="1160" y="470" fill="#6E7781" text-anchor="end">showing 8 of 10 events · refreshed daily 08:00 UTC</text>
   </g>
 </svg>
