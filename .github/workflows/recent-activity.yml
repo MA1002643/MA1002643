@@ -42,7 +42,6 @@ jobs:
               uses: stefanzweifel/git-auto-commit-action@v5
               with:
                   commit_message: "docs: update recent activity"
-                  file_pattern: |
-                      README.md
-                      assets/activity-feed-*.svg
-                      .github/activity-cache.json
+                  # Must stay on ONE line: the action splits file_pattern with
+                  # bash `read`, which drops everything after the first newline.
+                  file_pattern: "README.md assets/activity-feed-*.svg .github/activity-cache.json"
