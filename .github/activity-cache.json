@@ -8,7 +8,20 @@
         "software-engineering",
         "web-development"
       ],
-      "updatedAt": "2026-08-01T18:02:13Z"
+      "updatedAt": "2026-08-02T08:50:09Z"
+    },
+    "MA1002643/culina": {
+      "description": "A smart recipe search platform leveraging AI to help users discover, filter and personalise cooking ideas.",
+      "topics": [
+        "ai",
+        "fullstack",
+        "machine-learning",
+        "mongodb",
+        "nextjs",
+        "nodejs",
+        "recipe-app"
+      ],
+      "updatedAt": "2026-08-01T20:31:50Z"
     },
     "MA1002643/muhammadabdullah-portfolio": {
       "description": "An elite, motion-driven Next.js portfolio showcasing my projects, skills, and creative design in an immersive scroll experience.",
@@ -94,19 +107,6 @@
         "university-project"
       ],
       "updatedAt": "2026-01-21T06:29:46Z"
-    },
-    "MA1002643/ai-powered-recipe-search-platform": {
-      "description": "A smart recipe search platform leveraging AI to help users discover, filter and personalise cooking ideas.",
-      "topics": [
-        "ai",
-        "fullstack",
-        "machine-learning",
-        "mongodb",
-        "nextjs",
-        "nodejs",
-        "recipe-app"
-      ],
-      "updatedAt": "2025-11-17T01:52:14Z"
     },
     "MA1002643/fullstack-singer-platform": {
       "description": "A full-stack music platform built with Next.js, Prisma, and PostgreSQL — featuring artist management, streaming, and an admin dashboard.",
