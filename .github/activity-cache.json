@@ -8,7 +8,59 @@
         "software-engineering",
         "web-development"
       ],
-      "updatedAt": "2026-08-02T08:50:09Z"
+      "updatedAt": "2026-08-03T08:06:57Z"
+    },
+    "MA1002643/plenary": {
+      "description": "A real-time web chat application with instant messaging, responsive design, and a clean, modern interface.",
+      "topics": [
+        "chat-application",
+        "css",
+        "frontend",
+        "html",
+        "javascript",
+        "open-source-project",
+        "real-time-chat",
+        "socket-based-communication",
+        "web-application"
+      ],
+      "updatedAt": "2026-08-02T15:46:34Z"
+    },
+    "MA1002643/dhun": {
+      "description": "Dhun — cross-platform music streaming platform: web, desktop and mobile from one codebase",
+      "topics": [
+        "admin-dashboard",
+        "artist-management",
+        "audio-streaming-bot",
+        "authentication",
+        "crud",
+        "events-management",
+        "fullstack",
+        "music-platform",
+        "nextjs",
+        "nodejs",
+        "postgresql-database",
+        "prisma",
+        "react",
+        "stripe-payments-api",
+        "tailwindcss",
+        "typescript",
+        "vercel"
+      ],
+      "updatedAt": "2026-08-02T14:47:36Z"
+    },
+    "MA1002643/colophon": {
+      "description": "Colophon — a cross-platform, AI-powered publishing platform. Vue 3 · Express · Postgres · pgvector",
+      "topics": [
+        "blogging-platform",
+        "express-js",
+        "fullstack-development",
+        "mongodb",
+        "nextjs",
+        "nodejs",
+        "react",
+        "tailwindcss"
+      ],
+      "updatedAt": "2026-08-02T12:41:59Z"
     },
     "MA1002643/culina": {
       "description": "A smart recipe search platform leveraging AI to help users discover, filter and personalise cooking ideas.",
@@ -68,20 +120,6 @@
       ],
       "updatedAt": "2026-07-30T22:53:30Z"
     },
-    "MA1002643/article-server-full-stack-blogging-platform": {
-      "description": "A full-stack blogging platform with article management, user authentication and dynamic content delivery.",
-      "topics": [
-        "blogging-platform",
-        "express-js",
-        "fullstack-development",
-        "mongodb",
-        "nextjs",
-        "nodejs",
-        "react",
-        "tailwindcss"
-      ],
-      "updatedAt": "2026-06-21T14:43:50Z"
-    },
     "MA1002643/AfaaqX": {
       "description": "Design and Implementation of a Role-Based Multi-Tenant Business Management System with Integrated Authentication, Real-Time Notifications, and AI-Assisted Customer Support",
       "topics": [
@@ -108,29 +146,6 @@
       ],
       "updatedAt": "2026-01-21T06:29:46Z"
     },
-    "MA1002643/fullstack-singer-platform": {
-      "description": "A full-stack music platform built with Next.js, Prisma, and PostgreSQL — featuring artist management, streaming, and an admin dashboard.",
-      "topics": [
-        "admin-dashboard",
-        "artist-management",
-        "audio-streaming-bot",
-        "authentication",
-        "crud",
-        "events-management",
-        "fullstack",
-        "music-platform",
-        "nextjs",
-        "nodejs",
-        "postgresql-database",
-        "prisma",
-        "react",
-        "stripe-payments-api",
-        "tailwindcss",
-        "typescript",
-        "vercel"
-      ],
-      "updatedAt": "2025-10-26T22:29:03Z"
-    },
     "MA1002643/jokes-platform": {
       "description": "Full-stack jokes platform built with Express, Prisma, PostgreSQL, Redis, and React — includes REST API, JWT auth, moderation, votes, favorites, and PWA support.",
       "topics": [
@@ -155,21 +170,6 @@
         "vitejs"
       ],
       "updatedAt": "2025-10-26T21:19:33Z"
-    },
-    "MA1002643/vevox-real-time-chat-web-application": {
-      "description": "A real-time web chat application with instant messaging, responsive design, and a clean, modern interface.",
-      "topics": [
-        "chat-application",
-        "css",
-        "frontend",
-        "html",
-        "javascript",
-        "open-source-project",
-        "real-time-chat",
-        "socket-based-communication",
-        "web-application"
-      ],
-      "updatedAt": "2025-10-26T01:43:12Z"
     },
     "MA1002643/aura-motion": {
       "description": "An immersive interactive project blending motion capture and visual effects to create responsive, dynamic digital experiences.",
