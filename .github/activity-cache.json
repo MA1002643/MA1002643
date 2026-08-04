@@ -8,7 +8,32 @@
         "software-engineering",
         "web-development"
       ],
-      "updatedAt": "2026-08-03T08:06:57Z"
+      "updatedAt": "2026-08-04T07:49:30Z"
+    },
+    "MA1002643/theabdullahfolio": {
+      "description": "Next.js-powered portfolio with dynamic GitHub integrations, automated stats, neon UI, and cinematic motion design for professional branding.",
+      "topics": [
+        "framer-motion",
+        "frontend-development",
+        "github-api",
+        "github-stats",
+        "lazy-loading",
+        "modern-ui",
+        "neon-theme",
+        "nextjs",
+        "personal-branding",
+        "personal-portfolio",
+        "portfolio-website",
+        "projects-showcase",
+        "react",
+        "responsive-design",
+        "scroll-animations",
+        "software-engineer",
+        "tailwindcss",
+        "vercel",
+        "cinematic-animations"
+      ],
+      "updatedAt": "2026-08-04T02:06:30Z"
     },
     "MA1002643/plenary": {
       "description": "A real-time web chat application with instant messaging, responsive design, and a clean, modern interface.",
@@ -94,31 +119,6 @@
         "tailwindcss"
       ],
       "updatedAt": "2026-08-01T15:33:00Z"
-    },
-    "MA1002643/theabdullahfolio": {
-      "description": "Next.js-powered portfolio with dynamic GitHub integrations, automated stats, neon UI, and cinematic motion design for professional branding.",
-      "topics": [
-        "framer-motion",
-        "frontend-development",
-        "github-api",
-        "github-stats",
-        "lazy-loading",
-        "modern-ui",
-        "neon-theme",
-        "nextjs",
-        "personal-branding",
-        "personal-portfolio",
-        "portfolio-website",
-        "projects-showcase",
-        "react",
-        "responsive-design",
-        "scroll-animations",
-        "software-engineer",
-        "tailwindcss",
-        "vercel",
-        "cinematic-animations"
-      ],
-      "updatedAt": "2026-07-30T22:53:30Z"
     },
     "MA1002643/AfaaqX": {
       "description": "Design and Implementation of a Role-Based Multi-Tenant Business Management System with Integrated Authentication, Real-Time Notifications, and AI-Assisted Customer Support",
