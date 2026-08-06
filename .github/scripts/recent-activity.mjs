@@ -228,9 +228,13 @@ async function gather() {
   }
 
   const items = [];
+  // The profile repo's daily bot commits are this pipeline's own output, not
+  // coding activity — exclude it everywhere (same rule as auto-pin.mjs).
+  const PROFILE_REPO = `${USERNAME}/${USERNAME}`.toLowerCase();
   // kind: KINDS key · verb composes as "<verb> <owner/repo>"
   const addItem = (date, key, kind, verb, repo) => {
     if (!date || !key || !kind || !repo) return;
+    if (repo.toLowerCase() === PROFILE_REPO) return;
     items.push({ date, key, kind, verb, repo });
   };
 
@@ -504,7 +508,7 @@ function feedSvg(items, totalCount, themeName, now) {
   const cmd = `$ gh api /users/${USERNAME}/events --window ${DAYS}d | render --svg --theme ${themeName}`;
   const cmdW = monoW(cmd, 11);
   const shown = Math.min(rows.length, totalCount);
-  const footRight = `showing ${shown} of ${totalCount} events · refreshed daily 08:00 UTC`;
+  const footRight = `showing ${shown} of ${totalCount} events · refreshed every morning`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeXml(aria)}" viewBox="0 0 ${CARD_W} ${H}" width="${CARD_W}" height="${H}" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
   <title>Recent GitHub activity — live feed</title>
