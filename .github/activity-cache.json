@@ -8,7 +8,72 @@
         "software-engineering",
         "web-development"
       ],
-      "updatedAt": "2026-08-05T07:50:48Z"
+      "updatedAt": "2026-08-06T07:50:12Z"
+    },
+    "MA1002643/plenary": {
+      "description": "A real-time web chat application with instant messaging, responsive design, and a clean, modern interface.",
+      "topics": [
+        "chat-application",
+        "css",
+        "frontend",
+        "html",
+        "javascript",
+        "open-source-project",
+        "real-time-chat",
+        "socket-based-communication",
+        "web-application"
+      ],
+      "updatedAt": "2026-08-06T05:22:02Z"
+    },
+    "MA1002643/dhun": {
+      "description": "Dhun — cross-platform music streaming platform: web, desktop and mobile from one codebase",
+      "topics": [
+        "admin-dashboard",
+        "artist-management",
+        "audio-streaming-bot",
+        "authentication",
+        "crud",
+        "events-management",
+        "fullstack",
+        "music-platform",
+        "nextjs",
+        "nodejs",
+        "postgresql-database",
+        "prisma",
+        "react",
+        "stripe-payments-api",
+        "tailwindcss",
+        "typescript",
+        "vercel"
+      ],
+      "updatedAt": "2026-08-06T05:04:42Z"
+    },
+    "MA1002643/culina": {
+      "description": "A smart recipe search platform leveraging AI to help users discover, filter and personalise cooking ideas.",
+      "topics": [
+        "ai",
+        "fullstack",
+        "machine-learning",
+        "mongodb",
+        "nextjs",
+        "nodejs",
+        "recipe-app"
+      ],
+      "updatedAt": "2026-08-06T04:33:19Z"
+    },
+    "MA1002643/colophon": {
+      "description": "Colophon — a cross-platform, AI-powered publishing platform. Vue 3 · Express · Postgres · pgvector",
+      "topics": [
+        "blogging-platform",
+        "express-js",
+        "fullstack-development",
+        "mongodb",
+        "nextjs",
+        "nodejs",
+        "react",
+        "tailwindcss"
+      ],
+      "updatedAt": "2026-08-06T02:57:34Z"
     },
     "MA1002643/theabdullahfolio": {
       "description": "Next.js-powered portfolio with dynamic GitHub integrations, automated stats, neon UI, and cinematic motion design for professional branding.",
@@ -34,71 +99,6 @@
         "cinematic-animations"
       ],
       "updatedAt": "2026-08-04T02:06:30Z"
-    },
-    "MA1002643/plenary": {
-      "description": "A real-time web chat application with instant messaging, responsive design, and a clean, modern interface.",
-      "topics": [
-        "chat-application",
-        "css",
-        "frontend",
-        "html",
-        "javascript",
-        "open-source-project",
-        "real-time-chat",
-        "socket-based-communication",
-        "web-application"
-      ],
-      "updatedAt": "2026-08-02T15:46:34Z"
-    },
-    "MA1002643/dhun": {
-      "description": "Dhun — cross-platform music streaming platform: web, desktop and mobile from one codebase",
-      "topics": [
-        "admin-dashboard",
-        "artist-management",
-        "audio-streaming-bot",
-        "authentication",
-        "crud",
-        "events-management",
-        "fullstack",
-        "music-platform",
-        "nextjs",
-        "nodejs",
-        "postgresql-database",
-        "prisma",
-        "react",
-        "stripe-payments-api",
-        "tailwindcss",
-        "typescript",
-        "vercel"
-      ],
-      "updatedAt": "2026-08-02T14:47:36Z"
-    },
-    "MA1002643/colophon": {
-      "description": "Colophon — a cross-platform, AI-powered publishing platform. Vue 3 · Express · Postgres · pgvector",
-      "topics": [
-        "blogging-platform",
-        "express-js",
-        "fullstack-development",
-        "mongodb",
-        "nextjs",
-        "nodejs",
-        "react",
-        "tailwindcss"
-      ],
-      "updatedAt": "2026-08-02T12:41:59Z"
-    },
-    "MA1002643/culina": {
-      "description": "A smart recipe search platform leveraging AI to help users discover, filter and personalise cooking ideas.",
-      "topics": [
-        "ai",
-        "fullstack",
-        "machine-learning",
-        "mongodb",
-        "nextjs",
-        "nodejs",
-        "recipe-app"
-      ],
-      "updatedAt": "2026-08-01T20:31:50Z"
     },
     "MA1002643/muhammadabdullah-portfolio": {
       "description": "An elite, motion-driven Next.js portfolio showcasing my projects, skills, and creative design in an immersive scroll experience.",
