@@ -23,6 +23,8 @@ const WEIGHTS = {
 const README_PATH = "README.md";
 const START_MARK = "<!-- PINNED: START -->";
 const END_MARK = "<!-- PINNED: END -->";
+const FEAT_START = "<!-- FEATURED: START -->";
+const FEAT_END = "<!-- FEATURED: END -->";
 
 // The two pinned cards are bespoke SVGs generated here on every run, in the
 // same visual family as assets/featured-card-*.svg, and written to stable
@@ -32,6 +34,8 @@ const END_MARK = "<!-- PINNED: END -->";
 const ASSET_DIR = "assets";
 const CARD_W = 600;
 const CARD_H = 190;
+const FEAT_W = 1200;
+const FEAT_H = 260;
 
 // GitHub linguist colors for languages likely to appear; neutral fallback.
 const LANG_COLORS = {
@@ -72,6 +76,9 @@ const THEMES = {
     stat: "#C9D1D9",
     statMuted: "#94A3B8",
     star: "#FFC857",
+    link: "#58A6FF",
+    chipFill: "#111827",
+    chipStroke: "#243042",
   },
   light: {
     bgStops: ["#FFFFFF", "#FBFCFD", "#F6F8FA"],
@@ -85,6 +92,9 @@ const THEMES = {
     stat: "#334155",
     statMuted: "#57606A",
     star: "#D98324",
+    link: "#0969DA",
+    chipFill: "#F6F8FA",
+    chipStroke: "#D0D7DE",
   },
 };
 
@@ -255,6 +265,135 @@ function cardSvg(meta, themeName) {
 `;
 }
 
+// Full-width featured banner in the same visual family as the pinned cards
+// (and the retired hand-made featured-card artwork it replaces). Content is
+// entirely repo-driven: name, description, language, topics, stars, push date.
+function featuredSvg(meta, themeName) {
+  const t = THEMES[themeName];
+  const [descL1, descL2] = wrapTwoLines(
+    meta.description || "A work in progress — description coming soon.",
+    105
+  );
+  const langColor = LANG_COLORS[meta.language] || "#8B949E";
+  const slug = `~/${meta.name}`;
+  const slugLength = Math.min(Math.round(slug.length * 8.1), 700);
+
+  // Chip row: language first, then up to four topics. textLength pins label
+  // widths so the pill padding holds on every platform's fallback font.
+  const chipDefs = [];
+  if (meta.language) chipDefs.push({ label: meta.language, dot: langColor });
+  for (const topic of (meta.topics || []).slice(0, 4)) {
+    chipDefs.push({ label: topic, dot: "#FF652F" });
+  }
+  let cx = 48;
+  const chips = chipDefs
+    .map(({ label, dot }) => {
+      const textLen = Math.ceil(label.length * 7.2);
+      const w = textLen + 41;
+      if (cx + w > 860) return "";
+      const chip = `<rect x="${cx}" y="202" width="${w}" height="28" rx="14" fill="${t.chipFill}" stroke="${t.chipStroke}" stroke-width="1"/>
+        <circle cx="${cx + 17.5}" cy="216" r="3.5" fill="${dot}"/>
+        <text x="${cx + 29}" y="220.5" textLength="${textLen}" lengthAdjust="spacingAndGlyphs">${escapeXml(label)}</text>`;
+      cx += w + 10;
+      return chip;
+    })
+    .join("\n        ");
+
+  const pushed = meta.pushed
+    ? new Date(meta.pushed).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "";
+  const statLine = [`★ ${fmtCount(meta.stars)}`, pushed && `updated ${pushed}`]
+    .filter(Boolean)
+    .join("  ·  ");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeXml(
+    `Featured project: ${meta.name}. ${meta.description || "No description."} ${meta.language || ""}. ${meta.stars} stars.`
+  )}" viewBox="0 0 ${FEAT_W} ${FEAT_H}" width="${FEAT_W}" height="${FEAT_H}" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
+  <title>Featured Project — ${escapeXml(meta.name)}</title>
+  <desc>${themeName === "dark" ? "Dark" : "Light"} featured-project card, auto-generated weekly from the most active repository.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="${FEAT_W}" y2="${FEAT_H}" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="${t.bgStops[0]}"/>
+      <stop offset="55%" stop-color="${t.bgStops[1]}"/>
+      <stop offset="100%" stop-color="${t.bgStops[2]}"/>
+    </linearGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="${t.grid}" stroke-width="0.6"/>
+    </pattern>
+    <radialGradient id="glow" cx="18%" cy="0%" r="60%">
+      <stop offset="0%"  stop-color="#FF652F" stop-opacity="${t.glowOpacity[0]}"/>
+      <stop offset="60%" stop-color="#FF652F" stop-opacity="${t.glowOpacity[1]}"/>
+      <stop offset="100%" stop-color="#FF652F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#FF652F"/>
+      <stop offset="100%" stop-color="#FFC857"/>
+    </linearGradient>
+    <clipPath id="cardClip"><rect x="1" y="1" width="${FEAT_W - 2}" height="${FEAT_H - 2}" rx="16"/></clipPath>
+    <style>@media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important } }</style>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <rect x="1" y="1" width="${FEAT_W - 2}" height="${FEAT_H - 2}" fill="url(#bg)"/>
+    <rect x="1" y="1" width="${FEAT_W - 2}" height="${FEAT_H - 2}" fill="url(#grid)" opacity="${t.gridOpacity}"/>
+    <rect x="1" y="1" width="${FEAT_W - 2}" height="${FEAT_H - 2}" fill="url(#glow)"/>
+  </g>
+  <rect x="1" y="1" width="${FEAT_W - 2}" height="${FEAT_H - 2}" rx="16" fill="none" stroke="${t.border}" stroke-width="1.5"/>
+
+  <g font-family="Inter, 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif" opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.6s" begin="0.2s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+
+    <text x="48" y="44" font-size="11" letter-spacing="1.5" fill="#FF652F"
+          font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">FEATURED · MOST ACTIVE BUILD</text>
+
+    <text x="48" y="80" font-size="27" font-weight="800" fill="${t.title}">${escapeXml(meta.name)}</text>
+    <text x="1152" y="80" font-size="14" font-weight="500" fill="${t.link}" text-anchor="end" opacity="0">View repository →
+      <animate attributeName="opacity" values="0;0.9" dur="0.5s" begin="0.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+    </text>
+    <text x="48" y="105" font-size="13.5" fill="${t.statMuted}" textLength="${slugLength}" lengthAdjust="spacingAndGlyphs"
+          font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">${escapeXml(slug)}</text>
+
+    <line x1="48" y1="120" x2="1152" y2="120" stroke="${t.keyline}" stroke-width="1" opacity="0.9"/>
+    <rect x="48" y="118.5" width="0" height="3" rx="1.5" fill="url(#acc)">
+      <animate attributeName="width" values="0;120" dur="0.55s" begin="0.6s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1"/>
+    </rect>
+
+    <g font-size="16" fill="${t.desc}">
+      <text x="48" y="152">${escapeXml(descL1)}</text>
+      ${descL2 ? `<text x="48" y="178">${escapeXml(descL2)}</text>` : ""}
+    </g>
+
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.75s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <g font-size="13" font-weight="500" fill="${t.stat}">
+        ${chips}
+      </g>
+      <text x="1152" y="220.5" font-size="12.5" fill="${t.statMuted}" text-anchor="end"
+            font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">${escapeXml(statLine)}</text>
+    </g>
+  </g>
+</svg>
+`;
+}
+
+function featuredBlock(meta) {
+  const alt = escapeXml(
+    `Featured project: ${meta.name} — ${[
+      meta.description,
+      meta.language,
+      `★ ${fmtCount(meta.stars)}`,
+    ]
+      .filter(Boolean)
+      .join(" · ")}`
+  );
+  return `<a href="https://github.com/${meta.owner}/${meta.name}"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/featured-card-dark.svg"><img alt="${alt}" src="./assets/featured-card-light.svg" width="100%"></picture></a>`;
+}
+
 // The whole anchor stays on one line with no whitespace text nodes inside it:
 // GitHub underlines README links, so a stray space or newline inside <a>
 // renders as a blue underline hanging off the card.
@@ -280,22 +419,24 @@ async function main() {
 
   let top = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([f]) => f);
 
-  // Fallback: most recently updated repos if needed
-  if (top.length < 2) {
+  // Rank #1 becomes the featured project; the next two fill the pinned
+  // cards, so the featured repo never repeats one card below itself.
+  // Fallback: most recently updated repos if activity alone can't fill 3.
+  if (top.length < 3) {
     const fallback = await fetchFallbackUpdatedRepos(USERNAME);
     for (const f of fallback) {
       if (f.toLowerCase() === `${USERNAME}/${USERNAME}`.toLowerCase()) continue;
       if (!top.includes(f)) top.push(f);
-      if (top.length >= 2) break;
+      if (top.length >= 3) break;
     }
   }
 
-  top = top.slice(0, 2);
+  top = top.slice(0, 3);
   if (top.length === 0) {
     console.warn("No repos to pin; leaving README unchanged.");
     return;
   }
-  if (top.length === 1) top.push(top[0]);
+  while (top.length < 3) top.push(top[top.length - 1]);
 
   const metas = [];
   for (const full of top) {
@@ -308,38 +449,60 @@ async function main() {
       language: r.language || "",
       stars: r.stargazers_count || 0,
       forks: r.forks_count || 0,
+      topics: r.topics || [],
+      pushed: r.pushed_at || "",
     });
   }
 
-  const body = `<div align="center">\n${pinCard(metas[0], 1)}\n${pinCard(
-    metas[1],
+  const [featured, pin1, pin2] = metas;
+  const featBody = featuredBlock(featured);
+  const body = `<div align="center">\n${pinCard(pin1, 1)}\n${pinCard(
+    pin2,
     2
   )}\n</div>`;
 
-  // Only include the card markup in the pinned block. The visible
-  // header is kept outside the markers in README.md so we don't
-  // overwrite it when the script runs.
+  // Only include the card markup inside the marker blocks. The visible
+  // headers are kept outside the markers in README.md so we don't
+  // overwrite them when the script runs.
   const newBlock = `${START_MARK}\n${body}\n${END_MARK}`;
+  const newFeatBlock = `${FEAT_START}\n${featBody}\n${FEAT_END}`;
 
   const readme = fs.readFileSync(README_PATH, "utf8");
   const i1 = readme.indexOf(START_MARK);
   const i2 = readme.indexOf(END_MARK);
   if (i1 === -1 || i2 === -1)
     throw new Error("PINNED markers not found in README.md");
+  const f1 = readme.indexOf(FEAT_START);
+  const f2 = readme.indexOf(FEAT_END);
+  if (f1 === -1 || f2 === -1)
+    throw new Error("FEATURED markers not found in README.md");
 
-  const updated =
+  let updated =
     readme.slice(0, i1) + newBlock + readme.slice(i2 + END_MARK.length);
+  updated =
+    updated.slice(0, updated.indexOf(FEAT_START)) +
+    newFeatBlock +
+    updated.slice(updated.indexOf(FEAT_END) + FEAT_END.length);
 
   const dry = process.argv.includes("--dry-run");
   if (dry) {
+    console.log("--- DRY RUN: generated featured block ---");
+    console.log(newFeatBlock);
     console.log("--- DRY RUN: generated pinned block ---");
     console.log(newBlock);
-    console.log("--- end generated block ---");
+    console.log("--- end generated blocks ---");
     console.log("Dry run complete. README and assets were NOT modified.");
     return;
   }
 
-  for (const [i, meta] of metas.entries()) {
+  for (const theme of ["dark", "light"]) {
+    fs.writeFileSync(
+      `${ASSET_DIR}/featured-card-${theme}.svg`,
+      featuredSvg(featured, theme),
+      "utf8"
+    );
+  }
+  for (const [i, meta] of [pin1, pin2].entries()) {
     for (const theme of ["dark", "light"]) {
       fs.writeFileSync(
         `${ASSET_DIR}/pinned-${i + 1}-${theme}.svg`,

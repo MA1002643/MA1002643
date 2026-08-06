@@ -54,20 +54,22 @@
 <!-- ═══════════════════════ FEATURED PROJECTS ═══════════════════════ -->
 <h2 align="center">🚀 Featured Project</h2>
 
-<p align="center"><i>The project that best represents how I work — built end to end, documented, and tested.</i></p>
+<p align="center"><i>Auto-selected weekly by a GitHub Action — whatever I'm building most actively right now, card artwork included.</i></p>
 
-<a href="https://github.com/MA1002643/ai-powered-recipe-search-platform"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/featured-card-dark.svg"><img src="./assets/featured-card-light.svg" alt="Featured project: Full-Stack Recipe Platform — a Vue 3 single-page app with an Express + SQLite REST API, Swagger-documented, tested with Mocha/Chai" width="100%"></picture></a>
+<!-- FEATURED: START -->
+<a href="https://github.com/MA1002643/theabdullahfolio"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/featured-card-dark.svg"><img alt="Featured project: theabdullahfolio — Next.js-powered portfolio with dynamic GitHub integrations, automated stats, neon UI, and cinematic motion design for professional branding. · JavaScript · ★ 0" src="./assets/featured-card-light.svg" width="100%"></picture></a>
+<!-- FEATURED: END -->
 
 <p align="center"><sub>Browse <a href="https://github.com/MA1002643?tab=repositories">all repositories →</a> — several are early works in progress.</sub></p>
 
 ### 📌 Most Active Repositories
 
-<sub><i>Auto-pinned weekly by a GitHub Action, ranked by recent activity — so this always reflects what I'm building right now.</i></sub>
+<sub><i>Auto-pinned weekly by the same GitHub Action — the runners-up to the featured project, ranked by recent activity.</i></sub>
 
 <!-- PINNED: START -->
 <div align="center">
-  <a href="https://github.com/MA1002643/theabdullahfolio"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-1-dark.svg"><img alt="theabdullahfolio — JavaScript · ★ 0" src="./assets/pinned-1-light.svg" width="49%"></picture></a>
-  <a href="https://github.com/MA1002643/dhun"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-2-dark.svg"><img alt="dhun — CSS · ★ 0" src="./assets/pinned-2-light.svg" width="49%"></picture></a>
+  <a href="https://github.com/MA1002643/dhun"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-1-dark.svg"><img alt="dhun — CSS · ★ 0" src="./assets/pinned-1-light.svg" width="49%"></picture></a>
+  <a href="https://github.com/MA1002643/colophon"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-2-dark.svg"><img alt="colophon — JavaScript · ★ 1" src="./assets/pinned-2-light.svg" width="49%"></picture></a>
 </div>
 <!-- PINNED: END -->
 
@@ -84,7 +86,7 @@
   <img src="./assets/pipeline-light.svg" alt="Automation pipeline: GitHub Actions → WakaTime, Activity, Auto-Pin, Experience → README → Rendered Profile" width="100%">
 </picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/ops-board-dark.svg"><img src="./assets/ops-board-light.svg" alt="Scheduled automation — daily-language-time (daily): coding time by language via WakaTime · recent-activity (daily): recent GitHub activity feed · auto-pin-top-repos (weekly): pinned repositories ranked by activity, card artwork included · update-experience (weekly): years-of-experience metric from first-repo date" width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/ops-board-dark.svg"><img src="./assets/ops-board-light.svg" alt="Scheduled automation — daily-language-time (daily): coding time by language via WakaTime · recent-activity (daily): recent GitHub activity feed · auto-pin-top-repos (weekly): featured project and pinned repositories ranked by activity, card artwork included · update-experience (weekly): years-of-experience metric from first-repo date" width="100%"></picture>
 
 ### 🕒 Recent GitHub Activity
 

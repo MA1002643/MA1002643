@@ -41,5 +41,7 @@ jobs:
       - name: Commit README and generated card assets
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore(readme): auto-update pinned repositories"
-          file_pattern: "README.md assets/pinned-*.svg"
+          commit_message: "chore(readme): auto-update featured project and pinned repositories"
+          # Must stay on ONE line: the action splits file_pattern with bash
+          # `read`, which drops everything after the first newline.
+          file_pattern: "README.md assets/pinned-*.svg assets/featured-card-*.svg"

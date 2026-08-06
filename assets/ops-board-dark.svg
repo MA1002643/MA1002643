@@ -70,7 +70,7 @@
       <line x1="245" y1="180" x2="308" y2="180" stroke="#243042" stroke-width="1" stroke-dasharray="2 5"/>
       <rect x="320" y="170" width="64" height="20" rx="10" fill="#FFC857" fill-opacity="0.08" stroke="#FFC857" stroke-opacity="0.4" stroke-width="1"/>
       <text x="352" y="184" font-size="11" letter-spacing="1" fill="#FFC857" text-anchor="middle" textLength="40" lengthAdjust="spacingAndGlyphs" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">WEEKLY</text>
-      <text x="470" y="185" fill="#9DA9B8">📌 Pinned repositories, ranked by activity — card artwork included</text>
+      <text x="470" y="185" fill="#9DA9B8">📌 Featured project + pinned repos, ranked by activity — artwork included</text>
     </g>
 
     <g opacity="0">
