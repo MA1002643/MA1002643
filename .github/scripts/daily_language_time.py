@@ -296,6 +296,24 @@ def main() -> None:
 
     languages = aggregate_langs(data)
     items = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
+
+    if not items:
+        # A whole week of zeros usually means WakaTime is mid-recompute
+        # (summaries serve empty data until it finishes), not that no coding
+        # happened. Never overwrite a good card with an empty one — keep the
+        # last committed card and let a later run pick up the backfill.
+        try:
+            prev = (ASSETS / "lang-time-light.svg").read_text(encoding="utf-8")
+        except OSError:
+            prev = ""
+        if prev and "no editor activity" not in prev:
+            print(
+                "::warning::WakaTime returned zero seconds for the entire "
+                "window; keeping the previous card instead of publishing an "
+                "empty one."
+            )
+            return
+
     render_and_update(items, updated=now.date().isoformat())
 
 
