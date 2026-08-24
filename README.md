@@ -68,7 +68,7 @@
 
 <!-- PINNED: START -->
 <div align="center">
-  <a href="https://github.com/MA1002643/dhun"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-1-dark.svg"><img alt="dhun — CSS · ★ 0" src="./assets/pinned-1-light.svg" width="49%"></picture></a>
+  <a href="https://github.com/MA1002643/colophon"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-1-dark.svg"><img alt="colophon — JavaScript · ★ 1" src="./assets/pinned-1-light.svg" width="49%"></picture></a>
   <a href="https://github.com/MA1002643/plenary"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-2-dark.svg"><img alt="plenary — JavaScript · ★ 0" src="./assets/pinned-2-light.svg" width="49%"></picture></a>
 </div>
 <!-- PINNED: END -->
