@@ -96,7 +96,7 @@
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./assets/activity-feed-dark.svg">
-    <img src="./assets/activity-feed-light.svg" alt="Recent GitHub activity — refreshed daily: Created a branch in MA1002643/theabdullahfolio (yesterday); Pushed commits to MA1002643/theabdullahfolio (yesterday); Merged a pull request in MA1002643/theabdullahfolio (yesterday); Pruned a branch in MA1002643/theabdullahfolio (2d ago); Opened an issue in MA1002643/theabdullahfolio (2w ago); Pushed commits to MA1002643/plenary (2w ago); Pushed commits to MA1002643/dhun (2w ago); Pushed commits to MA1002643/culina (2w ago)" width="100%">
+    <img src="./assets/activity-feed-light.svg" alt="Recent GitHub activity — refreshed daily: Created a branch in MA1002643/theabdullahfolio (2d ago); Pushed commits to MA1002643/theabdullahfolio (2d ago); Merged a pull request in MA1002643/theabdullahfolio (2d ago); Pruned a branch in MA1002643/theabdullahfolio (3d ago); Opened an issue in MA1002643/theabdullahfolio (2w ago); Pushed commits to MA1002643/plenary (2w ago); Pushed commits to MA1002643/dhun (2w ago); Pushed commits to MA1002643/culina (2w ago)" width="100%">
   </picture>
 </div>
 <!--RECENT_ACTIVITY:end-->
