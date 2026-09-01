@@ -39,7 +39,7 @@
     </circle>
     <text x="58" y="45" font-size="11.5" letter-spacing="2" fill="#3FB950">LIVE</text>
     <text x="112" y="45" font-size="11" letter-spacing="1.5" fill="#64748B">· EVENT STREAM — @MA1002643</text>
-    <text x="1160" y="45" font-size="11" letter-spacing="1" fill="#64748B" text-anchor="end">LAST SYNC · 31 AUG 2026, 08:33 UTC</text>
+    <text x="1160" y="45" font-size="11" letter-spacing="1" fill="#64748B" text-anchor="end">LAST SYNC · 1 SEPT 2026, 08:31 UTC</text>
     <line x1="40" y1="64" x2="1160" y2="64" stroke="#243042" stroke-width="1" opacity="0.8"/>
     <rect x="40" y="62.5" width="0" height="3" rx="1.5" fill="url(#acc)">
       <animate attributeName="width" values="0;96" dur="0.5s" begin="0.5s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1"/>
@@ -187,6 +187,6 @@
     <rect x="530" y="460" width="7" height="13" fill="#FF652F">
       <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1.2s" repeatCount="indefinite"/>
     </rect>
-    <text x="1160" y="470" fill="#64748B" text-anchor="end">showing 8 of 17 events · refreshed every morning</text>
+    <text x="1160" y="470" fill="#64748B" text-anchor="end">showing 8 of 14 events · refreshed every morning</text>
   </g>
 </svg>
