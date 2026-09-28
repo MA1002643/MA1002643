@@ -57,7 +57,7 @@
 <p align="center"><i>Auto-selected weekly by a GitHub Action — whatever I'm building most actively right now, card artwork included.</i></p>
 
 <!-- FEATURED: START -->
-<a href="https://github.com/MA1002643/theabdullahfolio"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/featured-card-dark.svg"><img alt="Featured project: theabdullahfolio — Next.js-powered portfolio with dynamic GitHub integrations, automated stats, neon UI, and cinematic motion design for professional branding. · JavaScript · ★ 0" src="./assets/featured-card-light.svg" width="100%"></picture></a>
+<a href="https://github.com/MA1002643/dhun"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/featured-card-dark.svg"><img alt="Featured project: dhun — Dhun — cross-platform music streaming platform: web, desktop and mobile from one codebase · CSS · ★ 0" src="./assets/featured-card-light.svg" width="100%"></picture></a>
 <!-- FEATURED: END -->
 
 <p align="center"><sub>Browse <a href="https://github.com/MA1002643?tab=repositories">all repositories →</a> — several are early works in progress.</sub></p>
@@ -68,8 +68,8 @@
 
 <!-- PINNED: START -->
 <div align="center">
-  <a href="https://github.com/MA1002643/plenary"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-1-dark.svg"><img alt="plenary — JavaScript · ★ 0" src="./assets/pinned-1-light.svg" width="49%"></picture></a>
-  <a href="https://github.com/MA1002643/dhun"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-2-dark.svg"><img alt="dhun — CSS · ★ 0" src="./assets/pinned-2-light.svg" width="49%"></picture></a>
+  <a href="https://github.com/MA1002643/culina"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-1-dark.svg"><img alt="culina — JavaScript · ★ 0" src="./assets/pinned-1-light.svg" width="49%"></picture></a>
+  <a href="https://github.com/MA1002643/colophon"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/pinned-2-dark.svg"><img alt="colophon — JavaScript · ★ 1" src="./assets/pinned-2-light.svg" width="49%"></picture></a>
 </div>
 <!-- PINNED: END -->
 

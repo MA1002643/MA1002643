@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Featured project: theabdullahfolio. Next.js-powered portfolio with dynamic GitHub integrations, automated stats, neon UI, and cinematic motion design for professional branding. JavaScript. 0 stars." viewBox="0 0 1200 260" width="1200" height="260" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
-  <title>Featured Project — theabdullahfolio</title>
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Featured project: dhun. Dhun — cross-platform music streaming platform: web, desktop and mobile from one codebase CSS. 0 stars." viewBox="0 0 1200 260" width="1200" height="260" preserveAspectRatio="xMidYMid meet" text-rendering="geometricPrecision">
+  <title>Featured Project — dhun</title>
   <desc>Light featured-project card, auto-generated weekly from the most active repository.</desc>
 
   <defs>
@@ -37,12 +37,12 @@
     <text x="48" y="44" font-size="11" letter-spacing="1.5" fill="#FF652F"
           font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">FEATURED · MOST ACTIVE BUILD</text>
 
-    <text x="48" y="80" font-size="27" font-weight="800" fill="#0C1A25">theabdullahfolio</text>
+    <text x="48" y="80" font-size="27" font-weight="800" fill="#0C1A25">dhun</text>
     <text x="1152" y="80" font-size="14" font-weight="500" fill="#0969DA" text-anchor="end" opacity="0">View repository →
       <animate attributeName="opacity" values="0;0.9" dur="0.5s" begin="0.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
     </text>
-    <text x="48" y="105" font-size="13.5" fill="#57606A" textLength="146" lengthAdjust="spacingAndGlyphs"
-          font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">~/theabdullahfolio</text>
+    <text x="48" y="105" font-size="13.5" fill="#57606A" textLength="49" lengthAdjust="spacingAndGlyphs"
+          font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">~/dhun</text>
 
     <line x1="48" y1="120" x2="1152" y2="120" stroke="#D8DEE4" stroke-width="1" opacity="0.9"/>
     <rect x="48" y="118.5" width="0" height="3" rx="1.5" fill="url(#acc)">
@@ -50,31 +50,31 @@
     </rect>
 
     <g font-size="16" fill="#4B5563">
-      <text x="48" y="152">Next.js-powered portfolio with dynamic GitHub integrations, automated stats, neon UI, and cinematic</text>
-      <text x="48" y="178">motion design for professional branding.</text>
+      <text x="48" y="152">Dhun — cross-platform music streaming platform: web, desktop and mobile from one codebase</text>
+      
     </g>
 
     <g opacity="0">
       <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.75s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
       <g font-size="13" font-weight="500" fill="#334155">
-        <rect x="48" y="202" width="113" height="28" rx="14" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
-        <circle cx="65.5" cy="216" r="3.5" fill="#F1E05A"/>
-        <text x="77" y="220.5" textLength="72" lengthAdjust="spacingAndGlyphs">JavaScript</text>
-        <rect x="171" y="202" width="185" height="28" rx="14" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
-        <circle cx="188.5" cy="216" r="3.5" fill="#FF652F"/>
-        <text x="200" y="220.5" textLength="144" lengthAdjust="spacingAndGlyphs">cinematic-animations</text>
-        <rect x="366" y="202" width="135" height="28" rx="14" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
-        <circle cx="383.5" cy="216" r="3.5" fill="#FF652F"/>
-        <text x="395" y="220.5" textLength="94" lengthAdjust="spacingAndGlyphs">framer-motion</text>
-        <rect x="511" y="202" width="185" height="28" rx="14" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
-        <circle cx="528.5" cy="216" r="3.5" fill="#FF652F"/>
-        <text x="540" y="220.5" textLength="144" lengthAdjust="spacingAndGlyphs">frontend-development</text>
-        <rect x="706" y="202" width="113" height="28" rx="14" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
-        <circle cx="723.5" cy="216" r="3.5" fill="#FF652F"/>
-        <text x="735" y="220.5" textLength="72" lengthAdjust="spacingAndGlyphs">github-api</text>
+        <rect x="48" y="202" width="63" height="28" rx="14" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
+        <circle cx="65.5" cy="216" r="3.5" fill="#563D7C"/>
+        <text x="77" y="220.5" textLength="22" lengthAdjust="spacingAndGlyphs">CSS</text>
+        <rect x="121" y="202" width="149" height="28" rx="14" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
+        <circle cx="138.5" cy="216" r="3.5" fill="#FF652F"/>
+        <text x="150" y="220.5" textLength="108" lengthAdjust="spacingAndGlyphs">admin-dashboard</text>
+        <rect x="280" y="202" width="164" height="28" rx="14" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
+        <circle cx="297.5" cy="216" r="3.5" fill="#FF652F"/>
+        <text x="309" y="220.5" textLength="123" lengthAdjust="spacingAndGlyphs">artist-management</text>
+        <rect x="454" y="202" width="178" height="28" rx="14" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
+        <circle cx="471.5" cy="216" r="3.5" fill="#FF652F"/>
+        <text x="483" y="220.5" textLength="137" lengthAdjust="spacingAndGlyphs">audio-streaming-bot</text>
+        <rect x="642" y="202" width="142" height="28" rx="14" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
+        <circle cx="659.5" cy="216" r="3.5" fill="#FF652F"/>
+        <text x="671" y="220.5" textLength="101" lengthAdjust="spacingAndGlyphs">authentication</text>
       </g>
       <text x="1152" y="220.5" font-size="12.5" fill="#57606A" text-anchor="end"
-            font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">★ 0  ·  updated 19 Sept 2026</text>
+            font-family="'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace">★ 0  ·  updated 6 Aug 2026</text>
     </g>
   </g>
 </svg>
