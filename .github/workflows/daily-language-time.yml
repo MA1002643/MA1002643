@@ -28,7 +28,7 @@ jobs:
 
       - name: Build lang-time card + README section from WakaTime (rolling window, Europe/London)
         env:
-          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          WAKATIME_ACCESS_TOKEN: ${{ secrets.WAKATIME_ACCESS_TOKEN }} # OAuth token, read_summaries scope
           WAKATIME_USER: ${{ secrets.WAKATIME_USER }} # can be unset or empty
         run: python .github/scripts/daily_language_time.py
 

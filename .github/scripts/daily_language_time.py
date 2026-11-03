@@ -9,7 +9,6 @@ LANG-TIME markers in README.md.
 Run by .github/workflows/daily-language-time.yml.
 """
 
-import base64
 import datetime
 import json
 import os
@@ -89,14 +88,16 @@ def hm_compact(total_seconds: int) -> str:
     return f"{h}h {mm:02d}m" if h else f"{mm}m"
 
 
-def fetch_summaries(user: str, api_key: str, start_dt, end_dt):
+def fetch_summaries(user: str, token: str, start_dt, end_dt):
     params = {
         "start": start_dt.isoformat(),
         "end": end_dt.isoformat(),
         "timezone": "Europe/London",
     }
     url = f"https://wakatime.com/api/v1/users/{user}/summaries?{urlencode(params)}"
-    headers = {"Authorization": "Basic " + base64.b64encode(api_key.encode()).decode()}
+    # WakaTime API keys are write-only (plugin endpoints); reads need an OAuth
+    # access token with the read_summaries scope.
+    headers = {"Authorization": f"Bearer {token}"}
     with urlopen(Request(url, headers=headers)) as resp:
         return json.load(resp)
 
@@ -276,9 +277,12 @@ def render_and_update(items, updated: str) -> None:
 
 
 def main() -> None:
-    api_key = os.getenv("WAKATIME_API_KEY")
-    if not api_key:
-        print("::error::WAKATIME_API_KEY secret missing. Add it in repo settings.")
+    token = os.getenv("WAKATIME_ACCESS_TOKEN")
+    if not token:
+        print(
+            "::error::WAKATIME_ACCESS_TOKEN secret missing. Add a WakaTime OAuth "
+            "access token (read_summaries scope) in repo settings."
+        )
         sys.exit(1)
     user = os.getenv("WAKATIME_USER") or "current"
 
@@ -288,7 +292,7 @@ def main() -> None:
     used_start = now - datetime.timedelta(days=7)
 
     try:
-        data = fetch_summaries(user, api_key, used_start, now)
+        data = fetch_summaries(user, token, used_start, now)
     except HTTPError as e:
         print(f"::error::WakaTime API error {e.code} at /api/v1/users/{user}/summaries")
         print(e.read().decode(errors="ignore")[:500])
