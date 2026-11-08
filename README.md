@@ -96,7 +96,7 @@
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./assets/activity-feed-dark.svg">
-    <img src="./assets/activity-feed-light.svg" alt="Recent GitHub activity — refreshed daily: no public activity in the last 30 days" width="100%">
+    <img src="./assets/activity-feed-light.svg" alt="Recent GitHub activity — refreshed daily: Pushed commits to MA1002643/theabdullahfolio (3h ago); Opened a pull request in MA1002643/theabdullahfolio (5h ago); Opened an issue in MA1002643/theabdullahfolio (6h ago); Merged a pull request in MA1002643/theabdullahfolio (15h ago)" width="100%">
   </picture>
 </div>
 <!--RECENT_ACTIVITY:end-->
