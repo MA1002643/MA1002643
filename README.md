@@ -141,7 +141,7 @@
     <img alt="Muhammad Abdullah — Most Used Languages" height="192" src="https://github-readme-stats-chi-woad.vercel.app/api/top-langs?username=MA1002643&layout=compact&langs_count=10&size_weight=0.5&count_weight=0.5&custom_title=Most%20Used%20Languages&bg_color=ffffff&title_color=ff652f&text_color=0C1A25&border_color=D0D7DE&hide_border=false&cache_seconds=7200" />
   </picture>
   <!-- LANG-TIME:START -->
-  <picture><source media="(prefers-color-scheme: dark)" srcset="./assets/lang-time-dark.svg"><img src="./assets/lang-time-light.svg" alt="Daily coding time by language over the past 7 days — JavaScript 6 hrs 30 mins (32.3%), TypeScript 4 hrs 45 mins (23.6%), Markdown 4 hrs 38 mins (23.1%), Other 1 hrs 45 mins (8.7%), CSS 1 hrs 8 mins (5.6%), JSON 42 mins (3.5%), HTML 21 mins (1.8%). Total 20 hrs 7 mins. Updated 2026-11-24." width="460" height="192"></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="./assets/lang-time-dark.svg"><img src="./assets/lang-time-light.svg" alt="Daily coding time by language over the past 7 days — JavaScript 6 hrs 30 mins (29.8%), Markdown 5 hrs 32 mins (25.4%), TypeScript 5 hrs 4 mins (23.3%), Other 2 hrs 5 mins (9.6%), CSS 1 hrs 16 mins (5.8%), JSON 42 mins (3.2%), HTML 21 mins (1.6%). Total 21 hrs 50 mins. Updated 2026-11-25." width="460" height="192"></picture>
   <!-- LANG-TIME:END -->
 </div>
 
